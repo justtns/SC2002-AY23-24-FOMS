@@ -1,87 +1,68 @@
 package main.backend.handlers;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 
 import main.backend.entities.MenuItem;
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
+public class MenuHandler implements HandlerInterface<MenuItem> {
+    private List<MenuItem> menuItems;
 
-public class MenuHandler implements HandlerInterface{
-    private List<MenuItem> menu;
-    
     public MenuHandler() {
-        this.menu = new ArrayList<>();
-        try (FileInputStream fis = new FileInputStream(new File("../db/menu_list.xlsx"));
-             Workbook workbook = new XSSFWorkbook(fis)) {
-                Sheet sheet = workbook.getSheetAt(0);
-                Iterator<Row> rowIterator = sheet.iterator();
-
-                while (rowIterator.hasNext()) {
-                    Row row = rowIterator.next();
-                    if (row.getRowNum() == 0) continue;
-                    String name = row.getCell(0).getStringCellValue();
-                    Float price = (float) row.getCell(1).getNumericCellValue();
-                    String item_branch = row.getCell(2).getStringCellValue();
-                    String category = row.getCell(3).getStringCellValue();
-                    
-                    MenuItem item = new MenuItem(name, category, item_branch, price);
-                    this.menu.add(item);
-                }
-            }
-
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        if (this.menu.size() == 0){
-            throw new IllegalArgumentException("Menu is empty.");
-        }
+        this.menuItems = new ArrayList<>();
+        addBaseMenuItems();
     }
 
-    public void displayMenu(String branch) {
-        System.out.println("Menu Items: ");
-        for (MenuItem item : this.menu) {
-            if (item.getBranch().equals(branch)) {
-                System.out.println(item.getName() + ", Category: " + item.getCategory() + ", Price: $" + item.getPrice() + ", Branch: " + item.getBranch());
-            }
-        }
-    }
-    public void listElement() {
-        System.out.println("Full Menu Items: ");
-        for (MenuItem item : this.menu) {
-            System.out.println(item.getName() + ", Category: " + item.getCategory() + ", Price: $" + item.getPrice());
-        }
+    private void addBaseMenuItems() {
+        menuItems.add(MenuItem.BOILED_CHICKEN);
+        menuItems.add(MenuItem.STEAMED_CHICKEN);
+        menuItems.add(MenuItem.FRIED_CHICKEN);
+        menuItems.add(MenuItem.GRILLED_CHICKEN);
     }
 
-    public void addElement(MenuItem newItem) {
-        for (MenuItem item : this.menu) {
-            if ((item.getName().equals(newItem.getName())) && (item.getBranch().equals(newItem.getBranch())))   {
-                throw new IllegalArgumentException("Item with name " + newItem.getName() + " already exists in " + newItem.getBranch() + " .");
-            }
-        }
-        menu.add(newItem);
+    @Override
+    public void addElement(MenuItem item) {
+        menuItems.add(item);
     }
 
-    public void updateElement(String itemName, String branch) {
-        boolean found = false;
-        for (int i = 0; i<menu.size(); i++){
-            if ((menu.get(i).getName().equals(itemName)) && menu.get(i).getBranch().equals(branch)){
-                
-                found = true;
-                break;
+    public void addElement(String itemID, String name, String description, float price) {
+        MenuItem item = new MenuItem(itemID, name, description, price);
+        addElement(item); 
+    }
+
+    @Override
+    public void removeElement(MenuItem item) {
+        menuItems.removeIf(existingItem -> existingItem.getItemID().equals(item.getItemID()));
+    }
+
+    @Override
+    public void updateElement(MenuItem oldItem, MenuItem newItem) {
+        Optional<MenuItem> foundItem = menuItems.stream()
+                .filter(existingItem -> existingItem.getItemID().equals(oldItem.getItemID()))
+                .findFirst();
+        
+        foundItem.ifPresent(item -> {
+            item.setName(newItem.getName());
+            item.setDescription(newItem.getDescription());
+            item.setPrice(newItem.getPrice());
+        });
+    }
+
+    @Override
+    public List<MenuItem> listElement() {
+        return new ArrayList<>(menuItems);
+    }
+
+    public MenuItem findElementById(String itemID) {
+        for (MenuItem item : menuItems) {
+            if (item.getItemID().equals(itemID)) {
+                return item;
             }
         }
-        if (!found) {
-            throw new IllegalArgumentException("Item with name " + itemName + " in branch " + branch + " not found.");
-        }
+        return null;
     }
 
-    public void removeElement() {
 
-    }
 }
+
