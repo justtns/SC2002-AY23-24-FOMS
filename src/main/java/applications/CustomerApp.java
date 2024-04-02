@@ -1,9 +1,9 @@
-package main.backend.application;
+package main.java.applications;
 
-import main.backend.handlers.MenuHandler;
-import main.backend.handlers.OrderHandler;
-import main.backend.handlers.PaymentHandler;
-import main.backend.users.Customer;
+import main.java.handlers.MenuHandler;
+import main.java.handlers.OrderHandler;
+import main.java.handlers.PaymentHandler;
+import main.java.users.Customer;
 
 public class CustomerApp {
     private Customer customer;

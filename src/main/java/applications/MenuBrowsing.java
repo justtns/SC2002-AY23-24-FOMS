@@ -1,13 +1,13 @@
-package main.backend.application;
+package main.java.applications;
 
 import java.util.List;
 import java.util.Scanner;
 
-import main.backend.entities.MenuItem;
-import main.backend.entities.Order;
-import main.backend.handlers.MenuHandler;
-import main.backend.handlers.OrderHandler;
-
+import main.java.entities.MenuItem;
+import main.java.entities.Order;
+import main.java.handlers.MenuHandler;
+import main.java.handlers.OrderHandler;
+// TO BE MERGED INTO CUSTOMER APP
 public class MenuBrowsing {
 
     private static MenuHandler menuHandler = new MenuHandler();
@@ -74,10 +74,7 @@ public class MenuBrowsing {
 
     public static void displayMenu() {
         System.out.println("Current Menu:");
-        List<MenuItem> menuItems = menuHandler.listElement();
-        for (MenuItem item : menuItems) {
-            System.out.println(item);
-        }
+        menuHandler.listElement();
     }
 
     public static void createOrder() {

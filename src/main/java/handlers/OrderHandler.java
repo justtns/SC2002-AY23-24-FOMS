@@ -1,6 +1,6 @@
-package main.backend.handlers;
-import main.backend.entities.Order;
-import main.backend.entities.MenuItem;
+package main.java.handlers;
+import main.java.entities.Order;
+import main.java.entities.MenuItem;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,21 +32,21 @@ public class OrderHandler implements HandlerInterface<Order> {
     }
 
     // ADD ITEM
-    public void addElement(int orderId, String itemId) {
-        MenuItem item = menuHandler.findElementById(itemId);
+    public void addElement(int orderId, String name, String branch) {
+        MenuItem item = menuHandler.findElementById(name, branch);
         if (item != null) {
             Order order = findElementById(orderId);
             if (order != null) {
                 order.getItems().add(item);
                 cartSize++;
-
-                System.out.println("Item " + itemId + " added to cart.");
-
+                System.out.println("Item " + name + " added to cart.");
+                
+// make this error handling
             } else {
                 System.out.println("Order with ID " + orderId + " not found.");
             }
         } else {
-            System.out.println("Menu item with ID " + itemId + " not found.");
+            System.out.println("Menu item with name " + name + " not found.");
         }
     }
 
@@ -56,10 +56,10 @@ public class OrderHandler implements HandlerInterface<Order> {
         orderQueue.remove(element);
     }
 
-    public void removeElement(int orderId, String itemId) {
+    public void removeElement(int orderId, String name, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
-            MenuItem item = menuHandler.findElementById(itemId);
+            MenuItem item = menuHandler.findElementById(name, branch);
             if (item != null) {
                 order.getItems().remove(item);
                 cartSize--;
@@ -70,7 +70,7 @@ public class OrderHandler implements HandlerInterface<Order> {
 
 
             } else {
-                System.out.println("Menu item with ID " + itemId + " not found.");
+                System.out.println("Menu item with Name " + name + " not found.");
             }
         } else {
             System.out.println("Order with ID " + orderId + " not found.");
@@ -84,27 +84,27 @@ public class OrderHandler implements HandlerInterface<Order> {
         orderQueue.add(newElement);
     }
 
-    public void updateElement(int orderId, String oldElement, String newElement) {
+    // this should be to edit an order, but currently it is editing the menu items within the order needs to b changed
+    public void updateElement(int orderId, String oldname, String newname, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
-            MenuItem oldItem = menuHandler.findElementById(oldElement); 
+            MenuItem oldItem = menuHandler.findElementById(oldname, branch); 
                 if (oldItem != null) {
-                    MenuItem newItem = menuHandler.findElementById(newElement);
+                    MenuItem newItem = menuHandler.findElementById(newname, branch);
                     if (newItem != null) {
                         order.getItems().remove(oldItem);
                         order.getItems().add(newItem);
 
-                        System.out.println("Item " + oldElement + " updated to " + newElement);
+                        System.out.println("Item " + oldname + " updated to " + newname);
                     } else {
-                        System.out.println("Menu item with ID " + newElement + " not found.");
+                        System.out.println("Menu item with ID " + newname + " not found.");
                     }
                 } else {
-                    System.out.println("Menu item with ID " + oldElement + " not found.");
+                    System.out.println("Menu item with ID " + oldname + " not found.");
                 }
         } else {
             System.out.println("Order with ID " + orderId + " not found.");
         }
-    
     }
 
     public void updateElement(int orderId,char takeawayOption) {
@@ -118,8 +118,8 @@ public class OrderHandler implements HandlerInterface<Order> {
 
     //LIST ITEM
     @Override
-    public List<Order> listElement() {
-        return new LinkedList<>(orderQueue);
+    public void listElement() {
+
     }
 
     public float getTotalAmount() {

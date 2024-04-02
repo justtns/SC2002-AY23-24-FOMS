@@ -1,4 +1,4 @@
-package main.backend.entities;
+package main.java.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class Order{
     public String toString() {
         StringBuilder sb = new StringBuilder("Order ID: " + orderID + "\nItems:\n");
         for (MenuItem item : items) {
-            sb.append("ID: ").append(item.getItemID())
+            sb.append("Name: ").append(item.getName())
               .append(", ").append(item.getName())
               .append(" - $").append(String.format("%.2f", item.getPrice()))
               .append("\n");

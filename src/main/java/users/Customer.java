@@ -1,4 +1,4 @@
-package main.backend.users;
+package main.java.users;
 
 public class Customer {
 
