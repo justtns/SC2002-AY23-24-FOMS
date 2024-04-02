@@ -17,7 +17,7 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
     
     public MenuHandler() {
         this.menu = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(new File("D:\\Github\\SC2002-AY23-24-FOMS\\src\\main\\java\\handlers\\resources\\xlsx\\menu_list.xlsx"));
+        try (FileInputStream inputStream = new FileInputStream(new File("D:\\Github\\SC2002-AY23-24-FOMS\\src\\main\\resources\\xlsx\\menu_list.xlsx"));
             Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.iterator();
