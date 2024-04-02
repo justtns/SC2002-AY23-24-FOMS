@@ -1,8 +1,8 @@
 package main.backend.handlers;
 
 public interface HandlerInterface {
-    public void addElement();
+    public void addElement(String... parts);
     public void listElement();
-    public void updateElement();
-    public void removeElement();
+    public void updateElement(String... parts);
+    public void removeElement(String... parts);
 }
