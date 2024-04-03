@@ -2,6 +2,7 @@ package main.java.handlers;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -150,6 +151,41 @@ public class PaymentHandler implements HandlerInterface<PaymentInterface>{
         }
         return 0;
     }
-    
 
+    public void writePaymentMethodsToFile(String filePath) {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
+            Sheet sheet = workbook.createSheet("Payment Methods");
+            int rowIndex = 0;
+            Row headerRow = sheet.createRow(rowIndex++);
+            String[] headers = {"Type", "Name/Email", "Number/Password", "CVC", "Expiry Date", "Domain"};
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+            }
+            for (PaymentInterface item : this.paymentMethods) {
+                Row row = sheet.createRow(rowIndex++);
+                if (item instanceof CreditDebitPayment) {
+                    CreditDebitPayment payment = (CreditDebitPayment) item;
+                    row.createCell(0).setCellValue("CreditDebit");
+                    row.createCell(1).setCellValue(payment.getName());
+                    row.createCell(2).setCellValue(payment.getCardNumber());
+                    row.createCell(3).setCellValue(payment.getCVC());
+                    row.createCell(4).setCellValue(payment.getExpiryDate());
+                    row.createCell(7).setCellValue(payment.getType());
+                } else if (item instanceof OnlinePayment) {
+                    OnlinePayment payment = (OnlinePayment) item;
+                    row.createCell(0).setCellValue("OnlinePayment");
+                    row.createCell(5).setCellValue(payment.getEmail());
+                    row.createCell(6).setCellValue(payment.getPassword());
+                    row.createCell(7).setCellValue(payment.getDomain());
+                }
+            }
+
+            workbook.write(outputStream);
+            System.out.println("Excel file was updated successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing Excel file");
+            e.printStackTrace();
+        }
+    }
 }

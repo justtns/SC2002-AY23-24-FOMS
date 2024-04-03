@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import java.io.FileOutputStream;
+
 
 public class MenuHandler implements HandlerInterface<MenuItem>{
     private List<MenuItem> menu;
@@ -116,5 +118,31 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
             }
         }
         return null;
+    }
+
+    public void writeMenuToFile(String filePath) {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
+            Sheet sheet = workbook.createSheet("Menu Items");
+            int rowIndex = 0;
+            Row headerRow = sheet.createRow(rowIndex++);
+            String[] headers = {"Name", "Price", "Branch", "Category"};
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+            }
+            for (MenuItem item : this.menu) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(item.getName());
+                row.createCell(1).setCellValue(item.getPrice());
+                row.createCell(2).setCellValue(item.getBranch());
+                row.createCell(3).setCellValue(item.getCategory());
+            }
+
+            workbook.write(outputStream);
+            System.out.println("Excel file was updated successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing Excel file");
+            e.printStackTrace();
+        }
     }
 }

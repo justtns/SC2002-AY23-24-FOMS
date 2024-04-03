@@ -31,6 +31,10 @@ public class OnlinePayment implements PaymentInterface{
         return (validateEmail(this.email) && validatePassword(this.password));
     }
     
+    public String getPassword(){
+        return password;
+    }
+
     private boolean validateEmail(String email) {
         if (!email.matches( "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")){
             System.out.println("Submitted Email is invalid.");
@@ -38,7 +42,7 @@ public class OnlinePayment implements PaymentInterface{
         }
         return true;
     }
-
+    
     private boolean validatePassword(String password) {
         System.out.println("Authenticating with " + domain +" Service...");
         return true;
