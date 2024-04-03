@@ -33,6 +33,7 @@ public class PaymentTester {
         paymentHandler.updateElement(creditDebitPayment, updatedCreditDebitPayment);
         System.out.println("Listing all Payment Methods after updating:");
         paymentHandler.listElement();
+        paymentHandler.writePaymentMethodsToFile();
     }
 }
 

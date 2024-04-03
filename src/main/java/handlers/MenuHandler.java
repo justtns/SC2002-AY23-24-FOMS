@@ -120,8 +120,8 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
         return null;
     }
 
-    public void writeMenuToFile(String filePath) {
-        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
+    public void writeMenuToFile() {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src\\main\\resources\\xlsx\\payment_list.xlsx")) {
             Sheet sheet = workbook.createSheet("Menu Items");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);

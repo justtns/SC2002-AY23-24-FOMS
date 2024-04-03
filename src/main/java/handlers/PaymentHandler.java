@@ -152,8 +152,8 @@ public class PaymentHandler implements HandlerInterface<PaymentInterface>{
         return 0;
     }
 
-    public void writePaymentMethodsToFile(String filePath) {
-        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
+    public void writePaymentMethodsToFile() {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src\\main\\resources\\xlsx\\payment_list.xlsx")) {
             Sheet sheet = workbook.createSheet("Payment Methods");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);
