@@ -7,6 +7,7 @@ import main.java.entities.MenuItem;
 import main.java.entities.Order;
 import main.java.handlers.MenuHandler;
 import main.java.handlers.OrderHandler;
+
 // TO BE MERGED INTO CUSTOMER APP
 public class MenuBrowsing {
 
@@ -17,9 +18,23 @@ public class MenuBrowsing {
 
      // create a static variable so orderID is unique
     private static int orderID = 0;
+    private static String branch = null;
+
 
     public static void main(String[] args) {
+        
+        
         System.out.println("Welcome to the SC2002 Customer Ordering System!");
+
+        // branch selection (temporary)
+        
+        System.out.println("Please select a branch: ");
+        System.out.println("1. Branch 1");
+        System.out.println("2. Branch 2");
+        System.out.println("3. Branch 3");
+
+        String branch = scanner.next();
+        System.out.println("You have selected branch " + branch);
 
         boolean exit = false;
         while (!exit) {
@@ -95,7 +110,7 @@ public class MenuBrowsing {
         System.out.println("Enter Item ID to add to your order: ");
         String itemId = scanner.next();
         
-        orderHandler.addElement(orderID, itemId);
+        orderHandler.addElement(orderID, itemId, branch);
     }
     
 
@@ -105,7 +120,7 @@ public class MenuBrowsing {
         System.out.println("Enter Item ID to delete from your order: ");
         String itemId = scanner.next();
 
-        orderHandler.removeElement(orderID, itemId);
+        orderHandler.removeElement(orderID, itemId, branch);
     }
 
     public static void updateItem() {
@@ -115,7 +130,7 @@ public class MenuBrowsing {
         System.out.println("Enter new Item ID: ");
         String newItemId = scanner.next();
 
-        orderHandler.updateElement(orderID, itemId, newItemId);
+        orderHandler.updateElement(orderID, itemId, newItemId, branch);
     }
 
     public static void viewCart() {
