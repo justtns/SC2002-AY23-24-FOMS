@@ -17,7 +17,7 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
     
     public MenuHandler() {
         this.menu = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(new File("D:\\Github\\SC2002-AY23-24-FOMS\\src\\main\\resources\\xlsx\\menu_list.xlsx"));
+        try (FileInputStream inputStream = new FileInputStream(new File("src\\main\\resources\\xlsx\\menu_list.xlsx"));
             Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.iterator();
@@ -44,7 +44,7 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
         }
 
         if (this.menu.size() == 0){
-            throw new IllegalArgumentException("Menu is empty.");
+            System.out.println("No menus available.");
         }
     }
     
@@ -56,6 +56,8 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
             }
         }
     }
+
+    @Override
     public void listElement() {
         System.out.println("Full Menu Items: ");
         for (MenuItem item : this.menu) {
@@ -63,16 +65,20 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
         }
     }
 
-    public void addElement(MenuItem newItem) {
+    @Override
+    public boolean addElement(MenuItem newItem) {
         for (MenuItem item : this.menu) {
             if ((item.getName().equalsIgnoreCase(newItem.getName())) && (item.getBranch().equalsIgnoreCase(newItem.getBranch())))   {
-                throw new IllegalArgumentException("Item with name " + newItem.getName() + " already exists in " + newItem.getBranch() + " .");
+                System.out.println("Item with name " + newItem.getName() + " already exists in " + newItem.getBranch() + " .");
+                return false;
             }
         }
         menu.add(newItem);
+        return true;
     }
 
-    public void updateElement(MenuItem oldItem, MenuItem newItem) {
+    @Override
+    public boolean updateElement(MenuItem oldItem, MenuItem newItem) {
         Boolean found = false;
         for (int i = 0; i<menu.size(); i++){
             if ((menu.get(i).getName().equalsIgnoreCase(oldItem.getName())) && menu.get(i).getBranch().equalsIgnoreCase(oldItem.getBranch())){
@@ -82,11 +88,13 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
             }
         }
         if (!found) {
-            throw new IllegalArgumentException("Item with name " + oldItem.getName() + " in branch " + oldItem.getBranch() + " not found.");
+            System.out.println("Item with name " + oldItem.getName() + " in branch " + oldItem.getBranch() + " not found.");
         }
+        return found;
     }
 
-    public void removeElement(MenuItem menuItem) {
+    @Override
+    public boolean removeElement(MenuItem menuItem) {
         Boolean found = false;
         for (int i = 0; i<menu.size(); i++){
             if ((menu.get(i).getName().equalsIgnoreCase(menuItem.getName())) && menu.get(i).getBranch().equalsIgnoreCase(menuItem.getBranch())){
@@ -96,8 +104,9 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
             }
         }
         if (!found) {
-            throw new IllegalArgumentException("Item with name " + menuItem.getName() + " in branch " + menuItem.getBranch() + " not found.");
+            System.out.println("Item with name " + menuItem.getName() + " in branch " + menuItem.getBranch() + " not found.");
         }
+        return found;
     }
 
     public MenuItem findElementById(String name, String branch) {

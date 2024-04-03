@@ -15,6 +15,7 @@ public class Order{
     private Timestamp orderTime;
     @SuppressWarnings("unused")
     private char takeawayOption;
+    private boolean paymentStatus;
 
     public Order(int orderID, List<MenuItem> items, Timestamp orderTime) {
         this.orderID = orderID;
@@ -22,6 +23,7 @@ public class Order{
         this.orderStatus = "Order has been placed";
         this.orderTime = orderTime;
         this.takeawayOption = 'N';
+        this.paymentStatus = false;
     }
 
     @Override
@@ -71,6 +73,9 @@ public class Order{
         return this.takeawayOption = takeawayOption;
     }
 
+    public void setPaymentStatusTrue() {
+        this.paymentStatus = true;
+    }
 
 }
 

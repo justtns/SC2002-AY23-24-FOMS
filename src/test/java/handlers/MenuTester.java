@@ -1,4 +1,4 @@
-package test.java;
+package test.java.handlers;
 
 import main.java.handlers.MenuHandler;
 import main.java.entities.MenuItem;

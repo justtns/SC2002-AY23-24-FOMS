@@ -1,29 +1,155 @@
 package main.java.handlers;
 
-public class PaymentHandler implements <Payment> HandlerInterface{
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import main.java.entities.OnlinePayment;
+import main.java.entities.PaymentInterface;
+import main.java.entities.CreditDebitPayment;
+
+public class PaymentHandler implements HandlerInterface<PaymentInterface>{
+    private List<PaymentInterface> paymentMethods;
+
+    public PaymentHandler() {
+        this.paymentMethods = new ArrayList<>();
+        try (FileInputStream inputStream = new FileInputStream(new File("src\\main\\resources\\xlsx\\payment_list.xlsx"));
+            Workbook workbook = new XSSFWorkbook(inputStream)) {
+            Sheet sheet = workbook.getSheetAt(0);
+                Iterator<Row> rowIterator = sheet.iterator();
+                while (rowIterator.hasNext()) {
+                    Row row = rowIterator.next();
+                    // if (row.getRowNum() == 0){
+                    //     continue;
+                    // }
+                    if (row.getCell(0) == null) {
+                        continue; 
+                    }
+                    String type = row.getCell(0).getStringCellValue();
+                    if (type.equals("CreditDebit")){
+                        String name = row.getCell(1).getStringCellValue();
+                        String number = row.getCell(2).getStringCellValue();
+                        String cvc = row.getCell(3).getStringCellValue();
+                        String expiryDate = row.getCell(4).getStringCellValue();
+                        String cardType = row.getCell(7).getStringCellValue();
+                        PaymentInterface item = new CreditDebitPayment(name, number, cvc, expiryDate, cardType);
+                        this.paymentMethods.add(item);
+    
+                    }
+                    else if (type.equals("OnlinePayment")){
+                        String email = row.getCell(5).getStringCellValue();
+                        String password = row.getCell(6).getStringCellValue();
+                        String domain = row.getCell(7).getStringCellValue();
+                        PaymentInterface item = new OnlinePayment(email, password, domain);
+                        this.paymentMethods.add(item);
+                    }      
+                }
+            }
+
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+        if (this.paymentMethods.size() == 0){
+            System.out.println("No Payment Methods Registered.");
+        }
+    }
 
     @Override
-    public void addElement(Object element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addElement'");
+    public boolean addElement(PaymentInterface element) {
+            if (element.validate()){
+                this.paymentMethods.add(element);
+                return true;
+            }
+            return false;
     }
 
     @Override
     public void listElement() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listElement'");
+        System.out.println("All Payment Methods: ");
+        for (PaymentInterface item : this.paymentMethods) {
+            if (item instanceof OnlinePayment){
+                OnlinePayment temp = (OnlinePayment) item;
+                System.out.println("Online Payment | Domain: " + temp.getDomain() + ", Email: " + temp.getEmail());
+            }
+            else if (item instanceof CreditDebitPayment){
+                CreditDebitPayment temp = (CreditDebitPayment) item;
+                System.out.println("Credit/Debit Payment | Name: " + temp.getName() + ", Type: " + temp.getType());
+            }
+        }
     }
 
     @Override
-    public void updateElement(Object oldElement, Object newElement) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateElement'");
+    public boolean updateElement(PaymentInterface oldElement, PaymentInterface newElement) {
+        Boolean found = false;
+        if (oldElement instanceof OnlinePayment){
+            OnlinePayment temp = (OnlinePayment) oldElement;
+            int i = findOnlineElementIndex(temp.getEmail(), temp.getDomain());
+            paymentMethods.set(i, newElement);
+            found = true;
+        }
+        else if (oldElement instanceof CreditDebitPayment){
+            CreditDebitPayment temp = (CreditDebitPayment) oldElement;
+            int i = findCreditDebitIndex(temp.getName(), temp.getType());
+            paymentMethods.set(i, newElement);
+            found = true;
+        }
+        if (!found) {
+            System.out.println("Payment Method was not found and could not be replaced.");
+        }
+        return found;
+    }
+    
+    @Override
+    public boolean removeElement(PaymentInterface element) {
+        Boolean found = false;
+        if (element instanceof OnlinePayment){
+            OnlinePayment temp = (OnlinePayment) element;
+            int i = findOnlineElementIndex(temp.getEmail(), temp.getDomain());
+            paymentMethods.remove(i);
+            found = true;
+        }
+        else if (element instanceof CreditDebitPayment){
+            CreditDebitPayment temp = (CreditDebitPayment) element;
+            int i = findCreditDebitIndex(temp.getName(), temp.getType());
+            paymentMethods.remove(i);
+            found = true;
+        }
+        if (!found) {
+            System.out.println("Payment Method was not found and could not be replaced.");
+        }
+        return found;
     }
 
-    @Override
-    public void removeElement(Object element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeElement'");
+    private int findOnlineElementIndex(String email, String domain){
+        for (int i = 0; i<paymentMethods.size(); i++){
+            if ((paymentMethods.get(i) instanceof OnlinePayment)){
+                OnlinePayment newTemp = (OnlinePayment) paymentMethods.get(i);
+                if ((newTemp.getEmail() == email) & (newTemp.getDomain() == domain)){
+                    return i;
+                }
+            }
+        }
+        return 0;
     }
+
+    private int findCreditDebitIndex(String name, String domain){
+        for (int i = 0; i<paymentMethods.size(); i++){
+            if ((paymentMethods.get(i) instanceof CreditDebitPayment)){
+                CreditDebitPayment newTemp = (CreditDebitPayment) paymentMethods.get(i);
+                if ((newTemp.getName() == name) & (newTemp.getType() == domain)){
+                    return i;
+                }
+            }
+        }
+        return 0;
+    }
+    
 
 }
