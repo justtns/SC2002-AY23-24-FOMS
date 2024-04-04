@@ -1,6 +1,11 @@
 package main.java.handlers;
 import main.java.entities.Order;
 import main.java.entities.MenuItem;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.*;
+import java.util.Date;
+
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -16,7 +21,8 @@ public class OrderHandler implements HandlerInterface<Order> {
         this.orderQueue = new LinkedList<>();
         this.menuHandler = menuHandler;
 
-        //the initialisation should read some form of xslsx file for available orders.
+        // Load orders from excel file
+
     }
 
     // singleton - ensures only one instance of OrderHandler is created 
@@ -36,12 +42,12 @@ public class OrderHandler implements HandlerInterface<Order> {
     // ADD ITEM
 
     //should add error handling for if its already been paid for, then cannot edit.
-    public boolean addElement(int orderId, String name, String branch) {
+    public boolean addElement(int orderId, String name, int quantity, String branch) {
         MenuItem item = menuHandler.findElementById(name, branch);
         if (item != null) {
             Order order = findElementById(orderId);
             if (order != null) {
-                order.getItems().add(item);
+                order.addItem(item, quantity);
                 cartSize++;
                 System.out.println("Item " + name + " added to cart.");
                 return true;  
@@ -61,12 +67,12 @@ public class OrderHandler implements HandlerInterface<Order> {
         return true;
     }
 
-    public boolean removeElement(int orderId, String name, String branch) {
+    public boolean removeElement(int orderId, String name, int quantity, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
             MenuItem item = menuHandler.findElementById(name, branch);
             if (item != null) {
-                order.getItems().remove(item);
+                order.removeItem(item, orderId);
                 cartSize--;
 
                 if (cartSize == 0) {
@@ -97,8 +103,8 @@ public class OrderHandler implements HandlerInterface<Order> {
                 if (oldItem != null) {
                     MenuItem newItem = menuHandler.findElementById(newname, branch);
                     if (newItem != null) {
-                        order.getItems().remove(oldItem);
-                        order.getItems().add(newItem);
+                        order.removeItem(newItem, orderId);
+                        order.addItem(newItem, orderId);
                         System.out.println("Item " + oldname + " updated to " + newname);
                         return true;
                     } else {

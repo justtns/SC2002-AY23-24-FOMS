@@ -19,8 +19,9 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
     
     public MenuHandler() {
         this.menu = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(new File("src\\main\\resources\\xlsx\\menu_list.xlsx"));
-            Workbook workbook = new XSSFWorkbook(inputStream)) {
+        //try (FileInputStream inputStream = new FileInputStream(new File("src\\main\\resources\\xlsx\\menu_list.xlsx"));
+        try (FileInputStream inputStream = new FileInputStream(new File("/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/menu_list.xlsx"));
+        Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.iterator();
                 while (rowIterator.hasNext()) {
@@ -40,6 +41,7 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
                     this.menu.add(item);
                 }
             }
+
 
         catch (IOException e){
             e.printStackTrace();
@@ -113,6 +115,7 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
 
     public MenuItem findElementById(String name, String branch) {
         for (MenuItem item : menu) {
+            //if (item.getName().trim().equalsIgnoreCase(name)) {
             if (item.getName().equalsIgnoreCase(name) && item.getBranch().equalsIgnoreCase(branch)) {
                 return item;
             }

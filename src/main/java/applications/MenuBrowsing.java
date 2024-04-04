@@ -1,5 +1,7 @@
 package main.java.applications;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +9,7 @@ import main.java.entities.MenuItem;
 import main.java.entities.Order;
 import main.java.handlers.MenuHandler;
 import main.java.handlers.OrderHandler;
+import java.io.IOException;
 
 // TO BE MERGED INTO CUSTOMER APP
 public class MenuBrowsing {
@@ -15,6 +18,7 @@ public class MenuBrowsing {
     private static OrderHandler orderHandler = OrderHandler.getInstance(menuHandler); // singleton instance! 
     
     private static Scanner scanner = new Scanner(System.in); 
+    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // fr string input
 
      // create a static variable so orderID is unique
     private static int orderID = 0;
@@ -26,15 +30,9 @@ public class MenuBrowsing {
         
         System.out.println("Welcome to the SC2002 Customer Ordering System!");
 
-        // branch selection (temporary)
-        
-        System.out.println("Please select a branch: ");
-        System.out.println("1. Branch 1");
-        System.out.println("2. Branch 2");
-        System.out.println("3. Branch 3");
-
-        String branch = scanner.next();
-        System.out.println("You have selected branch " + branch);
+        System.out.println("Enter the branch:");
+        branch = scanner.nextLine();
+        System.out.println("You have selected branch: " + branch);
 
         boolean exit = false;
         while (!exit) {
@@ -51,6 +49,7 @@ public class MenuBrowsing {
 
 
             int choice = scanner.nextInt();
+
             switch (choice) {
                 case 1:
                     displayMenu();
@@ -95,8 +94,8 @@ public class MenuBrowsing {
     public static void createOrder() {
         
         // increment orderID so that each order has a unique ID - starting from 1 
-
-        Order newOrder = new Order(++orderID, null, null);
+        long timestamp = System.currentTimeMillis(); // curr time in milliseconds
+        Order newOrder = new Order(++orderID, null, 0, timestamp, 'N', false);
         orderHandler.addElement(newOrder);
         
         System.out.println("Order created successfully! Order ID: " + newOrder.getOrderID());
@@ -106,21 +105,38 @@ public class MenuBrowsing {
 
     public static void addItem() {
         viewCart();
-        displayMenu();
-        System.out.println("Enter Item ID to add to your order: ");
-        String itemId = scanner.next();
-        
-        orderHandler.addElement(orderID, itemId, branch);
-    }
-    
 
-    public static void deleteItem() {
+        System.out.println("Enter Item Name to add to your order: ");
+        try {
+            String itemName = reader.readLine();
+
+            System.out.println("Enter Quantity: ");
+            int quantity = scanner.nextInt();
+
+            orderHandler.addElement(orderID, itemName, quantity, branch);
+
+        } catch (IOException e) {
+            System.out.println("Invalid Input. Please try again.");
+        }
+    }
+
+
+    public static void deleteItem(){
         
         viewCart();
-        System.out.println("Enter Item ID to delete from your order: ");
-        String itemId = scanner.next();
+        System.out.println("Enter Item to delete from your order: ");
+        try {
+            String itemName = reader.readLine();
 
-        orderHandler.removeElement(orderID, itemId, branch);
+            System.out.println("Enter Quantity: ");
+            int quantity = scanner.nextInt();
+
+            orderHandler.removeElement(orderID, itemName, quantity, branch);
+        }
+        catch (IOException e) {
+            System.out.println("Invalid Input. Please try again.");
+        }
+        
     }
 
     public static void updateItem() {
