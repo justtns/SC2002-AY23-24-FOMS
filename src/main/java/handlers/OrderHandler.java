@@ -1,14 +1,18 @@
 package main.java.handlers;
 import main.java.entities.Order;
+import main.java.entities.OrderQuantities;
 import main.java.entities.MenuItem;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Iterator;
 
 public class OrderHandler implements HandlerInterface<Order> {
     private static OrderHandler instance; // Static instance
@@ -23,6 +27,61 @@ public class OrderHandler implements HandlerInterface<Order> {
 
         // Load orders from excel file
 
+        String filePath = "/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/order_list.xlsx";
+        File file = new File(filePath);
+        
+        if (!file.exists()) {
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("Orders");
+                Row headerRow = sheet.createRow(0);
+                String[] columnHeaders = {"Order ID", "Order Status", "Total Amount", "Order Time", "Takeaway Option", "Payment Status", "Items"};
+                for (int i = 0; i < columnHeaders.length; i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(columnHeaders[i]);
+                }
+                try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                    workbook.write(outputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (FileInputStream inputStream = new FileInputStream(new File("/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/order_list.xlsx"));
+        Workbook workbook = new XSSFWorkbook(inputStream)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.iterator();
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
+                if (row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) == null || row.getCell(3) == null || row.getCell(4) == null || row.getCell(5) == null || row.getCell(6) == null) {
+                    continue;
+                }
+                int orderID = (int) row.getCell(0).getNumericCellValue();
+                String orderStatus = row.getCell(1).getStringCellValue();
+                float totalAmount = (float) row.getCell(2).getNumericCellValue();
+                long orderTime = (long) row.getCell(3).getNumericCellValue();
+                char takeawayOption = row.getCell(4).getStringCellValue().charAt(0);
+                boolean paymentStatus = row.getCell(5).getBooleanCellValue();
+                String items = row.getCell(6).getStringCellValue();
+                String[] itemArray = items.split(",");
+                List<OrderQuantities> itemsQuantities = new ArrayList<>();
+                for (String item : itemArray) {
+                    String[] itemDetails = item.split(":");
+                    MenuItem menuItem = menuHandler.findElementById(itemDetails[0], itemDetails[1]);
+                    if (menuItem != null) {
+                        itemsQuantities.add(new OrderQuantities(menuItem, Integer.parseInt(itemDetails[2])));
+                    }
+                }
+                Order order = new Order(orderID, itemsQuantities, totalAmount, orderTime, takeawayOption, paymentStatus);
+                orderQueue.add(order);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+    }
     }
 
     // singleton - ensures only one instance of OrderHandler is created 
@@ -96,23 +155,18 @@ public class OrderHandler implements HandlerInterface<Order> {
         return true;
     }
 
-    public boolean updateElement(int orderId, String oldname, String newname, String branch) {
+    public boolean updateElement(int orderId, String itemName, int quantity, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
-            MenuItem oldItem = menuHandler.findElementById(oldname, branch); 
-                if (oldItem != null) {
-                    MenuItem newItem = menuHandler.findElementById(newname, branch);
-                    if (newItem != null) {
-                        order.removeItem(newItem, orderId);
-                        order.addItem(newItem, orderId);
-                        System.out.println("Item " + oldname + " updated to " + newname);
-                        return true;
-                    } else {
-                        System.out.println("Menu item with ID " + newname + " not found.");
-                    }
-                } else {
-                    System.out.println("Menu item with ID " + oldname + " not found.");
-                }
+            MenuItem item = menuHandler.findElementById(itemName, branch);
+            if (item != null) {
+                order.removeItem(item);
+                order.addItem(item, quantity);
+                System.out.println("Item " + itemName + " updated in cart.");
+                return true;
+            } else {
+                System.out.println("Menu item with Name " + itemName + " not found.");
+            }
         } else {
             System.out.println("Order with ID " + orderId + " not found.");
         }
@@ -131,7 +185,11 @@ public class OrderHandler implements HandlerInterface<Order> {
     //LIST ITEM
     @Override
     public void listElement() {
-        //list the available orders here.
+        
+        for (Order order : orderQueue) {
+            System.out.println(order);
+        }
+        
     }
 
     public float getTotalAmount() {

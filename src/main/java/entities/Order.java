@@ -2,8 +2,12 @@ package main.java.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.File;
 
-import java.sql.Timestamp;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -27,6 +31,31 @@ public class Order {
         this.orderTime = orderTime;
         this.takeawayOption = takeawayOption;
         this.paymentStatus = paymentStatus;
+
+
+        // add to order_list.xlsx
+         try (FileInputStream inputStream = new FileInputStream(new File("/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/order_list.xlsx"));
+            Workbook workbook = new XSSFWorkbook(inputStream)) {
+                Sheet sheet = workbook.getSheetAt(0);
+                int lastRowNum = sheet.getLastRowNum();
+                Row row = sheet.createRow(lastRowNum + 1);
+                row.createCell(0).setCellValue(orderID);
+                row.createCell(1).setCellValue(orderStatus);
+                row.createCell(2).setCellValue(totalAmount);
+                row.createCell(3).setCellValue(orderTime);
+                row.createCell(4).setCellValue(takeawayOption);
+                row.createCell(5).setCellValue(paymentStatus);
+                StringBuilder items = new StringBuilder();
+                for (OrderQuantities item : itemsQuantities) {
+                    items.append(item.getItem().getName()).append(":").append(item.getItem().getBranch()).append(":").append(item.getQuantity()).append(",");
+                }
+                row.createCell(6).setCellValue(items.toString());
+                try (FileOutputStream outputStream = new FileOutputStream("/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/order_list.xlsx")) {
+                    workbook.write(outputStream);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     @Override
@@ -88,6 +117,10 @@ public class Order {
                 return;
             }
         }
+    }
+
+    public void removeItem(MenuItem item) {
+        itemsQuantities.removeIf(mq -> mq.getItem().equals(item));
     }
 
     public char setTakeawayOption(char takeawayOption) {

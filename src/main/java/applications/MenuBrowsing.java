@@ -32,13 +32,16 @@ public class MenuBrowsing {
 
         System.out.println("Enter the branch:");
         branch = scanner.nextLine();
+        
         System.out.println("You have selected branch: " + branch);
+        
+        createOrder();
 
         boolean exit = false;
-        while (!exit) {
+        while (!exit){
             System.out.println("\nPlease choose an option:");
             System.out.println("1. Display Menu");
-            System.out.println("2. Create New Order");
+        //    System.out.println("2. Create New Order");
             System.out.println("3. Add Item to Order");
             System.out.println("4. Delete Item from Cart");
             System.out.println("5. Update Item in Cart");
@@ -47,44 +50,53 @@ public class MenuBrowsing {
             System.out.println("8. Checkout");
             System.out.println("9. Exit");
 
+            try {
+                System.out.println("Enter your choice: ");
 
-            int choice = scanner.nextInt();
+                int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 1:
-                    displayMenu();
-                    break;
-                case 2:
-                    createOrder();
-                    break;
-                case 3:
-                    addItem();
-                    break;
-                case 4:
-                    deleteItem();
-                    break;
-                case 5:
-                    updateItem();
-                    break;
-                case 6:
-                    viewCart();
-                    break;
-                case 7:
-                    takeawayOption();
-                    break;
-//                case ?:
-  //                  checkout();
-    //                break;
-                case 9:
-                    exit = true;
-                    System.out.println("Thank you for using the Customer Ordering System!");
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
+                switch (choice) {
+                    case 1:
+                        displayMenu();
+                        break;
+             //       case 2:
+             //           createOrder();
+             //           break;
+                    case 3:
+                        addItem();
+                        break;
+                    case 4:
+                        deleteItem();
+                        break;
+                    case 5:
+                        updateItem();
+                        break;
+                    case 6:
+                        viewCart();
+                        break;
+                    case 7:
+                        takeawayOption();
+                        break;
+    //                case ?:
+    //                  checkout();
+        //                break;
+                    case 9:
+                        exit = true;
+                        System.out.println("Thank you for using the Customer Ordering System!");
+                        break;
+                    default:
+                        System.out.println("Invalid option. Please input an integer from 1-9.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid Input. Please input an integer from 1-9.");
+                scanner.next();
             }
         }
         scanner.close();
-    }
+        
+        }
+    
 
     public static void displayMenu() {
         System.out.println("Current Menu:");
@@ -141,12 +153,12 @@ public class MenuBrowsing {
 
     public static void updateItem() {
         viewCart();
-        System.out.println("Enter Item ID to update in your order: ");
-        String itemId = scanner.next();
-        System.out.println("Enter new Item ID: ");
-        String newItemId = scanner.next();
+        System.out.println("Enter Item you want to modify: ");
+        String itemName = scanner.next();
+        System.out.println("Enter the new quantity ");
+        int quantity = scanner.nextInt();
 
-        orderHandler.updateElement(orderID, itemId, newItemId, branch);
+        orderHandler.updateElement(orderID, itemName, quantity, branch);
     }
 
     public static void viewCart() {
