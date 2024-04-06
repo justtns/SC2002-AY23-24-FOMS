@@ -19,8 +19,28 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
     
     public MenuHandler() {
         this.menu = new ArrayList<>();
-        //try (FileInputStream inputStream = new FileInputStream(new File("src\\main\\resources\\xlsx\\menu_list.xlsx"));
-        try (FileInputStream inputStream = new FileInputStream(new File("/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/menu_list.xlsx"));
+    
+        String filePath = "src/main/resources/xlsx/order_list.xlsx";
+        File file = new File(filePath);
+        
+        if (!file.exists()) {
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("Orders");
+                Row headerRow = sheet.createRow(0);
+                String[] headers = {"Name", "Price", "Branch", "Category"};;
+                for (int i = 0; i < headers.length; i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(headers[i]);
+                }
+                try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                    workbook.write(outputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (FileInputStream inputStream = new FileInputStream(new File("src/main/resources/xlsx/menu_list.xlsx"));
         Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.iterator();
@@ -123,8 +143,8 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
         return null;
     }
 
-    public void writeMenuToFile() {
-        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src\\main\\resources\\xlsx\\payment_list.xlsx")) {
+    public void saveElement() {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src/main/resources/xlsx/payment_list.xlsx")) {
             Sheet sheet = workbook.createSheet("Menu Items");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);

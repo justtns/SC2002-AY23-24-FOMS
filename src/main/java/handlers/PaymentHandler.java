@@ -20,7 +20,28 @@ public class PaymentHandler implements HandlerInterface<PaymentInterface>{
 
     public PaymentHandler() {
         this.paymentMethods = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(new File("src\\main\\resources\\xlsx\\payment_list.xlsx"));
+    
+        String filePath = "src/main/resources/xlsx/payment_list.xlsx";
+        File file = new File(filePath);
+        
+        if (!file.exists()) {
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("Orders");
+                Row headerRow = sheet.createRow(0);
+                String[] columnHeaders = {"Type", "Name/Email", "Number/Password", "CVC", "Expiry Date", "Domain"};
+                for (int i = 0; i < columnHeaders.length; i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(columnHeaders[i]);
+                }
+                try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                    workbook.write(outputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (FileInputStream inputStream = new FileInputStream(new File(filePath));
             Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.iterator();
@@ -151,8 +172,9 @@ public class PaymentHandler implements HandlerInterface<PaymentInterface>{
         }
         return 0;
     }
-
-    public void writePaymentMethodsToFile() {
+    
+    @Override
+    public void saveElement() {
         try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src\\main\\resources\\xlsx\\payment_list.xlsx")) {
             Sheet sheet = workbook.createSheet("Payment Methods");
             int rowIndex = 0;

@@ -40,6 +40,6 @@ public class MenuTester {
         System.out.println("\nListing all menu items to verify removal...");
         menuHandler.listElement();
 
-        menuHandler.writeMenuToFile();
+        menuHandler.saveElement();
     }
 }

@@ -2,6 +2,7 @@ package main.java.handlers;
 import main.java.entities.Order;
 import main.java.entities.OrderQuantities;
 import main.java.entities.MenuItem;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
@@ -27,7 +28,7 @@ public class OrderHandler implements HandlerInterface<Order> {
 
         // Load orders from excel file
 
-        String filePath = "/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/order_list.xlsx";
+        String filePath = "src/main/resources/xlsx/order_list.xlsx";
         File file = new File(filePath);
         
         if (!file.exists()) {
@@ -47,7 +48,7 @@ public class OrderHandler implements HandlerInterface<Order> {
             }
         }
 
-        try (FileInputStream inputStream = new FileInputStream(new File("/Users/rachelkoh/Desktop/OOP/CustomerOrderHandling/CustomerOrderHandling/SC2002-AY23-24-FOMS/src/main/resources/xlsx/order_list.xlsx"));
+        try (FileInputStream inputStream = new FileInputStream(new File(filePath));
         Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
@@ -98,8 +99,6 @@ public class OrderHandler implements HandlerInterface<Order> {
         return true;
     }
 
-    // ADD ITEM
-
     //should add error handling for if its already been paid for, then cannot edit.
     public boolean addElement(int orderId, String name, int quantity, String branch) {
         MenuItem item = menuHandler.findElementById(name, branch);
@@ -119,14 +118,13 @@ public class OrderHandler implements HandlerInterface<Order> {
         return false;
     }
 
-    // REMOVE ITEM
     @Override
     public boolean removeElement(Order element) {
         orderQueue.remove(element);
         return true;
     }
 
-    public boolean removeElement(int orderId, String name, int quantity, String branch) {
+    public boolean removeElementbyAttributes(int orderId, String name, int quantity, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
             MenuItem item = menuHandler.findElementById(name, branch);
@@ -155,7 +153,7 @@ public class OrderHandler implements HandlerInterface<Order> {
         return true;
     }
 
-    public boolean updateElement(int orderId, String itemName, int quantity, String branch) {
+    public boolean updateOrderItemQty(int orderId, String itemName, int quantity, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
             MenuItem item = menuHandler.findElementById(itemName, branch);
@@ -164,16 +162,18 @@ public class OrderHandler implements HandlerInterface<Order> {
                 order.addItem(item, quantity);
                 System.out.println("Item " + itemName + " updated in cart.");
                 return true;
-            } else {
+            } 
+            else {
                 System.out.println("Menu item with Name " + itemName + " not found.");
             }
-        } else {
+        } 
+        else {
             System.out.println("Order with ID " + orderId + " not found.");
         }
         return false;
     }
 
-    public void updateElement(int orderId,char takeawayOption) {
+    public void updateTakeawayOption(int orderId,char takeawayOption) {
         Order order = findElementById(orderId);
         if (order != null) {
             order.setTakeawayOption(takeawayOption);
@@ -182,7 +182,6 @@ public class OrderHandler implements HandlerInterface<Order> {
         }
     }
 
-    //LIST ITEM
     @Override
     public void listElement() {
         
@@ -208,5 +207,34 @@ public class OrderHandler implements HandlerInterface<Order> {
     public void updatePayment(int orderId){
         findElementById(orderId).setPaymentStatusTrue();
         System.out.println("Payment completed.");
+    }
+
+    @Override
+    public void saveElement() {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src\\main\\resources\\xlsx\\order_list.xlsx")) {
+            Sheet sheet = workbook.createSheet("Order List");
+            int rowIndex = 0;
+            Row headerRow = sheet.createRow(rowIndex++);
+            String[] columnHeaders = {"Order ID", "Order Status", "Total Amount", "Order Time", "Takeaway Option", "Payment Status", "Items"};
+            for (int i = 0; i < columnHeaders.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(columnHeaders[i]);
+            }
+            for (Order item : this.orderQueue) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(item.getOrderID());
+                row.createCell(1).setCellValue(item.getOrderStatus());
+                row.createCell(2).setCellValue(item.getAmount());
+                row.createCell(3).setCellValue(item.getTime());
+                row.createCell(4).setCellValue(item.getTakeaway());
+                row.createCell(5).setCellValue(item.getPaymentStatus());
+                row.createCell(6).setCellValue(item.toString());
+                }
+            workbook.write(outputStream);
+            System.out.println("Excel file was updated successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing Excel file");
+            e.printStackTrace();
+        }
     }
 }
