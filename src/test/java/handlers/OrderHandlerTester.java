@@ -41,19 +41,22 @@ public class OrderHandlerTester {
         MenuItem item = new MenuItem("Fries", "side", "ntu", 3.2f);
         List<OrderQuantities> quantities = new ArrayList<>();
         quantities.add(new OrderQuantities(item, 1));
-        Order order = new Order(1, quantities, 1000, 'N', false);
+        Order order = new Order(2, quantities, 1000, 'N', false);
         handler.addElement(order);
 
         // Update the item quantity
-        handler.updateOrderItemQty(1, "Fries", 2, "ntu");
-        int updatedQuantity = 0;
+        handler.updateOrderItemQty(2, "Fries", 2, "ntu");
+        int updatedQuantity = -1;
         Order updatedOrder = handler.findElementById(1);
         List<OrderQuantities> updatedQuantities = updatedOrder.getItems();
+        Boolean found = false;
         for (OrderQuantities Orders: updatedQuantities){
             if ((Orders.getItem().getName() == "Fries") & (Orders.getItem().getBranch() == "ntu")){
                 updatedQuantity = Orders.getQuantity();
+                found = true;
             }
         }
+        assertEqual("Item found", true, found);
         assertEqual("testUpdateOrderItemQty", 2, updatedQuantity);
     }
 
