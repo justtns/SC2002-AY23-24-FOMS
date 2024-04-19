@@ -24,7 +24,6 @@ public class MenuBrowsing {
     private static int orderID = 0;
     private static String branch = null;
 
-
     public static void main(String[] args) {
         
         
@@ -125,7 +124,10 @@ public class MenuBrowsing {
             System.out.println("Enter Quantity: ");
             int quantity = scanner.nextInt();
 
-            orderHandler.addElement(orderID, itemName, quantity, branch);
+            System.out.println("Enter Customisations: ");
+            String customisations = reader.readLine();
+
+            orderHandler.addElement(orderID, itemName, quantity, customisations, branch);
 
         } catch (IOException e) {
             System.out.println("Invalid Input. Please try again.");
@@ -140,10 +142,7 @@ public class MenuBrowsing {
         try {
             String itemName = reader.readLine();
 
-            System.out.println("Enter Quantity: ");
-            int quantity = scanner.nextInt();
-
-            orderHandler.removeElement(orderID, itemName, quantity, branch);
+            orderHandler.removeElementbyAttributes(orderID, itemName, branch);
         }
         catch (IOException e) {
             System.out.println("Invalid Input. Please try again.");
@@ -158,7 +157,7 @@ public class MenuBrowsing {
         System.out.println("Enter the new quantity ");
         int quantity = scanner.nextInt();
 
-        orderHandler.updateElement(orderID, itemName, quantity, branch);
+        orderHandler.updateOrderItemQty(orderID, itemName, quantity, branch);
     }
 
     public static void viewCart() {
@@ -169,7 +168,7 @@ public class MenuBrowsing {
     public static void takeawayOption() {
         System.out.println("Would you like to takeaway your order? (Y/N)");
         char takeawayOption = scanner.next().charAt(0);
-        orderHandler.updateElement(orderID, takeawayOption);
+        orderHandler.updateTakeawayOption(orderID, takeawayOption);
 
         System.out.println("You have selected takeaway option: " + takeawayOption);
     }
