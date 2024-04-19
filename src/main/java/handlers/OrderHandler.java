@@ -1,5 +1,6 @@
 package main.java.handlers;
 import main.java.entities.Order;
+import main.java.entities.OrderItem;
 import main.java.entities.OrderQuantities;
 import main.java.entities.MenuItem;
 
@@ -67,15 +68,15 @@ public class OrderHandler implements HandlerInterface<Order> {
                 boolean paymentStatus = row.getCell(5).getBooleanCellValue();
                 String items = row.getCell(6).getStringCellValue();
                 String[] itemArray = items.split(",");
-                List<OrderQuantities> itemsQuantities = new ArrayList<>();
+                List<OrderItem> orderItems = new ArrayList<>();
                 for (String item : itemArray) {
                     String[] itemDetails = item.split(":");
                     MenuItem menuItem = menuHandler.findElementById(itemDetails[0], itemDetails[1]);
                     if (menuItem != null) {
-                        itemsQuantities.add(new OrderQuantities(menuItem, Integer.parseInt(itemDetails[2])));
+                        orderItems.add(new OrderItem(menuItem, Integer.parseInt(itemDetails[2]), item));
                     }
                 }
-                Order order = new Order(orderID, itemsQuantities, totalAmount, orderTime, takeawayOption, paymentStatus);
+                Order order = new Order(orderID, orderItems, totalAmount, orderTime, takeawayOption, paymentStatus);
                 orderQueue.add(order);
             }
         } catch (IOException e) {
@@ -99,12 +100,12 @@ public class OrderHandler implements HandlerInterface<Order> {
     }
 
     //should add error handling for if its already been paid for, then cannot edit.
-    public boolean addElement(int orderId, String name, int quantity, String branch) {
+    public boolean addElement(int orderId, String name, int quantity, String customisations, String branch) {
         MenuItem item = menuHandler.findElementById(name, branch);
         if (item != null) {
             Order order = findElementById(orderId);
             if (order != null) {
-                order.addItem(item, quantity);
+                order.addItem(item, quantity, customisations);
                 cartSize++;
                 System.out.println("Item " + name + " added to cart.");
                 return true;  
@@ -123,12 +124,12 @@ public class OrderHandler implements HandlerInterface<Order> {
         return true;
     }
 
-    public boolean removeElementbyAttributes(int orderId, String name, int quantity, String branch) {
+    public boolean removeElementbyAttributes(int orderId, String name, String branch) {
         Order order = findElementById(orderId);
         if (order != null) {
             MenuItem item = menuHandler.findElementById(name, branch);
             if (item != null) {
-                order.removeItem(item, orderId);
+                order.removeItem(item);
                 cartSize--;
 
                 if (cartSize == 0) {
@@ -157,8 +158,17 @@ public class OrderHandler implements HandlerInterface<Order> {
         if (order != null) {
             MenuItem item = menuHandler.findElementById(itemName, branch);
             if (item != null) {
+
+                String customisations = "";
+                for (OrderItem orderItem : order.getItems()) {
+                    if (orderItem.getItem().getName().equals(itemName)) {
+                        customisations = orderItem.getCustomisations();
+                        break; 
+                    }
+                }
+
                 order.removeItem(item);
-                order.addItem(item, quantity);
+                order.addItem(item, quantity, customisations);
                 System.out.println(order.getItems());
                 System.out.println("Item " + itemName + " updated in cart.");
                 return true;
