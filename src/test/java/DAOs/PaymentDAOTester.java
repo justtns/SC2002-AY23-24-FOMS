@@ -1,7 +1,7 @@
 package test.java.DAOs;
+import main.java.daos.PaymentDAO;
 import main.java.domain.models.PaymentMethod;
 import main.java.domain.types.PaymentType;
-import main.java.dao.PaymentDAO;
 
 public class PaymentDAOTester {
     public static void main(String[] args) {

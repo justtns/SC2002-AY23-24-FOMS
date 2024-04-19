@@ -1,5 +1,5 @@
 package test.java.DAOs;
-import main.java.dao.StaffDAO;
+import main.java.daos.StaffDAO;
 import main.java.domain.models.Staff;
 import main.java.domain.types.Role;
 

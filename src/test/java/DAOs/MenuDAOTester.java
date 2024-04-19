@@ -1,5 +1,5 @@
 package test.java.DAOs;
-import main.java.dao.MenuDAO;
+import main.java.daos.MenuDAO;
 import main.java.domain.models.MenuItem;
 
 public class MenuDAOTester {

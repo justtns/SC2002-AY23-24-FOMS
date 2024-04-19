@@ -1,5 +1,5 @@
 package test.java.DAOs;
-import main.java.dao.OrderDAO;
+import main.java.daos.OrderDAO;
 import main.java.domain.models.Order;
 import main.java.domain.types.OrderStatus;
 
