@@ -1,4 +1,4 @@
-package main.java.domain.models;
+package main.java.models;
 
 public class MenuItem {
     private String name;

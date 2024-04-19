@@ -1,7 +1,7 @@
 package test.java.DAOs;
 import main.java.daos.OrderDAO;
-import main.java.domain.models.Order;
-import main.java.domain.types.OrderStatus;
+import main.java.models.Order;
+import main.java.utils.types.OrderStatus;
 
 public class OrderDAOTester {
     public static void main(String[] args) {

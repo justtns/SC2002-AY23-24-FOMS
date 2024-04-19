@@ -1,8 +1,8 @@
-package main.java.applications;
+package main.java.deprecated.applications;
 
-import main.java.handlers.MenuHandler;
-import main.java.handlers.OrderHandler;
-import main.java.handlers.PaymentHandler;
+import main.java.deprecated.handlers.MenuHandler;
+import main.java.deprecated.handlers.OrderHandler;
+import main.java.deprecated.handlers.PaymentHandler;
 import main.java.users.Customer;
 
 public class CustomerApp {

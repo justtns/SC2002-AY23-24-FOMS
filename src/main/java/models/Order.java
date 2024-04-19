@@ -1,8 +1,9 @@
-package main.java.domain.models;
+package main.java.models;
 
-import main.java.domain.types.OrderStatus;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.java.utils.types.OrderStatus;
 
 public class Order {
     private int orderId;

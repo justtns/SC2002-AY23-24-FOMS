@@ -1,4 +1,4 @@
-package main.java.handlers;
+package main.java.deprecated.handlers;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,9 +11,9 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.domain.deprecated.CreditDebitPayment;
-import main.java.domain.deprecated.OnlinePayment;
-import main.java.domain.deprecated.PaymentInterface;
+import main.java.deprecated.CreditDebitPayment;
+import main.java.deprecated.OnlinePayment;
+import main.java.deprecated.PaymentInterface;
 
 public class PaymentHandler implements HandlerInterface<PaymentInterface>{
     private List<PaymentInterface> paymentMethods;

@@ -1,14 +1,15 @@
-package main.java.applications;
+package main.java.deprecated.applications;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
-import main.java.domain.models.MenuItem;
-import main.java.domain.models.Order;
-import main.java.handlers.MenuHandler;
-import main.java.handlers.OrderHandler;
+import main.java.deprecated.handlers.MenuHandler;
+import main.java.deprecated.handlers.OrderHandler;
+import main.java.models.MenuItem;
+import main.java.models.Order;
+
 import java.io.IOException;
 
 // TO BE MERGED INTO CUSTOMER APP

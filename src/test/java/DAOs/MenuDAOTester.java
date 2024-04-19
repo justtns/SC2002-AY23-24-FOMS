@@ -1,6 +1,6 @@
 package test.java.DAOs;
 import main.java.daos.MenuDAO;
-import main.java.domain.models.MenuItem;
+import main.java.models.MenuItem;
 
 public class MenuDAOTester {
     public static void main(String[] args) {

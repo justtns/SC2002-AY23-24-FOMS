@@ -1,11 +1,11 @@
-package main.java.handlers;
+package main.java.deprecated.handlers;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.domain.deprecated.OrderItem;
-import main.java.domain.deprecated.OrderQuantities;
-import main.java.domain.models.MenuItem;
-import main.java.domain.models.Order;
+import main.java.deprecated.OrderItem;
+import main.java.deprecated.OrderQuantities;
+import main.java.models.MenuItem;
+import main.java.models.Order;
 
 import java.io.*;
 import java.util.ArrayList;

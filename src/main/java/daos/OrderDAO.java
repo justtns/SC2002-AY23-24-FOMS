@@ -2,9 +2,9 @@ package main.java.daos;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.domain.models.MenuItem;
-import main.java.domain.models.Order;
-import main.java.domain.types.OrderStatus;
+import main.java.models.MenuItem;
+import main.java.models.Order;
+import main.java.utils.types.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.Iterator;

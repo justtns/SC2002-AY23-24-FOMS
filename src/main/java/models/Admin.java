@@ -1,5 +1,5 @@
-package main.java.domain.models;
-import main.java.domain.types.Role;
+package main.java.models;
+import main.java.utils.types.Role;
 
 public class Admin extends Staff {
 
@@ -11,5 +11,5 @@ public class Admin extends Staff {
     public Admin(String name,String id, String password, String gender, int age) {
         super(name,id,  password, Role.Admin, gender, age, "NA");
     }
-    
+
 }

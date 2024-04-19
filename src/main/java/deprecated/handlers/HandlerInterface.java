@@ -1,4 +1,4 @@
-package main.java.handlers;
+package main.java.deprecated.handlers;
 
 public interface HandlerInterface <T> {
     public void addElement(T element);

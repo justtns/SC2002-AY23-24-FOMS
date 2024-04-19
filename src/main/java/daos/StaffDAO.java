@@ -2,10 +2,6 @@ package main.java.daos;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.domain.models.Staff;
-import main.java.domain.models.BranchManager;
-import main.java.domain.models.Admin;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +9,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileOutputStream;
-import main.java.domain.types.Role;
+
+import main.java.models.Admin;
+import main.java.models.BranchManager;
+import main.java.models.Staff;
+import main.java.utils.types.Role;
 
 public class StaffDAO implements DAOInterface<Staff>{
     private List<Staff> staffList=new ArrayList<>();

@@ -1,6 +1,6 @@
-package main.java.domain.models;
+package main.java.models;
 
-import main.java.domain.types.Role;
+import main.java.utils.types.Role;
 
 public class Staff {
 

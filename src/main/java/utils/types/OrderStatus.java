@@ -1,4 +1,4 @@
-package main.java.domain.types;
+package main.java.utils.types;
 
 public enum OrderStatus
     {

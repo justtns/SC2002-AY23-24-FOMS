@@ -1,7 +1,7 @@
 package test.java.DAOs;
 import main.java.daos.StaffDAO;
-import main.java.domain.models.Staff;
-import main.java.domain.types.Role;
+import main.java.models.Staff;
+import main.java.utils.types.Role;
 
 public class StaffDAOTester {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package main.java.domain.deprecated;
+package main.java.deprecated;
 
 public class OnlinePayment implements PaymentInterface{
     private String email;

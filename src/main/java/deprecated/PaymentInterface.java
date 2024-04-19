@@ -1,4 +1,4 @@
-package main.java.domain.deprecated;
+package main.java.deprecated;
 
 public interface PaymentInterface {
     public boolean validate();

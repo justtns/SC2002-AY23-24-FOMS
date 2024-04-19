@@ -1,8 +1,8 @@
-package main.java.handlers;
+package main.java.deprecated.handlers;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.domain.models.MenuItem;
+import main.java.models.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,6 +1,6 @@
-package main.java.domain.models;
+package main.java.models;
 
-import main.java.domain.types.PaymentType;
+import main.java.utils.types.PaymentType;
 
 public class PaymentMethod {
     private String name;

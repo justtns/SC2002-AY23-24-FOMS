@@ -1,6 +1,6 @@
-package main.java.domain.deprecated;
+package main.java.deprecated;
 
-import main.java.domain.models.MenuItem;
+import main.java.models.MenuItem;
 
 public class OrderItem {
 

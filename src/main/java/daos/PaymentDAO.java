@@ -2,8 +2,8 @@ package main.java.daos;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.domain.models.PaymentMethod;
-import main.java.domain.types.PaymentType;
+import main.java.models.PaymentMethod;
+import main.java.utils.types.PaymentType;
 
 import java.util.ArrayList;
 import java.util.Iterator;
