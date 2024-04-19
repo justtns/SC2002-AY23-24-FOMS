@@ -1,4 +1,4 @@
-package main.java.entities;
+package main.java.domain.deprecated;
 
 import java.time.LocalDate;
 import java.time.YearMonth;

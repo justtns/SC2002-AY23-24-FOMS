@@ -1,11 +1,12 @@
 package main.java.handlers;
-import main.java.entities.Order;
-import main.java.entities.OrderItem;
-import main.java.entities.OrderQuantities;
-import main.java.entities.MenuItem;
-
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import main.java.domain.deprecated.OrderItem;
+import main.java.domain.deprecated.OrderQuantities;
+import main.java.domain.models.MenuItem;
+import main.java.domain.models.Order;
+
 import java.io.*;
 import java.util.ArrayList;
 

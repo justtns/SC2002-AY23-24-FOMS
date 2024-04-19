@@ -1,3 +1,5 @@
+package main.java.domain.models;
+import main.java.domain.types.Role;
 
 public class BranchManager extends Staff {
     // Additional attributes or methods specific to BranchManager can be added here

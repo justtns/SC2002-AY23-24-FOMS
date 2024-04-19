@@ -1,4 +1,4 @@
-package main.java.entities;
+package main.java.domain.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Order {
         New , Ready,Completed
     }
 
-    public Order( boolean isDineIn) {
+    public Order(boolean isDineIn) {
 
         this.orderId =count++;
         this.items=new ArrayList<>();
@@ -77,20 +77,15 @@ public class Order {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
-    // Method to add a MenuItem to the order
     public void addItem(MenuItem item) {
         items.add(item);
     }
-    // Method to add comment to the order
     public void addComment(String comment) {
         comments.add(comment);
     }
-
-    // If no comment
     public void addComment() {
         comments.add(" ");
     }
-
     public String getComment(int index) {
         return comments.get(index);
     }
@@ -132,9 +127,5 @@ public class Order {
             totalPrice += item.getPrice();
         }
         return totalPrice;
-    }
-
-    public void getComments(){
-
     }
 }

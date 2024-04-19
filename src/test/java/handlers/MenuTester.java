@@ -1,7 +1,7 @@
 package test.java.handlers;
 
+import main.java.domain.models.MenuItem;
 import main.java.handlers.MenuHandler;
-import main.java.entities.MenuItem;
 
 public class MenuTester {
 

@@ -2,8 +2,9 @@ package main.java.dao;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.entities.Order;
-import main.java.entities.MenuItem;
+import main.java.domain.models.MenuItem;
+import main.java.domain.models.Order;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,12 +19,12 @@ public class OrderDAO implements DAOInterface<Order>{
     private  List<Order> orderList = new ArrayList<>();
     
     public OrderDAO(){
-        orderList = new ArrayList<>();
         readData();
     }
 
     @Override
     public void readData() {
+        orderList = new ArrayList<>();
         String ordersFilePath = "src/main/resources/xlsx/orders_list.xlsx";
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
         File ordersFile = new File(ordersFilePath);
@@ -194,6 +195,7 @@ public class OrderDAO implements DAOInterface<Order>{
             System.out.println("Error writing order items to file: " + e.getMessage());
             e.printStackTrace();
         }
+        readData();
     };
     
     @Override

@@ -1,3 +1,5 @@
+package main.java.domain.models;
+import main.java.domain.types.Role;
 
 public class Admin extends Staff {
 

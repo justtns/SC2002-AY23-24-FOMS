@@ -2,8 +2,8 @@ package main.java.handlers;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import main.java.domain.models.MenuItem;
 
-import main.java.entities.MenuItem;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

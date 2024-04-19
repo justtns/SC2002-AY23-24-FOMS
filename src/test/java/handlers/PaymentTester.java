@@ -1,6 +1,8 @@
 package test.java.handlers;
 
-import main.java.entities.*;
+import main.java.domain.*;
+import main.java.domain.deprecated.CreditDebitPayment;
+import main.java.domain.deprecated.OnlinePayment;
 import main.java.handlers.PaymentHandler;
 
 public class PaymentTester {

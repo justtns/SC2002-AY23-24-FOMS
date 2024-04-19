@@ -2,7 +2,8 @@ package main.java.dao;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.entities.MenuItem;
+import main.java.domain.models.MenuItem;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 
 public class MenuDAO implements DAOInterface<MenuItem>{
-    private List<MenuItem> menuItems = new ArrayList<>();
+    private List<MenuItem> menuItemList = new ArrayList<>();
     
     public MenuDAO(){
         readData();
@@ -21,7 +22,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
 
     @Override
     public void readData(){
-        menuItems = new ArrayList<>();
+        menuItemList = new ArrayList<>();
         String filePath = "src/main/resources/xlsx/order_list.xlsx";
         File file = new File(filePath);
         
@@ -69,7 +70,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
             e.printStackTrace();
         }
 
-        if (menuItems.size() == 0){
+        if (menuItemList.size() == 0){
             System.out.println("No menus available.");
         }
     };
@@ -85,7 +86,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
             }
-            for (MenuItem item : menuItems) {
+            for (MenuItem item : menuItemList) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(item.getName());
                 row.createCell(1).setCellValue(item.getPrice());
@@ -105,15 +106,15 @@ public class MenuDAO implements DAOInterface<MenuItem>{
     
     @Override
     public List<MenuItem> getElements(){
-        return menuItems;
+        return menuItemList;
     };
 
     @Override
     public MenuItem findElement(String elementName){
         int findIndex=-1;
-        for (int i = 0; i< menuItems.size(); i++)
+        for (int i = 0; i< menuItemList.size(); i++)
         {
-            if(menuItems.get(i).getName().equalsIgnoreCase(elementName))
+            if(menuItemList.get(i).getName().equalsIgnoreCase(elementName))
             {
                 findIndex=i;
                 break;
@@ -121,38 +122,38 @@ public class MenuDAO implements DAOInterface<MenuItem>{
             }
         }
         if(findIndex!=-1)
-            return menuItems.get(findIndex);
+            return menuItemList.get(findIndex);
         return null;
     };
 
     public MenuItem findElement(String elementName, String branchName){
         int findIndex=-1;
-        for (int i = 0; i< menuItems.size(); i++)
+        for (int i = 0; i< menuItemList.size(); i++)
         {
-            if((menuItems.get(i).getName().equalsIgnoreCase(elementName)) & (menuItems.get(i).getBranch().equalsIgnoreCase(branchName)))
+            if((menuItemList.get(i).getName().equalsIgnoreCase(elementName)) & (menuItemList.get(i).getBranch().equalsIgnoreCase(branchName)))
             {
                 findIndex=i;
                 break;
             }
         }
         if(findIndex!=-1)
-            return menuItems.get(findIndex);
+            return menuItemList.get(findIndex);
         return null;
     };
 
     @Override
     public void updateElement(MenuItem oldElement, MenuItem newElement){
         int updateIndex=-1;
-        for (int i = 0; i< menuItems.size(); i++)
+        for (int i = 0; i< menuItemList.size(); i++)
         {
-            if((menuItems.get(i).getName().equalsIgnoreCase(oldElement.getName())) & (menuItems.get(i).getBranch().equalsIgnoreCase(oldElement.getBranch())))
+            if((menuItemList.get(i).getName().equalsIgnoreCase(oldElement.getName())) & (menuItemList.get(i).getBranch().equalsIgnoreCase(oldElement.getBranch())))
             {
                 updateIndex=i;
                 break;
             }
         }
         if(updateIndex!=-1){
-            menuItems.set(updateIndex, newElement);
+            menuItemList.set(updateIndex, newElement);
         }
         return;
     };
@@ -160,34 +161,34 @@ public class MenuDAO implements DAOInterface<MenuItem>{
     @Override
     public void removeElement(String elementName) {
         int deleteIndex=-1;
-        for (int i = 0; i< menuItems.size(); i++)
+        for (int i = 0; i< menuItemList.size(); i++)
         {
-            if(menuItems.get(i).getName().equalsIgnoreCase(elementName))
+            if(menuItemList.get(i).getName().equalsIgnoreCase(elementName))
             {
                 deleteIndex=i;
                 break;
             }
         }
         if(deleteIndex!=-1)
-            menuItems.remove(deleteIndex);
+            menuItemList.remove(deleteIndex);
     }
 
     public void removeElement(String elementName, String branchName) {
         int deleteIndex=-1;
-        for (int i = 0; i< menuItems.size(); i++)
+        for (int i = 0; i< menuItemList.size(); i++)
         {
-            if((menuItems.get(i).getName().equalsIgnoreCase(elementName)) & (menuItems.get(i).getBranch().equalsIgnoreCase(branchName)))
+            if((menuItemList.get(i).getName().equalsIgnoreCase(elementName)) & (menuItemList.get(i).getBranch().equalsIgnoreCase(branchName)))
             {
                 deleteIndex=i;
                 break;
             }
         }
         if(deleteIndex!=-1)
-            menuItems.remove(deleteIndex);
+            menuItemList.remove(deleteIndex);
     }
 
     @Override
     public void addElement(MenuItem element){
-        menuItems.add(element);
+        menuItemList.add(element);
     };    
 }

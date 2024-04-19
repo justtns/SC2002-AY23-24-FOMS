@@ -1,9 +1,9 @@
 package test.java.handlers;
 
-import main.java.entities.MenuItem;
-import main.java.entities.Order;
-import main.java.entities.OrderQuantities;
 import main.java.handlers.OrderHandler;
+import main.java.domain.deprecated.OrderQuantities;
+import main.java.domain.models.MenuItem;
+import main.java.domain.models.Order;
 import main.java.handlers.MenuHandler;
 import java.util.List;
 import java.util.ArrayList;

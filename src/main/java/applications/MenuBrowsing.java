@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
-import main.java.entities.MenuItem;
-import main.java.entities.Order;
+import main.java.domain.models.MenuItem;
+import main.java.domain.models.Order;
 import main.java.handlers.MenuHandler;
 import main.java.handlers.OrderHandler;
 import java.io.IOException;

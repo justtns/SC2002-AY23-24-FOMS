@@ -11,9 +11,9 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import main.java.entities.OnlinePayment;
-import main.java.entities.PaymentInterface;
-import main.java.entities.CreditDebitPayment;
+import main.java.domain.deprecated.CreditDebitPayment;
+import main.java.domain.deprecated.OnlinePayment;
+import main.java.domain.deprecated.PaymentInterface;
 
 public class PaymentHandler implements HandlerInterface<PaymentInterface>{
     private List<PaymentInterface> paymentMethods;
