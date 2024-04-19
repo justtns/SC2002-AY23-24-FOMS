@@ -4,6 +4,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import main.java.domain.models.MenuItem;
 import main.java.domain.models.Order;
+import main.java.domain.types.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -75,7 +76,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 if (row.getRowNum() == 0) continue;
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
-                Order.OrderStatus orderStatus = Order.OrderStatus.valueOf(row.getCell(1).getStringCellValue());
+                OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(1).getStringCellValue());
                 boolean isDineIn = row.getCell(2).getBooleanCellValue();
                 boolean isCompleted = row.getCell(3).getBooleanCellValue();
 
@@ -242,7 +243,7 @@ public class OrderDAO implements DAOInterface<Order>{
         int deleteIndex=-1;
         for (int i = 0; i< orderList.size(); i++)
         {
-            if(String.valueOf(orderList.get(i).getOrderId()) == (elementName))
+            if(Integer.toString((orderList.get(i).getOrderId())).equalsIgnoreCase(elementName))
             {
                 deleteIndex=i;
                 break;

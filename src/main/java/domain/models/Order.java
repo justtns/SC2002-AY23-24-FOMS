@@ -1,5 +1,6 @@
 package main.java.domain.models;
 
+import main.java.domain.types.OrderStatus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,6 @@ public class Order {
     public static int count=111;
     private OrderStatus orderStatus;
 
-    public enum OrderStatus
-    {
-        New , Ready,Completed
-    }
 
     public Order(boolean isDineIn) {
 

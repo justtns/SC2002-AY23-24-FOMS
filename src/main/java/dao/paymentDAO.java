@@ -11,8 +11,8 @@ import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.io.FileOutputStream;
+
 public class PaymentDAO implements DAOInterface<PaymentMethod>{
     private List<PaymentMethod> paymentMethodList;
     
@@ -54,7 +54,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                             continue;
                         }
                         String name = row.getCell(0).getStringCellValue();
-                        String typeString = row.getCell(3).getStringCellValue();    
+                        String typeString = row.getCell(1).getStringCellValue();    
                         PaymentType type;
                         switch (typeString) {
                             case "Online":
@@ -102,7 +102,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
             for (PaymentMethod method : paymentMethodList) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(method.getName());
-                row.createCell(1).setCellValue(getPaymentTypeString(method.getType()));
+                row.createCell(1).setCellValue(method.getType().toString());
             }
             workbook.write(outputStream);
             System.out.println("payment method data saved successfully.");
@@ -110,19 +110,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
             System.out.println("Failed to save payment method data: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-    
-    private String getPaymentTypeString(PaymentType type) {
-        switch (type) {
-            case Credit:
-                return "Credit";
-            case Debit:
-                return "Debit";
-            case Online:
-                return "Online";
-            default:
-                return "Unknown";  // Handle unexpected role
-        }
+        readData();
     }
 
     @Override
@@ -182,5 +170,4 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
             paymentMethodList.set(findIndex, newElement);
         }    
     }
-
 }

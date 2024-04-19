@@ -59,11 +59,21 @@ public class StaffDAO implements DAOInterface<Staff>{
     
                 String name = row.getCell(0).getStringCellValue();
                 String id = row.getCell(1).getStringCellValue();
-                String password = row.getCell(2).getStringCellValue();
+                String password;
+                if(row.getCell(2) == null || row.getCell(2).getStringCellValue().isEmpty()) {
+                    password = "DEFAULT";
+                } else {
+                    password = row.getCell(2).getStringCellValue();
+                }
                 String roleString = row.getCell(3).getStringCellValue();
                 String gender = row.getCell(4).getStringCellValue();
                 int age = (int) row.getCell(5).getNumericCellValue();
-                String branch = row.getCell(6).getStringCellValue();
+                String branch;
+                if(row.getCell(6) == null || row.getCell(6).getStringCellValue().isEmpty()) {
+                    branch = "NA";
+                } else {
+                    branch = row.getCell(6).getStringCellValue();
+                }
     
                 Role role;
                 switch (roleString) {
