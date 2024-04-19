@@ -274,8 +274,6 @@ public class DataManager {
             }
 
             br.close();
-
-
         }
         catch (Exception e)
         {

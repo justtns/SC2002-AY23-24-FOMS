@@ -102,8 +102,7 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
     }
 
     @Override
-    public boolean updateElement(MenuItem oldItem, MenuItem newItem) {
-        Boolean found = false;
+    public void updateElement(MenuItem oldItem, MenuItem newItem) {
         for (int i = 0; i<menu.size(); i++){
             if ((menu.get(i).getName().equalsIgnoreCase(oldItem.getName())) && menu.get(i).getBranch().equalsIgnoreCase(oldItem.getBranch())){
                 menu.set(i, newItem);
@@ -114,12 +113,10 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
         if (!found) {
             System.out.println("Item with name " + oldItem.getName() + " in branch " + oldItem.getBranch() + " not found.");
         }
-        return found;
     }
 
     @Override
-    public boolean removeElement(MenuItem menuItem) {
-        Boolean found = false;
+    public void removeElement(MenuItem menuItem) {
         for (int i = 0; i<menu.size(); i++){
             if ((menu.get(i).getName().equalsIgnoreCase(menuItem.getName())) && menu.get(i).getBranch().equalsIgnoreCase(menuItem.getBranch())){
                 menu.remove(i);
@@ -130,7 +127,6 @@ public class MenuHandler implements HandlerInterface<MenuItem>{
         if (!found) {
             System.out.println("Item with name " + menuItem.getName() + " in branch " + menuItem.getBranch() + " not found.");
         }
-        return found;
     }
 
     public MenuItem findElementById(String name, String branch) {

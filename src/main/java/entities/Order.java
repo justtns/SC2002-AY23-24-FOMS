@@ -2,133 +2,139 @@ package main.java.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.File;
-
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Order {
+    private int orderId;
+    private List<MenuItem> items;
+    private List<String> comments;
+    private boolean isDineIn;
 
-    private int orderID;
-    private List<OrderItem> orderItems;
-    public String orderStatus;
-    private float totalAmount;
-    private long orderTime;
-    private char takeawayOption;
-    private boolean paymentStatus;
+    private boolean isCompleted;
+    public static int count=111;
+    private OrderStatus orderStatus;
 
-    public Order(int orderID, List<OrderItem> orderItems, float totalAmount, long orderTime, char takeawayOption, boolean paymentStatus) {
-        this.orderID = orderID;
-        this.orderItems = orderItems != null ? new ArrayList<>(orderItems) : new ArrayList<>();
-        this.totalAmount = totalAmount;
-        this.orderStatus = "Order has been placed";
-        this.orderTime = orderTime;
-        this.takeawayOption = takeawayOption;
-        this.paymentStatus = paymentStatus;
+    public enum OrderStatus
+    {
+        New , Ready,Completed
     }
 
-    //Overload
-    public Order(int orderID, List<OrderItem> orderItems, long orderTime, char takeawayOption, boolean paymentStatus) {
-        this.orderID = orderID;
-        this.orderItems = orderItems != null ? new ArrayList<>(orderItems) : new ArrayList<>();
-        this.totalAmount = 0;
-        for (OrderItem orderItem : orderItems) {
-            this.totalAmount += orderItem.getItem().getPrice() * orderItem.getQuantity();
-        }
-        this.orderStatus = "Order has been placed";
-        this.orderTime = orderTime;
-        this.takeawayOption = takeawayOption;
-        this.paymentStatus = paymentStatus;
+    public Order( boolean isDineIn) {
+
+        this.orderId =count++;
+        this.items=new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.isDineIn = isDineIn;
+        this.isCompleted = false;
+
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Order ID: " + orderID + "\nItems:\n");
-        for (OrderItem item : orderItems) {
-            sb.append("Name: ").append(item.getItem().getName())
-              .append(", Quantity: ").append(item.getQuantity())
-              .append(", Customisations: ").append(item.getCustomisations())
-              .append(" - $").append(String.format("%.2f", item.getItem().getPrice()))
-              .append("\n");
-        }
-        sb.append("Total Amount: $").append(String.format("%.2f", getAmount()));
-        return sb.toString();
-    }
-    
-    public int getOrderID() {
-        return orderID;
+    public Order(int orderId, OrderStatus orderStatus, boolean isDineIn, boolean isCompleted) {
+        this.orderId = orderId;
+        this.isDineIn = isDineIn;
+        this.isCompleted = isCompleted;
+        this.orderStatus = orderStatus;
+        this.items=new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
-    public List<OrderItem> getItems() {
-        return orderItems;
+    public Order(List<MenuItem> items, List<String> comments, boolean isDineIn) {
+        this.orderId =count++;
+        this.items = items;
+        this.comments = new ArrayList<>();
+        this.isDineIn = isDineIn;
+        this.isCompleted = false;
+        this.orderStatus=OrderStatus.New;
     }
 
-    public String getOrderStatus() {
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public List<MenuItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<MenuItem> items) {
+        this.items = items;
+    }
+
+    public boolean isDineIn() {
+        return isDineIn;
+    }
+
+    public void setDineIn(boolean dineIn) {
+        isDineIn = dineIn;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+    // Method to add a MenuItem to the order
+    public void addItem(MenuItem item) {
+        items.add(item);
+    }
+    // Method to add comment to the order
+    public void addComment(String comment) {
+        comments.add(comment);
+    }
+
+    // If no comment
+    public void addComment() {
+        comments.add(" ");
+    }
+
+    public String getComment(int index) {
+        return comments.get(index);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public char getTakeaway() {
-        return takeawayOption;
-    }
-
-    public Boolean getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public float getAmount() {
-        return totalAmount;
-    }
-
-    public long getTime() {
-        return orderTime;
-    }
-
-    public void addItem(MenuItem item, int quantity, String customisations) {
-        for (OrderItem orderItem : orderItems) {
-            if (orderItem.getItem().equals(item)) {
-                orderItem.setQuantity(orderItem.getQuantity() + quantity);
-                orderItem.setCustomisations(customisations);
-                return;
-            }
-        }
-        orderItems.add(new OrderItem(item, quantity, customisations));
-    }
-
-    public void removeItem(MenuItem item, int quantity) {
-        for (OrderItem orderItem : orderItems) {
-            if (orderItem.getItem().equals(item)) {
-                if (orderItem.getQuantity() > quantity) {
-                    orderItem.setQuantity(orderItem.getQuantity() - quantity);
-                } else {
-                    orderItems.remove(orderItem);
-                }
-                return;
-            }
-        }
-    }
-
     public void removeItem(MenuItem item) {
-        for (OrderItem orderItem : orderItems) {
-            if (orderItem.getItem().equals(item)) {
-                orderItems.remove(orderItem);
-                return;
+        items.remove(item);
+    }
+
+    public MenuItem findItemByName(String itemName) {
+        for (MenuItem item : items) {
+            if (item.getName().equals(itemName)) {
+                return item;
             }
         }
+        return null; 
     }
 
-    public char setTakeawayOption(char takeawayOption) {
-        return this.takeawayOption = takeawayOption;
+    public List<MenuItem> findItemsByCategory(String category) {
+        List<MenuItem> foundItems = new ArrayList<>();
+        for (MenuItem item : items) {
+            if (item.getCategory().equals(category)) {
+                foundItems.add(item);
+            }
+        }
+        return foundItems;
     }
 
-    public void setPaymentStatusTrue() {
-        this.paymentStatus = true;
+    public double calculateTotalPrice() {
+        double totalPrice = 0.0;
+        for (MenuItem item : items) {
+            totalPrice += item.getPrice();
+        }
+        return totalPrice;
     }
 
+    public void getComments(){
+
+    }
 }
-

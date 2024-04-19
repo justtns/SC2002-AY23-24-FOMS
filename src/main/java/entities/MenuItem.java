@@ -4,9 +4,9 @@ public class MenuItem {
     private String name;
     private String category;
     private String branch;
-    private Float price;
+    private double price;
 
-    public MenuItem(String name, String category, String branch, Float price) {
+    public MenuItem(String name, String category, String branch, double price) {
         this.name = name;
         this.category = category;
         this.branch = branch;
@@ -25,7 +25,7 @@ public class MenuItem {
         return branch;
     }
 
-    public Float getPrice() {
+    public double getPrice() {
         return price;
     }
 }
