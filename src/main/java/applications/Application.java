@@ -1,5 +1,7 @@
 package main.java.applications;
 
+import main.java.utils.loggers.CustomerSession;
+
 public interface Application {
-    public void execute(String branch, int orderID);
+    public void execute(CustomerSession session);
 }

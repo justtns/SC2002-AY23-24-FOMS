@@ -14,4 +14,13 @@ public class CustomerMenuController {
     public  List<MenuItem> getitems(){
         return menuDAO.getElements();
     }
+
+    public MenuItem findMenuItemByName(String name,String branch, List<MenuItem> menuItems) {
+        for (MenuItem item : menuItems) {
+            if (item.getName().equalsIgnoreCase(name) && item.getBranch().equalsIgnoreCase(branch)) {
+                return item;
+            }
+        }
+        return null;
+   }
 }
