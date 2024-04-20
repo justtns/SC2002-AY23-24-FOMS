@@ -125,7 +125,7 @@ public class OrderDAO implements DAOInterface<Order>{
         }
     }
 
-    private Order findOrderById(int orderId) {
+    public Order findOrderById(int orderId) {
         for (Order order : orderList) {
             if (order.getOrderId() == orderId) {
                 return order;

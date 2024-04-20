@@ -189,6 +189,14 @@ public class MenuDAO implements DAOInterface<MenuItem>{
 
     @Override
     public void addElement(MenuItem element){
+
+        //checking for duplicate
+        if (findElement(element.getName(), element.getBranch()) != null) {
+            System.err.println("Error: A menu item with this name and branch already exists.");
+            return; 
+        }
+        
         menuItemList.add(element);
+        System.out.println("Menu item added successfully.");
     };    
 }
