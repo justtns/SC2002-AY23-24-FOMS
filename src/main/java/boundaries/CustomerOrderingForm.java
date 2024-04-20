@@ -101,6 +101,25 @@ public class CustomerOrderingForm {
         for (MenuItem item : this.customerOrder.getItems()) {
             System.out.println(item.getName() + " - $" + item.getPrice());
         }
+        System.out.println("1. Submit Order");
+        System.out.println("2. Cancel Order");
+        String method;
+        while(true){
+            method=scanner.nextLine();
+            if (method.equalsIgnoreCase("1")){
+                orderDAO.addElement(customerOrder);
+                orderDAO.saveData();
+                return;
+            }
+            else if (method.equalsIgnoreCase("2")){
+                return;
+            }
+            else{
+                System.out.println("Invalid Input.");
+                System.out.println("1. Submit Order");
+                System.out.println("2. Cancel Order");
+            }
+        }
     }
 
     public void getOrderDineIn(){

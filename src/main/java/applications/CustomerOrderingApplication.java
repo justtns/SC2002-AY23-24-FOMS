@@ -8,7 +8,7 @@ public class CustomerOrderingApplication implements Application{
     public void execute(CustomerSession session){
         CustomerOrderingForm orderForm = new CustomerOrderingForm(session);
         orderForm.placeOrder();
-        orderForm.getOrderConfirmation();
         orderForm.getOrderDineIn();
+        orderForm.getOrderConfirmation();
     }
 }
