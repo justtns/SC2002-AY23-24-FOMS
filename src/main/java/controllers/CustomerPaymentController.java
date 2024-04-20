@@ -10,24 +10,8 @@ public class CustomerPaymentController {
     private PaymentService paymentService; 
     private OrderDAO orderDAO;
 
-    public CustomerPaymentController(int orderId, PaymentService paymentService, OrderDAO orderDAO) {
+    public CustomerPaymentController(int orderId) {
         this.orderId = orderId;
-        this.paymentService = paymentService;
-        this.orderDAO = orderDAO;
-    }
-
-    // overloaded method to authenticate payment - online
-    public boolean authenticatePayment(String domain, String email, String password) {
-
-        System.out.println("Payment authenticated for domain: " + domain);
-        return true; 
-    }
-
-    // Ooerloaded method to authenticate payment - credit/debit
-    public boolean authenticatePayment(String bank, int number, String expiry, int cvc) {
-
-        System.out.println("Payment authenticated for bank: " + bank);
-        return true; 
     }
 
     public boolean makePayment() {
@@ -57,7 +41,7 @@ public class CustomerPaymentController {
     public String printReceipt() {
         Order order = orderDAO.findOrderById(orderId);
         if (order != null) {
-            return "Receipt for Order ID: " + orderId + "\n" + order.toString();
+            return "Receipt for Order ID: " + orderId + "\n" + order.toString(); // need to create an order tostring method
         } else {
             System.err.println("Order with ID " + orderId + " not found.");
         }
