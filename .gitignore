@@ -1,1 +1,5 @@
+.gitignore
 .vscode/settings.json
+src/main/.DS_Store
+src/main/resources/.DS_Store
+

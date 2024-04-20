@@ -5,8 +5,13 @@ import main.java.models.MenuItem;
 import main.java.daos.OrderDAO;
 
 public class CustomerOrderController {
+    private OrderDAO orderDAO;
 
-    public Order getCustomerOrder(int orderID){
+    public CustomerOrderController(OrderDAO orderDAO){
+        this.orderDAO = orderDAO;
+    }
+
+    public Order createCustomerOrder(int orderID){
         Order customerOrder = new Order(orderID);
         return customerOrder;
     }
@@ -30,8 +35,9 @@ public class CustomerOrderController {
         return customerOrder;
     }
 
-    public void saveOrder(OrderDAO orderDAO, Order customerOrder){
+    public void saveOrder(Order customerOrder){
         orderDAO.addElement(customerOrder);
+        orderDAO.saveData();
     }
 
     public double getTotal(Order customerOrder){
