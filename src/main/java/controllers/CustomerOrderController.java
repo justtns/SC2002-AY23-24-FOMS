@@ -35,9 +35,17 @@ public class CustomerOrderController {
         return customerOrder;
     }
 
+    public Order findOrder(int orderID){
+        return orderDAO.findOrderById(orderID);
+    }
+
     public void saveOrder(Order customerOrder){
         orderDAO.addElement(customerOrder);
         orderDAO.saveData();
+    }
+
+    public void updateOrder(Order customerOrder){
+        orderDAO.updateElement(orderDAO.findOrderById(customerOrder.getOrderId()), customerOrder);
     }
 
     public double getTotal(Order customerOrder){

@@ -1,7 +1,7 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import main.java.models.MenuItem;
@@ -27,13 +27,54 @@ public class CustomerOrderingForm {
         this.orderId = session.getOrderId();
     }
 
+    public void orderingView(){
+        System.out.print("Thank you for ordering with us.");
+        boolean loop=true;
+            while (loop) {
+                System.out.println("-------------------------------------------------------------------\n" +
+                        "-----------------------------Order Menu---------------------------\n" +
+                        "-------------------------------------------------------------------\n" +
+                        "                         Choose an option:\n" +
+                        "                         1.View Menu\n" +
+                        "                         2.Place Order\n" +
+                        "                         3.Logout\n" +
+                        "---------------------------------------------------------------------\n" +
+                        "\n" +
+                        "Enter your choice (1-3): \n");
+                int choice = -1;
+                try {
+                    choice = Integer.parseInt(scanner.next());
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input...");
+                    continue;
+                }
+
+                switch (choice) {
+                    case 1:
+                        showMenuItems();
+                        break;
+                    case 2:
+                        placeOrder();
+                        getOrderDineIn();
+                        getOrderConfirmation();
+                        break;
+                    case 3:
+                        System.out.println("Logging Out....");
+                        break;
+                    default:
+                        System.out.println("Invalid Key! Enter your choice (1-3)");
+                        break;
+                }
+            }
+    }
+
     public void placeOrder(){
         System.out.println("Placing an Order");
         Order custOrder = orderController.createCustomerOrder(orderId);
         List<MenuItem> selectedItems = menuController.getitems();
         //ordering method
         while(true){
-            String menuItem = getOrderInput(branch, selectedItems);
+            String menuItem = getOrderInput();
             if (menuItem.equalsIgnoreCase("done")) {
                 break;
             }
@@ -49,7 +90,8 @@ public class CustomerOrderingForm {
         }
     }
 
-    private void showMenuItems(String branch, List<MenuItem> menuItems) {
+    private void showMenuItems() {
+        List<MenuItem> menuItems = menuController.getitems();
         System.out.println("Menu Items in " + branch + ":");
         if (menuItems.isEmpty()) {
             System.out.println("No menu items available.");
@@ -63,8 +105,7 @@ public class CustomerOrderingForm {
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
                 System.out.printf("%-20s | %-15s | %-10.2f | %-20s | %-10s | %-50s%n",
-                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(),
-                        item.isAvailable() ? "Yes" : "No");
+                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch());
             }
         }
     }
@@ -84,8 +125,8 @@ public class CustomerOrderingForm {
         return qty;
     }
 
-    private String getOrderInput(String branch, List<MenuItem> menuItems) {
-        showMenuItems(branch, menuItems);
+    private String getOrderInput() {
+        showMenuItems();
         System.out.print("Enter the name of the item to order (type 'done' to finish): ");
         String itemName = scanner.nextLine();
         return itemName;
