@@ -12,16 +12,14 @@ public class Order {
     private boolean isDineIn;
 
     private boolean isCompleted;
-    public static int count=111;
     private OrderStatus orderStatus;
 
+    public Order(int orderId) {
 
-    public Order(boolean isDineIn) {
-
-        this.orderId =count++;
+        this.orderId = orderId;
         this.items=new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.isDineIn = isDineIn;
+        this.isDineIn = false;
         this.isCompleted = false;
 
     }
@@ -33,15 +31,6 @@ public class Order {
         this.orderStatus = orderStatus;
         this.items=new ArrayList<>();
         this.comments = new ArrayList<>();
-    }
-
-    public Order(List<MenuItem> items, List<String> comments, boolean isDineIn) {
-        this.orderId =count++;
-        this.items = items;
-        this.comments = new ArrayList<>();
-        this.isDineIn = isDineIn;
-        this.isCompleted = false;
-        this.orderStatus=OrderStatus.New;
     }
 
     public int getOrderId() {
@@ -97,6 +86,7 @@ public class Order {
     }
 
     public void removeItem(MenuItem item) {
+        comments.remove(items.indexOf(item));
         items.remove(item);
     }
 
