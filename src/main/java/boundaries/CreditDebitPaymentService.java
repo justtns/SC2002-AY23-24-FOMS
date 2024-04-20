@@ -15,11 +15,17 @@ public class CreditDebitPaymentService implements PaymentService {
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
         System.out.println("Enter bank:");
         String bank = scanner.nextLine();
+        
         System.out.println("Enter card number:");
+        @SuppressWarnings("unused")
         String number = scanner.nextLine();
+
         System.out.println("Enter expiry date:");
+        @SuppressWarnings("unused")
         String expiry = scanner.nextLine();
+
         System.out.println("Enter cvc:");
+        @SuppressWarnings("unused")
         String cvc = scanner.nextLine();
 
 

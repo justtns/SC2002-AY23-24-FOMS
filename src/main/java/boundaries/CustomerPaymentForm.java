@@ -2,58 +2,62 @@ package main.java.boundaries;
 
 import java.util.Scanner;
 import main.java.controllers.CustomerPaymentController;
+import main.java.daos.OrderDAO;
 import main.java.utils.loggers.CustomerSession;
 
-
 public class CustomerPaymentForm {
-    private Scanner scanner = new Scanner(System.in);
-    private CustomerPaymentController paymentController;
-    private int orderId;
+    private Scanner scanner;
+    private CustomerSession session;
+    private OrderDAO orderDAO;
+    private CustomerPaymentController paymentController = new CustomerPaymentController(orderDAO);
 
-    public CustomerPaymentForm(CustomerSession session) {
-        this.orderId = session.getOrderId();
-        this.paymentController = new CustomerPaymentController(orderId);
+    public CustomerPaymentForm(CustomerSession session, Scanner scanner) {
+        
+        this.session = session;
+        this.scanner = scanner;
     }
 
     public void promptPaymentMethod() {
         System.out.println("Please select a payment method:");
         System.out.println("1: Online Payment");
         System.out.println("2: Credit/Debit Card Payment");
-    
-        String choice = scanner.nextLine();
-        PaymentService paymentService;
-    
+
+        scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        scanner.nextLine();  
         switch (choice) {
-            case "1":
-                paymentService = new OnlinePaymentService();
+            case 1:
+                handlePayment(new OnlinePaymentService());
                 break;
-            case "2":
-                paymentService = new CreditDebitPaymentService();
+            case 2:
+                handlePayment(new CreditDebitPaymentService());
                 break;
             default:
                 System.out.println("Invalid payment method, please try again.");
                 promptPaymentMethod();
                 return; 
         }
-    
-        if(paymentService != null) {
-            paymentService.simulatePayment();
-            paymentController.makePayment();
+    }
 
+    private void handlePayment(PaymentService paymentService) {
+        if (paymentController.makePayment(session.getOrderId(), paymentService)) {
             System.out.println("Payment successful!");
+            printReceiptOption();
+        } else {
+            System.out.println("Payment failed. Please check the details and try again.");
+        }
+    }
 
-            System.out.println("Would you like a receipt?");
-            System.out.println("1: Yes");
-            System.out.println("2: No");
+    private void printReceiptOption() {
+        System.out.println("Would you like a receipt?");
+        System.out.println("1: Yes");
+        System.out.println("2: No");
 
-            String receiptChoice = scanner.nextLine();
-            if(receiptChoice.equals("1")) {
-                System.out.println(paymentController.printReceipt());
-            }
-
+        int receiptChoice = scanner.nextInt();
+        if (receiptChoice == 1) {
+            System.out.println(paymentController.printReceipt(session.getOrderId()));
+        } else {
             System.out.println("Thank you for your payment!");
-
         }
     }
 }
-

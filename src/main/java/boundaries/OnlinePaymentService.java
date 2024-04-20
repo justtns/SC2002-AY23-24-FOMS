@@ -19,6 +19,7 @@ public class OnlinePaymentService implements PaymentService {
         System.out.println("Enter email:");
         String email = scanner.nextLine();
         System.out.println("Enter password:");
+        @SuppressWarnings("unused")
         String password = scanner.nextLine();
 
         System.out.println("Processing online payment for domain: " + domain + " with email: " + email);
