@@ -13,7 +13,7 @@ public class CustomerSession {
 
     public CustomerSession(){
         int orderNumber = findOrderNumbers();
-        this.orderID = (orderNumber + 1);
+        this.orderID = (orderNumber);
         this.branch = null;
     }
 
@@ -24,11 +24,11 @@ public class CustomerSession {
         try (FileInputStream fis = new FileInputStream(ordersFilePath);
             Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0); 
-            numberOfRows = sheet.getPhysicalNumberOfRows(); 
+            numberOfRows = sheet.getPhysicalNumberOfRows();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println(numberOfRows);
         return numberOfRows;
     }
 

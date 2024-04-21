@@ -4,20 +4,20 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.List;
 
-import main.java.utils.ScannerProvider;
 import main.java.models.Branch;
 import main.java.controllers.CustomerBranchController;
 import main.java.daos.BranchDAO;
 import main.java.utils.loggers.CustomerSession;
 
 public class CustomerBranchSelectionForm {
-    private Scanner scanner = ScannerProvider.getScanner();
+    private Scanner scanner;
     private BranchDAO branchDAO = new BranchDAO();
     private CustomerBranchController branchController = new CustomerBranchController(branchDAO);
     private CustomerSession session;
 
-    public CustomerBranchSelectionForm(CustomerSession session){
+    public CustomerBranchSelectionForm(CustomerSession session, Scanner scanner){
         this.session = session;
+        this.scanner = scanner;
     }
 
     public CustomerSession branchSelectionView(){

@@ -17,7 +17,7 @@ import java.io.FileOutputStream;
 
 
 public class OrderDAO implements DAOInterface<Order>{
-    private  List<Order> orderList;
+    private  List<Order> orderList = new ArrayList<>();
     
     public OrderDAO(){
         readData();
@@ -25,7 +25,6 @@ public class OrderDAO implements DAOInterface<Order>{
 
     @Override
     public void readData() {
-        orderList = new ArrayList<>();
         String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
         File ordersFile = new File(ordersFilePath);
@@ -111,7 +110,7 @@ public class OrderDAO implements DAOInterface<Order>{
                     if (row.getCell(6) != null) {
                         comments = row.getCell(6).getStringCellValue();
                     } else {
-                        comments = "";
+                        comments = " ";
                     }
                     MenuItem item = new MenuItem(name, category, branch, price);
                     currentOrder.addItem(item);
@@ -184,14 +183,16 @@ public class OrderDAO implements DAOInterface<Order>{
     
             int rowIndex = 1;
             for (Order order : orderList) {
-                int i = 0;
-                for (MenuItem item : order.getItems()) {
+                List<MenuItem> itemList = order.getItems();
+                for (int i=0; i<itemList.size(); i++) {
+                    System.out.println(order.getOrderId());
+                    System.out.println(itemList.get(i).getName());
                     Row row = sheet.createRow(rowIndex++);
                     row.createCell(0).setCellValue(order.getOrderId());
-                    row.createCell(1).setCellValue(item.getName());
-                    row.createCell(2).setCellValue(item.getPrice());
-                    row.createCell(3).setCellValue(item.getBranch());
-                    row.createCell(4).setCellValue(item.getCategory());
+                    row.createCell(1).setCellValue(itemList.get(i).getName());
+                    row.createCell(2).setCellValue(itemList.get(i).getPrice());
+                    row.createCell(3).setCellValue(itemList.get(i).getBranch());
+                    row.createCell(4).setCellValue(itemList.get(i).getCategory());
                     row.createCell(5).setCellValue(order.getComment(i));
                     i++;
                 }

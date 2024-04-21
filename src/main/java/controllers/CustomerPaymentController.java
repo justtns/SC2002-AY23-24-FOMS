@@ -3,6 +3,7 @@ package main.java.controllers;
 import main.java.boundaries.PaymentService;
 import main.java.daos.OrderDAO;
 import main.java.models.Order;
+import main.java.utils.ScannerProvider;
 import main.java.utils.types.OrderStatus;
 
 public class CustomerPaymentController {
@@ -13,7 +14,7 @@ public class CustomerPaymentController {
     }
 
     public boolean makePayment(int orderId, PaymentService paymentService) {
-        if (paymentService.simulatePayment()) {
+        if (paymentService.simulatePayment(ScannerProvider.getScanner())) {
             Order order = orderDAO.findOrderById(orderId);
             if (order != null) {
                 order.setOrderStatus(OrderStatus.Paid);

@@ -69,6 +69,9 @@ public class Order {
     }
     public void addComment(String comment) {
         comments.add(comment);
+        if (comment == null){
+            comments.add(" ");
+        }
     }
     public void addComment() {
         comments.add(" ");

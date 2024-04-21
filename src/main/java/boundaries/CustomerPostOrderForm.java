@@ -11,13 +11,14 @@ import main.java.utils.types.OrderStatus;
 import main.java.utils.ScannerProvider;
 
 public class CustomerPostOrderForm {
-    private Scanner scanner = ScannerProvider.getScanner();
+    private Scanner scanner;
     private OrderDAO orderDAO = new OrderDAO();
     private CustomerOrderController orderController = new CustomerOrderController(orderDAO);
     private String branch;
 
-    public CustomerPostOrderForm(CustomerSession session){
+    public CustomerPostOrderForm(CustomerSession session, Scanner scanner){
         this.branch = session.getBranch();
+        this.scanner = scanner;
     }
 
     public void postOrderView(){
@@ -50,6 +51,7 @@ public class CustomerPostOrderForm {
                         pickupOrder();
                         break;
                     case 3:
+                        loop = false;
                         System.out.println("Logging Out....");
                         break;
                     default:

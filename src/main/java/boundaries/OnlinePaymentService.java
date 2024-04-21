@@ -1,6 +1,5 @@
 package main.java.boundaries;
 import java.util.Scanner;
-import main.java.utils.ScannerProvider;
 public class OnlinePaymentService implements PaymentService {
 
 
@@ -8,8 +7,7 @@ public class OnlinePaymentService implements PaymentService {
     private String email;
     private String password;
     @Override
-    public boolean simulatePayment() {
-        Scanner scanner = ScannerProvider.getScanner();
+    public boolean simulatePayment(Scanner scanner) {
         System.out.println("Online Payment Selected - Please enter your payment details");
 
         System.out.println("Enter domain:");

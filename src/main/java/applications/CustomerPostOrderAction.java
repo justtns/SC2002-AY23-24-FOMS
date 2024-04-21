@@ -1,11 +1,13 @@
 package main.java.applications;
 
+import java.util.Scanner;
+
 import main.java.boundaries.CustomerPostOrderForm;
 import main.java.utils.loggers.CustomerSession;
 
 public class CustomerPostOrderAction implements Actions{
-    public void execute(CustomerSession session){
-        CustomerPostOrderForm orderForm = new CustomerPostOrderForm(session);
+    public void execute(CustomerSession session, Scanner scanner){
+        CustomerPostOrderForm orderForm = new CustomerPostOrderForm(session, scanner);
         orderForm.postOrderView();
     }
 }

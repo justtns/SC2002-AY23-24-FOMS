@@ -1,7 +1,6 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
-import main.java.utils.ScannerProvider;
 import main.java.controllers.CustomerPaymentController;
 import main.java.daos.OrderDAO;
 import main.java.utils.loggers.CustomerSession;
@@ -10,21 +9,21 @@ public class CustomerPaymentForm {
     private CustomerSession session;
     private OrderDAO orderDAO;
     private CustomerPaymentController paymentController = new CustomerPaymentController(orderDAO);
+    private Scanner scanner;
 
-    public CustomerPaymentForm(CustomerSession session) {
+    public CustomerPaymentForm(CustomerSession session, Scanner scanner) {
         this.session = session;
+        this.scanner = scanner;
 
     }
     
     public void promptPaymentMethod() {
-        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Please select a payment method:");
         System.out.println("1: Online Payment");
         System.out.println("2: Credit/Debit Card Payment");
 
 
         int choice = scanner.nextInt();
-        scanner.nextLine();  
         switch (choice) {
             case 1:
                 handlePayment(new OnlinePaymentService());
@@ -49,7 +48,6 @@ public class CustomerPaymentForm {
     }
 
     private void printReceiptOption() {
-        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Would you like a receipt?");
         System.out.println("1: Yes");
         System.out.println("2: No");

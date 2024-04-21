@@ -22,14 +22,15 @@ public class CustomerOrderingForm {
     private String branch;
     private int orderId;
     private Order customerOrder;
+    private Scanner scanner;
 
-    public CustomerOrderingForm(CustomerSession session){
+    public CustomerOrderingForm(CustomerSession session, Scanner scanner){
         this.branch = session.getBranch();
         this.orderId = session.getOrderId();
+        this.scanner = scanner;
     }
 
     public void orderingView(){
-        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         int choice;
@@ -54,52 +55,89 @@ public class CustomerOrderingForm {
 
                 switch (choice) {
                     case 1:
+                        scanner.nextLine();
                         showMenuItems();
                         break;
                     case 2:
-                        placeOrder();
+                        System.out.println("Placing an Order");
+                        Order custOrder = orderController.createCustomerOrder(orderId);
+                        custOrder.setOrderStatus(OrderStatus.New);
+                        List<MenuItem> selectedItems = menuController.getitems();
+                        //ordering method
+                        while(true){
+                            scanner.nextLine();
+                            showMenuItems();
+                            System.out.print("Enter the name of the item to order (type 'done' to finish): ");
+                            String itemName = scanner.nextLine();
+                            if (itemName.equalsIgnoreCase("done")) {
+                                break;
+                            }
+                            MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
+                            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
+                                printInvalidItem();
+                                continue;
+                            }
+                            String comment = getComment();
+                            int quantity = getQty();
+                            custOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
+                            this.customerOrder = custOrder;
+                        }
                         if (customerOrder.getItems().isEmpty()){
                             System.out.println("Order is Empty! Returning to Homescreen...");
                             loop = false;
                             break;
                         }
-                        getOrderDineIn();
-                        getOrderConfirmation();
+                        if (this.customerOrder.getItems().isEmpty()) {
+                            System.out.println("No items selected. Order canceled.");
+                            break;
+                        }
+                        System.out.println("1.Take Away\t2.Dine-in");
+                        int method=scanner.nextInt();
+                        boolean m=method==2?true:false;
+                        this.customerOrder.setDineIn(m);
+
+                        if (this.customerOrder.getItems().isEmpty()) {
+                            System.out.println("No items selected. Order canceled.");
+                            break;
+                        }
+                        
+                        System.out.println("You have selected the following items:");
+                        for (MenuItem item : this.customerOrder.getItems()) {
+                            System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
+                        }
+                        System.out.println("1. Submit Order");
+                        System.out.println("2. Cancel Order");
+
+                        while(true){
+                            method=scanner.nextInt();
+                            if (method == 1){
+                                orderDAO.addElement(customerOrder);
+                                System.out.println("Thank you for your order. Please proceed to make payment...");
+                                orderDAO.saveData();
+                                break;
+                            }
+                            else if (method == 2){
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid Input.");
+                            }
+                        }
+
                         loop = false;
                         break;
                     case 3:
+                        scanner.nextLine();
                         System.out.println("Returning to Homescreen...");
                         loop = false;
                         break;
                     default:
+                        scanner.nextLine();
                         System.out.println("Invalid Key! Enter your choice (1-3)");
                         break;
                 }
             }
         }
-
-    public void placeOrder(){
-        System.out.println("Placing an Order");
-        Order custOrder = orderController.createCustomerOrder(orderId);
-        custOrder.setOrderStatus(OrderStatus.New);
-        List<MenuItem> selectedItems = menuController.getitems();
-        //ordering method
-        while(true){
-            String menuItem = getOrderInput();
-            if (menuItem.equalsIgnoreCase("done")) {
-                break;
-            }
-            MenuItem selectedItem = menuController.findMenuItemByName(menuItem, branch, selectedItems);
-            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
-                printInvalidItem();
-                continue;
-            }
-            String comment = getComment();
-            int quantity = getQty();
-            custOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
-            this.customerOrder = custOrder;
-        }
-    }
 
     private void showMenuItems() {
         List<MenuItem> menuItems = menuController.getitems();
@@ -125,7 +163,6 @@ public class CustomerOrderingForm {
     }
 
     private String getComment(){
-        Scanner scanner = ScannerProvider.getScanner();
         System.out.print("Enter the item's special requests: ");
         String comments = scanner.nextLine();
         if (comments == null){
@@ -135,61 +172,8 @@ public class CustomerOrderingForm {
     }
 
     private int getQty(){
-        Scanner scanner = ScannerProvider.getScanner();
         System.out.print("Enter the number of items: ");
         int qty = scanner.nextInt();
         return qty;
-    }
-
-    private String getOrderInput() {
-        Scanner scanner = ScannerProvider.getScanner();
-        showMenuItems();
-        System.out.print("Enter the name of the item to order (type 'done' to finish): ");
-        String itemName = scanner.nextLine();
-        return itemName;
-    }
-
-    public void getOrderConfirmation(){
-        Scanner scanner = ScannerProvider.getScanner();
-        if (this.customerOrder.getItems().isEmpty()) {
-            System.out.println("No items selected. Order canceled.");
-            return;
-        }
-        
-        System.out.println("You have selected the following items:");
-        for (MenuItem item : this.customerOrder.getItems()) {
-            System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-        }
-        System.out.println("1. Submit Order");
-        System.out.println("2. Cancel Order");
-        String method;
-        while(true){
-            method=scanner.nextLine();
-            if (method.equalsIgnoreCase("1")){
-                orderDAO.addElement(customerOrder);
-                orderDAO.saveData();
-                return;
-            }
-            else if (method.equalsIgnoreCase("2")){
-                return;
-            }
-            else{
-                System.out.println("Invalid Input.");
-                System.out.println("1. Submit Order");
-                System.out.println("2. Cancel Order");
-            }
-        }
-    }
-
-    public void getOrderDineIn(){
-        if (this.customerOrder.getItems().isEmpty()) {
-            System.out.println("No items selected. Order canceled.");
-            return;
-        }
-        Scanner scanner = ScannerProvider.getScanner();
-        System.out.println("1.Take Away\t2.Dine-in");
-        int method=scanner.nextInt();
-        boolean m=method==2?true:false;
-        this.customerOrder.setDineIn(m);
     }
 }
