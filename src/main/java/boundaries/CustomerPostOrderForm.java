@@ -8,7 +8,6 @@ import java.util.Scanner;
 import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
 import main.java.utils.types.OrderStatus;
-import main.java.utils.ScannerProvider;
 
 public class CustomerPostOrderForm {
     private Scanner scanner;
@@ -91,6 +90,7 @@ public class CustomerPostOrderForm {
             if(order.getOrderStatus()== OrderStatus.Ready) {
                 System.out.println("1.Pickup\t2.Not yet");
                 int c = scanner.nextInt();
+                scanner.nextLine();
                 if (c == 1) {
                     order.setOrderStatus(OrderStatus.Completed);
                     order.setCompleted(true);
