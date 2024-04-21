@@ -17,13 +17,13 @@ public class StaffOrderController {
 
     }
 
-    public void viewParticularOrder(int orderID){
+    public Order viewParticularOrder(int orderID){
         return orderDAO.findOrderById(orderID);
     }
 
     public void processOrder(int orderID){
         Order newOrder = orderDAO.findOrderById(orderID);
-        newOrder.setOrderStatus(Ready);
+        newOrder.setOrderStatus(OrderStatus.Ready);
         orderDAO.updateElement(orderDAO.findOrderById(orderID), newOrder);
     }
 }
