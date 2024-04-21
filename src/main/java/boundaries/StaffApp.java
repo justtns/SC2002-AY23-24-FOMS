@@ -1,18 +1,20 @@
 package main.java.boundaries;
 
-import main.java.utils.types.Role;
-import main.java.utils.types.staffRole;
+import main.java.utils.types.LoginRole;
+import main.java.utils.types.StaffRole;
 
 public class StaffApp implements AppDisplay {
     private Role loginRole;
     private staffRole staffRole;
 
     @Override
-    public Role enterRole() {
-        // undone
+    public void enterRole(LoginRole role) {
+        this.loginRole = role;
     }
 
     public void executeLogin() {
-        // undone
+        StaffLogin staffLogin = new StaffLogin();
+
+
     }
 }

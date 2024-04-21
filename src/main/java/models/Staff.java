@@ -1,19 +1,19 @@
 package main.java.models;
 
-import main.java.utils.types.Role;
+import main.java.utils.types.StaffRole;
 
 public class Staff {
 
     private String name;
     private String loginID;
     private String password;
-    private Role role;
+    private StaffRole role;
     private String gender;
     private int age;
     private String branch;
     private static int count=0;
 
-    public Staff(String name,String loginId,  String password, Role role, String gender, int age, String branch) {
+    public Staff(String name,String loginId,  String password, StaffRole role, String gender, int age, String branch) {
         this.name = name;
         this.password = password;
         this.loginID=loginId;
@@ -24,7 +24,7 @@ public class Staff {
 
     }
 
-    public Staff(String name,  String password, Role role, String gender, int age, String branch) {
+    public Staff(String name,  String password, StaffRole role, String gender, int age, String branch) {
         this.name = name;
         this.password = password;
         this.role = role;
@@ -58,11 +58,11 @@ public class Staff {
         this.password = password;
     }
 
-    public Role getRole() {
+    public StaffRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(StaffRole role) {
         this.role = role;
     }
 
