@@ -1,20 +1,29 @@
 package main.java.boundaries;
 
-import java.util.Scanner;
-import main.java.utils.ScannerProvider;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
-import main.java.models.MenuItem;
 import main.java.controllers.CustomerMenuController;
 import main.java.controllers.CustomerOrderController;
 import main.java.daos.MenuDAO;
 import main.java.daos.OrderDAO;
+import main.java.models.MenuItem;
 import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
 import main.java.utils.types.OrderStatus;
 
 public class CustomerOrderingForm {
+    // Input validation is added for all user inputs using try-catch blocks and loops to ensure that only valid inputs are accepted.
+    // Error messages are displayed for invalid inputs to guide the user.
+
+    //User Inputs
+    // Choice in the main ordering menu (1, 2, or 3).
+    // Item name when placing an order.
+    // Number of items when specifying the quantity.
+    // Choice for take away or dine-in (1 or 2).
+    // Choice for submitting or canceling the order (1 or 2).
+
     private OrderDAO orderDAO = new OrderDAO();
     private MenuDAO menuDAO = new MenuDAO();
     private CustomerOrderController orderController = new CustomerOrderController(orderDAO);
@@ -34,110 +43,119 @@ public class CustomerOrderingForm {
         System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         int choice;
-            while (loop) {
-                System.out.println("-------------------------------------------------------------------\n" +
-                        "-----------------------------Order Menu---------------------------\n" +
-                        "-------------------------------------------------------------------\n" +
-                        "                         Choose an option:\n" +
-                        "                         1.View Menu\n" +
-                        "                         2.Place Order\n" +
-                        "                         3.Go to Homescreen\n" +
-                        "---------------------------------------------------------------------\n" +
-                        "\n" +
-                        "Enter your choice (1-3): \n");
-                choice = -1;
-                try {
-                    choice = Integer.parseInt(scanner.next());
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid Input...");
-                    continue;
-                }
+        while (loop) {
+            System.out.println("-------------------------------------------------------------------\n" +
+                    "-----------------------------Order Menu---------------------------\n" +
+                    "-------------------------------------------------------------------\n" +
+                    "                         Choose an option:\n" +
+                    "                         1.View Menu\n" +
+                    "                         2.Place Order\n" +
+                    "                         3.Go to Homescreen\n" +
+                    "---------------------------------------------------------------------\n" +
+                    "\n" +
+                    "Enter your choice (1-3): \n");
+            choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.next());
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
+                continue;
+            }
 
-                switch (choice) {
-                    case 1:
-                        scanner.nextLine();
-                        showMenuItems();
-                        break;
-                    case 2:
-                        System.out.println("Placing an Order");
-                        Order custOrder = orderController.createCustomerOrder(orderId);
-                        custOrder.setOrderStatus(OrderStatus.New);
-                        List<MenuItem> selectedItems = menuController.getitems();
-                        //ordering method
-                        while(true){
-                            scanner.nextLine();
-                            showMenuItems();
-                            System.out.print("Enter the name of the item to order (type 'done' to finish): ");
-                            String itemName = scanner.nextLine();
-                            if (itemName.equalsIgnoreCase("done")) {
-                                break;
-                            }
-                            MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
-                            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
-                                printInvalidItem();
-                                continue;
-                            }
-                            String comment = getComment();
-                            int quantity = getQty();
-                            custOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
-                            this.customerOrder = custOrder;
-                        }
-                        if (customerOrder.getItems().isEmpty()){
-                            System.out.println("Order is Empty! Returning to Homescreen...");
-                            loop = false;
-                            break;
-                        }
-                        if (this.customerOrder.getItems().isEmpty()) {
-                            System.out.println("No items selected. Order canceled.");
-                            break;
-                        }
-                        System.out.println("1.Take Away\t2.Dine-in");
-                        int method=scanner.nextInt();
-                        boolean m=method==2?true:false;
-                        this.customerOrder.setDineIn(m);
-
-                        if (this.customerOrder.getItems().isEmpty()) {
-                            System.out.println("No items selected. Order canceled.");
-                            break;
-                        }
-                        
-                        System.out.println("You have selected the following items:");
-                        for (MenuItem item : this.customerOrder.getItems()) {
-                            System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-                        }
-                        System.out.println("1. Submit Order");
-                        System.out.println("2. Cancel Order");
-
-                        while(true){
-                            method=scanner.nextInt();
-                            if (method == 1){
-                                orderDAO.addElement(customerOrder);
-                                System.out.println("Thank you for your order. Please proceed to make payment...");
-                                orderDAO.saveData();
-                                break;
-                            }
-                            else if (method == 2){
-                                break;
-                            }
-                            else{
-                                System.out.println("Invalid Input.");
-                            }
-                        }
-
-                        loop = false;
-                        break;
-                    case 3:
-                        scanner.nextLine();
-                        System.out.println("Returning to Homescreen...");
-                        loop = false;
-                        break;
-                    default:
-                        scanner.nextLine();
-                        System.out.println("Invalid Key! Enter your choice (1-3)");
-                        break;
-                }
+            switch (choice) {
+                case 1:
+                    scanner.nextLine(); // Consume the newline character
+                    showMenuItems();
+                    break;
+                case 2:
+                    placeOrder();
+                    loop = false;
+                    break;
+                case 3:
+                    scanner.nextLine(); // Consume the newline character
+                    System.out.println("Returning to Homescreen...");
+                    loop = false;
+                    break;
+                default:
+                    scanner.nextLine(); // Consume the newline character
+                    System.out.println("Invalid Key! Enter your choice (1-3)");
+                    break;
             }
         }
+    }
+
+    private void placeOrder() {
+        System.out.println("Placing an Order");
+        Order custOrder = orderController.createCustomerOrder(orderId);
+        custOrder.setOrderStatus(OrderStatus.New);
+        List<MenuItem> selectedItems = menuController.getitems();
+        
+        while (true) {
+            showMenuItems();
+            System.out.print("Enter the name of the item to order (type 'done' to finish): ");
+            String itemName = scanner.nextLine();
+            if (itemName.equalsIgnoreCase("done")) {
+                break;
+            }
+            MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
+            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
+                printInvalidItem();
+                continue;
+            }
+            String comment = getComment();
+            int quantity = getQty();
+            custOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
+            this.customerOrder = custOrder;
+        }
+        
+        if (customerOrder.getItems().isEmpty()) {
+            System.out.println("Order is Empty! Returning to Homescreen...");
+            return;
+        }
+
+        System.out.println("1.Take Away\t2.Dine-in");
+        int method = -1;
+        while (method != 1 && method != 2) {
+            System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
+            try {
+                method = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+                if (method != 1 && method != 2) {
+                    System.out.println("Invalid Input. Please enter 1 or 2.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
+        
+        boolean m = method == 2;
+        this.customerOrder.setDineIn(m);
+
+        System.out.println("You have selected the following items:");
+        for (MenuItem item : this.customerOrder.getItems()) {
+            System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
+        }
+        System.out.println("1. Submit Order");
+        System.out.println("2. Cancel Order");
+
+        while (true) {
+            try {
+                method = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+                if (method == 1) {
+                    orderDAO.addElement(customerOrder);
+                    System.out.println("Thank you for your order. Please proceed to make payment...");
+                    orderDAO.saveData();
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
+    }
 
     private void showMenuItems() {
         List<MenuItem> menuItems = menuController.getitems();
@@ -147,22 +165,23 @@ public class CustomerOrderingForm {
             return;
         }
         // Print table header
-        System.out.printf("%-20s | %-15s | %-10s | %-20s",
+        System.out.printf("%-20s | %-15s | %-10s | %-20s%n",
                 "Name", "Category", "Price ($)", "Branch");
         System.out.println("------------------------------------------------------------------------------------------");
         // Print menu items
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
-                System.out.printf("%-20s | %-15s | %-10.2f | %-20s %n",
+                System.out.printf("%-20s | %-15s | %-10.2f | %-20s%n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch());
             }
         }
     }
-    private void printInvalidItem(){
+
+    private void printInvalidItem() {
         System.out.println("Invalid item or not available in this branch. Please try again.");
     }
 
-    private String getComment(){
+    private String getComment() {
         System.out.print("Enter the item's special requests: ");
         String comments = scanner.nextLine();
         if (comments == null){
@@ -171,9 +190,21 @@ public class CustomerOrderingForm {
         return comments;
     }
 
-    private int getQty(){
-        System.out.print("Enter the number of items: ");
-        int qty = scanner.nextInt();
+    private int getQty() {
+        int qty = -1;
+        while (qty <= 0) {
+            try {
+                System.out.print("Enter the number of items: ");
+                qty = scanner.nextInt();
+                if (qty <= 0) {
+                    System.out.println("Invalid Input. Please enter a positive number.");
+                }
+            } 
+            catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
         return qty;
     }
 }

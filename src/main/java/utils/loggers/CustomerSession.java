@@ -28,7 +28,6 @@ public class CustomerSession {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(numberOfRows);
         return numberOfRows;
     }
 

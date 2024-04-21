@@ -1,15 +1,17 @@
 package main.java.boundaries;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
-import java.util.List;
-
-import main.java.models.Branch;
 import main.java.controllers.CustomerBranchController;
 import main.java.daos.BranchDAO;
+import main.java.models.Branch;
 import main.java.utils.loggers.CustomerSession;
 
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 public class CustomerBranchSelectionForm {
+    // input: Branch selection: The user selects a branch by entering the corresponding number.
+
     private Scanner scanner;
     private BranchDAO branchDAO = new BranchDAO();
     private CustomerBranchController branchController = new CustomerBranchController(branchDAO);
@@ -34,6 +36,7 @@ public class CustomerBranchSelectionForm {
                 choice = Integer.parseInt(scanner.next());
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input...");
+                scanner.nextLine(); // Consume invalid input
                 continue;
             }
             if (choice < 0 || choice >= branches.size()) {
