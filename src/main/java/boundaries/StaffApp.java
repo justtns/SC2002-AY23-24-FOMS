@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class StaffApp implements AppDisplay {
     Scanner scanner = new Scanner(System.in);
-    private Role loginRole;
+    private StaffRole loginRole;
     private StaffRole staffRole;
     private StaffLogin staffLogin;
     private StaffAuthenticationController authController;
