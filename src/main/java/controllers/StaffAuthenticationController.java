@@ -1,21 +1,36 @@
     package main.java.controllers;
 
     import main.java.models.Staff;
+    import main.java.daos.StaffDAO;
 
     public class StaffAuthenticationController {
+        private StaffDAO staffDAO;
 
-        public boolean authenticateUsername(String username, Staff staff) {
-            return staff.getLoginID().equals(username);
+        public StaffAuthenticationController(StaffDAO staffDAO) {
+            this.staffDAO = staffDAO;
         }
 
-        public boolean authenticatePassword(String password, Staff staff) {
-            return staff.getPassword().equals(password);
+        public boolean authenticateUsername(String username) {
+            Staff staff = staffDAO.findElement(username);
+            return staff != null;
         }
 
-        public boolean updatePassword(Staff staff, String oldPassword, String newPassword) {
-            if (authenticatePassword(oldPassword, staff)) {
-                staff.setPassword(newPassword);
-                return true;
+        public boolean authenticatePassword(String username, String password) {
+            Staff staff = staffDAO.findElement(username);
+            if (staff != null) {
+                return staff.getPassword().equals(password);
+            }
+            return false;
+        }
+
+        public boolean updatePassword(String username, String oldPassword, String newPassword) {
+            if (authenticatePassword(username, oldPassword)) {
+                Staff staff = staffDAO.findElement(username);
+                if (staff != null) {
+                    staff.setPassword(newPassword);
+                    staffDAO.updateElement(staff, staff);
+                    return true;
+                }
             }
             return false;
         }
