@@ -17,7 +17,7 @@ import java.io.FileOutputStream;
 
 
 public class OrderDAO implements DAOInterface<Order>{
-    private  List<Order> orderList = new ArrayList<>();
+    private  List<Order> orderList;
     
     public OrderDAO(){
         readData();

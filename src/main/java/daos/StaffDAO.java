@@ -140,7 +140,7 @@ public class StaffDAO implements DAOInterface<Staff>{
                 row.createCell(0).setCellValue(member.getName());
                 row.createCell(1).setCellValue(member.getLoginID());
                 row.createCell(2).setCellValue(member.getPassword());
-                row.createCell(3).setCellValue(getRoleString(member.getRole()));
+                row.createCell(3).setCellValue((member.getRole().toString()));
                 row.createCell(4).setCellValue(member.getGender());
                 row.createCell(5).setCellValue(member.getAge());
                 row.createCell(6).setCellValue(member.getBranch());

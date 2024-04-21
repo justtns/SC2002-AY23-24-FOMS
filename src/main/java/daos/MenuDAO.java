@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 
 public class MenuDAO implements DAOInterface<MenuItem>{
-    private List<MenuItem> menuItemList = new ArrayList<>();
+    private List<MenuItem> menuItemList;
     
     public MenuDAO(){
         readData();
