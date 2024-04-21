@@ -6,23 +6,22 @@ import main.java.daos.OrderDAO;
 import main.java.utils.loggers.CustomerSession;
 
 public class CustomerPaymentForm {
-    private Scanner scanner;
     private CustomerSession session;
     private OrderDAO orderDAO;
     private CustomerPaymentController paymentController = new CustomerPaymentController(orderDAO);
 
-    public CustomerPaymentForm(CustomerSession session, Scanner scanner) {
-        
+    public CustomerPaymentForm(CustomerSession session) {
         this.session = session;
-        this.scanner = scanner;
-    }
 
+    }
+    Scanner scanner = new Scanner(System.in);
+    
     public void promptPaymentMethod() {
         System.out.println("Please select a payment method:");
         System.out.println("1: Online Payment");
         System.out.println("2: Credit/Debit Card Payment");
 
-        scanner = new Scanner(System.in);
+
         int choice = scanner.nextInt();
         scanner.nextLine();  
         switch (choice) {

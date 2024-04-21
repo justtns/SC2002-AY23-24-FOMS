@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class CreditDebitPaymentService implements PaymentService {
 
     private Scanner scanner;
+    private String bank;
+    private String number;
+    private String expiry;
+    private String cvc;
 
     public CreditDebitPaymentService() {
         this.scanner = new Scanner(System.in);
@@ -15,7 +19,7 @@ public class CreditDebitPaymentService implements PaymentService {
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
         System.out.println("Enter bank:");
         String bank = scanner.nextLine();
-        
+
         System.out.println("Enter card number:");
         @SuppressWarnings("unused")
         String number = scanner.nextLine();
@@ -29,9 +33,26 @@ public class CreditDebitPaymentService implements PaymentService {
         String cvc = scanner.nextLine();
 
 
-        System.out.println("Processing credit/debit card payment for bank: " + bank);
+        if (authenticatePayment()) {
+            System.out.println("Processing credit/debit card payment for bank: " + bank);
+            return true; 
+        } else {
+            System.out.println("Payment authentication failed.");
+            return false;
+        }
+    }
 
-        return true; 
+    @Override
+    public boolean authenticatePayment() {
+        System.out.println("Authenticating payment...");
+
+        // check if all fields are filled
+        if (bank.isEmpty() || number.isEmpty() || expiry.isEmpty() || cvc.isEmpty()) {
+            System.out.println("Please fill in all fields.");
+            return false;
+        }
+
+        return true;
     }
 }
 
