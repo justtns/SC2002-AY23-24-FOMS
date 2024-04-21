@@ -1,5 +1,6 @@
 package main.java.boundaries;
 import java.util.Scanner;
+import main.java.utils.ScannerProvider;
 
 public class CreditDebitPaymentService implements PaymentService {
 
@@ -10,7 +11,7 @@ public class CreditDebitPaymentService implements PaymentService {
 
     @Override
     public boolean simulatePayment() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
         System.out.println("Enter bank:");
         String bank = scanner.nextLine();
@@ -39,7 +40,7 @@ public class CreditDebitPaymentService implements PaymentService {
 
     @Override
     public boolean authenticatePayment() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Authenticating payment...");
 
         // check if all fields are filled

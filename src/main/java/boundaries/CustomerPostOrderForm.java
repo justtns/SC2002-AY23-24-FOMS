@@ -8,9 +8,10 @@ import java.util.Scanner;
 import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
 import main.java.utils.types.OrderStatus;
+import main.java.utils.ScannerProvider;
 
 public class CustomerPostOrderForm {
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = ScannerProvider.getScanner();
     private OrderDAO orderDAO = new OrderDAO();
     private CustomerOrderController orderController = new CustomerOrderController(orderDAO);
     private String branch;
