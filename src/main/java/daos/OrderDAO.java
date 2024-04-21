@@ -107,7 +107,12 @@ public class OrderDAO implements DAOInterface<Order>{
                     double price = row.getCell(2).getNumericCellValue();
                     String branch = row.getCell(3).getStringCellValue();
                     String category = row.getCell(4).getStringCellValue();
-                    String comments = row.getCell(6).getStringCellValue();
+                    String comments;
+                    if (row.getCell(6) != null) {
+                        comments = row.getCell(6).getStringCellValue();
+                    } else {
+                        comments = "";
+                    }
                     MenuItem item = new MenuItem(name, category, branch, price);
                     currentOrder.addItem(item);
                     for (Order order: orderList)

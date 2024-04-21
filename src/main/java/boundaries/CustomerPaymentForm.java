@@ -1,6 +1,7 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
+import main.java.utils.ScannerProvider;
 import main.java.controllers.CustomerPaymentController;
 import main.java.daos.OrderDAO;
 import main.java.utils.loggers.CustomerSession;
@@ -14,9 +15,9 @@ public class CustomerPaymentForm {
         this.session = session;
 
     }
-    Scanner scanner = new Scanner(System.in);
     
     public void promptPaymentMethod() {
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Please select a payment method:");
         System.out.println("1: Online Payment");
         System.out.println("2: Credit/Debit Card Payment");
@@ -48,6 +49,7 @@ public class CustomerPaymentForm {
     }
 
     private void printReceiptOption() {
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Would you like a receipt?");
         System.out.println("1: Yes");
         System.out.println("2: No");

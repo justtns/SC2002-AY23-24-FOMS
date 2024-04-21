@@ -1,6 +1,7 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
+import main.java.utils.ScannerProvider;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class CustomerOrderingForm {
     }
 
     public void orderingView(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         int choice;
@@ -64,6 +65,7 @@ public class CustomerOrderingForm {
                         }
                         getOrderDineIn();
                         getOrderConfirmation();
+                        loop = false;
                         break;
                     case 3:
                         System.out.println("Returning to Homescreen...");
@@ -74,7 +76,6 @@ public class CustomerOrderingForm {
                         break;
                 }
             }
-        scanner.close();
         }
 
     public void placeOrder(){
@@ -124,21 +125,24 @@ public class CustomerOrderingForm {
     }
 
     private String getComment(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.print("Enter the item's special requests: ");
         String comments = scanner.nextLine();
+        if (comments == null){
+            comments = " ";
+        }
         return comments;
     }
 
     private int getQty(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.print("Enter the number of items: ");
         int qty = scanner.nextInt();
         return qty;
     }
 
     private String getOrderInput() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         showMenuItems();
         System.out.print("Enter the name of the item to order (type 'done' to finish): ");
         String itemName = scanner.nextLine();
@@ -146,7 +150,7 @@ public class CustomerOrderingForm {
     }
 
     public void getOrderConfirmation(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         if (this.customerOrder.getItems().isEmpty()) {
             System.out.println("No items selected. Order canceled.");
             return;
@@ -182,7 +186,7 @@ public class CustomerOrderingForm {
             System.out.println("No items selected. Order canceled.");
             return;
         }
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         System.out.println("1.Take Away\t2.Dine-in");
         int method=scanner.nextInt();
         boolean m=method==2?true:false;

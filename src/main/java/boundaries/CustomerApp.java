@@ -1,6 +1,7 @@
 package main.java.boundaries;
 
 import main.java.utils.loggers.CustomerSession;
+import main.java.utils.ScannerProvider;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import main.java.applications.Actions;
@@ -15,7 +16,7 @@ public class CustomerApp {
         CustomerSession session = new CustomerSession();
         CustomerBranchSelectionForm selectBranch = new CustomerBranchSelectionForm(session);
         session = selectBranch.branchSelectionView();
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerProvider.getScanner();
         Actions action;
         Boolean loop=true;
         System.out.println("-------------------------------------------------------------------\n" +
@@ -58,7 +59,7 @@ public class CustomerApp {
                 System.out.println("Invalid Input. Please enter (1-3)");
                     break;
             }
-            scanner.close();
+            ScannerProvider.closeScanner();
         }
         
     }

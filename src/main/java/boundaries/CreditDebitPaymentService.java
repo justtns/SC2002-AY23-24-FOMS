@@ -3,19 +3,14 @@ import java.util.Scanner;
 
 public class CreditDebitPaymentService implements PaymentService {
 
-    private Scanner scanner;
     private String bank;
     private String number;
     private String expiry;
     private String cvc;
 
-    public CreditDebitPaymentService() {
-        this.scanner = new Scanner(System.in);
-    }
-
     @Override
     public boolean simulatePayment() {
-
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
         System.out.println("Enter bank:");
         String bank = scanner.nextLine();
@@ -44,6 +39,7 @@ public class CreditDebitPaymentService implements PaymentService {
 
     @Override
     public boolean authenticatePayment() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Authenticating payment...");
 
         // check if all fields are filled
