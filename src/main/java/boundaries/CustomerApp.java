@@ -1,13 +1,13 @@
 package main.java.boundaries;
 
 import main.java.utils.loggers.CustomerSession;
+import main.java.actions.Actions;
+import main.java.actions.CustomerOrderingAction;
+import main.java.actions.CustomerPaymentAction;
+import main.java.actions.CustomerPostOrderAction;
 import main.java.utils.ScannerProvider;
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import main.java.applications.Actions;
-import main.java.applications.CustomerOrderingAction;
-import main.java.applications.CustomerPaymentAction;
-import main.java.applications.CustomerPostOrderAction;
 
 
 
