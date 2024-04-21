@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 import main.java.models.Admin;
 import main.java.models.BranchManager;
 import main.java.models.Staff;
-import main.java.utils.types.Role;
+import main.java.utils.types.StaffRole;
 
 public class StaffDAO implements DAOInterface<Staff>{
     private List<Staff> staffList=new ArrayList<>();
@@ -77,19 +77,19 @@ public class StaffDAO implements DAOInterface<Staff>{
                     branch = row.getCell(6).getStringCellValue();
                 }
     
-                Role role;
+                StaffRole role;
                 switch (roleString) {
                     case "S":
-                        role = Role.Staff;
+                        role = StaffRole.Staff;
                         break;
                     case "M":
-                        role = Role.Manager;
+                        role = StaffRole.Manager;
                         break;
                     case "A":
-                        role = Role.Admin;
+                        role = StaffRole.Admin;
                         break;
                     default:
-                        role = Role.Staff; // Default to Staff if role is undefined
+                        role = StaffRole.Staff; // Default to Staff if role is undefined
                         break;
                 }
     
@@ -154,7 +154,7 @@ public class StaffDAO implements DAOInterface<Staff>{
         }
     }
     
-    private String getRoleString(Role role) {
+    private String getRoleString(StaffRole role) {
         switch (role) {
             case Staff:
                 return "S";
