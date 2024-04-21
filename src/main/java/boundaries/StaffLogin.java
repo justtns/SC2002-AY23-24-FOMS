@@ -6,18 +6,21 @@ import main.java.models.Staff;
 
 public class StaffLogin {   
     public StaffRole staffRole;
+    private StaffAuthenticationController authController = new StaffAuthenticationController(staffDAO);
     private String password;
     private String username;
 
     public boolean enterUsername(String username) {
-        
+        this.username = username;
+        return authController.authenticateUsername(username);
     }
 
     public boolean enterPassword(String password) {
-        
+        this.password = password;
+        return authController.authenticatePassword(username, password);
     }
 
     public boolean changePassword(String oldPassword, String newPassword) {
-        
+        return authController.updatePassword(username, oldPassword, newPassword);
     }
 }
