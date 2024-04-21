@@ -26,7 +26,7 @@ public class OrderDAO implements DAOInterface<Order>{
     @Override
     public void readData() {
         orderList = new ArrayList<>();
-        String ordersFilePath = "src/main/resources/xlsx/orders_list.xlsx";
+        String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
         File ordersFile = new File(ordersFilePath);
         if (!ordersFile.exists()) {
@@ -136,7 +136,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
     @Override
     public void saveData(){
-        String ordersFilePath = "src/main/resources/xlsx/orders_list.xlsx";
+        String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
     
         // Writing orders to orders_list.xlsx

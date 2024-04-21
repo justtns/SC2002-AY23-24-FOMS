@@ -11,9 +11,9 @@ import main.java.daos.MenuDAO;
 import main.java.daos.OrderDAO;
 import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
+import main.java.utils.types.OrderStatus;
 
 public class CustomerOrderingForm {
-    private Scanner scanner = new Scanner(System.in);
     private OrderDAO orderDAO = new OrderDAO();
     private MenuDAO menuDAO = new MenuDAO();
     private CustomerOrderController orderController = new CustomerOrderController(orderDAO);
@@ -28,7 +28,8 @@ public class CustomerOrderingForm {
     }
 
     public void orderingView(){
-        System.out.print("Thank you for ordering with us.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         int choice;
             while (loop) {
@@ -38,7 +39,7 @@ public class CustomerOrderingForm {
                         "                         Choose an option:\n" +
                         "                         1.View Menu\n" +
                         "                         2.Place Order\n" +
-                        "                         3.Logout\n" +
+                        "                         3.Go to Homescreen\n" +
                         "---------------------------------------------------------------------\n" +
                         "\n" +
                         "Enter your choice (1-3): \n");
@@ -56,22 +57,30 @@ public class CustomerOrderingForm {
                         break;
                     case 2:
                         placeOrder();
+                        if (customerOrder.getItems().isEmpty()){
+                            System.out.println("Order is Empty! Returning to Homescreen...");
+                            loop = false;
+                            break;
+                        }
                         getOrderDineIn();
                         getOrderConfirmation();
                         break;
                     case 3:
-                        System.out.println("Logging Out....");
+                        System.out.println("Returning to Homescreen...");
+                        loop = false;
                         break;
                     default:
                         System.out.println("Invalid Key! Enter your choice (1-3)");
                         break;
                 }
             }
-    }
+        scanner.close();
+        }
 
     public void placeOrder(){
         System.out.println("Placing an Order");
         Order custOrder = orderController.createCustomerOrder(orderId);
+        custOrder.setOrderStatus(OrderStatus.New);
         List<MenuItem> selectedItems = menuController.getitems();
         //ordering method
         while(true){
@@ -99,13 +108,13 @@ public class CustomerOrderingForm {
             return;
         }
         // Print table header
-        System.out.printf("%-20s | %-15s | %-10s | %-20s | %-10s | %-50s%n",
-                "Name", "Category", "Price ($)", "Branch", "Available", "Description");
+        System.out.printf("%-20s | %-15s | %-10s | %-20s",
+                "Name", "Category", "Price ($)", "Branch");
         System.out.println("------------------------------------------------------------------------------------------");
         // Print menu items
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
-                System.out.printf("%-20s | %-15s | %-10.2f | %-20s | %-10s | %-50s%n",
+                System.out.printf("%-20s | %-15s | %-10.2f | %-20s %n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch());
             }
         }
@@ -115,18 +124,21 @@ public class CustomerOrderingForm {
     }
 
     private String getComment(){
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the item's special requests: ");
         String comments = scanner.nextLine();
         return comments;
     }
 
     private int getQty(){
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of items: ");
         int qty = scanner.nextInt();
         return qty;
     }
 
     private String getOrderInput() {
+        Scanner scanner = new Scanner(System.in);
         showMenuItems();
         System.out.print("Enter the name of the item to order (type 'done' to finish): ");
         String itemName = scanner.nextLine();
@@ -134,6 +146,7 @@ public class CustomerOrderingForm {
     }
 
     public void getOrderConfirmation(){
+        Scanner scanner = new Scanner(System.in);
         if (this.customerOrder.getItems().isEmpty()) {
             System.out.println("No items selected. Order canceled.");
             return;
@@ -141,7 +154,7 @@ public class CustomerOrderingForm {
         
         System.out.println("You have selected the following items:");
         for (MenuItem item : this.customerOrder.getItems()) {
-            System.out.println(item.getName() + " - $" + item.getPrice());
+            System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
         }
         System.out.println("1. Submit Order");
         System.out.println("2. Cancel Order");
@@ -165,6 +178,11 @@ public class CustomerOrderingForm {
     }
 
     public void getOrderDineIn(){
+        if (this.customerOrder.getItems().isEmpty()) {
+            System.out.println("No items selected. Order canceled.");
+            return;
+        }
+        Scanner scanner = new Scanner(System.in);
         System.out.println("1.Take Away\t2.Dine-in");
         int method=scanner.nextInt();
         boolean m=method==2?true:false;

@@ -26,7 +26,7 @@ public class BranchDAO implements DAOInterface<Branch>{
             try (Workbook workbook = new XSSFWorkbook()) {
                 Sheet sheet = workbook.createSheet("Branches");
                 Row headerRow = sheet.createRow(0);
-                String[] headers = {"Name", "Capacity"};;
+                String[] headers = {"Name", "Location", "Capacity"};;
                 for (int i = 0; i < headers.length; i++) {
                     Cell cell = headerRow.createCell(i);
                     cell.setCellValue(headers[i]);
@@ -52,9 +52,10 @@ public class BranchDAO implements DAOInterface<Branch>{
                         continue; 
                     }
                     String name = row.getCell(0).getStringCellValue();
-                    int capacity = (int) row.getCell(1).getNumericCellValue();
+                    String location = row.getCell(1).getStringCellValue();
+                    int capacity = (int) row.getCell(2).getNumericCellValue();
                     
-                    Branch branch = new Branch(name, capacity);
+                    Branch branch = new Branch(name, location, capacity);
                     addElement(branch);
                 }
             }
@@ -82,7 +83,8 @@ public class BranchDAO implements DAOInterface<Branch>{
             for (Branch branch : BranchList) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(branch.getName());
-                row.createCell(1).setCellValue(branch.getCapacity());
+                row.createCell(1).setCellValue(branch.getLocation());
+                row.createCell(2).setCellValue(branch.getCapacity());
             }
             workbook.write(outputStream);
             System.out.println("Excel file was updated successfully.");

@@ -11,14 +11,14 @@ public class CustomerSession {
     private int orderID;
     private String branch;
 
-    CustomerSession(String branch){
+    public CustomerSession(){
         int orderNumber = findOrderNumbers();
         this.orderID = (orderNumber + 1);
-        this.branch = branch;
+        this.branch = null;
     }
 
     private int findOrderNumbers() {
-        String ordersFilePath = "src/main/resources/xlsx/orders_list.xlsx";
+        String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
         int numberOfRows = 0; 
 
         try (FileInputStream fis = new FileInputStream(ordersFilePath);

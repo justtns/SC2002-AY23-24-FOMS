@@ -5,11 +5,19 @@ import java.util.List;
 public class Branch {
     private String name;
     private int capacity;
-    public List<Branch> getElements;
+    private String location;
 
-    public Branch(String name, int capacity){
+    public Branch(String name, String location, int capacity){
         this.name = name;
         this.capacity = capacity;
+    }
+
+    public String getLocation(){
+        return location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
     }
 
     public String getName(){
