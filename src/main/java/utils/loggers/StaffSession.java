@@ -1,4 +1,4 @@
-package main.java.boundaries;
+package main.java.utils.loggers;
 
 import main.java.utils.types.StaffRole;
 
