@@ -28,7 +28,7 @@
                 Staff staff = staffDAO.findElement(username);
                 if (staff != null) {
                     staff.setPassword(newPassword);
-                    staffDAO.updateElement(staff, staff);
+                    staffDAO.updateElement(staffDAO.findElement(username), staff);
                     return true;
                 }
             }

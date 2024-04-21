@@ -13,6 +13,7 @@ public class StaffApp implements AppDisplay {
     private StaffRole loginRole;
     private StaffRole staffRole;
     private StaffLogin staffLogin;
+    private StaffDAO staffDAO = new StaffDAO();
     private StaffAuthenticationController authController;
 
     @Override
@@ -53,6 +54,20 @@ public class StaffApp implements AppDisplay {
         if (usernameAuthenticated && passwordAuthenticated) {
             System.out.println("Login successful for role: " + staffRole + " and user: " + username);
             this.staffSession = new StaffSession(username, staffRole);
+            switch(staffRole){
+                case "Admin":
+                    form = new AdminForms();
+                    form.execute(staffSession);
+                    break;
+                case "Manager":
+                    form = new ManagerForms();
+                    form.execute(staffSession);
+                    break;
+                case "Staff":
+                    form = new StaffForms();
+                    form.execute(staffSession);
+                    break;
+            }
         } else {
             System.out.println("Login failed. Please try again.");
         }
