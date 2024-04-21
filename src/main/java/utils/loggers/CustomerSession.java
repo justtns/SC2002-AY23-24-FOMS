@@ -14,7 +14,6 @@ public class CustomerSession {
     CustomerSession(String branch){
         int orderNumber = findOrderNumbers();
         this.orderID = (orderNumber + 1);
-        
         this.branch = branch;
     }
 
@@ -35,6 +34,10 @@ public class CustomerSession {
 
     public String getBranch(){
         return branch;
+    }
+
+    public void setBranch(String branch){
+        this.branch = branch;
     }
 
     public int getOrderId(){

@@ -5,14 +5,14 @@ import main.java.daos.BranchDAO;
 import main.java.models.Branch;
 
 public class CustomerBranchController {
-    private Branch branchDAO;
+    private BranchDAO branchDAO;
 
-    public CustomerBranchController(Branch branchDAO){
+    public CustomerBranchController(BranchDAO branchDAO){
         this.branchDAO = branchDAO;
     }
 
     public List<Branch> getBranches(){
-        return branchDAO.getElements;
+        return branchDAO.getElements();
     }
 
     public Boolean verifyBranch(String branchName){

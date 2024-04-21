@@ -1,8 +1,11 @@
 package main.java.models;
 
+import java.util.List;
+
 public class Branch {
     private String name;
     private int capacity;
+    public List<Branch> getElements;
 
     public Branch(String name, int capacity){
         this.name = name;

@@ -30,6 +30,7 @@ public class CustomerOrderingForm {
     public void orderingView(){
         System.out.print("Thank you for ordering with us.");
         boolean loop=true;
+        int choice;
             while (loop) {
                 System.out.println("-------------------------------------------------------------------\n" +
                         "-----------------------------Order Menu---------------------------\n" +
@@ -41,7 +42,7 @@ public class CustomerOrderingForm {
                         "---------------------------------------------------------------------\n" +
                         "\n" +
                         "Enter your choice (1-3): \n");
-                int choice = -1;
+                choice = -1;
                 try {
                     choice = Integer.parseInt(scanner.next());
                 } catch (InputMismatchException e) {
