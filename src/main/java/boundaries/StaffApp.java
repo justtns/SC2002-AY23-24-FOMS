@@ -5,6 +5,7 @@ import main.java.daos.StaffDAO;
 import main.java.models.StaffLogin;
 import main.java.utils.types.LoginRole;
 import main.java.utils.types.StaffRole;
+import main.java.session.StaffSession;
 import main.java.utils.ScannerProvider;
 
 public class StaffApp implements AppDisplay {
@@ -51,6 +52,7 @@ public class StaffApp implements AppDisplay {
 
         if (usernameAuthenticated && passwordAuthenticated) {
             System.out.println("Login successful for role: " + staffRole + " and user: " + username);
+            this.staffSession = new StaffSession(username, staffRole);
         } else {
             System.out.println("Login failed. Please try again.");
         }
