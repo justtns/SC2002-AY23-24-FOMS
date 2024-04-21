@@ -5,7 +5,7 @@ import main.java.daos.StaffDAO;
 import main.java.models.StaffLogin;
 import main.java.utils.types.LoginRole;
 import main.java.utils.types.StaffRole;
-import main.java.session.StaffSession;
+import main.java.utils.loggers.StaffSession;
 import main.java.utils.ScannerProvider;
 
 public class StaffApp implements AppDisplay {
@@ -15,6 +15,7 @@ public class StaffApp implements AppDisplay {
     private StaffLogin staffLogin;
     private StaffDAO staffDAO = new StaffDAO();
     private StaffAuthenticationController authController;
+    private StaffSession staffSession;
 
     @Override
     public void enterRole() {
@@ -46,6 +47,8 @@ public class StaffApp implements AppDisplay {
         System.out.println("Enter password:");
         String password = scanner.nextLine();
 
+        enterRole();
+
         this.staffLogin = new StaffLogin();
         
         boolean usernameAuthenticated = staffLogin.enterUsername(username);
@@ -55,17 +58,17 @@ public class StaffApp implements AppDisplay {
             System.out.println("Login successful for role: " + staffRole + " and user: " + username);
             this.staffSession = new StaffSession(username, staffRole);
             switch(staffRole){
-                case "Admin":
-                    form = new AdminForms();
-                    form.execute(staffSession);
+                case Admin:
+                    StaffUserView view = new AdminView();
+                    view.execute(staffSession);
                     break;
-                case "Manager":
-                    form = new ManagerForms();
-                    form.execute(staffSession);
+                case Manager:
+                    view = new ManagerView();
+                    view.execute(staffSession);
                     break;
-                case "Staff":
-                    form = new StaffForms();
-                    form.execute(staffSession);
+                case Staff:
+                    view = new StaffView();
+                    view.execute(staffSession);
                     break;
             }
         } else {
