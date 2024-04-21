@@ -9,9 +9,11 @@ import main.java.daos.OrderDAO;
 import main.java.models.MenuItem;
 import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
+import main.java.utils.loggers.StaffSession;
 import main.java.utils.types.OrderStatus;
+import main.java.utils.types.StaffRole;
 
-public class StaffOrderingForm {
+public class StaffOrderForm {
 
     private OrderDAO orderDAO = new OrderDAO();
     private StaffOrderController orderController = new StaffOrderController(orderDAO);
@@ -19,8 +21,8 @@ public class StaffOrderingForm {
     private StaffRole staffRole;
     private Scanner scanner;
 
-    public StaffOrderingForm(StaffSession session, Scanner scanner){
-        this.staffUserID = session.getUserId();
+    public StaffOrderForm(StaffSession session, Scanner scanner){
+        this.staffUserID = session.getStaffUserID();
         this.staffRole = session.getStaffRole();
         this.scanner = scanner;
     }
