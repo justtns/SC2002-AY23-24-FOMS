@@ -5,10 +5,10 @@ import main.java.daos.StaffDAO;
 import main.java.models.StaffLogin;
 import main.java.utils.types.LoginRole;
 import main.java.utils.types.StaffRole;
-import java.util.Scanner;
+import main.java.utils.ScannerProvider;
 
 public class StaffApp implements AppDisplay {
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner = ScannerProvider.getScanner();
     private Role loginRole;
     private StaffRole staffRole;
     private StaffLogin staffLogin;
