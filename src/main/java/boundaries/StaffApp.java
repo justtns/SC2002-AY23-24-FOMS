@@ -2,7 +2,7 @@ package main.java.boundaries;
 
 import main.java.controllers.StaffAuthenticationController;
 import main.java.daos.StaffDAO;
-import main.java.models.StaffLogin;
+import main.java.boundaries.StaffLogin;
 import main.java.utils.types.LoginRole;
 import main.java.utils.types.StaffRole;
 import main.java.utils.loggers.StaffSession;

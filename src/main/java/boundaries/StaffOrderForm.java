@@ -58,25 +58,26 @@ public class StaffOrderForm {
                     break;
                 case 2:
                     scanner.nextLine(); // Consume the newline character
+                    int orderID;
                     try {
-                        int orderID = scanner.nextInt();
+                        orderID = scanner.nextInt();
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid Input. Please enter a number.");
                         scanner.nextLine(); // Consume the invalid input
                         continue;
                     }
-                    viewOrder(int orderID);
+                    viewOrder(orderID);
                     break;
                 case 3:
                     scanner.nextLine(); // Consume the newline character
                     try {
-                        int orderID = scanner.nextInt();
+                        orderID = scanner.nextInt();
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid Input. Please enter a number.");
                         scanner.nextLine(); // Consume the invalid input
                         continue;
                     }
-                    updateOrder(int orderID);
+                    updateOrder(orderID);
                     break;
                 case 4:
                     loop=false;
@@ -95,7 +96,7 @@ public class StaffOrderForm {
     }
 
     private void viewOrder(int orderID){
-        Order order = orderController.findOrder(orderId);
+        Order order = orderController.viewParticularOrder(orderID);
         if (order != null) {
             System.out.println("Order Details:");
             System.out.println("Order ID: " + order.getOrderId());
@@ -112,7 +113,7 @@ public class StaffOrderForm {
             System.out.println("Total Price: $" + order.calculateTotalPrice());
             System.out.println("Order Status: " + order.getOrderStatus());
         } else {
-            System.out.println("Order not found with ID: " + orderId);
+            System.out.println("Order not found with ID: " + orderID);
         }
     }
 

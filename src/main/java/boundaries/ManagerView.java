@@ -14,7 +14,6 @@ public class ManagerView implements StaffUserView{
     public void execute(StaffSession session){
         Scanner scanner = new Scanner(System.in);
         StaffActions action; 
-
         Boolean loop=true;
         while (loop) {
             System.out.println("User ID:" + session.getStaffUserID());
@@ -22,9 +21,9 @@ public class ManagerView implements StaffUserView{
             "-----------------------------Manager Actions---------------------------\n" +
             "-------------------------------------------------------------------\n" +
             "                         Choose an option:\n" +
-            "                         1.View menu and order\n" +
-            "                         2.Make Payment\n" +
-            "                         3.Check on my order\n" +
+            "                         1.Display the new orders\n" +
+            "                         2.View the details of a particular order\n" +
+            "                         3.Process order\n" + 
             "                         4.Logout\n" +
 
             "---------------------------------------------------------------------\n" +
