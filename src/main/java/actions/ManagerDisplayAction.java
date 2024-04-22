@@ -8,5 +8,6 @@ import main.java.utils.loggers.StaffSession;
 public class ManagerDisplayAction implements ManagerActions{
     public void execute(StaffSession session, Scanner scanner){
         ManagerDisplayForm managerDisplayForm = new ManagerDisplayForm(session, scanner);
+        managerDisplayForm.managerDisplayView();
     }
 }

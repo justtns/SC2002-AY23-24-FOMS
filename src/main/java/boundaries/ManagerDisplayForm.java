@@ -22,7 +22,7 @@ public class ManagerDisplayForm {
         this.scanner = scanner;
     }
 
-    public void ManagerDisplayView(){
+    public void managerDisplayView(){
         boolean loop=true;
         int choice;
         while (loop) {
@@ -31,7 +31,7 @@ public class ManagerDisplayForm {
                     "-------------------------------------------------------------------\n" +
                     "                         Choose an option:\n" +
                     "                         1.Display the List of Staff in your Branch\n" +
-                    "                         2.Logout\n" +    
+                    "                         2.Go to Homescreen\n" +    
                     "---------------------------------------------------------------------\n" +
                     "\n" +
                     "Enter your choice (1-2): \n");
@@ -51,7 +51,7 @@ public class ManagerDisplayForm {
                     break;
                 case 2:
                     loop=false;
-                    System.out.println("Logging out...");
+                    System.out.println("Returning to Homescreen...");
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character

@@ -29,33 +29,37 @@ public class ManagerView implements StaffUserView{
                     "---------------------------------------------------------------------\n" +
                     "\n" +
                     "Enter your choice (1-4): \n");
-            choice = -1;
-            try {
-                choice = Integer.parseInt(scanner.next());
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
-                continue;
-            }
+        choice = -1;
+        try {
+            choice = Integer.parseInt(scanner.next());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid Input. Please enter a number.");
+            scanner.nextLine(); // Consume the invalid input
+            continue;
+        }
 
-            switch (choice) {
-                case 1:
-                    action = (ManagerActions) new StaffOrderAction();
-                    action.execute(session, scanner);
-                    ScannerProvider.closeScanner();
-                    break;
-                case 2:
-                    action = new ManagerMenuAction(); // to implement
-                    action.execute(session, scanner);
-                    ScannerProvider.closeScanner();
-                    break;
-                case 3:
-                    action = new ManagerDisplayAction();
-                    action.execute(session, scanner);
-                    ScannerProvider.closeScanner();
-                    break;
-            }
+        switch (choice) {
+            case 1:
+                action = (ManagerActions) new StaffOrderAction();
+                action.execute(session, scanner);
+                break;
+            case 2:
+                action = new ManagerMenuAction(); // to implement
+                action.execute(session, scanner);
+                break;
+            case 3:
+                action = new ManagerDisplayAction();
+                action.execute(session, scanner);
+                break;
+            case 4:
+                loop=false;
+                System.out.println("Logging out...");
+                break;
+            default:
+                System.out.println("Invalid Input. Please enter (1-4)");
+                break;
+        }
 
-
+        ScannerProvider.closeScanner();
     }
 }

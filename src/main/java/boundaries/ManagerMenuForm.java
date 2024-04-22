@@ -18,7 +18,7 @@ public class ManagerMenuForm {
         this.scanner = scanner;
     }
 
-    public void ManagerMenuView(){
+    public void managerMenuView(){
         boolean loop=true;
         int choice;
         while (loop) {
@@ -30,7 +30,7 @@ public class ManagerMenuForm {
                     "                         2.Edit Menu Items\n" +
                     "                         3.Remove Menu Items\n" +
                     "                         4.Change Menu Item Availability\n" +
-                    "                         5.Logout\n" +    
+                    "                         5.Go to Homescreen\n" +    
                     "---------------------------------------------------------------------\n" +
                     "\n" +
                     "Enter your choice (1-5): \n");
@@ -47,87 +47,102 @@ public class ManagerMenuForm {
                 case 1:
                     // add MenuItems
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Adding a new menu item.");
-                    
-                    System.out.println("Enter the name of the new menu item:");
-                    String name = scanner.nextLine();
-                    System.out.println("Enter the category of the new menu item:");
-                    String category = scanner.nextLine();
-                    System.out.println("Enter the price of the new menu item:");
-                    double price = scanner.nextDouble();
-                    scanner.nextLine(); // Consume the newline character after a number input
-                    System.out.println("Enter the branch of the new menu item:");
-                    String branch = scanner.nextLine();
-                    // Boolean availability = true;
-                    MenuItem newItem = new MenuItem(name, category, branch, price);
-
-                    menuController.addMenuItem(newItem);
+                    addMenuItemDetails();
                     break;
                 
                 case 2:
                     // Edit Menu Items
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Editing an existing menu item.");
-                    
-                    System.out.println("Enter the name of the menu item to edit:");
-                    String oldName = scanner.nextLine();
-                    MenuItem oldItem = MenuDAO.findElement(oldName, branch);
-                    if (oldItem == null) {
-                        System.out.println("Menu item not found.");
-                    } else {
-                        System.out.println("Enter the new description for the menu item:");
-                        String newDescription = scanner.nextLine();
-                        System.out.println("Enter the new price for the menu item:");
-                        double newPrice = scanner.nextDouble();
-                        scanner.nextLine(); // Consume newline
-                        MenuItem updatedItem = new MenuItem(oldItem.getName(), newDescription, oldItem.getBranch, newPrice );
-                        menuController.editMenuItem(oldItem, updatedItem);
-                    }
+                    editMenuItemDetails();
                     break; 
 
                 case 3:
                     // Remove Menu Items
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Removing a menu item.");
-                    System.out.println("Enter the name of the menu item to remove:");
-
-                    String itemName = scanner.nextLine();
-                    MenuItem itemToRemove = MenuDAO.findElement(oldName, branch);
-                    if (itemToRemove == null) {
-                        System.out.println("Menu item not found.");
-                    } else {
-                        menuController.removeMenuItem(itemToRemove);
-                    }
+                    removeMenuItemDetails();
                     break; 
 
                 case 4:
                     // Change Menu Item availability
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Changing item availability.");
-                    
-                    System.out.println("Enter the name of the menu item to change availability:");
-                    String itemNameToChangeAvailability = scanner.nextLine();
-                    MenuItem itemToChange = MenuDAO.findElement(oldName, branch);
-                    if (itemToChange == null) {
-                        System.out.println("Menu item not found.");
-                    } else {
-                        System.out.println("Enter new availability (true for available, false for not available):");
-                        Boolean newAvailability = scanner.nextBoolean();
-                        scanner.nextLine(); // Consume newline
-                        menuController.changeAvailability(itemToChange, newAvailability);
-                    }
+                    changeMenuItemAvailability();
                     break; 
 
                 case 5:
                     loop=false;
-                    System.out.println("Logging out...");
+                    System.out.println("Returning to Homescreen...");
                     break;
 
                 default:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Invalid Key! Enter your choice (1-4)");
+                    System.out.println("Invalid Key! Enter your choice (1-5)");
                     break;
             }
+        }
+    }
+
+    public void addMenuItemDetails(){
+        System.out.println("Adding a new menu item.");
+        
+        System.out.println("Enter the name of the new menu item:");
+        String name = scanner.nextLine();
+        System.out.println("Enter the category of the new menu item:");
+        String category = scanner.nextLine();
+        System.out.println("Enter the price of the new menu item:");
+        double price = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character after a number input
+        System.out.println("Enter the branch of the new menu item:");
+        String branch = scanner.nextLine();
+        // Boolean availability = true;
+        MenuItem newItem = new MenuItem(name, category, branch, price);
+        menuController.addMenuItem(newItem);
+    }
+
+    public void editMenuItemDetails(){
+        System.out.println("Editing an existing menu item.");
+        
+        System.out.println("Enter the name of the menu item to edit:");
+        String oldName = scanner.nextLine();
+        MenuItem oldItem = MenuDAO.findElement(oldName, branch);
+        if (oldItem == null) {
+            System.out.println("Menu item not found.");
+        } else {
+            System.out.println("Enter the new description for the menu item:");
+            String newDescription = scanner.nextLine();
+            System.out.println("Enter the new price for the menu item:");
+            double newPrice = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+            MenuItem updatedItem = new MenuItem(oldItem.getName(), newDescription, oldItem.getBranch, newPrice );
+            menuController.editMenuItem(oldItem, updatedItem);
+        }
+    }
+
+    public void removeMenuItemDetails(){
+        System.out.println("Removing a menu item.");
+        System.out.println("Enter the name of the menu item to remove:");
+
+        String itemName = scanner.nextLine();
+        MenuItem itemToRemove = MenuDAO.findElement(oldName, branch);
+        if (itemToRemove == null) {
+            System.out.println("Menu item not found.");
+        } else {
+            menuController.removeMenuItem(itemToRemove);
+        }
+    }
+
+    public void changeMenuItemAvailability(){
+        System.out.println("Changing item availability.");
+                    
+        System.out.println("Enter the name of the menu item to change availability:");
+        String itemNameToChangeAvailability = scanner.nextLine();
+        MenuItem itemToChange = MenuDAO.findElement(oldName, branch);
+        if (itemToChange == null) {
+            System.out.println("Menu item not found.");
+        } else {
+            System.out.println("Enter new availability (true for available, false for not available):");
+            Boolean newAvailability = scanner.nextBoolean();
+            scanner.nextLine(); // Consume newline
+            menuController.changeAvailability(itemToChange, newAvailability);
         }
     }
 
