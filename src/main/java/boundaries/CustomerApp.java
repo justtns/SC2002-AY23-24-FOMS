@@ -2,13 +2,12 @@ package main.java.boundaries;
 
 import main.java.utils.loggers.CustomerSession;
 import main.java.actions.Actions;
-import main.java.actions.CustomerOrderingAction;
-import main.java.actions.CustomerPaymentAction;
-import main.java.actions.CustomerPostOrderAction;
+
 import main.java.utils.ScannerProvider;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+import main.java.factories.ActionFactory;
 
 
 public class CustomerApp {
@@ -17,7 +16,8 @@ public class CustomerApp {
         Scanner scanner = ScannerProvider.getScanner();
         CustomerBranchSelectionForm selectBranch = new CustomerBranchSelectionForm(session, scanner);
         session = selectBranch.branchSelectionView();
-        Actions action;
+        ActionFactory actionFactory = new ActionFactory();
+        Form form;
         Boolean loop=true;
         while (loop) {
             System.out.println("Order ID:" + session.getOrderId());
@@ -40,28 +40,12 @@ public class CustomerApp {
                 System.out.println("Invalid Input. Please enter (1-4)");
                 continue;
             }
-            switch (choice) {
-                case 1:
-                    action = new CustomerOrderingAction();
-                    action.execute(session, scanner);
-                    break;
-                case 2:
-                    action = new CustomerPaymentAction();
-                    action.execute(session, scanner);
-                    break;
-                case 3:
-                    action = new CustomerPostOrderAction();
-                    action.execute(session, scanner);
-                    break;
-                case 4:
-                    loop=false;
-                    System.out.println("Logging out...");
-                    break;
-                
-            
-                default:
+            if (choice < 1 | choice > 4){
                 System.out.println("Invalid Input. Please enter (1-4)");
-                    break;
+            }
+            else{
+                form = actionFactory.getAction(session, scanner, choice);
+                form.generateForm();
             }
         }
         ScannerProvider.closeScanner();

@@ -5,7 +5,7 @@ import main.java.controllers.CustomerPaymentController;
 import main.java.daos.OrderDAO;
 import main.java.utils.loggers.CustomerSession;
 
-public class CustomerPaymentForm {
+public class CustomerPaymentForm implements Form{
     private CustomerSession session;
     private OrderDAO orderDAO;
     private CustomerPaymentController paymentController = new CustomerPaymentController(orderDAO);
@@ -17,7 +17,7 @@ public class CustomerPaymentForm {
 
     }
     
-    public void promptPaymentMethod() {
+    public void generateForm() {
         System.out.println("Please select a payment method:");
         System.out.println("1: Online Payment");
         System.out.println("2: Credit/Debit Card Payment");

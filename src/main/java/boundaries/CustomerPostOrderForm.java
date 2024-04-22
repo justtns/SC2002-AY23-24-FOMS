@@ -9,7 +9,7 @@ import main.java.utils.types.OrderStatus;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class CustomerPostOrderForm {
+public class CustomerPostOrderForm implements Form{
     // Choice in the post-order menu (1, 2, or 3).
     // Choice in the picking up order
     // Order ID when viewing order status or picking up an order.
@@ -24,7 +24,7 @@ public class CustomerPostOrderForm {
         this.scanner = scanner;
     }
 
-    public void postOrderView(){
+    public void generateForm(){
         System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         while (loop) {

@@ -13,7 +13,7 @@ import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
 import main.java.utils.types.OrderStatus;
 
-public class CustomerOrderingForm {
+public class CustomerOrderingForm implements Form{
     // Input validation is added for all user inputs using try-catch blocks and loops to ensure that only valid inputs are accepted.
     // Error messages are displayed for invalid inputs to guide the user.
 
@@ -37,7 +37,7 @@ public class CustomerOrderingForm {
         this.scanner = scanner;
     }
 
-    public void orderingView(){
+    public void generateForm(){
         System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         int choice;
