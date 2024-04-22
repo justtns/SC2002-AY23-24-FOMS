@@ -5,5 +5,5 @@ import java.util.Scanner;
 import main.java.utils.loggers.CustomerSession;
 
 public interface CustomerForm {
-    public void execute(CustomerSession session, Scanner scanner);
+    public void generateForm(CustomerSession session, Scanner scanner);
 }
