@@ -35,7 +35,7 @@ public class StaffOrderForm {
                     "                         1.Display the new orders\n" +
                     "                         2.View the details of a particular order\n" +
                     "                         3.Process order\n" +
-                    "                         4.Logout\n" +                            
+                    "                         4.Go to Homescreen\n" +                            
                     "---------------------------------------------------------------------\n" +
                     "\n" +
                     "Enter your choice (1-4): \n");
@@ -78,7 +78,7 @@ public class StaffOrderForm {
                     break;
                 case 4:
                     loop=false;
-                    System.out.println("Logging out...");
+                    System.out.println("Returning to Homescreen...");
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
