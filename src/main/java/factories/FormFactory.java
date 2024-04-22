@@ -5,8 +5,8 @@ import java.util.Scanner;
 import main.java.boundaries.*;
 import main.java.utils.loggers.*;
 
-public class ActionFactory {
-    public Form getAction(CustomerSession session, Scanner scanner, int actionType){
+public class FormFactory {
+    public Form getForm(CustomerSession session, Scanner scanner, int actionType){
         switch (actionType) {
             case 1:
                 return (Form) new CustomerOrderingForm(session, scanner);
@@ -18,7 +18,7 @@ public class ActionFactory {
                 return null;
         }
     }
-    public Form getAction(StaffSession session, Scanner scanner, int actionType){
+    public Form getForm(StaffSession session, Scanner scanner, int actionType){
 
     }
 }

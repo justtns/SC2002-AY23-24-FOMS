@@ -7,7 +7,7 @@ import main.java.utils.ScannerProvider;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-import main.java.factories.ActionFactory;
+import main.java.factories.FormFactory;
 
 
 public class CustomerApp {
@@ -16,7 +16,7 @@ public class CustomerApp {
         Scanner scanner = ScannerProvider.getScanner();
         CustomerBranchSelectionForm selectBranch = new CustomerBranchSelectionForm(session, scanner);
         session = selectBranch.branchSelectionView();
-        ActionFactory actionFactory = new ActionFactory();
+        FormFactory actionFactory = new FormFactory();
         Form form;
         Boolean loop=true;
         while (loop) {
@@ -44,7 +44,7 @@ public class CustomerApp {
                 System.out.println("Invalid Input. Please enter (1-4)");
             }
             else{
-                form = actionFactory.getAction(session, scanner, choice);
+                form = actionFactory.getForm(session, scanner, choice);
                 form.generateForm();
             }
         }
