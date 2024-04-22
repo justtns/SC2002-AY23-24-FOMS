@@ -2,6 +2,9 @@ package main.java.boundaries;
 
 import main.java.controllers.StaffAuthenticationController;
 import main.java.daos.StaffDAO;
+
+import java.util.Scanner;
+
 import main.java.boundaries.StaffLogin;
 import main.java.utils.types.LoginRole;
 import main.java.utils.types.StaffRole;
@@ -13,9 +16,15 @@ public class StaffApp implements AppDisplay {
     private StaffRole loginRole;
     private StaffRole staffRole;
     private StaffLogin staffLogin;
-    private StaffDAO staffDAO = new StaffDAO();
+    private StaffDAO staffDAO;
     private StaffAuthenticationController authController;
     private StaffSession staffSession;
+
+    public StaffApp() {
+        // Ensure staffDAO is instantiated before it's used.
+        this.staffDAO = new StaffDAO();
+        this.authController = new StaffAuthenticationController(staffDAO);
+    }
 
     @Override
     public void enterRole() {

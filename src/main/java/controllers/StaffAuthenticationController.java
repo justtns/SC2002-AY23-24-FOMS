@@ -11,8 +11,7 @@
         }
 
         public boolean authenticateUsername(String username) {
-            Staff staff = staffDAO.findElement(username);
-            return staff != null;
+            return staffDAO.findElement(username) != null;
         }
 
         public boolean authenticatePassword(String username, String password) {

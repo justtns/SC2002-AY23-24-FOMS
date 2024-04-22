@@ -16,7 +16,7 @@ public class StaffMenuController {
     }
 
     public void addMenuItem(MenuItem item) {
-        if (menuDAO.findElement(item.getName(), item.getBranch()) == null) {
+        if (MenuDAO.findElement(item.getName(), item.getBranch()) == null) {
             menuDAO.addElement(item);
             System.out.println("Menu item added: " + item.getName());
         } else {
@@ -26,7 +26,7 @@ public class StaffMenuController {
 
     public void editMenuItem(MenuItem oldItem, MenuItem updatedItem) {
 
-        MenuItem currentItem = menuDAO.findElement(oldItem.getName(), oldItem.getBranch());
+        MenuItem currentItem = MenuDAO.findElement(oldItem.getName(), oldItem.getBranch());
         if (currentItem != null) {
             menuDAO.updateElement(currentItem, updatedItem);
             System.out.println("Menu item updated: " + updatedItem.getName());
@@ -36,7 +36,7 @@ public class StaffMenuController {
     }
 
     public void removeMenuItem(MenuItem item) {
-        MenuItem currentItem = menuDAO.findElement(item.getName(), item.getBranch());
+        MenuItem currentItem = MenuDAO.findElement(item.getName(), item.getBranch());
         if (currentItem != null) {
             menuDAO.removeElement(currentItem.getName(), currentItem.getBranch());
             System.out.println("Menu item removed: " + item.getName());
@@ -46,7 +46,7 @@ public class StaffMenuController {
     }
 
     public void changeAvailability(MenuItem item, boolean availability) {
-        MenuItem currentItem = menuDAO.findElement(item.getName(), item.getBranch());
+        MenuItem currentItem = MenuDAO.findElement(item.getName(), item.getBranch());
         if (currentItem != null) {
             currentItem.setAvailable(availability);
             System.out.println("Menu item availability changed: " + item.getName());
