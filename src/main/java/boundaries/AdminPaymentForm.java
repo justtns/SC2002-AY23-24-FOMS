@@ -8,7 +8,7 @@ import main.java.daos.PaymentDAO;
 import main.java.utils.loggers.StaffSession;
 import main.java.utils.types.StaffRole;
 
-public class AdminPaymentForm {x
+public class AdminPaymentForm {
 
     private PaymentDAO paymentDAO = new PaymentDAO();
     private StaffPaymentController paymentController = new StaffPaymentController(paymentDAO);

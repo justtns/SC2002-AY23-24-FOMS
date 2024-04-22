@@ -8,7 +8,7 @@ public class PaymentDAOTester {
         PaymentDAO paymentDao = new PaymentDAO();
 
         // Test adding a payment method
-        PaymentMethod newMethod = new PaymentMethod("Visa", PaymentType.Credit);
+        PaymentMethod newMethod = new PaymentMethod("Visa", "Credit");
         paymentDao.addElement(newMethod);
         System.out.println("Add Payment Method Test: " + (paymentDao.getElements().contains(newMethod) ? "Passed" : "Failed"));
 
@@ -17,10 +17,10 @@ public class PaymentDAOTester {
         System.out.println("Find Payment Method Test: " + (foundMethod != null ? "Passed" : "Failed"));
 
         // Test updating a payment method
-        PaymentMethod updatedMethod = new PaymentMethod("Visa", PaymentType.Online);
+        PaymentMethod updatedMethod = new PaymentMethod("Visa", "Online");
         paymentDao.updateElement(newMethod, updatedMethod);
         foundMethod = paymentDao.findElement("Visa");
-        System.out.println("Update Payment Method Test: " + (foundMethod.getType() == PaymentType.Online ? "Passed" : "Failed"));
+        System.out.println("Update Payment Method Test: " + (foundMethod.getType() == "Online" ? "Passed" : "Failed"));
 
         // Test removing a payment method
         paymentDao.removeElement("Visa");

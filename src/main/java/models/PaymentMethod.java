@@ -16,7 +16,7 @@ public class PaymentMethod {
         this.name = name;
     }
 
-    public PaymentType getType(){
+    public String getType(){
         return type;
     }
 

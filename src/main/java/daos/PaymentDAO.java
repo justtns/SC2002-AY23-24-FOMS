@@ -3,7 +3,6 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import main.java.models.PaymentMethod;
-import main.java.utils.types.PaymentType;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,22 +56,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                             continue; 
                         }
                         String name = row.getCell(0).getStringCellValue();
-                        String typeString = row.getCell(1).getStringCellValue();    
-                        PaymentType type;
-                        switch (typeString) {
-                            case "Online":
-                                type = PaymentType.Online;
-                                break;
-                            case "Debit":
-                                type = PaymentType.Debit;
-                                break;
-                            case "Credit":
-                                type = PaymentType.Credit;
-                                break;
-                            default:
-                                type = PaymentType.Online; // Default to Staff if role is undefined
-                                break;
-                        }
+                        String type = row.getCell(1).getStringCellValue(); 
                         paymentMethodList.add(new PaymentMethod(name, type));
                     }
             }    
