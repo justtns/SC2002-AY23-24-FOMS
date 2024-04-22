@@ -24,10 +24,8 @@ public class CustomerOrderingForm {
     // Choice for take away or dine-in (1 or 2).
     // Choice for submitting or canceling the order (1 or 2).
 
-    private OrderDAO orderDAO = new OrderDAO();
-    private MenuDAO menuDAO = new MenuDAO();
-    private CustomerOrderController orderController = new CustomerOrderController(orderDAO);
-    private CustomerMenuController menuController = new CustomerMenuController(menuDAO);
+    private CustomerOrderController orderController = new CustomerOrderController(new OrderDAO());
+    private CustomerMenuController menuController = new CustomerMenuController(new MenuDAO());
     private String branch;
     private int orderId;
     private Order customerOrder;
@@ -87,7 +85,7 @@ public class CustomerOrderingForm {
 
     private void placeOrder() {
         System.out.println("Placing an Order");
-        Order custOrder = orderController.createCustomerOrder(orderId);
+        Order custOrder = orderController.createCustomerOrder(orderId, branch);
         custOrder.setOrderStatus(OrderStatus.New);
         List<MenuItem> selectedItems = menuController.getitems();
         
@@ -105,8 +103,7 @@ public class CustomerOrderingForm {
             }
             String comment = getComment();
             int quantity = getQty();
-            custOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
-            this.customerOrder = custOrder;
+            this.customerOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
         }
         
         if (customerOrder.getItems().isEmpty()) {
@@ -145,9 +142,8 @@ public class CustomerOrderingForm {
                 method = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
                 if (method == 1) {
-                    orderDAO.addElement(customerOrder);
+                    orderController.saveOrder(customerOrder);
                     System.out.println("Thank you for your order. Please proceed to make payment...");
-                    orderDAO.saveData();
                 }
                 break;
             } catch (InputMismatchException e) {

@@ -29,7 +29,7 @@ public class OrderDAO implements DAOInterface<Order>{
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
         File ordersFile = new File(ordersFilePath);
         if (!ordersFile.exists()) {
-            String[] headers = new String[]{"Order ID", "Order Status", "Is Dine In", "Is Completed"};
+            String[] headers = new String[]{"Order ID", "Branch", "Order Status", "Is Dine In", "Is Completed"};
             try (Workbook workbook = new XSSFWorkbook();
             FileOutputStream fos = new FileOutputStream(ordersFilePath)) {
                 Sheet sheet = workbook.createSheet("Sheet1");
@@ -48,7 +48,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
         File itemsFile = new File(itemsFilePath);
         if (!itemsFile.exists()) {
-            String[] headers = new String[]{"Order ID", "Name", "Price", "Branch", "Category", "Comments"};
+            String[] headers = new String[]{"Order ID", "Branch", "Name", "Price", "Branch", "Category", "Comments"};
             try (Workbook workbook = new XSSFWorkbook();
             FileOutputStream fos = new FileOutputStream(itemsFilePath)) {
                 Sheet sheet = workbook.createSheet("Sheet1");
@@ -75,9 +75,10 @@ public class OrderDAO implements DAOInterface<Order>{
                 if (row.getRowNum() == 0) continue;
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
-                OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(1).getStringCellValue());
-                boolean isDineIn = row.getCell(2).getBooleanCellValue();
-                boolean isCompleted = row.getCell(3).getBooleanCellValue();
+                String branch = row.getCell(1).getStringCellValue();
+                OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(2).getStringCellValue());
+                boolean isDineIn = row.getCell(3).getBooleanCellValue();
+                boolean isCompleted = row.getCell(4).getBooleanCellValue();
 
                 Order order = new Order(orderId, orderStatus, isDineIn, isCompleted);
                 addElement(order);
@@ -150,17 +151,19 @@ public class OrderDAO implements DAOInterface<Order>{
     
             Row headerRow = sheet.createRow(0);
             headerRow.createCell(0).setCellValue("Order ID");
-            headerRow.createCell(1).setCellValue("Order Status");
-            headerRow.createCell(2).setCellValue("Is Dine In");
-            headerRow.createCell(3).setCellValue("Is Completed");
+            headerRow.createCell(1).setCellValue("Branch");
+            headerRow.createCell(2).setCellValue("Order Status");
+            headerRow.createCell(3).setCellValue("Is Dine In");
+            headerRow.createCell(4).setCellValue("Is Completed");
     
             int rowIndex = 1;
             for (Order order : orderList) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(order.getOrderId());
-                row.createCell(1).setCellValue(order.getOrderStatus().toString());
-                row.createCell(2).setCellValue(order.isDineIn());
-                row.createCell(3).setCellValue(order.isCompleted());
+                row.createCell(1).setCellValue(order.getBranch());
+                row.createCell(2).setCellValue(order.getOrderStatus().toString());
+                row.createCell(3).setCellValue(order.isDineIn());
+                row.createCell(4).setCellValue(order.isCompleted());
             }
             workbook.write(fos);
         } catch (IOException e) {
