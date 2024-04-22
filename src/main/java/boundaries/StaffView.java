@@ -35,8 +35,7 @@ public class StaffView implements StaffUserView{
             switch (choice) {
                 case 1:
                     action = new StaffOrderAction();
-                    action.execute(session, scanner);, scanner);
-                    ScannerProvider.closeScanner();
+                    action.execute(session, scanner);
                     break;
                 case 2:
                     loop=false;
