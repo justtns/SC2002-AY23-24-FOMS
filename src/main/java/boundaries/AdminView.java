@@ -7,6 +7,6 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 
-public class ManagerView implements StaffUserView{
+public class AdminView implements StaffUserView{
     
 }

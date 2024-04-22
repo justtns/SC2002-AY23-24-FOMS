@@ -11,8 +11,8 @@ public class CustomerOrderController {
         this.orderDAO = orderDAO;
     }
 
-    public Order createCustomerOrder(int orderID){
-        Order customerOrder = new Order(orderID);
+    public Order createCustomerOrder(int orderID, String branch){
+        Order customerOrder = new Order(orderID, branch);
         return customerOrder;
     }
     public Order chooseDineIn(Order customerOrder, boolean choice){

@@ -9,14 +9,16 @@ public class Order {
     private int orderId;
     private List<MenuItem> items;
     private List<String> comments;
+    private String branch;
     private boolean isDineIn;
 
     private boolean isCompleted;
     private OrderStatus orderStatus;
 
-    public Order(int orderId) {
+    public Order(int orderId, String branch) {
 
         this.orderId = orderId;
+        this.branch = branch;
         this.items=new ArrayList<>();
         this.comments = new ArrayList<>();
         this.isDineIn = false;
@@ -31,6 +33,14 @@ public class Order {
         this.orderStatus = orderStatus;
         this.items=new ArrayList<>();
         this.comments = new ArrayList<>();
+    }
+
+    public String getBranch(){
+        return branch;
+    }
+
+    public void setBranch(String branch){
+        this.branch = branch;
     }
 
     public int getOrderId() {
