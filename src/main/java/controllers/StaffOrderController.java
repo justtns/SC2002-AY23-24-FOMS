@@ -15,7 +15,7 @@ public class StaffOrderController {
     }
 
     public void displayNewOrder(){ // justin look here! do we display new orders by branch
-
+        
     }
 
     public Order viewParticularOrder(int orderID){

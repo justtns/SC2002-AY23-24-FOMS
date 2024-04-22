@@ -1,10 +1,10 @@
 package main.java.boundaries;
 
-import main.java.utils.loggers.CustomerSession;
 import main.java.utils.loggers.StaffSession;
-import main.java.actions.StaffActions;
+import main.java.actions.ManagerActions;
+import main.java.actions.ManagerDisplayAction;
+import main.java.actions.ManagerMenuAction;
 import main.java.actions.StaffOrderAction;
-import main.java.boundaries.StaffUserView;
 // import staff actions when done
 import main.java.utils.ScannerProvider;
 import java.util.Scanner;
@@ -14,8 +14,7 @@ import java.util.InputMismatchException;
 public class ManagerView implements StaffUserView{
     public void execute(StaffSession session){
         Scanner scanner = new Scanner(System.in);
-        StaffActions action; 
-        StaffActions action; // undone
+        ManagerActions action; 
         System.out.println("User ID:" + session.getStaffUserID());
         int choice;
 
@@ -41,7 +40,7 @@ public class ManagerView implements StaffUserView{
 
             switch (choice) {
                 case 1:
-                    action = new StaffOrderAction();
+                    action = (ManagerActions) new StaffOrderAction();
                     action.execute(session, scanner);
                     ScannerProvider.closeScanner();
                     break;
@@ -51,7 +50,7 @@ public class ManagerView implements StaffUserView{
                     ScannerProvider.closeScanner();
                     break;
                 case 3:
-                    action = new ManagerDisplayAction(); // to implement
+                    action = new ManagerDisplayAction();
                     action.execute(session, scanner);
                     ScannerProvider.closeScanner();
                     break;

@@ -64,6 +64,4 @@ public class ManagerDisplayForm {
     private void displayStaffList() {
         StaffDisplayController.displayStaffList();
     }
-
-    
 }

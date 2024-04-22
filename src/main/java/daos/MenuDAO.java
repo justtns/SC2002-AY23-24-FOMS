@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 
 public class MenuDAO implements DAOInterface<MenuItem>{
-    private List<MenuItem> menuItemList;
+    private static List<MenuItem> menuItemList;
     
     public MenuDAO(){
         readData();
@@ -126,7 +126,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
         return null;
     };
 
-    public MenuItem findElement(String elementName, String branchName){
+    public static MenuItem findElement(String elementName, String branchName){
         int findIndex=-1;
         for (int i = 0; i< menuItemList.size(); i++)
         {
