@@ -11,7 +11,7 @@ import main.java.utils.types.StaffRole;
 public class ManagerDisplayForm {
 
     private StaffDAO staffDAO = new StaffDAO();
-    private StaffDisplayController displayController = new StaffDisplayController(staffDAO);
+    private StaffDisplayController displayController = new StaffDisplayController(staffDAO, staffUserID);
     private String staffUserID;
     private StaffRole staffRole;
     private Scanner scanner;
@@ -65,34 +65,5 @@ public class ManagerDisplayForm {
         StaffDisplayController.displayStaffList();
     }
 
-    private void viewOrder(int orderID){
-        Order order = orderController.viewParticularOrder(orderID);
-        if (order != null) {
-            System.out.println("Order Details:");
-            System.out.println("Order ID: " + order.getOrderId());
-            if(order.isDineIn()){
-                System.out.println("Dine in");
-            }
-            else{
-                System.out.println("Takeaway");
-            }
-            System.out.println("Order items:");
-            for (MenuItem item : order.getItems()) {
-                System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-            }
-            System.out.println("Total Price: $" + order.calculateTotalPrice());
-            System.out.println("Order Status: " + order.getOrderStatus());
-        } else {
-            System.out.println("Order not found with ID: " + orderID);
-        }
-    }
-
-    private void updateOrder(int orderID){
-        orderController.processOrder(orderID);
-    }
-}
-
     
-    
-
 }
