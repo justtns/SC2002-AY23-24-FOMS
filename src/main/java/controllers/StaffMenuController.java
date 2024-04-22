@@ -15,7 +15,8 @@ public class StaffMenuController {
         return menuDAO.getElements();
     }
 
-    public void addMenuItem(MenuItem item) {
+    public void addMenuItem(String name, String category, String branch, double price) {
+        MenuItem item = new MenuItem(name, category, branch, price);
         if (MenuDAO.findElement(item.getName(), item.getBranch()) == null) {
             menuDAO.addElement(item);
             System.out.println("Menu item added: " + item.getName());
@@ -24,34 +25,37 @@ public class StaffMenuController {
         }
     }
 
-    public void editMenuItem(MenuItem oldItem, MenuItem updatedItem) {
-
-        MenuItem currentItem = MenuDAO.findElement(oldItem.getName(), oldItem.getBranch());
-        if (currentItem != null) {
-            menuDAO.updateElement(currentItem, updatedItem);
+    public void editMenuItem(String name, String branch, String newCategory, double newPrice) {
+        
+        MenuItem item = MenuDAO.findElement(name, branch);
+        if (item == null) {
+            System.out.println("Menu item not found.");
+        }
+        else{
+            MenuItem updatedItem = new MenuItem(name, newCategory, branch, newPrice);
+            menuDAO.updateElement(item, updatedItem);
             System.out.println("Menu item updated: " + updatedItem.getName());
+        }
+        
+    }
+
+    public void removeMenuItem(String name, String branch) {
+        MenuItem itemToRemove = MenuDAO.findElement(name, branch);
+        if (itemToRemove != null) {
+            menuDAO.removeElement(name, branch);
+            System.out.println("Menu item removed: " + itemToRemove.getName());
         } else {
-            System.err.println("Menu item with name " + oldItem.getName() + " not found in branch: " + oldItem.getBranch());
+            System.err.println("Menu item with name " + itemToRemove.getName() + " not found in branch: " + itemToRemove.getBranch());
         }
     }
 
-    public void removeMenuItem(MenuItem item) {
-        MenuItem currentItem = MenuDAO.findElement(item.getName(), item.getBranch());
-        if (currentItem != null) {
-            menuDAO.removeElement(currentItem.getName(), currentItem.getBranch());
-            System.out.println("Menu item removed: " + item.getName());
+    public void changeAvailability(String name, String branch, boolean availability) {
+        MenuItem itemToChangeAvailability = MenuDAO.findElement(name, branch);
+        if (itemToChangeAvailability != null) {
+            itemToChangeAvailability.setAvailable(availability);
+            System.out.println("Menu item availability changed: " + itemToChangeAvailability.getName());
         } else {
-            System.err.println("Menu item with name " + item.getName() + " not found in branch: " + item.getBranch());
-        }
-    }
-
-    public void changeAvailability(MenuItem item, boolean availability) {
-        MenuItem currentItem = MenuDAO.findElement(item.getName(), item.getBranch());
-        if (currentItem != null) {
-            currentItem.setAvailable(availability);
-            System.out.println("Menu item availability changed: " + item.getName());
-        } else {
-            System.err.println("Menu item with name " + item.getName() + " not found in branch: " + item.getBranch());
+            System.err.println("Menu item with name " + itemToChangeAvailability.getName() + " not found in branch: " + itemToChangeAvailability.getBranch());
         }
     }
 }

@@ -18,7 +18,7 @@ public class StaffView implements StaffUserView{
                     "-----------------------------Staff Actions---------------------------\n" +
                     "-------------------------------------------------------------------\n" +
                     "                         Choose an option:\n" +
-                    "                         1.View Order Actions\n" +
+                    "                         1.Manage Orders\n" +
                     "                         2.Logout\n" +                         
                     "---------------------------------------------------------------------\n" +
                     "\n" +

@@ -1,12 +1,10 @@
 package main.java.models;
 
-import main.java.utils.types.PaymentType;
-
 public class PaymentMethod {
     private String name;
-    private PaymentType type;
+    private String type;
 
-    public PaymentMethod(String name, PaymentType type){
+    public PaymentMethod(String name, String type){
         this.name = name;
         this.type = type;
     }
@@ -22,7 +20,7 @@ public class PaymentMethod {
         return type;
     }
 
-    public void setType(PaymentType type){
+    public void setType(String type){
         this.type = type;
     }
 }

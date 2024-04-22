@@ -22,9 +22,9 @@ public class ManagerView implements StaffUserView{
                     "-----------------------------Manager Actions---------------------------\n" +
                     "-------------------------------------------------------------------\n" +
                     "                         Choose an option:\n" +
-                    "                         1.View Order Actions\n" +
-                    "                         2.View Menu Actions\n" +
-                    "                         3.Display Staff Action\n" +
+                    "                         1.Manage Orders\n" +
+                    "                         2.Manage Menu\n" +
+                    "                         3.Display Staff List\n" +
                     "                         4.Logout\n" +                         
                     "---------------------------------------------------------------------\n" +
                     "\n" +
