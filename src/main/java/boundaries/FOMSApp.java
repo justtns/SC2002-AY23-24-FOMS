@@ -1,11 +1,13 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
+
+import main.java.utils.ScannerProvider;
 import main.java.utils.types.LoginRole;
 import java.util.InputMismatchException;
 
 public class FOMSApp {
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner = ScannerProvider.getScanner();
     private LoginRole loginRole;
 
     public void execute() {
@@ -34,9 +36,9 @@ public class FOMSApp {
             choice = -1;
             try {
                 choice = scanner.nextInt();
+                scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
                 continue;
             }
             if (choice == 3){
