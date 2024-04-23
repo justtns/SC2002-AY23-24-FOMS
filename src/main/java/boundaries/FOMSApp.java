@@ -46,10 +46,10 @@ public class FOMSApp {
             
             switch (choice) {
                 case 1:
-                    this.loginRole = loginRole.CUSTOMER;
+                    this.loginRole = LoginRole.CUSTOMER;
                     break;
                 case 2:
-                    this.loginRole = loginRole.STAFF;
+                    this.loginRole = LoginRole.STAFF;
                     break;
                 default:
                     System.out.println("Invalid Key! Enter your choice (1-2)");
