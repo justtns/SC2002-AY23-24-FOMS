@@ -75,7 +75,7 @@ public class StaffApp implements AppDisplay {
                     break;
                 default:
                     System.out.println("Invalid role entered.");
-                    return;
+                    break;
             }
         }
     }
