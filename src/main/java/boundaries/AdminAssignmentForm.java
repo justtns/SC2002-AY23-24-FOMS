@@ -26,17 +26,17 @@ public class AdminAssignmentForm {
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Admin Assignment Actions---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.Assign Manager to Branch\n" +
-                    "                         2.Promote Staff to Manager\n" +
-                    "                         3.Transfer Staff\n" +
-                    "                         4.Go to Homescreen\n" +    
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-4): \n");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Admin Assignment Actions---------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Assign Manager to Branch                       |\n" +
+                               "|                   2.Promote Staff to Manager                       |\n" +
+                               "|                   3.Transfer Staff                                 |\n" +
+                               "|                   4.Go to Homescreen                               |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-4): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

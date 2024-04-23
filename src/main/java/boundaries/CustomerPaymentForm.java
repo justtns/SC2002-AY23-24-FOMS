@@ -18,10 +18,14 @@ public class CustomerPaymentForm implements Form{
     }
     
     public void generateForm() {
-        System.out.println("Please select a payment method:");
-        System.out.println("1: Online Payment");
-        System.out.println("2: Credit/Debit Card Payment");
-
+        System.out.println("----------------------------------------------------------------------\n" +
+                           "|----------------------------Customer Payment------------------------|\n" +
+                           "----------------------------------------------------------------------\n" +
+                            "|                   Please seelct a payment method                  |\n" +
+                            "|                   1.Online Payment                                |\n" +
+                            "|                   2.Credit/Debit Card Payment                     |\n" +
+                            "---------------------------------------------------------------------\n" +
+                            "\n");
 
         int choice = scanner.nextInt();
         switch (choice) {
@@ -48,9 +52,14 @@ public class CustomerPaymentForm implements Form{
     }
 
     private void printReceiptOption() {
-        System.out.println("Would you like a receipt?");
-        System.out.println("1: Yes");
-        System.out.println("2: No");
+        System.out.println("----------------------------------------------------------------------\n" +
+                           "|----------------------------Customer Payment------------------------|\n" +
+                           "----------------------------------------------------------------------\n" +
+                            "|                   Would you like a receipt?                       |\n" +
+                            "|                   1.Yes                                           |\n" +
+                            "|                   2.No                                            |\n" +
+                            "---------------------------------------------------------------------\n" +
+                            "\n");
 
         int receiptChoice = scanner.nextInt();
         if (receiptChoice == 1) {
