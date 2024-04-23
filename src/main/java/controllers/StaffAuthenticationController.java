@@ -7,9 +7,11 @@ import main.java.daos.StaffDAO;
  * The StaffAuthenticationController class provides methods for authenticating staff members.
  * It allows staff members to authenticate their username and password, as well as update their password.
  * This class interacts with the StaffDAO to retrieve and update staff information.
+ * This class is part of a three-layer architecture, serving as the intermediary between the presentation layer (UI)
+ * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffAuthenticationController {
