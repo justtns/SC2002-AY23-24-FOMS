@@ -9,41 +9,60 @@ public class FOMSApp {
     private LoginRole loginRole;
 
     public void execute() {
+        System.out.println(
+        "        ________  ______   __       __   ______  \n" +
+        "       /        |/      \\ /  \\     /  | /      \\ \n" +
+        "       $$$$$$$$//$$$$$$  |$$  \\   /$$ |/$$$$$$  |\n" +
+        "       $$ |__   $$ |  $$ |$$$  \\ /$$$ |$$ \\__$$/ \n" +
+        "       $$    |  $$ |  $$ |$$$$  /$$$$ |$$      \\ \n" +
+        "       $$$$$/   $$ |  $$ |$$ $$ $$/$$ | $$$$$$  |\n" +
+        "       $$ |     $$ \\__$$ |$$ |$$$/ $$ |/  \\__$$ |\n" +
+        "       $$ |     $$    $$/ $$ | $/  $$ |$$    $$/ \n" +
+        "       $$/       $$$$$$/  $$/      $$/  $$$$$$/  "
+        );
         System.out.println("------------------------------------------------------------------------\n" +
-                           "|----------------Fastfood Ordering and Management System --------------|\n" +
+                           "|----------------Fastfood ordering and management System --------------|\n" +
                            "------------------------------------------------------------------------\n" +
                            "|                      Choose an option:                               |\n" +
-                           "|                      1.Customer                                      |\n" +
-                           "|                      2.Staff                                         |\n" +
+                           "|                      1. Customer                                     |\n" +
+                           "|                      2. Staff                                        |\n" +
+                           "|                      3. Exit                                         |\n" +
                            "------------------------------------------------------------------------\n");
-
-        enterRole();
-
-        AppDisplay app;
-        switch(loginRole) {
-            case CUSTOMER:
-                app = new CustomerApp();
-                app.execute();
+        boolean loop=true;
+        int choice;
+        while(loop){
+            choice = -1;
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
+                continue;
+            }
+            if (choice == 3){
+                System.out.println("Exiting System...");
+                loop = false;
                 break;
-            case STAFF:
-                app = new StaffApp();
-                app.execute();
-                break;
-        }
-    }
-
-    public void enterRole() {
-            int choice = -1;
-            while(choice == -1){
-                try {
-                    choice = Integer.parseInt(scanner.next());
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid Input. Please enter a number.");
-                    scanner.nextLine(); // Consume the invalid input
-                    continue;
+            }
+            else{
+                enterRole(choice);
+                AppDisplay app;
+                switch(loginRole) {
+                    case CUSTOMER:
+                        app = new CustomerApp();
+                        app.execute();
+                        break;
+                    case STAFF:
+                        app = new StaffApp();
+                        app.execute();
+                        break;
                 }
             }
-            
+        }
+
+    }
+
+    public void enterRole(int choice) {
             switch (choice) {
                 case 1:
                     this.loginRole = LoginRole.CUSTOMER;
