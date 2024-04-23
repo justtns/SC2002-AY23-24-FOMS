@@ -12,17 +12,19 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 
 /**
- * @author SDDA Team 1
- * @version 1.1
- * @since 23-Apr-2024
- * BranchDAO class represents a Data Access Object (DAO) for managing Branch objects. 
+ * BranchDAO is implemented from DAOInterface 
+ * @see DAOInterface
+ * BranchDAO is a Data Access Object (DAO) for managing Branch objects.
  * It provides methods to interact with Branch data stored in an Excel file.
+ * @author SDDA Team 1
+ * @version 1.2
+ * @since 23-Apr-2024
  */
 public class BranchDAO implements DAOInterface<Branch>{
-    private List<Branch> BranchList;
 
     /**
-     * Constructor for BranchDAO. Initializes BranchList and reads data from the Excel file.
+     * Constructor for BranchDAO.
+     * Initializes BranchList and reads data from the Excel file.
      * Handles IOException if encountered while reading the file.
      */
     public BranchDAO(){
@@ -92,11 +94,11 @@ public class BranchDAO implements DAOInterface<Branch>{
      * Handles IOException if encountered while writing the file.
      */
     public void saveData(){
-        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src/main/resources/xlsx/payment_list.xlsx")) {
-            Sheet sheet = workbook.createSheet("Menu Items");
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src/main/resources/xlsx/branch_list.xlsx")) {
+            Sheet sheet = workbook.createSheet("Branches");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);
-            String[] headers = {"Name", "Capacity"};
+            String[] headers = {"Name", "Location", "Capacity"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
@@ -201,4 +203,6 @@ public class BranchDAO implements DAOInterface<Branch>{
         BranchList.add(element);
         System.out.println("Branch added successfully.");
     }
+
+    private List<Branch> BranchList; // List to hold Branch objects
 }
