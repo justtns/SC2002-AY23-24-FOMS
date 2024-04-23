@@ -19,6 +19,7 @@ public class StaffMenuController {
         MenuItem item = new MenuItem(name, category, branch, price);
         if (MenuDAO.findElement(item.getName(), item.getBranch()) == null) {
             menuDAO.addElement(item);
+            menuDAO.saveData();
             System.out.println("Menu item added: " + item.getName());
         } else {
             System.err.println("Menu item already exists in branch: " + item.getBranch());
@@ -34,6 +35,7 @@ public class StaffMenuController {
         else{
             MenuItem updatedItem = new MenuItem(name, newCategory, branch, newPrice);
             menuDAO.updateElement(item, updatedItem);
+            menuDAO.saveData();
             System.out.println("Menu item updated: " + updatedItem.getName());
         }
         
@@ -43,6 +45,7 @@ public class StaffMenuController {
         MenuItem itemToRemove = MenuDAO.findElement(name, branch);
         if (itemToRemove != null) {
             menuDAO.removeElement(name, branch);
+            menuDAO.saveData();
             System.out.println("Menu item removed: " + itemToRemove.getName());
         } else {
             System.err.println("Menu item with name " + itemToRemove.getName() + " not found in branch: " + itemToRemove.getBranch());
@@ -53,6 +56,7 @@ public class StaffMenuController {
         MenuItem itemToChangeAvailability = MenuDAO.findElement(name, branch);
         if (itemToChangeAvailability != null) {
             itemToChangeAvailability.setAvailable(availability);
+            menuDAO.saveData();
             System.out.println("Menu item availability changed: " + itemToChangeAvailability.getName());
         } else {
             System.err.println("Menu item with name " + itemToChangeAvailability.getName() + " not found in branch: " + itemToChangeAvailability.getBranch());

@@ -26,5 +26,6 @@ public class StaffOrderController {
         Order newOrder = orderDAO.findOrderById(orderID);
         newOrder.setOrderStatus(OrderStatus.Ready);
         orderDAO.updateElement(orderDAO.findOrderById(orderID), newOrder);
+        orderDAO.saveData();
     }
 }

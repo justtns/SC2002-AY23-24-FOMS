@@ -20,13 +20,18 @@ public class StaffAssignmentController {
     public boolean promoteToManager(String staffID) {
         Staff oldstaff = staffDAO.findElement(staffID);
         Staff staff = staffDAO.findElement(staffID);
-        if(staff.getRole() == StaffRole.Manager){
-            System.out.println("Error: Staff is already Manager");
+        if(staff == null){
+            System.out.println("Error: Staff is not found.");
+            return false;
+        }
+        else if(staff.getRole() == StaffRole.Manager){
+            System.out.println("Error: Staff is already Manager.");
             return false;
         }
         else{
             staff.setRole(StaffRole.Manager);
             staffDAO.updateElement(oldstaff, staff);
+            staffDAO.saveData();
             return true;
         }
     }
@@ -34,7 +39,11 @@ public class StaffAssignmentController {
     public boolean transferStaff(String staffID, String oldBranch, String newBranch) {
         Staff oldstaff = staffDAO.findElement(staffID);
         Staff staff = staffDAO.findElement(staffID);
-        if(staff.getBranch() == oldBranch){
+        if(staff == null){
+            System.out.println("Error: Staff is not found.");
+            return false;
+        }
+        else if(staff.getBranch() == oldBranch){
             System.out.println("Error: Staff does not belong to" + oldBranch);
             return false;
         }
@@ -45,6 +54,7 @@ public class StaffAssignmentController {
         else{
             staff.setBranch(newBranch);
             staffDAO.updateElement(oldstaff, staff);
+            staffDAO.saveData();
             return true;
         }
     }
