@@ -64,7 +64,7 @@ public class AdminAssignmentForm implements Form {
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Invalid Key! Enter your choice (1-3)");
+                    System.out.println("Invalid Key! Enter your choice (1-4)");
                     break;
             }
         }
