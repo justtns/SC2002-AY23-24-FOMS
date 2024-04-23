@@ -24,19 +24,19 @@ public class AdminDisplayForm implements Form {
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Admin Display Actions---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.Display the List of Staff by Branch\n" +
-                    "                         2.Display the List of Staff by Role\n" +
-                    "                         3.Display the List of Staff by Gender\n" +
-                    "                         4.Display the List of Staff by Age\n" +
-                    "                         5.Display all Staff\n" +
-                    "                         6.Go to Homescreen\n" +    
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-6): \n");
+            System.out.println("-----------------------------------------------------------------------\n" +
+                               "|-----------------------Admin Display Actions-------------------------|\n" +
+                               "-----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                 |\n" +
+                               "|                   1.Display the List of Staff by Branch             |\n" +
+                               "|                   2.Display the List of Staff by Role               |\n" +
+                               "|                   3.Display the List of Staff by Gender             |\n" +
+                               "|                   4.Display the List of Staff by Age                |\n" +
+                               "|                   5.Display all Staff                               |\n" +
+                               "|                   6.Go to Homescreen                                |\n" +
+                               "-----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-6): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
@@ -115,7 +115,5 @@ public class AdminDisplayForm implements Form {
 
     private void staffList() {
         displayController.displayStaffList();
-    }
-
-    
+    }    
 }

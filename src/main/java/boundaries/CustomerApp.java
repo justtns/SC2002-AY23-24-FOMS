@@ -20,18 +20,17 @@ public class CustomerApp {
         Boolean loop=true;
         while (loop) {
             System.out.println("Order ID:" + session.getOrderId());
-            System.out.println("-------------------------------------------------------------------\n" +
-            "-----------------------------Customer Menu---------------------------\n" +
-            "-------------------------------------------------------------------\n" +
-            "                         Choose an option:\n" +
-            "                         1.View menu and order\n" +
-            "                         2.Make Payment\n" +
-            "                         3.Check on my order\n" +
-            "                         4.Logout\n" +
-
-            "---------------------------------------------------------------------\n" +
-            "\n" +
-            "Enter your choice (1-4): \n");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Customer Menu--------------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.View menu and order                            |\n" +
+                               "|                   2.Make Payment                                   |\n" +
+                               "|                   3.Check on my order                              |\n" +
+                               "|                   4.Logout                                         |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-4): \n");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

@@ -21,19 +21,19 @@ public class ManagerMenuForm implements Form {
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Manager Menu Actions---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.Add Menu Items\n" +
-                    "                         2.Edit Menu Items\n" +
-                    "                         3.Remove Menu Items\n" +
-                    "                         4.Change Menu Item Availability\n" +
-                    "                         5.Edit Menu Item Description" +
-                    "                         6.Go to Homescreen\n" +    
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-6): \n");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Manager Menu Actions-------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Display the List of Staff in your Branch       |\n" +
+                               "|                   2.Edit Menu Items                                |\n" +
+                               "|                   3.Remove Menu Item                               |\n" +
+                               "|                   4.Change Menu Item Availability                  |\n" +
+                               "|                   5.Edit Menu Item Description                     |\n" +                               
+                               "|                   6.Go to Homescreen                               |\n" +                               
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-6): \n");            
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

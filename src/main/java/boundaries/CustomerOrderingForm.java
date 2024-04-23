@@ -42,16 +42,16 @@ public class CustomerOrderingForm implements Form{
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Order Menu---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.View Menu\n" +
-                    "                         2.Place Order\n" +
-                    "                         3.Go to Homescreen\n" +
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-3): \n");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Customer Order Menu--------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.View Menu                                      |\n" +
+                               "|                   2.Place Order                                    |\n" +
+                               "|                   3.Go to Homescreen                               |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-3): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

@@ -31,17 +31,17 @@ public class StaffOrderForm implements Form{
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Staff Order Actions---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.Display the new orders\n" +
-                    "                         2.View the details of a particular order\n" +
-                    "                         3.Process order\n" +
-                    "                         4.Go to Homescreen\n" +                            
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-4): \n");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Staff Order Actions--------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Display the new orders                         |\n" +
+                               "|                   2.View the details of a particular order         |\n" +
+                               "|                   3.Process order                                  |\n" +
+                               "|                   4.Go to Homescreen                               |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-4): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

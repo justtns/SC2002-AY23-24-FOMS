@@ -24,17 +24,17 @@ public class AdminManagementForm implements Form {
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Admin Management Actions---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.Add Staff Account\n" +
-                    "                         2.Edit Staff Account\n" +
-                    "                         3.Remove Staff Account\n" +
-                    "                         4.Go to Homescreen\n" +    
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-4): \n");
+            System.out.println("-----------------------------------------------------------------------\n" +
+                               "|-----------------------Admin Management Actions----------------------|\n" +
+                               "-----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                 |\n" +
+                               "|                   1.Add Staff Account                               |\n" +
+                               "|                   2.Edit Staff Account                              |\n" +
+                               "|                   3.Remove Staff Account                            |\n" +
+                               "|                   4.Go to Homescreen                                |\n" +
+                               "-----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-4): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
