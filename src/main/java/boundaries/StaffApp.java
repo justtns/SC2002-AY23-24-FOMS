@@ -13,7 +13,9 @@ public class StaffApp implements AppDisplay {
     private StaffSession staffSession;
 
     public void execute() {
-        System.out.println("----------------------------------------------------------------------\n" +
+        boolean loop = true;
+        while(loop){
+            System.out.println("----------------------------------------------------------------------\n" +
                            "|--------------------------Login Portal------------------------------|\n" +
                            "----------------------------------------------------------------------\n");
 
@@ -48,9 +50,12 @@ public class StaffApp implements AppDisplay {
                     view.execute(staffSession);
                     break;
             }
+            loop = false;
         } else {
             System.out.println("Login failed. Please try again.");
         }
+        }
+        
     }
 
     public void enterRole() {
