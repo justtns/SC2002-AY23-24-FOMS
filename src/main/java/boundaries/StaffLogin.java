@@ -6,8 +6,7 @@ import main.java.daos.StaffDAO;
 
 public class StaffLogin {   
     public StaffRole staffRole;
-    private StaffDAO staffDAO;
-    private StaffAuthenticationController authController = new StaffAuthenticationController(staffDAO);
+    private StaffAuthenticationController authController = new StaffAuthenticationController(new StaffDAO());
     private String password;
     private String username;
 

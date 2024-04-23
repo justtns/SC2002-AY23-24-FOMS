@@ -10,7 +10,7 @@ public class FOMSApp {
 
     public void execute() {
         System.out.println("------------------------------------------------------------------------\n" +
-                           "|----------------Fastfood ordering and management System --------------|\n" +
+                           "|----------------Fastfood Ordering and Management System --------------|\n" +
                            "------------------------------------------------------------------------\n" +
                            "|                      Choose an option:                               |\n" +
                            "|                      1.Customer                                      |\n" +

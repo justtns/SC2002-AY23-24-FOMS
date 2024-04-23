@@ -51,7 +51,7 @@ public class CustomerOrderingForm implements Form{
                                "|                   3.Go to Homescreen                               |\n" +
                                "----------------------------------------------------------------------\n" +
                                "\n" +
-                               "Enter your choice (1-3): \n");
+                               "Enter your choice (1-3):");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
