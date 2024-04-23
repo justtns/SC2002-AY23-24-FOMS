@@ -13,17 +13,17 @@ public class StaffDAOTester {
         System.out.println("Add Staff Test: " + (staffDao.getElements().contains(newStaff) ? "Passed" : "Failed"));
 
         // Test finding a staff member
-        Staff foundStaff = staffDao.findElement("John Doe");
+        Staff foundStaff = staffDao.findElement("102");
         System.out.println("Find Staff Test: " + (foundStaff != null ? "Passed" : "Failed"));
 
         // Test updating a staff member
         Staff updatedStaff = new Staff("John Doe", "102", "newpassword", StaffRole.Staff, "Male", 30, "Main Branch");
         staffDao.updateElement(newStaff, updatedStaff);
-        foundStaff = staffDao.findElement("John Doe");
+        foundStaff = staffDao.findElement("102");
         System.out.println("Update Staff Test: " + (foundStaff.getPassword().equals("newpassword") ? "Passed" : "Failed"));
 
         // Test removing a staff member
-        staffDao.removeElement("John Doe");
+        staffDao.removeElement("102");
         foundStaff = staffDao.findElement("John Doe");
         System.out.println("Remove Staff Test: " + (foundStaff == null ? "Passed" : "Failed"));
     }

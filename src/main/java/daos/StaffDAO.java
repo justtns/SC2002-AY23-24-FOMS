@@ -42,128 +42,126 @@ public class StaffDAO implements DAOInterface<Staff>{
  * If the files do not exist, it creates new Excel files with headers.
  * Handles IOException if encountered while reading or creating the files.
  */
-@Override
-public void readData() {
-    staffList = new ArrayList<>();
-    String filePath = "src/main/resources/xlsx/staff_list.xlsx";
-    File file = new File(filePath);
-    
-    // Check if the file exists, if not, create it and add headers
-    if (!file.exists()) {
-        try (Workbook workbook = new XSSFWorkbook()) {
+    @Override
+    public void readData() {
+        staffList = new ArrayList<>();
+        String filePath = "src/main/resources/xlsx/staff_list.xlsx";
+        File file = new File(filePath);
+        
+        // Check if the file exists, if not, create it and add headers
+        if (!file.exists()) {
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("Staff");
+                Row headerRow = sheet.createRow(0);
+                String[] headers = {"Name", "ID", "Password", "Role", "Gender", "Age", "Branch"};
+                for (int i = 0; i < headers.length; i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(headers[i]);
+                }
+                try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                    workbook.write(outputStream);
+                }
+            } catch (IOException e) {
+                System.out.println("Failed to create new Excel file for staff data: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        // Read data from the Excel file
+        try (FileInputStream inputStream = new FileInputStream(file);
+                Workbook workbook = new XSSFWorkbook(inputStream)) {
+                    Sheet sheet = workbook.getSheetAt(0);
+                    Iterator<Row> rowIterator = sheet.iterator();
+                    while (rowIterator.hasNext()) {
+                        Row row = rowIterator.next();
+                        if (row.getRowNum() == 0 | row.getCell(0).getStringCellValue().isEmpty()) { // Skip header row
+                            continue;
+                        }
+                        String name = row.getCell(0).getStringCellValue();
+                        String id = row.getCell(1).getStringCellValue();
+                        String password;
+                        if(row.getCell(2) == null || row.getCell(2).getStringCellValue().isEmpty()) {
+                            password = "password";
+                        } else {
+                            password = row.getCell(2).getStringCellValue();
+                        }
+                        String roleString = row.getCell(3).getStringCellValue();
+                        String gender = row.getCell(4).getStringCellValue();
+                        int age = (int) row.getCell(5).getNumericCellValue();
+                        String branch;
+                        if(row.getCell(6) == null || row.getCell(6).getStringCellValue().isEmpty()) {
+                            branch = "NA";
+                        } else {
+                            branch = row.getCell(6).getStringCellValue();
+                        }
+                        StaffRole role;
+                        switch (roleString) {
+                            case "S":
+                                role = StaffRole.Staff;
+                                break;
+                            case "M":
+                                role = StaffRole.Manager;
+                                break;
+                            case "A":
+                                role = StaffRole.Admin;
+                                break;
+                            default:
+                                role = StaffRole.Staff; // Default to Staff if role is undefined
+                                break;
+                        }
+
+                        // Creating entry into staff list
+                        staffList.add(new Staff(name, id, password, role, gender, age, branch));
+                    }
+        } catch (IOException e) {
+            System.out.println("Failed to read staff data from Excel file: " + e.getMessage());
+            e.printStackTrace();
+        }
+        if (staffList.size() == 0) {
+            System.out.println("No staff records found.");
+        }
+    }
+
+    /**
+     * Saves the data from staffList to Excel files.
+     * If the files do not exist, it creates new ones with headers.
+     * Handles IOException if encountered while writing the files.
+     */
+    public void saveData() {
+        String filePath = "src/main/resources/xlsx/staff_list.xlsx";
+        File file = new File(filePath);
+
+        try (Workbook workbook = new XSSFWorkbook();
+            FileOutputStream outputStream = new FileOutputStream(file)) {
             Sheet sheet = workbook.createSheet("Staff");
+
+            // Create headers in the Excel file
             Row headerRow = sheet.createRow(0);
             String[] headers = {"Name", "ID", "Password", "Role", "Gender", "Age", "Branch"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
             }
-            try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
-                workbook.write(outputStream);
+
+            // Populate the Excel file with staff data
+            int rowIndex = 1;
+            for (Staff member : staffList) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(member.getName());
+                row.createCell(1).setCellValue(member.getLoginID());
+                row.createCell(2).setCellValue(member.getPassword());
+                row.createCell(3).setCellValue((member.getRole().toString()));
+                row.createCell(4).setCellValue(member.getGender());
+                row.createCell(5).setCellValue(member.getAge());
+                row.createCell(6).setCellValue(member.getBranch());
             }
+            workbook.write(outputStream);
+            System.out.println("Staff data saved successfully.");
         } catch (IOException e) {
-            System.out.println("Failed to create new Excel file for staff data: " + e.getMessage());
+            System.out.println("Failed to save staff data: " + e.getMessage());
             e.printStackTrace();
         }
     }
-
-    // Read data from the Excel file
-    try (FileInputStream inputStream = new FileInputStream(file);
-            Workbook workbook = new XSSFWorkbook(inputStream)) {
-                Sheet sheet = workbook.getSheetAt(0);
-                Iterator<Row> rowIterator = sheet.iterator();
-                while (rowIterator.hasNext()) {
-                    Row row = rowIterator.next();
-                    if (row.getRowNum() == 0) { // Skip header row
-                        continue;
-                    }
-                    String name = row.getCell(0).getStringCellValue();
-                    String id = row.getCell(1).getStringCellValue();
-                    String password;
-                    if(row.getCell(2) == null || row.getCell(2).getStringCellValue().isEmpty()) {
-                        password = "password";
-                    } else {
-                        password = row.getCell(2).getStringCellValue();
-                    }
-                    String roleString = row.getCell(3).getStringCellValue();
-                    String gender = row.getCell(4).getStringCellValue();
-                    int age = (int) row.getCell(5).getNumericCellValue();
-                    String branch;
-                    if(row.getCell(6) == null || row.getCell(6).getStringCellValue().isEmpty()) {
-                        branch = "NA";
-                    } else {
-                        branch = row.getCell(6).getStringCellValue();
-                    }
-
-                    StaffRole role;
-                    switch (roleString) {
-                        case "S":
-                            role = StaffRole.Staff;
-                            break;
-                        case "M":
-                            role = StaffRole.Manager;
-                            break;
-                        case "A":
-                            role = StaffRole.Admin;
-                            break;
-                        default:
-                            role = StaffRole.Staff; // Default to Staff if role is undefined
-                            break;
-                    }
-
-                    // Creating entry into staff list
-                    staffList.add(new Staff(name, id, password, role, gender, age, branch));
-
-                }
-    } catch (IOException e) {
-        System.out.println("Failed to read staff data from Excel file: " + e.getMessage());
-        e.printStackTrace();
-    }
-    if (staffList.size() == 0) {
-        System.out.println("No staff records found.");
-    }
-}
-
-/**
- * Saves the data from staffList to Excel files.
- * If the files do not exist, it creates new ones with headers.
- * Handles IOException if encountered while writing the files.
- */
-public void saveData() {
-    String filePath = "src/main/resources/xlsx/staff_list.xlsx";
-    File file = new File(filePath);
-
-    try (Workbook workbook = new XSSFWorkbook();
-        FileOutputStream outputStream = new FileOutputStream(file)) {
-        Sheet sheet = workbook.createSheet("Staff");
-
-        // Create headers in the Excel file
-        Row headerRow = sheet.createRow(0);
-        String[] headers = {"Name", "ID", "Password", "Role", "Gender", "Age", "Branch"};
-        for (int i = 0; i < headers.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(headers[i]);
-        }
-
-        // Populate the Excel file with staff data
-        int rowIndex = 1;
-        for (Staff member : staffList) {
-            Row row = sheet.createRow(rowIndex++);
-            row.createCell(0).setCellValue(member.getName());
-            row.createCell(1).setCellValue(member.getLoginID());
-            row.createCell(2).setCellValue(member.getPassword());
-            row.createCell(3).setCellValue((member.getRole().toString()));
-            row.createCell(4).setCellValue(member.getGender());
-            row.createCell(5).setCellValue(member.getAge());
-            row.createCell(6).setCellValue(member.getBranch());
-        }
-        workbook.write(outputStream);
-        System.out.println("Staff data saved successfully.");
-    } catch (IOException e) {
-        System.out.println("Failed to save staff data: " + e.getMessage());
-        e.printStackTrace();
-    }
-}
 
     /**
      * Retrieves the list of Staff objects.
