@@ -5,14 +5,12 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffAssignmentController;
 import main.java.daos.StaffDAO;
-import main.java.daos.BranchDAO;
 import main.java.utils.loggers.StaffSession;
 
 public class AdminAssignmentForm implements Form {
 
     private StaffDAO staffDAO = new StaffDAO();
-    private BranchDAO branchDAO = new BranchDAO();
-    private StaffAssignmentController assignmentController = new StaffAssignmentController(staffDAO, branchDAO);
+    private StaffAssignmentController assignmentController = new StaffAssignmentController(staffDAO);
     private StaffSession session;
     private Scanner scanner;
 
