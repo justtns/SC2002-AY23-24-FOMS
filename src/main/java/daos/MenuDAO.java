@@ -17,7 +17,7 @@ import java.io.IOException;
  * This class implements the DAOInterface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class MenuDAO implements DAOInterface<MenuItem> {
@@ -159,7 +159,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
     };
 
     /**
-     * Finds and returns a MenuItem by its name and branch.
+     * Finds and returns a MenuItem by its name and branch. Overloaded with previous findElement(String elementName).
      * @param elementName The Name of the MenuItem to find
      * @param branchName The Branch of the MenuItem to find
      * @return The found MenuItem, or null if not found
@@ -221,7 +221,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
     }
 
     /**
-     * Removes a MenuItem from the list by its name and branch.
+     * Removes a MenuItem from the list by its name and branch. Overloaded with previous removeElement(String elementName).
      * @param elementName The Name of the MenuItem to remove
      * @param branchName The Branch of the MenuItem to remove
      */
