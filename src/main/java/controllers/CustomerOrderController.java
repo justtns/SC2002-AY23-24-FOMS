@@ -7,10 +7,11 @@ import main.java.daos.OrderDAO;
 /**
  * The CustomerOrderController class implements the business logic layer operations related to customer orders.
  * It provides methods to create, modify, and manage customer orders.
- * This class serves as the intermediary between the presentation layer (UI) and the data access layer (DAO).
+ * This class is part of a three-layer architecture, serving as the intermediary between the presentation layer (UI)
+ * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class CustomerOrderController {
