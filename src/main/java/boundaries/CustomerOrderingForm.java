@@ -28,7 +28,6 @@ public class CustomerOrderingForm implements Form{
     private CustomerMenuController menuController = new CustomerMenuController(new MenuDAO());
     private String branch;
     private int orderId;
-    private Order customerOrder;
     private Scanner scanner;
 
     public CustomerOrderingForm(CustomerSession session, Scanner scanner){
@@ -38,7 +37,6 @@ public class CustomerOrderingForm implements Form{
     }
 
     public void generateForm(){
-        System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         int choice;
         while (loop) {
@@ -54,8 +52,7 @@ public class CustomerOrderingForm implements Form{
                                "Enter your choice (1-3):");
             choice = -1;
             try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
+                choice = Integer.parseInt(scanner.nextLine().trim());
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
@@ -82,8 +79,8 @@ public class CustomerOrderingForm implements Form{
 
     private void placeOrder() {
         System.out.println("Placing an Order");
-        Order custOrder = orderController.createCustomerOrder(orderId, branch);
-        custOrder.setOrderStatus(OrderStatus.NEW);
+        Order customerOrder = orderController.createCustomerOrder(orderId, branch);
+        customerOrder.setOrderStatus(OrderStatus.NEW);
         List<MenuItem> selectedItems = menuController.getitems();
     
         while (true) {
@@ -95,14 +92,13 @@ public class CustomerOrderingForm implements Form{
             }
             MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
             if (selectedItem == null || !selectedItem.getBranch().equals(branch)) { // Corrected check
-                System.out.println("Invalid item or not available in this branch. Please try again.");
+                System.out.println("Invalid item. Please try again.");
                 continue;
             }
             String comment = getComment();
             int quantity = getQty();
-            this.customerOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
+            customerOrder = orderController.addItem(customerOrder, selectedItem, quantity, comment);
         }
-
     
         if (customerOrder.getItems().isEmpty()) {
             System.out.println("Order is Empty! Returning to Homescreen...");
@@ -114,8 +110,7 @@ public class CustomerOrderingForm implements Form{
         while (method != 1 && method != 2) {
             System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
             try {
-                method = scanner.nextInt();
-                scanner.nextLine(); // Properly clear the buffer
+                method = Integer.parseInt(scanner.nextLine().trim());
                 if (method != 1 && method != 2) {
                     System.out.println("Invalid Input. Please enter 1 or 2.");
                 }
@@ -126,10 +121,10 @@ public class CustomerOrderingForm implements Form{
         }
     
         boolean m = method == 2;
-        this.customerOrder.setDineIn(m);
+        customerOrder.setDineIn(m);
     
         System.out.println("You have selected the following items:");
-        for (MenuItem item : this.customerOrder.getItems()) {
+        for (MenuItem item : customerOrder.getItems()) {
             System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
         }
         System.out.println("1. Submit Order");
@@ -137,8 +132,7 @@ public class CustomerOrderingForm implements Form{
     
         while (true) {
             try {
-                method = scanner.nextInt();
-                scanner.nextLine(); // Properly clear the buffer
+                method = Integer.parseInt(scanner.nextLine().trim());
                 if (method == 1) {
                     orderController.saveOrder(customerOrder);
                     System.out.println("Thank you for your order. Please proceed to make payment...");
@@ -191,8 +185,7 @@ public class CustomerOrderingForm implements Form{
         while (qty <= 0) {
             try {
                 System.out.print("Enter the number of items: ");
-                qty = scanner.nextInt();
-                scanner.nextLine();
+                qty = Integer.parseInt(scanner.nextLine().trim());
                 if (qty <= 0) {
                     System.out.println("Invalid Input. Please enter a positive number.");
                 }
