@@ -26,8 +26,6 @@ public class MenuBrowsing {
     private static String branch = null;
 
     public static void main(String[] args) {
-        
-        
         System.out.println("Welcome to the SC2002 Customer Ordering System!");
 
         System.out.println("Enter the branch:");

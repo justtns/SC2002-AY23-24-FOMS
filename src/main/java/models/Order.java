@@ -129,4 +129,29 @@ public class Order {
         }
         return totalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+        "orderId=" + orderId +
+        ", items=" + itemsToString() +  // Helper method to handle list of items
+        ", comments=" + comments +
+        ", branch='" + branch + '\'' +
+        ", isDineIn=" + isDineIn +
+        ", isCompleted=" + isCompleted +
+        ", orderStatus=" + orderStatus +
+        '}';
+    }
+
+    private String itemsToString() {
+        StringBuilder itemsStr = new StringBuilder("[");
+        for (int i = 0; i < items.size(); i++) {
+            itemsStr.append(items.get(i).toString());
+            if (i < items.size() - 1) {
+                itemsStr.append(", ");  // Add comma except after the last item
+            }
+        }
+        itemsStr.append("]");
+        return itemsStr.toString();
+    }
 }
