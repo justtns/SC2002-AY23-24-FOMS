@@ -49,7 +49,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
                 Iterator<Row> rowIterator = sheet.iterator();
                 while (rowIterator.hasNext()) {
                     Row row = rowIterator.next();
-                    if (row.getRowNum() == 0){
+                    if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()){
                         continue;
                     }
                     if (row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) == null || row.getCell(3) == null) {
