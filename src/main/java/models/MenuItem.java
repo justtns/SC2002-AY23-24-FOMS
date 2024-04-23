@@ -6,13 +6,23 @@ public class MenuItem {
     private String branch;
     private String category;
     private boolean isAvailable; 
+    private String description;
 
-    public MenuItem(String name, String category, String branch, double price) {
+    public MenuItem(String name, String category, String branch, String description, double price) {
         this.name = name;
         this.price = price;
         this.branch = branch;
         this.category = category;
-        this.isAvailable = true; 
+        this.isAvailable = true;
+        this.description = description;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public String getName() {
