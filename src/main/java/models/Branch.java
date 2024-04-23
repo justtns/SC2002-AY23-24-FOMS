@@ -1,7 +1,8 @@
 package main.java.models;
 
 /**
- * The Branch class is a business object that contains all necessary accessors and mutators for CRUD Operations performed by BranchDAO.
+ * The Branch class that represents the branches of a restaurant chain.
+ * It is a business object that contains all necessary accessors and mutators for CRUD Operations performed by BranchDAO.
  * Branch class is in a 'has-a' relation with BranchDAO (Composition).
  * It contains information such as the name, capacity, and location of the branch.
  *
