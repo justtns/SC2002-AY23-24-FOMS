@@ -102,8 +102,6 @@ public class MenuDAO implements DAOInterface<MenuItem>{
             System.out.println("Error writing Excel file");
             e.printStackTrace();
         }
-
-        readData();
     };
     
     @Override
