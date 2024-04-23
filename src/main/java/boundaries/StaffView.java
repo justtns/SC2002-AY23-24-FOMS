@@ -27,6 +27,7 @@ public class StaffView implements StaffUserView{
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
+                scanner.nextLine(); // Consume the invalid input
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter (1-2)");
                 continue;

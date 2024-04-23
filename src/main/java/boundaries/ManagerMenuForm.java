@@ -4,15 +4,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import main.java.controllers.StaffMenuController;
-import main.java.daos.MenuDAO;
-import main.java.utils.loggers.StaffSession;
+import main.java.daos.MenuDAO;  
 
 public class ManagerMenuForm implements Form {
 
     private StaffMenuController menuController;
     private Scanner scanner;
 
-    public ManagerMenuForm(StaffSession session, Scanner scanner){
+    public ManagerMenuForm(Scanner scanner){
         this.menuController = new StaffMenuController(new MenuDAO()); 
         this.scanner = scanner;
     }
@@ -92,15 +91,24 @@ public class ManagerMenuForm implements Form {
         
         System.out.println("Enter the name of the new menu item:");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the category of the new menu item:");
         String category = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the description of the new menu item:");
         String description = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the price of the new menu item:");
         double price = scanner.nextDouble();
         scanner.nextLine(); // Consume the newline character after a number input
+
         System.out.println("Enter the branch of the new menu item:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         // Boolean availability = true;
         menuController.addMenuItem(name, category, branch, description, price);
     }
@@ -110,12 +118,20 @@ public class ManagerMenuForm implements Form {
         
         System.out.println("Enter the name of the menu item to edit:");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the description of the menu item:");
         String newDescription = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+        
         System.out.println("Enter the new category for the menu item:");
         String newCategory = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the new price for the menu item:");
         double newPrice = scanner.nextDouble();
         scanner.nextLine(); // Consume newline
@@ -127,8 +143,11 @@ public class ManagerMenuForm implements Form {
         System.out.println("Removing a menu item.");
         System.out.println("Enter the name of the menu item to remove:");
         String itemName = scanner.nextLine();
+        scanner.nextLine(); // // Consume the newline character
+
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
         
         menuController.removeMenuItem(itemName, branch);
         }
@@ -138,11 +157,16 @@ public class ManagerMenuForm implements Form {
                     
         System.out.println("Enter the name of the menu item to change availability:");
         String itemNameToChangeAvailability = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+        
         System.out.println("Enter new availability (true for available, false for not available):");
         Boolean newAvailability = scanner.nextBoolean();
         scanner.nextLine(); // Consume newline
+
         menuController.changeAvailability(itemNameToChangeAvailability, branch, newAvailability);
         }
 
@@ -151,14 +175,16 @@ public class ManagerMenuForm implements Form {
         
         System.out.println("Enter the name of the menu item to change availability:");
         String itemNameToEditDescription = scanner.nextLine();
-        
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
         
         System.out.println("Enter new description:");
         String newDescription = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
         
-        scanner.nextLine(); // Consume newline
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
         }
 }

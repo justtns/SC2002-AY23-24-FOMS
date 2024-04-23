@@ -12,6 +12,7 @@ public class AdminDisplayForm implements Form {
     private StaffDAO staffDAO = new StaffDAO();
     private StaffDisplayController displayController = new StaffDisplayController(staffDAO);
     private Scanner scanner;
+
     public AdminDisplayForm(Scanner scanner){
         this.scanner = scanner;
     }
@@ -77,6 +78,8 @@ public class AdminDisplayForm implements Form {
     private void staffListByBranch() {
         System.out.println("Enter the branch name:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         displayController.displayStaffListByBranch(branch);
     }
 
@@ -85,6 +88,7 @@ public class AdminDisplayForm implements Form {
         StaffRole role = null;
         while (role == null) {
             String roleInput = scanner.nextLine();
+            scanner.nextLine(); // Consume the newline character
             try {
                 role = StaffRole.valueOf(roleInput.toUpperCase());
                 break;
@@ -99,6 +103,8 @@ public class AdminDisplayForm implements Form {
     private void staffListByGender() {
         System.out.println("Enter the gender (Male/Female):");
         String gender = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         displayController.displayStaffListByGender(gender);
     }
 
@@ -106,6 +112,7 @@ public class AdminDisplayForm implements Form {
         System.out.println("Enter the age:");
         int age = Integer.parseInt(scanner.nextLine());
         scanner.nextLine(); // Consume the newline character
+        
         displayController.displayStaffListByAge(age);
     }
 

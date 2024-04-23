@@ -11,6 +11,7 @@ public class AdminPaymentForm implements Form{
     private PaymentDAO paymentDAO = new PaymentDAO();
     private StaffPaymentController paymentController = new StaffPaymentController(paymentDAO);
     private Scanner scanner;
+
     public AdminPaymentForm(Scanner scanner){
         this.scanner = scanner;
     }
@@ -61,8 +62,11 @@ public class AdminPaymentForm implements Form{
     private void getNewPaymentDetails() {
         System.out.println("Enter payment method name: ");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter payment type ");
         String type = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         if (paymentController.addPaymentMethod(name, type)) {
             System.out.println("Payment method added successfully.");
@@ -74,6 +78,7 @@ public class AdminPaymentForm implements Form{
     private void getRemovePaymentDetails() {
         System.out.println("Enter payment method name to remove: ");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         if (paymentController.removePaymentMethod(name)) {
             System.out.println("Payment method removed successfully.");

@@ -9,8 +9,8 @@ import main.java.daos.BranchDAO;
 public class AdminBranchForm implements Form {
     private BranchDAO branchDAO = new BranchDAO();
     private StaffBranchController branchController = new StaffBranchController(branchDAO);
-
     private Scanner scanner;
+
     public AdminBranchForm(Scanner scanner){
         this.scanner = scanner;
     }
@@ -61,9 +61,11 @@ public class AdminBranchForm implements Form {
     private void openBranch() {
         System.out.println("Enter branch name:");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter branch location:");
         String location = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter branch capacity:");
         int capacity = scanner.nextInt();
@@ -80,6 +82,7 @@ public class AdminBranchForm implements Form {
     private void closeBranch() {
         System.out.println("Enter branch name:");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
         
         if (branchController.closeBranch(name)){
             System.out.println("Branch closed successfully: " + name);

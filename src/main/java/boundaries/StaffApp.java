@@ -1,12 +1,13 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
+import main.java.utils.ScannerProvider;
 
 import main.java.utils.types.StaffRole;
 import main.java.utils.loggers.StaffSession;
 
 public class StaffApp implements AppDisplay {
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner = ScannerProvider.getScanner();
     private StaffRole staffRole;
     private StaffLogin staffLogin;
     private StaffSession staffSession;

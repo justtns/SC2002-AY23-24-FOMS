@@ -12,6 +12,7 @@ public class AdminManagementForm implements Form {
     private StaffDAO staffDAO = new StaffDAO();
     private StaffManagementController managementController = new StaffManagementController(staffDAO);
     private Scanner scanner;
+
     public AdminManagementForm(Scanner scanner){
         this.scanner = scanner;
     }
@@ -68,12 +69,17 @@ public class AdminManagementForm implements Form {
         // Collect details from admin
         System.out.println("Enter new staff name:");
         String name = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter new staff login ID:");
         String loginId = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter staff role (Admin/Manager/Staff):");
         StaffRole role = null;
         while (role == null) {
             String roleInput = scanner.nextLine();
+            scanner.nextLine(); // Consume the newline character
             try {
                 role = StaffRole.valueOf(roleInput.toUpperCase());
                 break;
@@ -84,11 +90,15 @@ public class AdminManagementForm implements Form {
         }
         System.out.println("Enter staff gender:");
         String gender = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter staff age:");
         int age = Integer.parseInt(scanner.nextLine());
         scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter staff branch:");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         if(managementController.addStaff(name, loginId, role, gender, age, branch)) {
             System.out.println("Staff account added successfully.");
@@ -100,12 +110,19 @@ public class AdminManagementForm implements Form {
     private void editStaffAccount() {
         System.out.println("Enter staff login ID to edit:");
         String loginId = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter new login ID for the staff:");
         String newLoginId = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter new password for the staff:");
         String newPassword = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter new branch for the staff:");
         String newBranch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
     
         if (managementController.editStaff(loginId, newLoginId, newPassword, newBranch)) {
             System.out.println("Staff account updated successfully.");
@@ -117,6 +134,7 @@ public class AdminManagementForm implements Form {
     private void removeStaffAccount() {
         System.out.println("Enter staff login ID to remove:");
         String loginId = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
     
         if (managementController.removeStaff(loginId)) {
             System.out.println("Staff account removed successfully.");

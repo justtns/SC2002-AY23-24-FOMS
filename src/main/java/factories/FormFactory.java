@@ -35,7 +35,7 @@ public class FormFactory {
                     case 1:
                         return (Form) new StaffOrderForm(scanner);
                     case 2:
-                        return (Form) new ManagerMenuForm(session, scanner);
+                        return (Form) new ManagerMenuForm(scanner);
                     case 3:
                         return (Form) new ManagerDisplayForm(session, scanner);          
                     default:

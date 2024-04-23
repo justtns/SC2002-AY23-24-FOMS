@@ -13,8 +13,7 @@ public class StaffOrderForm implements Form{
 
     private OrderDAO orderDAO = new OrderDAO();
     private StaffDAO staffDAO = new StaffDAO();
-    // private ScannerProvider scanner;
-    private Scanner scanner; // help with scanner please
+    private Scanner scanner;
     private StaffOrderController orderController = new StaffOrderController(staffDAO, orderDAO, scanner);
     
 

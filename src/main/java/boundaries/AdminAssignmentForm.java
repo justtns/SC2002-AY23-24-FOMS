@@ -68,8 +68,11 @@ public class AdminAssignmentForm implements Form {
     private void assignManagerToBranch() {
         System.out.println("Enter Staff ID: ");
         String staffID = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter Branch to assign: ");
         String branch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         if (assignmentController.assignManager(staffID, branch)) {
             System.out.println("Manager assigned successfully.");
@@ -81,6 +84,7 @@ public class AdminAssignmentForm implements Form {
     private void promoteStaff() {
         System.out.println("Enter Staff ID: ");
         String staffID = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         if (assignmentController.promoteToManager(staffID)) {
             System.out.println("Staff promoted successfully.");
@@ -92,10 +96,15 @@ public class AdminAssignmentForm implements Form {
     private void transferStaffBranch(){
         System.out.println("Enter Staff ID: ");
         String staffID = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter old branch: ");
         String oldBranch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
+
         System.out.println("Enter new branch: ");
         String newBranch = scanner.nextLine();
+        scanner.nextLine(); // Consume the newline character
 
         if (assignmentController.transferStaff(staffID, oldBranch, newBranch)) {
             System.out.println("Staff transferred successfully.");
