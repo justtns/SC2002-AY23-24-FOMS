@@ -1,6 +1,7 @@
 package main.java.boundaries;
 
 import main.java.utils.loggers.StaffSession;
+import main.java.actions.AdminActions;
 // import admin actions when done
 import main.java.utils.ScannerProvider;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.util.InputMismatchException;
 public class AdminView implements StaffUserView{
     public void execute(StaffSession session){
         Scanner scanner = new Scanner(System.in);
-        ManagerActions action; 
+        AdminActions action; 
         System.out.println("User ID:" + session.getStaffUserID());
         int choice;
 
