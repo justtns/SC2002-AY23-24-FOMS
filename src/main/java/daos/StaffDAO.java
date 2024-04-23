@@ -11,8 +11,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileOutputStream;
 
-import main.java.models.Admin;
-import main.java.models.BranchManager;
 import main.java.models.Staff;
 import main.java.utils.types.StaffRole;
 
@@ -22,7 +20,7 @@ import main.java.utils.types.StaffRole;
  * It provides methods to interact with Staff data stored in Excel files.
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 23-Apr-2024
  */
 public class StaffDAO implements DAOInterface<Staff>{
@@ -113,20 +111,9 @@ public void readData() {
                             break;
                     }
 
-                    // Creating different staff types based on their role
-                    switch (role) {
-                        case Staff:
-                            staffList.add(new Staff(name, id, password, role, gender, age, branch));
-                            break;
-                        case Manager:
-                            staffList.add(new BranchManager(name, id, password, gender, age, branch));
-                            break;
-                        case Admin:
-                            staffList.add(new Admin(name, id, password, gender, age));
-                            break;
-                        default:
-                            break;
-                    }
+                    // Creating entry into staff list
+                    staffList.add(new Staff(name, id, password, role, gender, age, branch));
+
                 }
     } catch (IOException e) {
         System.out.println("Failed to read staff data from Excel file: " + e.getMessage());
@@ -177,7 +164,6 @@ public void saveData() {
         e.printStackTrace();
     }
 }
-
 
     /**
      * Retrieves the list of Staff objects.
