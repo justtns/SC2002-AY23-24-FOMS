@@ -4,7 +4,6 @@ import main.java.daos.StaffDAO;
 import main.java.daos.BranchDAO;
 import main.java.utils.types.StaffRole;
 import main.java.models.Staff;
-import main.java.models.BranchManager;
 import main.java.models.Branch;
 
 
@@ -60,9 +59,11 @@ public class StaffAssignmentController {
     }
 
     public boolean assignManager(String staffID, String branch){
-        BranchManager manager = (BranchManager)staffDAO.findElement(staffID);
+        Staff staff = staffDAO.findElement(staffID);
+        if (staff.getRole() != StaffRole.Manager){
+            promoteToManager(staffID);
+        }
         Branch branchToAssign = branchDAO.findElement(branch);
-
         int capacity = branchToAssign.getCapacity();
     }
 }

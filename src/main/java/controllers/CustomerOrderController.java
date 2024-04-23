@@ -36,7 +36,7 @@ public class CustomerOrderController {
     }
 
     public Order findOrder(int orderID){
-        return orderDAO.findOrderById(orderID);
+        return orderDAO.findElement(Integer.toString(orderID));
     }
 
     public void saveOrder(Order customerOrder){
@@ -45,7 +45,7 @@ public class CustomerOrderController {
     }
 
     public void updateOrder(Order customerOrder){
-        orderDAO.updateElement(orderDAO.findOrderById(customerOrder.getOrderId()), customerOrder);
+        orderDAO.updateElement(orderDAO.findElement(Integer.toString(customerOrder.getOrderId())), customerOrder);
     }
 
     public double getTotal(Order customerOrder){
