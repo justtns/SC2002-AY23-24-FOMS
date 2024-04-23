@@ -9,8 +9,7 @@ import main.java.utils.types.StaffRole;
 
 public class AdminDisplayForm implements Form {
 
-    private StaffDAO staffDAO = new StaffDAO();
-    private StaffDisplayController displayController = new StaffDisplayController(staffDAO);
+    private StaffDisplayController displayController = new StaffDisplayController(new StaffDAO());
     private Scanner scanner;
 
     public AdminDisplayForm(Scanner scanner){
@@ -112,7 +111,7 @@ public class AdminDisplayForm implements Form {
         System.out.println("Enter the age:");
         int age = Integer.parseInt(scanner.nextLine());
         scanner.nextLine(); // Consume the newline character
-        
+
         displayController.displayStaffListByAge(age);
     }
 

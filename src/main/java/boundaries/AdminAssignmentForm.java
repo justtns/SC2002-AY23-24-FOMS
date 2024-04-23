@@ -8,8 +8,7 @@ import main.java.daos.StaffDAO;
 
 public class AdminAssignmentForm implements Form {
 
-    private StaffDAO staffDAO = new StaffDAO();
-    private StaffAssignmentController assignmentController = new StaffAssignmentController(staffDAO);
+    private StaffAssignmentController assignmentController = new StaffAssignmentController(new StaffDAO());
     private Scanner scanner;
 
     public AdminAssignmentForm(Scanner scanner){

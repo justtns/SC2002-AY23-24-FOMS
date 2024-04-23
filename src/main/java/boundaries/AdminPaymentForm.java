@@ -8,8 +8,7 @@ import main.java.daos.PaymentDAO;
 
 public class AdminPaymentForm implements Form{
 
-    private PaymentDAO paymentDAO = new PaymentDAO();
-    private StaffPaymentController paymentController = new StaffPaymentController(paymentDAO);
+    private StaffPaymentController paymentController = new StaffPaymentController(new PaymentDAO());
     private Scanner scanner;
 
     public AdminPaymentForm(Scanner scanner){

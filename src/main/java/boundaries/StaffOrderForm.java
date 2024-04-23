@@ -11,10 +11,8 @@ import main.java.models.Order;
 
 public class StaffOrderForm implements Form{
 
-    private OrderDAO orderDAO = new OrderDAO();
-    private StaffDAO staffDAO = new StaffDAO();
     private Scanner scanner;
-    private StaffOrderController orderController = new StaffOrderController(staffDAO, orderDAO, scanner);
+    private StaffOrderController orderController = new StaffOrderController(new StaffDAO(), new OrderDAO(), scanner);
     
 
     public StaffOrderForm(Scanner scanner){
