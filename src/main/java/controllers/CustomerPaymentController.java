@@ -40,7 +40,7 @@ public class CustomerPaymentController {
     public String printReceipt(int orderId) {
         Order order = orderDAO.findElement(Integer.toString(orderId));
         if (order != null) {
-            return "Receipt for Order ID: " + orderId + "\n" + order.toString(); // create a tostring in order !
+            return "Receipt for Order ID: " + orderId + "\n" + order.toString(); 
         } else {
             System.err.println("Order with ID " + orderId + " not found.");
             return "Receipt could not be generated for Order ID: " + orderId;
