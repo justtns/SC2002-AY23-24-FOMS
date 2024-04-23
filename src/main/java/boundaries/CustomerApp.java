@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 import main.java.factories.FormFactory;
 
 
-public class CustomerApp {
+public class CustomerApp implements AppDisplay{
     public void execute(){
         CustomerSession session = new CustomerSession();
         Scanner scanner = ScannerProvider.getScanner();
