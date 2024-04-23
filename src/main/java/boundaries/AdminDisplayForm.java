@@ -87,16 +87,17 @@ public class AdminDisplayForm implements Form {
 
     private void staffListByRole() {
         System.out.println("Enter the staff role (Admin/Manager/Staff):");
-        while(true){
+        StaffRole role = null;
+        while (true) {
             try {
                 String roleInput = scanner.nextLine();
-                StaffRole role = StaffRole.valueOf(roleInput);
-                displayController.displayStaffListByRole(role);
+                role = StaffRole.valueOf(roleInput);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid role entered. Please enter one of the following roles: Admin, Manager, Staff.");
             }
         }
+        displayController.displayStaffListByRole(role);
     }
 
     private void staffListByGender() {
