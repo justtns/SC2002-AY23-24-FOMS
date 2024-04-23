@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 /**
  * The StaffDisplayController class handles the display of staff information based on various filters.
- * It provides methods to display the full staff list, filter staff by branch, role, gender, and age, 
- * and display staff list for managers.
+ * It provides methods to manage staff-related operations such as adding, editing, and removing staff records.
+ * This class acts as an intermediary between the presentation layer (UI) and the data access layer (DAO).
  * This class is part of a three-layer architecture, serving as the intermediary between the presentation layer (UI)
  * and the data access layer (DAO).
  * 
