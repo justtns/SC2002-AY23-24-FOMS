@@ -45,7 +45,7 @@ public class FormFactory {
             case Admin:
                 switch (actionType) {
                     case 1:
-                        return (Form) new x(session, scanner);
+                        return (Form) new AdminManagementForm(session, scanner);
                     case 2:
                         return (Form) new AdminDisplayForm(session, scanner);
                     case 3:

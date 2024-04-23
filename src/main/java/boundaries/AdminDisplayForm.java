@@ -87,12 +87,15 @@ public class AdminDisplayForm implements Form {
 
     private void staffListByRole() {
         System.out.println("Enter the staff role (Admin/Manager/Staff):");
-        String roleInput = scanner.nextLine();
-        try {
-            StaffRole role = StaffRole.valueOf(roleInput);
-            displayController.displayStaffListByRole(role);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Invalid role entered. Please enter one of the following roles: Admin, Manager, Staff.");
+        while(true){
+            try {
+                String roleInput = scanner.nextLine();
+                StaffRole role = StaffRole.valueOf(roleInput);
+                displayController.displayStaffListByRole(role);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role entered. Please enter one of the following roles: Admin, Manager, Staff.");
+            }
         }
     }
 
@@ -104,7 +107,8 @@ public class AdminDisplayForm implements Form {
 
     private void staffListByAge() {
         System.out.println("Enter the age:");
-        int age = scanner.nextInt();
+        int age = Integer.parseInt(scanner.nextLine());
+        scanner.nextLine(); // Consume the newline character
         displayController.displayStaffListByAge(age);
     }
 
