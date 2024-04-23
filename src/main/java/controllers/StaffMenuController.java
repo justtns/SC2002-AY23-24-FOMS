@@ -48,7 +48,7 @@ public class StaffMenuController {
             menuDAO.saveData();
             System.out.println("Menu item removed: " + itemToRemove.getName());
         } else {
-            System.err.println("Menu item with name " + itemToRemove.getName() + " not found in branch: " + itemToRemove.getBranch());
+            System.err.println("Menu item with name " + name + " not found in branch: " + branch);
         }
     }
 
@@ -59,7 +59,7 @@ public class StaffMenuController {
             menuDAO.saveData();
             System.out.println("Menu item availability changed: " + itemToChangeAvailability.getName());
         } else {
-            System.err.println("Menu item with name " + itemToChangeAvailability.getName() + " not found in branch: " + itemToChangeAvailability.getBranch());
+            System.err.println("Menu item with name " + name + " not found in branch: " + branch);
         }
     }
 
@@ -71,7 +71,7 @@ public class StaffMenuController {
             menuDAO.saveData();
             System.out.println("Menu item description changed: " + itemToEditDescription.getName());
         } else {
-            System.err.println("Menu item with name " + itemToEditDescription.getName() + " not found in branch: " + itemToEditDescription.getBranch());
+            System.err.println("Menu item with name " + itemNameToEditDescription + " not found in branch: " + branch);
         }
         
     }
