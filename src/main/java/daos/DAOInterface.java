@@ -1,10 +1,13 @@
+package main.java.daos;
+import java.util.List;
+
 /**
  * This interface defines the contract for Data Access Objects (DAOs) to interact with a data source.
  * It includes methods for reading and saving data, getting elements, finding, updating, removing, and adding elements.
  * 
  * @param <T> the type of elements this DAO operates on
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 23-Apr-2024
  */
 public interface DAOInterface<T> {
