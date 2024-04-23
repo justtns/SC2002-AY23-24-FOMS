@@ -49,7 +49,7 @@ public class FormFactory {
                     case 2:
                         return (Form) new x(session, scanner);
                     case 3:
-                        return (Form) new x(session, scanner);          
+                        return (Form) new AdminBranchForm(session, scanner);          
                     case 4:
                         return (Form) new AdminAssignmentForm(session, scanner);
                     case 5:
