@@ -3,12 +3,12 @@ package main.java.boundaries;
 import java.util.Scanner;
 import main.java.controllers.CustomerPaymentController;
 import main.java.daos.OrderDAO;
+import main.java.daos.PaymentDAO;
 import main.java.utils.loggers.CustomerSession;
 
 public class CustomerPaymentForm implements Form{
     private CustomerSession session;
-    private OrderDAO orderDAO;
-    private CustomerPaymentController paymentController = new CustomerPaymentController(orderDAO);
+    private CustomerPaymentController paymentController = new CustomerPaymentController(new OrderDAO(), new PaymentDAO());
     private Scanner scanner;
 
     public CustomerPaymentForm(CustomerSession session, Scanner scanner) {
@@ -30,10 +30,10 @@ public class CustomerPaymentForm implements Form{
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                handlePayment(new OnlinePaymentService());
+                handlePayment(new OnlinePaymentService(paymentController));
                 break;
             case 2:
-                handlePayment(new CreditDebitPaymentService());
+                handlePayment(new CreditDebitPaymentService(paymentController));
                 break;
             default:
                 System.out.println("Invalid payment method, please try again.");

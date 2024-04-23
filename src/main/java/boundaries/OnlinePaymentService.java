@@ -1,11 +1,18 @@
 package main.java.boundaries;
 import java.util.Scanner;
+
+import main.java.controllers.CustomerPaymentController;
 public class OnlinePaymentService implements PaymentService {
 
 
     private String domain;
     private String email;
     private String password;
+    private CustomerPaymentController paymentController;
+
+    public OnlinePaymentService(CustomerPaymentController paymentController){
+        this.paymentController = paymentController;
+    }
     @Override
     public boolean simulatePayment(Scanner scanner) {
         System.out.println("Online Payment Selected - Please enter your payment details");
@@ -38,7 +45,10 @@ public class OnlinePaymentService implements PaymentService {
             System.out.println("Please fill in all fields.");
             return false;
         }
-        return true;
+        if (paymentController.validatePayment(domain)){
+            return true;
+        }
+        return false;
     }
 }
 
