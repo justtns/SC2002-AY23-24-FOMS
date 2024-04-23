@@ -21,7 +21,7 @@ import java.io.IOException;
  * It provides methods to interact with Order data stored in Excel files.
  * 
  * @author SDDA Team 1
- * @version 1.3
+ * @version 1.4
  * @since 23-Apr-2024
  */
 public class OrderDAO implements DAOInterface<Order>{
@@ -95,7 +95,6 @@ public class OrderDAO implements DAOInterface<Order>{
                 if (row.getRowNum() == 0) continue;
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
-                String branch = row.getCell(1).getStringCellValue();
                 OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(2).getStringCellValue());
                 boolean isDineIn = row.getCell(3).getBooleanCellValue();
                 boolean isCompleted = row.getCell(4).getBooleanCellValue();
