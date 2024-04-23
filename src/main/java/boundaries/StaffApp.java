@@ -18,7 +18,7 @@ public class StaffApp implements AppDisplay {
                            "----------------------------------------------------------------------\n");
 
         enterRole();
-
+        
         System.out.println("Enter username:");
         String username = scanner.nextLine();
         
