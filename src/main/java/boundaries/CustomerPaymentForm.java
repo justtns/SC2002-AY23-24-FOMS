@@ -70,6 +70,7 @@ public class CustomerPaymentForm implements Form{
             int choice;
             try {
                 choice = scanner.nextInt();
+                scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter (1-2)");
                 continue;

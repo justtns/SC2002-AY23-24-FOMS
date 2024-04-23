@@ -37,6 +37,7 @@ public class CustomerBranchSelectionForm {
             choice = -1;
             try {
                 choice = scanner.nextInt();
+                scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input...");
                 scanner.nextLine(); // Consume invalid input

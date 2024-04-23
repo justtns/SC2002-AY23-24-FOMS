@@ -54,30 +54,26 @@ public class CustomerOrderingForm implements Form{
                                "Enter your choice (1-3):");
             choice = -1;
             try {
-                choice = Integer.parseInt(scanner.next());
+                choice = scanner.nextInt();
+                scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
                 continue;
             }
 
             switch (choice) {
                 case 1:
-                    scanner.nextLine(); // Consume the newline character
                     showMenuItems();
                     break;
                 case 2:
-                    scanner.nextLine();
                     placeOrder();
                     loop = false;
                     break;
                 case 3:
-                    scanner.nextLine(); // Consume the newline character
                     System.out.println("Returning to Homescreen...");
                     loop = false;
                     break;
                 default:
-                    scanner.nextLine(); // Consume the newline character
                     System.out.println("Invalid Key! Enter your choice (1-3)");
                     break;
             }
@@ -89,7 +85,7 @@ public class CustomerOrderingForm implements Form{
         Order custOrder = orderController.createCustomerOrder(orderId, branch);
         custOrder.setOrderStatus(OrderStatus.NEW);
         List<MenuItem> selectedItems = menuController.getitems();
-        
+    
         while (true) {
             showMenuItems();
             System.out.print("Enter the name of the item to order (type 'done' to finish): ");
@@ -98,7 +94,7 @@ public class CustomerOrderingForm implements Form{
                 break;
             }
             MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
-            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
+            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) { // Corrected check
                 System.out.println("Invalid item or not available in this branch. Please try again.");
                 continue;
             }
@@ -106,18 +102,20 @@ public class CustomerOrderingForm implements Form{
             int quantity = getQty();
             this.customerOrder = orderController.addItem(custOrder, selectedItem, quantity, comment);
         }
-        
+
+    
         if (customerOrder.getItems().isEmpty()) {
             System.out.println("Order is Empty! Returning to Homescreen...");
             return;
         }
-
+    
         System.out.println("1.Take Away\t2.Dine-in");
         int method = -1;
         while (method != 1 && method != 2) {
             System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
             try {
                 method = scanner.nextInt();
+                scanner.nextLine(); // Properly clear the buffer
                 if (method != 1 && method != 2) {
                     System.out.println("Invalid Input. Please enter 1 or 2.");
                 }
@@ -126,24 +124,29 @@ public class CustomerOrderingForm implements Form{
                 scanner.nextLine(); // Consume the invalid input
             }
         }
-        
+    
         boolean m = method == 2;
         this.customerOrder.setDineIn(m);
-
+    
         System.out.println("You have selected the following items:");
         for (MenuItem item : this.customerOrder.getItems()) {
             System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
         }
         System.out.println("1. Submit Order");
         System.out.println("2. Cancel Order");
-
+    
         while (true) {
             try {
                 method = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+                scanner.nextLine(); // Properly clear the buffer
                 if (method == 1) {
                     orderController.saveOrder(customerOrder);
                     System.out.println("Thank you for your order. Please proceed to make payment...");
+                } else if (method == 2) {
+                    System.out.println("Order cancelled. Returning to main menu.");
+                    return;
+                } else {
+                    System.out.println("Invalid input. Please choose 1 to submit or 2 to cancel.");
                 }
                 break;
             } catch (InputMismatchException e) {
@@ -152,6 +155,7 @@ public class CustomerOrderingForm implements Form{
             }
         }
     }
+    
 
     private void showMenuItems() {
         List<MenuItem> menuItems = menuController.getitems();
@@ -188,13 +192,13 @@ public class CustomerOrderingForm implements Form{
             try {
                 System.out.print("Enter the number of items: ");
                 qty = scanner.nextInt();
+                scanner.nextLine();
                 if (qty <= 0) {
                     System.out.println("Invalid Input. Please enter a positive number.");
                 }
             } 
             catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
             }
         }
         return qty;

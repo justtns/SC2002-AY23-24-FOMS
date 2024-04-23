@@ -54,22 +54,29 @@ public class StaffApp implements AppDisplay {
     }
 
     public void enterRole() {
-        System.out.println("Please enter your role (Admin/Manager/Staff): ");
-        String roleInput = scanner.nextLine();
-        
-        switch (roleInput.toLowerCase()) {
-            case "admin":
-                this.staffRole = StaffRole.ADMIN;
-                break;
-            case "manager":
-                this.staffRole = StaffRole.MANAGER;
-                break;
-            case "staff":
-                this.staffRole = StaffRole.STAFF;
-                break;
-            default:
-                System.out.println("Invalid role entered.");
-                return;
+        boolean loop = true;
+
+        while(loop){
+            System.out.println("Please enter your role (Admin/Manager/Staff): ");
+            String roleInput = scanner.nextLine();
+            
+            switch (roleInput.toLowerCase()) {
+                case "admin":
+                    this.staffRole = StaffRole.ADMIN;
+                    loop = false;
+                    break;
+                case "manager":
+                    this.staffRole = StaffRole.MANAGER;
+                    loop = false;
+                    break;
+                case "staff":
+                    this.staffRole = StaffRole.STAFF;
+                    loop = false;
+                    break;
+                default:
+                    System.out.println("Invalid role entered.");
+                    break;
+            }
         }
     }
 }
