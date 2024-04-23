@@ -112,7 +112,6 @@ public class BranchDAO implements DAOInterface<Branch>{
                 row.createCell(2).setCellValue(branch.getCapacity());
             }
             workbook.write(outputStream);
-            System.out.println("Excel file was updated successfully.");
         } catch (IOException e) {
             // Exception encountered while writing the file
             System.out.println("Error writing Excel file");
@@ -207,6 +206,5 @@ public class BranchDAO implements DAOInterface<Branch>{
         }
         
         BranchList.add(element);
-        System.out.println("Branch added successfully.");
     }
 }

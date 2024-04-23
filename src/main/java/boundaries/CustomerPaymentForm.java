@@ -1,5 +1,6 @@
 package main.java.boundaries;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import main.java.controllers.CustomerPaymentController;
 import main.java.daos.OrderDAO;
@@ -55,20 +56,31 @@ public class CustomerPaymentForm implements Form{
     }
 
     private void printReceiptOption() {
-        System.out.println("----------------------------------------------------------------------\n" +
-                           "|----------------------------Customer Payment------------------------|\n" +
-                           "----------------------------------------------------------------------\n" +
-                           "|                   Would you like a receipt?                        |\n" +
-                           "|                   1.Yes                                            |\n" +
-                           "|                   2.No                                             |\n" +
-                           "----------------------------------------------------------------------\n" +
-                            "\n");
+        boolean loop = true;
+        while (loop)
+        {
+            System.out.println("----------------------------------------------------------------------\n" +
+                            "|----------------------------Customer Payment------------------------|\n" +
+                            "----------------------------------------------------------------------\n" +
+                            "|                   Would you like a receipt?                        |\n" +
+                            "|                   1.Yes                                            |\n" +
+                            "|                   2.No                                             |\n" +
+                            "----------------------------------------------------------------------\n" +
+                                "\n");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter (1-2)");
+                continue;
+            }
+            if (choice == 1) {
+                System.out.println(paymentController.printReceipt(session.getOrderId()));
+            } else {
+                System.out.println("Thank you for your payment!");
+            }
+            return;
 
-        int receiptChoice = scanner.nextInt();
-        if (receiptChoice == 1) {
-            System.out.println(paymentController.printReceipt(session.getOrderId()));
-        } else {
-            System.out.println("Thank you for your payment!");
         }
     }
 }

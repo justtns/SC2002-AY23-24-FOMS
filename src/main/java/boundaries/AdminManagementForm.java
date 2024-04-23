@@ -9,8 +9,7 @@ import main.java.utils.types.StaffRole;
 
 public class AdminManagementForm implements Form {
 
-    private StaffDAO staffDAO = new StaffDAO();
-    private StaffManagementController managementController = new StaffManagementController(staffDAO);
+    private StaffManagementController managementController = new StaffManagementController(new StaffDAO());
     private Scanner scanner;
 
     public AdminManagementForm(Scanner scanner){

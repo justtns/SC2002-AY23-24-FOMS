@@ -36,7 +36,7 @@ public class CustomerBranchSelectionForm {
             System.out.print("Please enter the branch number: ");
             choice = -1;
             try {
-                choice = Integer.parseInt(scanner.next());
+                choice = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input...");
                 scanner.nextLine(); // Consume invalid input

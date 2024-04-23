@@ -9,8 +9,7 @@ import main.java.utils.loggers.StaffSession;
 
 public class ManagerDisplayForm implements Form {
 
-    private StaffDAO staffDAO = new StaffDAO();
-    private StaffDisplayController displayController = new StaffDisplayController(staffDAO);
+    private StaffDisplayController displayController = new StaffDisplayController(new StaffDAO());
     private StaffSession session;
     private Scanner scanner;
 

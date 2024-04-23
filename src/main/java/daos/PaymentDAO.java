@@ -75,7 +75,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                         if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()) { // Skip header row
                             continue;
                         }
-                        if (row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) == null || row.getCell(3) == null) {
+                        if (row.getCell(0) == null || row.getCell(1) == null) {
                             continue; 
                         }
                         String name = row.getCell(0).getStringCellValue();
@@ -120,7 +120,6 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                 row.createCell(1).setCellValue(method.getType().toString());
             }
             workbook.write(outputStream);
-            System.out.println("Payment method data saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save payment method data: " + e.getMessage());
             e.printStackTrace();

@@ -7,8 +7,7 @@ import main.java.controllers.StaffBranchController;
 import main.java.daos.BranchDAO;
 
 public class AdminBranchForm implements Form {
-    private BranchDAO branchDAO = new BranchDAO();
-    private StaffBranchController branchController = new StaffBranchController(branchDAO);
+    private StaffBranchController branchController = new StaffBranchController(new BranchDAO());
     private Scanner scanner;
 
     public AdminBranchForm(Scanner scanner){

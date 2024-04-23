@@ -156,7 +156,6 @@ public class StaffDAO implements DAOInterface<Staff>{
                 row.createCell(6).setCellValue(member.getBranch());
             }
             workbook.write(outputStream);
-            System.out.println("Staff data saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save staff data: " + e.getMessage());
             e.printStackTrace();
