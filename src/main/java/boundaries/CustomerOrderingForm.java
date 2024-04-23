@@ -98,7 +98,7 @@ public class CustomerOrderingForm implements Form{
             }
             MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
             if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
-                printInvalidItem();
+                System.out.println("Invalid item or not available in this branch. Please try again.");
                 continue;
             }
             String comment = getComment();
@@ -161,20 +161,16 @@ public class CustomerOrderingForm implements Form{
             return;
         }
         // Print table header
-        System.out.printf("%-20s | %-15s | %-10s | %-20s%n",
-                "Name", "Category", "Price ($)", "Branch");
+        System.out.printf("%-20s | %-15s | %-10s | %-20s%n | %-50s%n",
+                "Name", "Category", "Price ($)", "Branch", "Description");
         System.out.println("------------------------------------------------------------------------------------------");
         // Print menu items
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
-                System.out.printf("%-20s | %-15s | %-10.2f | %-20s%n",
-                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch());
+                System.out.printf("%-20s | %-15s | %-10.2f | %-20s%n | %-50s%n",
+                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
         }
-    }
-
-    private void printInvalidItem() {
-        System.out.println("Invalid item or not available in this branch. Please try again.");
     }
 
     private String getComment() {

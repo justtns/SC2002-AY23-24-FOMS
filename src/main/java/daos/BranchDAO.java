@@ -118,7 +118,6 @@ public class BranchDAO implements DAOInterface<Branch>{
             System.out.println("Error writing Excel file");
             e.printStackTrace();
         }
-        readData();
     };
     
     /**

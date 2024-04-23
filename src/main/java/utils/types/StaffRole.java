@@ -1,5 +1,5 @@
 package main.java.utils.types;
 
 public enum StaffRole {
-    Staff, Manager, Admin
+    STAFF, MANAGER, ADMIN
 }

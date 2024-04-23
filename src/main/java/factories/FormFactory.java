@@ -22,7 +22,7 @@ public class FormFactory {
     public Form getForm(StaffSession session, Scanner scanner, int actionType){
         StaffRole role = session.getStaffRole();
         switch (role) {
-            case Staff:
+            case STAFF:
                 switch (actionType) {
                     case 1:
                         return (Form) new StaffOrderForm(session, scanner);                
@@ -30,7 +30,7 @@ public class FormFactory {
                         return null;
                 }
             
-            case Manager:
+            case MANAGER:
                 switch (actionType) {
                     case 1:
                         return (Form) new StaffOrderForm(session, scanner);
@@ -42,7 +42,7 @@ public class FormFactory {
                         return null;
                 }
 
-            case Admin:
+            case ADMIN:
                 switch (actionType) {
                     case 1:
                         return (Form) new AdminManagementForm(session, scanner);

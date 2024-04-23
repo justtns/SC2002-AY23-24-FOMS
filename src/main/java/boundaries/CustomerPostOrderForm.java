@@ -77,7 +77,7 @@ public class CustomerPostOrderForm implements Form{
             scanner.nextLine(); // Consume invalid input
             return;
         }
-        Order order = orderController.findOrder(orderId);
+        Order order = orderController.findOrder((orderId));
         if (order != null) {
             System.out.println("Order Details:");
             System.out.println("Order ID: " + order.getOrderId());
@@ -99,7 +99,7 @@ public class CustomerPostOrderForm implements Form{
             scanner.nextLine(); // Consume invalid input
             return;
         }
-        Order order = orderController.findOrder(orderId);
+        Order order = orderController.findOrder((orderId));
         if (order != null) {
             System.out.println("Order Details:");
             System.out.println("Order ID: " + order.getOrderId());

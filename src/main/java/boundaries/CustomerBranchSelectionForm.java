@@ -22,7 +22,7 @@ public class CustomerBranchSelectionForm {
         this.scanner = scanner;
     }
 
-    public CustomerSession branchSelectionView(){
+    public CustomerSession generateForm(){
         // Display branches for selection
         List<Branch> branches = branchController.getBranches();
         int choice;

@@ -80,7 +80,8 @@ public class AdminManagementForm implements Form {
         while (role == null) {
             String roleInput = scanner.nextLine();
             try {
-                role = StaffRole.valueOf(roleInput);
+                role = StaffRole.valueOf(roleInput.toUpperCase());
+                break;
             } 
             catch (IllegalArgumentException e) {
                 System.out.println("Invalid role entered. Please enter one of the following roles: Admin, Manager, Staff.");
