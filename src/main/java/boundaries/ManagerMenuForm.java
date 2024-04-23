@@ -29,8 +29,8 @@ public class ManagerMenuForm implements Form {
                                "|                   2.Edit Menu Items                                |\n" +
                                "|                   3.Remove Menu Item                               |\n" +
                                "|                   4.Change Menu Item Availability                  |\n" +
-                               "|                   5.Edit Menu Item Description                     |\n" +                               
-                               "|                   6.Go to Homescreen                               |\n" +                               
+                               "|                   5.Edit Menu Item Description                     |\n" +
+                               "|                   6.Go to Homescreen                               |\n" +
                                "----------------------------------------------------------------------\n" +
                                "\n" +
                                "Enter your choice (1-6): \n");            
