@@ -1,4 +1,5 @@
 package main.java.daos;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -12,18 +13,40 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileOutputStream;
 
+/**
+ * PaymentDAO is implemented from DAOInterface.
+ * PaymentDAO is a Data Access Object (DAO) for managing PaymentMethod objects.
+ * It provides methods to interact with PaymentMethod data stored in Excel files.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 23-Apr-2024
+ */
 public class PaymentDAO implements DAOInterface<PaymentMethod>{
+    /**
+     * List to hold PaymentMethod objects.
+     */
     private List<PaymentMethod> paymentMethodList;
     
+    /**
+     * Constructor for PaymentDAO.
+     * Initializes paymentMethodList and reads data from Excel files.
+     */
     public PaymentDAO(){
         readData();
     }
 
+    /**
+     * Reads data from Excel files and populates the paymentMethodList.
+     * If the files do not exist, it creates new Excel files.
+     * Handles IOException if encountered while reading or creating the files.
+     */
     @Override 
     public void readData(){
-        paymentMethodList = new ArrayList<>(); // Assuming this is a list of staff members
+        paymentMethodList = new ArrayList<>();
         String filePath = "src/main/resources/xlsx/payment_methods.xlsx";
         File file = new File(filePath);
+        
         // Check if the file exists, if not, create it and add headers
         if (!file.exists()) {
             try (Workbook workbook = new XSSFWorkbook()) {
@@ -68,14 +91,19 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
             }
         }        
 
+    /**
+     * Saves the data from paymentMethodList to Excel files.
+     * If the files do not exist, it creates new ones.
+     * Handles IOException if encountered while writing the files.
+     */
     public void saveData() {
         String filePath = "src/main/resources/xlsx/payment_methods.xlsx";
         File file = new File(filePath);
-    
+
         try (Workbook workbook = new XSSFWorkbook();
-             FileOutputStream outputStream = new FileOutputStream(file)) {
+            FileOutputStream outputStream = new FileOutputStream(file)) {
             Sheet sheet = workbook.createSheet("PaymentMethods");
-    
+
             // Create headers in the Excel file
             Row headerRow = sheet.createRow(0);
             String[] headers = {"Name", "Type"};
@@ -83,7 +111,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
             }
-    
+
             // Populate the Excel file with staff data
             int rowIndex = 1;
             for (PaymentMethod method : paymentMethodList) {
@@ -92,24 +120,36 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                 row.createCell(1).setCellValue(method.getType().toString());
             }
             workbook.write(outputStream);
-            System.out.println("payment method data saved successfully.");
+            System.out.println("Payment method data saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save payment method data: " + e.getMessage());
             e.printStackTrace();
         }
-        readData();
+        readData(); // Refresh data after saving
     }
 
+    /**
+     * Returns the list of PaymentMethods stored in paymentMethodList.
+     * @return List of PaymentMethods
+     */
     @Override
     public List<PaymentMethod> getElements() {
         return paymentMethodList;
     }
 
+    /**
+     * Adds a new PaymentMethod to the list.
+     * @param item The PaymentMethod object to add
+     */
     @Override
     public void addElement(PaymentMethod item) {
         paymentMethodList.add(item);
     }
 
+    /**
+     * Removes a PaymentMethod from the list by its name.
+     * @param methodName The Name of the PaymentMethod to remove
+     */
     @Override
     public void removeElement(String methodName) {
         int deleteIndex=-1;
@@ -125,6 +165,11 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
         paymentMethodList.remove(deleteIndex);
     }
 
+    /**
+     * Finds and returns a PaymentMethod by its name.
+     * @param itemName The Name of the PaymentMethod to find
+     * @return The found PaymentMethod, or null if not found
+     */
     @Override
     public PaymentMethod findElement(String itemName) {
         int findIndex=-1;
@@ -142,6 +187,11 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
         return null;
     }    
 
+    /**
+     * Updates an existing PaymentMethod with new data.
+     * @param oldElement The old PaymentMethod object to update
+     * @param newElement The new PaymentMethod object containing updated data
+     */
     @Override
     public void updateElement(PaymentMethod oldElement, PaymentMethod newElement) {
         int findIndex=-1;
