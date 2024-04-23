@@ -62,6 +62,19 @@ public class StaffMenuController {
             System.err.println("Menu item with name " + itemToChangeAvailability.getName() + " not found in branch: " + itemToChangeAvailability.getBranch());
         }
     }
+
+    public void editDescription(String itemNameToEditDescription, String branch, String newDescription) {
+        MenuItem itemToEditDescription = MenuDAO.findElement(itemNameToEditDescription, branch);
+        
+        if (itemToEditDescription != null) {
+            itemToEditDescription.setDescription(newDescription);
+            menuDAO.saveData();
+            System.out.println("Menu item description changed: " + itemToEditDescription.getName());
+        } else {
+            System.err.println("Menu item with name " + itemToEditDescription.getName() + " not found in branch: " + itemToEditDescription.getBranch());
+        }
+        
+    }
 }
 
 
