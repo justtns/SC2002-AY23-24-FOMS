@@ -64,17 +64,7 @@ public class StaffDisplayController {
         if (staffList.isEmpty()) {
             System.out.println("No staff found.");
         } else {
-            staffList.forEach(staff -> System.out.println(formatStaffDetails(staff)));
+            staffList.forEach(staff -> System.out.println(staff.toString()));
         }
-    }
-
-    private String formatStaffDetails(Staff staff) {
-        return String.format("Name: %s, ID: %s, Role: %s, Gender: %s, Age: %d, Branch: %s",
-                staff.getName(),
-                staff.getLoginID(),
-                staff.getRole(),
-                staff.getGender(),
-                staff.getAge(),
-                staff.getBranch());
     }
 }
