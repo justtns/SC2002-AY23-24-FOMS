@@ -23,15 +23,15 @@ public class ManagerDisplayForm implements Form {
         boolean loop=true;
         int choice;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Manager Display Actions---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.Display the List of Staff in your Branch\n" +
-                    "                         2.Go to Homescreen\n" +    
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-2): \n");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Manager Display Actions----------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Display the List of Staff in your Branch       |\n" +
+                               "|                   2.Go to Homescreen                               |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-2): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

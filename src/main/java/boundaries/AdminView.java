@@ -16,21 +16,19 @@ public class AdminView implements StaffUserView{
         Boolean loop=true;
         while (loop) {
             System.out.println("User ID:" + session.getStaffUserID());
-
             System.out.println("----------------------------------------------------------------------\n" +
-                            "|-----------------------------Admin Actions--------------------------|\n" +
-                            "----------------------------------------------------------------------\n" +
-                            "|                   Choose an option:                                |\n" +
-                            "|                   1.Add, Edit, or Remove Staff Accounts            |\n" +
-                            "|                   2.Display Staff List                             |\n" +
-                            "|                   3.Manage Branch                                  |\n" +
-                            "|                   4.Manage Staff                                   |\n" +
-                            "|                   5.Manage Payment Methods                         |\n" +
-                            "|                   6.Logout                                         |\n" +                           
-                            "----------------------------------------------------------------------\n" +
-                            "\n" +
-                            "Enter your choice (1-6): \n");
-
+                               "|-------------------------Admin Actions------------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Add, Edit, or Remove Staff Accounts            |\n" +
+                               "|                   2.Display Staff List                             |\n" +
+                               "|                   3.Manage Branch                                  |\n" +
+                               "|                   4.Manage Staff                                   |\n" +
+                               "|                   5.Manage Payment Methods                         |\n" +
+                               "|                   6.Logout                                         |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-6): \n");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

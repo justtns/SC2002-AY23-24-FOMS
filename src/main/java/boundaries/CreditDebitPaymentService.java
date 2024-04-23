@@ -10,6 +10,10 @@ public class CreditDebitPaymentService implements PaymentService {
 
     @Override
     public boolean simulatePayment(Scanner scanner) {
+        System.out.println("--------------------------------------------------------------------------\n" +
+                           "|-------------------------Simulate Payment-------------------------------|\n" +
+                           "--------------------------------------------------------------------------\n");
+
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
         System.out.println("Enter bank:");
         String bank = scanner.nextLine();

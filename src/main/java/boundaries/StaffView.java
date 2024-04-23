@@ -15,17 +15,15 @@ public class StaffView implements StaffUserView{
         Boolean loop=true;
         while (loop) {
             System.out.println("User ID:" + session.getStaffUserID());
-
-            System.out.println("-------------------------------------------------------------------\n" +
-                        "-----------------------------Staff Actions---------------------------\n" +
-                        "-------------------------------------------------------------------\n" +
-                        "                         Choose an option:\n" +
-                        "                         1.Manage Orders\n" +
-                        "                         2.Logout\n" +                         
-                        "---------------------------------------------------------------------\n" +
-                        "\n" +
-                        "Enter your choice (1-2): \n");
-            
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------------Staff Actions--------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Manage Orders                                  |\n" +
+                               "|                   2.Logout                                         |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-2): \n");            
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

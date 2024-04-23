@@ -16,6 +16,9 @@ public class StaffApp implements AppDisplay {
 
     @Override
     public void enterRole() {
+        System.out.println("----------------------------------------------------------------------\n" +
+                           "|--------------------------Login Portal------------------------------|\n" +
+                           "----------------------------------------------------------------------\n");
         System.out.println("Please enter your role (Admin/Manager/Staff): ");
         String roleInput = scanner.nextLine();
         

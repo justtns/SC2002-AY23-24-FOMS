@@ -16,19 +16,17 @@ public class ManagerView implements StaffUserView{
         Boolean loop=true;
         while (loop) {
             System.out.println("User ID:" + session.getStaffUserID());
-
-            System.out.println("-------------------------------------------------------------------\n" +
-                        "-----------------------------Manager Actions---------------------------\n" +
-                        "-------------------------------------------------------------------\n" +
-                        "                         Choose an option:\n" +
-                        "                         1.Manage Orders\n" +
-                        "                         2.Manage Menu\n" +
-                        "                         3.Display Staff List\n" +
-                        "                         4.Logout\n" +                         
-                        "---------------------------------------------------------------------\n" +
-                        "\n" +
-                        "Enter your choice (1-4): \n");
-            
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|-----------------------Manager Actions------------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.Manage Orders                                  |\n" +
+                               "|                   2.Manage Menu                                    |\n" +
+                               "|                   3.Display Staff List                             |\n" +
+                               "|                   4.Logout                                         |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-4): \n");              
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

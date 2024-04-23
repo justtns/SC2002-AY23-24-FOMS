@@ -26,6 +26,10 @@ public class CustomerBranchSelectionForm {
         // Display branches for selection
         List<Branch> branches = branchController.getBranches();
         int choice;
+        System.out.println("----------------------------------------------------------------------\n" +
+                           "|-----------------------Customer Branch Selection--------------------|\n" +
+                           "----------------------------------------------------------------------\n"
+                               );
         for (int i = 0; i < branches.size(); i++) {
             System.out.println((i) + ". " + branches.get(i).getName());
         }

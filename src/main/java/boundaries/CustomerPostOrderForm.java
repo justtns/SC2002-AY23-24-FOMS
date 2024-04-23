@@ -28,16 +28,16 @@ public class CustomerPostOrderForm implements Form{
         System.out.println("Thank you for ordering with us.");
         boolean loop=true;
         while (loop) {
-            System.out.println("-------------------------------------------------------------------\n" +
-                    "-----------------------------Post Order Menu---------------------------\n" +
-                    "-------------------------------------------------------------------\n" +
-                    "                         Choose an option:\n" +
-                    "                         1.View Order Status\n" +
-                    "                         2.Pickup Order\n" +
-                    "                         3.Logout\n" +
-                    "---------------------------------------------------------------------\n" +
-                    "\n" +
-                    "Enter your choice (1-3): ");
+            System.out.println("----------------------------------------------------------------------\n" +
+                               "|----------------------------Post Order Menu-------------------------|\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "|                   Choose an option:                                |\n" +
+                               "|                   1.View Order Status                              |\n" +
+                               "|                   2.Pickup Order                                   |\n" +
+                               "|                   3.Logout                                         |\n" +
+                               "----------------------------------------------------------------------\n" +
+                               "\n" +
+                               "Enter your choice (1-3): ");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
