@@ -94,13 +94,15 @@ public class ManagerMenuForm implements Form {
         String name = scanner.nextLine();
         System.out.println("Enter the category of the new menu item:");
         String category = scanner.nextLine();
+        System.out.println("Enter the description of the new menu item:");
+        String description = scanner.nextLine();
         System.out.println("Enter the price of the new menu item:");
         double price = scanner.nextDouble();
         scanner.nextLine(); // Consume the newline character after a number input
         System.out.println("Enter the branch of the new menu item:");
         String branch = scanner.nextLine();
         // Boolean availability = true;
-        menuController.addMenuItem(name, category, branch, price);
+        menuController.addMenuItem(name, category, branch, description, price);
     }
 
     public void editMenuItemDetails(){
@@ -110,14 +112,15 @@ public class ManagerMenuForm implements Form {
         String name = scanner.nextLine();
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
-
+        System.out.println("Enter the description of the menu item:");
+        String newDescription = scanner.nextLine();
         System.out.println("Enter the new category for the menu item:");
         String newCategory = scanner.nextLine();
         System.out.println("Enter the new price for the menu item:");
         double newPrice = scanner.nextDouble();
         scanner.nextLine(); // Consume newline
         
-        menuController.editMenuItem(name, branch, newCategory, newPrice);
+        menuController.editMenuItem(name, branch, newCategory, newDescription, newPrice);
         }
 
     public void removeMenuItemDetails(){

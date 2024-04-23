@@ -15,8 +15,8 @@ public class StaffMenuController {
         return menuDAO.getElements();
     }
 
-    public void addMenuItem(String name, String category, String branch, double price) {
-        MenuItem item = new MenuItem(name, category, branch, price);
+    public void addMenuItem(String name, String category, String branch, String description, double price) {
+        MenuItem item = new MenuItem(name, category, branch, description, price);
         if (MenuDAO.findElement(item.getName(), item.getBranch()) == null) {
             menuDAO.addElement(item);
             menuDAO.saveData();
@@ -26,14 +26,14 @@ public class StaffMenuController {
         }
     }
 
-    public void editMenuItem(String name, String branch, String newCategory, double newPrice) {
+    public void editMenuItem(String name, String branch, String newCategory, String newDescription,double newPrice) {
         
         MenuItem item = MenuDAO.findElement(name, branch);
         if (item == null) {
             System.out.println("Menu item not found.");
         }
         else{
-            MenuItem updatedItem = new MenuItem(name, newCategory, branch, newPrice);
+            MenuItem updatedItem = new MenuItem(name, newCategory, branch, newDescription, newPrice);
             menuDAO.updateElement(item, updatedItem);
             menuDAO.saveData();
             System.out.println("Menu item updated: " + updatedItem.getName());
