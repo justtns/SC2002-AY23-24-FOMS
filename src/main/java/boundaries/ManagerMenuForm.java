@@ -29,10 +29,11 @@ public class ManagerMenuForm implements Form {
                     "                         2.Edit Menu Items\n" +
                     "                         3.Remove Menu Items\n" +
                     "                         4.Change Menu Item Availability\n" +
-                    "                         5.Go to Homescreen\n" +    
+                    "                         5.Edit Menu Item Description" +
+                    "                         6.Go to Homescreen\n" +    
                     "---------------------------------------------------------------------\n" +
                     "\n" +
-                    "Enter your choice (1-5): \n");
+                    "Enter your choice (1-6): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
@@ -68,6 +69,12 @@ public class ManagerMenuForm implements Form {
                     break; 
 
                 case 5:
+                    // Edit Menu Item Description
+                    scanner.nextLine(); // Consume the newline character
+                    editMenuItemDescription();
+                    break; 
+
+                case 6:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
                     break;
@@ -134,5 +141,21 @@ public class ManagerMenuForm implements Form {
         Boolean newAvailability = scanner.nextBoolean();
         scanner.nextLine(); // Consume newline
         menuController.changeAvailability(itemNameToChangeAvailability, branch, newAvailability);
+        }
+
+    public void editMenuItemDescription(){
+        System.out.println("Editing item description.");          
+        
+        System.out.println("Enter the name of the menu item to change availability:");
+        String itemNameToEditDescription = scanner.nextLine();
+        
+        System.out.println("Enter the branch of the menu item:");
+        String branch = scanner.nextLine();
+        
+        System.out.println("Enter new description:");
+        String newDescription = scanner.nextLine();
+        
+        scanner.nextLine(); // Consume newline
+        menuController.editDescription(itemNameToEditDescription, branch, newDescription);
         }
 }
