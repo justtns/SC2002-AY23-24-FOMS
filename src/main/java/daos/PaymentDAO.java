@@ -15,11 +15,11 @@ import java.io.FileOutputStream;
 
 /**
  * PaymentDAO is implemented from DAOInterface.
- * PaymentDAO is a Data Access Object (DAO) for managing PaymentMethod objects.
+ * PaymentDAO is a Data Access Object (DAO) for managing PaymentMethod objects with CRUD Operations.
  * It provides methods to interact with PaymentMethod data stored in Excel files.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 23-Apr-2024
  */
 public class PaymentDAO implements DAOInterface<PaymentMethod>{

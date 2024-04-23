@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 
 /**
  * BranchDAO is implemented from DAOInterface 
- * BranchDAO is a Data Access Object (DAO) for managing Branch objects.
+ * BranchDAO is a Data Access Object (DAO) for managing Branch objects with CRUD Operations.
  * It provides methods to interact with Branch data stored in an Excel file.
  * 
  * @author SDDA Team 1
@@ -29,7 +29,6 @@ public class BranchDAO implements DAOInterface<Branch>{
     /**
      * Constructor for BranchDAO.
      * Initializes BranchList and reads data from the Excel file.
-     * Handles IOException if encountered while reading the file.
      */
     public BranchDAO(){
         readData();
