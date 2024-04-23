@@ -14,7 +14,7 @@ public class CustomerApp {
         CustomerSession session = new CustomerSession();
         Scanner scanner = ScannerProvider.getScanner();
         CustomerBranchSelectionForm selectBranch = new CustomerBranchSelectionForm(session, scanner);
-        session = selectBranch.branchSelectionView();
+        session = selectBranch.generateForm();
         FormFactory actionFactory = new FormFactory();
         Form form;
         Boolean loop=true;

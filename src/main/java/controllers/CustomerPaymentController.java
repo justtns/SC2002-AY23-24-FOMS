@@ -2,6 +2,7 @@ package main.java.controllers;
 
 import main.java.boundaries.PaymentService;
 import main.java.daos.OrderDAO;
+import main.java.daos.PaymentDAO;
 import main.java.models.Order;
 import main.java.utils.ScannerProvider;
 import main.java.utils.types.OrderStatus;
@@ -18,16 +19,19 @@ import main.java.utils.types.OrderStatus;
  */
 public class CustomerPaymentController {
 
-    /** The data access object (DAO) for orders. */
+    /** The data access object (DAO) for orders and approved payment methods. */
     private OrderDAO orderDAO;
+    private PaymentDAO paymentDAO;
 
     /**
      * Constructs a CustomerPaymentController object with the specified OrderDAO.
      * 
      * @param orderDAO The OrderDAO object to be used by the controller
+     * @param paymentDAO The PaymentDAO object to be used by the controller
      */
-    public CustomerPaymentController(OrderDAO orderDAO) {
+    public CustomerPaymentController(OrderDAO orderDAO, PaymentDAO paymentDAO) {
         this.orderDAO = orderDAO;
+        this.paymentDAO = paymentDAO;
     }
 
     /**
@@ -81,5 +85,18 @@ public class CustomerPaymentController {
             System.err.println("Order with ID " + orderId + " not found.");
             return "Receipt could not be generated for Order ID: " + orderId;
         }
+    }
+    /**
+     * Validates if the payment is approved.
+     * 
+     * @param name The name of the payment method
+     * @return True if the payment exists
+     */
+
+    public boolean validatePayment(String name){
+        if (paymentDAO.findElement(name) == null){
+            return false;
+        }
+        return true;
     }
 }
