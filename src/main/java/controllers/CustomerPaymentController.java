@@ -6,13 +6,37 @@ import main.java.models.Order;
 import main.java.utils.ScannerProvider;
 import main.java.utils.types.OrderStatus;
 
+/**
+ * The CustomerPaymentController class implements the business logic layer operations related to payments for customers.
+ * It provides methods to make payments, calculate total amounts, and print receipts for orders.
+ * This class is part of a three-layer architecture, serving as the intermediary between the presentation layer (UI)
+ * and the data access layer (DAO).
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class CustomerPaymentController {
+
+    /** The data access object (DAO) for orders. */
     private OrderDAO orderDAO;
 
+    /**
+     * Constructs a CustomerPaymentController object with the specified OrderDAO.
+     * 
+     * @param orderDAO The OrderDAO object to be used by the controller
+     */
     public CustomerPaymentController(OrderDAO orderDAO) {
         this.orderDAO = orderDAO;
     }
 
+    /**
+     * Makes a payment for the order with the given ID using the provided payment service.
+     * 
+     * @param orderId The ID of the order to be paid
+     * @param paymentService The payment service to be used for the transaction
+     * @return True if the payment was successful, false otherwise
+     */
     public boolean makePayment(int orderId, PaymentService paymentService) {
         if (paymentService.simulatePayment(ScannerProvider.getScanner())) {
             Order order = orderDAO.findElement(Integer.toString(orderId));
@@ -27,6 +51,12 @@ public class CustomerPaymentController {
         return false;
     }
 
+    /**
+     * Calculates the total amount to be paid for the order with the given ID.
+     * 
+     * @param orderId The ID of the order
+     * @return The total amount to be paid for the order
+     */
     public double getTotal(int orderId) {
         Order order = orderDAO.findElement(Integer.toString(orderId));
         if (order != null) {
@@ -37,6 +67,12 @@ public class CustomerPaymentController {
         }
     }
 
+    /**
+     * Prints a receipt for the order with the given ID.
+     * 
+     * @param orderId The ID of the order
+     * @return A string containing the receipt details
+     */
     public String printReceipt(int orderId) {
         Order order = orderDAO.findElement(Integer.toString(orderId));
         if (order != null) {
@@ -46,5 +82,4 @@ public class CustomerPaymentController {
             return "Receipt could not be generated for Order ID: " + orderId;
         }
     }
-
 }
