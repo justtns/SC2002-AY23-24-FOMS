@@ -5,20 +5,15 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffPaymentController;
 import main.java.daos.PaymentDAO;
-import main.java.utils.loggers.StaffSession;
 
 public class AdminPaymentForm implements Form{
 
     private PaymentDAO paymentDAO = new PaymentDAO();
     private StaffPaymentController paymentController = new StaffPaymentController(paymentDAO);
-    private StaffSession session;
     private Scanner scanner;
-
-    public AdminPaymentForm(StaffSession session, Scanner scanner){
-        this.session = session;
+    public AdminPaymentForm(Scanner scanner){
         this.scanner = scanner;
     }
-
     public void generateForm(){
         boolean loop=true;
         int choice;

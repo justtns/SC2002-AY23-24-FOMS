@@ -6,20 +6,15 @@ import java.util.Scanner;
 import main.java.controllers.StaffManagementController;
 import main.java.daos.StaffDAO;
 import main.java.utils.types.StaffRole;
-import main.java.utils.loggers.StaffSession;
 
 public class AdminManagementForm implements Form {
 
     private StaffDAO staffDAO = new StaffDAO();
     private StaffManagementController managementController = new StaffManagementController(staffDAO);
-    private StaffSession session;
     private Scanner scanner;
-
-    public AdminManagementForm(StaffSession session, Scanner scanner){
-        this.session = session;
+    public AdminManagementForm(Scanner scanner){
         this.scanner = scanner;
     }
-
     public void generateForm(){
         boolean loop=true;
         int choice;
