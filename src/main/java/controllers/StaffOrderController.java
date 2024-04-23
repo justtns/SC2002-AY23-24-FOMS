@@ -39,7 +39,7 @@ public class StaffOrderController {
         boolean found = false;
         for (Order order : orders) {
             if (order.getBranch().equals(branchCode) && order.getOrderStatus() == OrderStatus.NEW) {
-                System.out.println(order);  // Assuming Order has a suitable toString() method
+                System.out.println(order.toString());
                 found = true;
             }
         }
