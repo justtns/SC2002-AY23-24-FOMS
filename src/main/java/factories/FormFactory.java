@@ -47,7 +47,7 @@ public class FormFactory {
                     case 1:
                         return (Form) new x(session, scanner);
                     case 2:
-                        return (Form) new x(session, scanner);
+                        return (Form) new AdminDisplayForm(session, scanner);
                     case 3:
                         return (Form) new AdminBranchForm(session, scanner);          
                     case 4:
