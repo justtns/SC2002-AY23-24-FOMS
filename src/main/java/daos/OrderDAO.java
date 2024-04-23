@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  * OrderDAO is implemented from DAOInterface 
- * OrderDAO is a Data Access Object (DAO) for managing Order objects.
+ * OrderDAO is a Data Access Object (DAO) for managing Order objects with CRUD Operations.
  * It provides methods to interact with Order data stored in Excel files.
  * 
  * @author SDDA Team 1
@@ -108,7 +108,7 @@ public class OrderDAO implements DAOInterface<Order>{
         }
 
         try (FileInputStream fis = new FileInputStream(itemsFilePath);
-             Workbook workbook = new XSSFWorkbook(fis)) {
+            Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.rowIterator();
             Order currentOrder = null;
@@ -118,9 +118,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 if (row.getRowNum() == 0) continue; // Skip header
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
-                if (currentOrder == null || currentOrder.getOrderId() != orderId) {
-                    currentOrder = findOrderById(orderId);
-                }
+                currentOrder = findElement(Integer.toString(orderId));
 
                 if (currentOrder != null) {
                     String name = row.getCell(1).getStringCellValue();
