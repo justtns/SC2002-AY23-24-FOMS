@@ -5,17 +5,14 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffAssignmentController;
 import main.java.daos.StaffDAO;
-import main.java.utils.loggers.StaffSession;
 
 public class AdminAssignmentForm implements Form {
 
     private StaffDAO staffDAO = new StaffDAO();
     private StaffAssignmentController assignmentController = new StaffAssignmentController(staffDAO);
-    private StaffSession session;
     private Scanner scanner;
 
-    public AdminAssignmentForm(StaffSession session, Scanner scanner){
-        this.session = session;
+    public AdminAssignmentForm(Scanner scanner){
         this.scanner = scanner;
     }
 

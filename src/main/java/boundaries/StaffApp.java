@@ -5,25 +5,24 @@ import java.util.Scanner;
 import main.java.utils.types.StaffRole;
 import main.java.utils.loggers.StaffSession;
 
-public class StaffApp {
+public class StaffApp implements AppDisplay {
     Scanner scanner = new Scanner(System.in);
     private StaffRole staffRole;
     private StaffLogin staffLogin;
     private StaffSession staffSession;
 
-    public StaffApp() {
-    }
+    public void execute() {
+        System.out.println("----------------------------------------------------------------------\n" +
+                           "|--------------------------Login Portal------------------------------|\n" +
+                           "----------------------------------------------------------------------\n");
 
-    public void executeLogin() {
-        System.out.println("Welcome to the Staff Login System");
+        enterRole();
 
         System.out.println("Enter username:");
         String username = scanner.nextLine();
         
         System.out.println("Enter password:");
         String password = scanner.nextLine();
-
-        enterRole();
 
         this.staffLogin = new StaffLogin();
         
@@ -33,9 +32,10 @@ public class StaffApp {
         if (usernameAuthenticated && passwordAuthenticated) {
             System.out.println("Login successful for role: " + staffRole + " and user: " + username);
             this.staffSession = new StaffSession(username, staffRole);
+            StaffUserView view;
             switch(staffRole){
                 case ADMIN:
-                    StaffUserView view = new AdminView();
+                    view = new AdminView();
                     view.execute(staffSession);
                     break;
                 case MANAGER:
@@ -53,9 +53,6 @@ public class StaffApp {
     }
 
     public void enterRole() {
-        System.out.println("----------------------------------------------------------------------\n" +
-                           "|--------------------------Login Portal------------------------------|\n" +
-                           "----------------------------------------------------------------------\n");
         System.out.println("Please enter your role (Admin/Manager/Staff): ");
         String roleInput = scanner.nextLine();
         

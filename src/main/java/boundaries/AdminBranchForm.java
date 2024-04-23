@@ -5,19 +5,15 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffBranchController;
 import main.java.daos.BranchDAO;
-import main.java.utils.loggers.StaffSession;
 
 public class AdminBranchForm implements Form {
     private BranchDAO branchDAO = new BranchDAO();
     private StaffBranchController branchController = new StaffBranchController(branchDAO);
-    private StaffSession session;
-    private Scanner scanner;
 
-    public AdminBranchForm(StaffSession session, Scanner scanner){
-        this.session = session;
+    private Scanner scanner;
+    public AdminBranchForm(Scanner scanner){
         this.scanner = scanner;
     }
-
     public void generateForm(){
         boolean loop=true;
         int choice;

@@ -22,6 +22,10 @@ public class StaffLogin {
     }
 
     public boolean changePassword(String oldPassword, String newPassword) {
-        return authController.updatePassword(username, oldPassword, newPassword);
+        if (oldPassword.equals(this.password)){
+            return false;
+        }
+        this.password = newPassword;
+        return authController.updatePassword(username, password, newPassword);
     }
 }

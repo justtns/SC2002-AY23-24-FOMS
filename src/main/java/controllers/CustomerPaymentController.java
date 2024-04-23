@@ -14,13 +14,15 @@ import main.java.utils.types.OrderStatus;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class CustomerPaymentController {
 
-    /** The data access object (DAO) for orders and approved payment methods. */
+    /** The data access object (DAO) for orders */
     private OrderDAO orderDAO;
+
+    /** The data access object (DAO) for approved payment methods. */
     private PaymentDAO paymentDAO;
 
     /**
@@ -92,7 +94,6 @@ public class CustomerPaymentController {
      * @param name The name of the payment method
      * @return True if the payment exists
      */
-
     public boolean validatePayment(String name){
         if (paymentDAO.findElement(name) == null){
             return false;

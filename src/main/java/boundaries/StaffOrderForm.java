@@ -8,7 +8,7 @@ import main.java.daos.OrderDAO;
 import main.java.daos.StaffDAO;
 import main.java.models.MenuItem;
 import main.java.models.Order;
-import main.java.utils.loggers.StaffSession;
+
 public class StaffOrderForm implements Form{
 
     private OrderDAO orderDAO = new OrderDAO();
@@ -16,11 +16,9 @@ public class StaffOrderForm implements Form{
     // private ScannerProvider scanner;
     private Scanner scanner; // help with scanner please
     private StaffOrderController orderController = new StaffOrderController(staffDAO, orderDAO, scanner);
-    private StaffSession session;
     
 
-    public StaffOrderForm(StaffSession session, Scanner scanner){
-        this.session = session;
+    public StaffOrderForm(Scanner scanner){
         this.scanner = scanner;
     }
 
