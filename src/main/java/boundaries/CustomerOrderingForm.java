@@ -67,6 +67,7 @@ public class CustomerOrderingForm implements Form{
                     showMenuItems();
                     break;
                 case 2:
+                    scanner.nextLine();
                     placeOrder();
                     loop = false;
                     break;
@@ -117,7 +118,6 @@ public class CustomerOrderingForm implements Form{
             System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
             try {
                 method = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
                 if (method != 1 && method != 2) {
                     System.out.println("Invalid Input. Please enter 1 or 2.");
                 }

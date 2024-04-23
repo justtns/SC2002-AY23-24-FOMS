@@ -16,8 +16,7 @@ public class OnlinePaymentService implements PaymentService {
     @Override
     public boolean simulatePayment(Scanner scanner) {
         System.out.println("Online Payment Selected - Please enter your payment details");
-
-        System.out.println("Enter domain:");
+        System.out.println("Enter Online Payment Provider:");
         String domain = scanner.nextLine();
         System.out.println("Enter email:");
         String email = scanner.nextLine();

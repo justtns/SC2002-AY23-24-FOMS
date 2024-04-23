@@ -1,9 +1,12 @@
 package main.java.controllers;
 
+import java.util.List;
+
 import main.java.boundaries.PaymentService;
 import main.java.daos.OrderDAO;
 import main.java.daos.PaymentDAO;
 import main.java.models.Order;
+import main.java.models.PaymentMethod;
 import main.java.utils.ScannerProvider;
 import main.java.utils.types.OrderStatus;
 
@@ -99,5 +102,9 @@ public class CustomerPaymentController {
             return false;
         }
         return true;
+    }
+
+    public List<PaymentMethod> getValidPaymentTypes(){
+        return paymentDAO.getElements();
     }
 }
