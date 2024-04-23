@@ -15,11 +15,16 @@ import java.io.FileOutputStream;
  * BranchDAO is implemented from DAOInterface 
  * BranchDAO is a Data Access Object (DAO) for managing Branch objects.
  * It provides methods to interact with Branch data stored in an Excel file.
+ * 
  * @author SDDA Team 1
- * @version 1.4
+ * @version 1.5
  * @since 23-Apr-2024
  */
 public class BranchDAO implements DAOInterface<Branch>{
+    /**
+     * List to hold Branch objects.
+     */
+    private List<Branch> BranchList;
 
     /**
      * Constructor for BranchDAO.
@@ -209,6 +214,4 @@ public class BranchDAO implements DAOInterface<Branch>{
         BranchList.add(element);
         System.out.println("Branch added successfully.");
     }
-
-    private List<Branch> BranchList; // List to hold Branch objects
 }
