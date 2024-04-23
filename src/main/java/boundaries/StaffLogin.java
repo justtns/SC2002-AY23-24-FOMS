@@ -3,7 +3,6 @@ package main.java.boundaries;
 import main.java.utils.types.StaffRole;
 import main.java.controllers.StaffAuthenticationController;
 import main.java.daos.StaffDAO;
-import main.java.models.Staff;
 
 public class StaffLogin {   
     public StaffRole staffRole;
