@@ -52,11 +52,11 @@ public class FOMSApp {
                 switch(loginRole) {
                     case CUSTOMER:
                         app = new CustomerApp();
-                        app.execute();
+                        app.execute(scanner);
                         break;
                     case STAFF:
                         app = new StaffApp();
-                        app.execute();
+                        app.execute(scanner);
                         break;
                 }
             }

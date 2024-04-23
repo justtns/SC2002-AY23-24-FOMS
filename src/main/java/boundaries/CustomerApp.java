@@ -10,9 +10,8 @@ import main.java.factories.FormFactory;
 
 
 public class CustomerApp implements AppDisplay{
-    public void execute(){
+    public void execute(Scanner scanner){
         CustomerSession session = new CustomerSession();
-        Scanner scanner = ScannerProvider.getScanner();
         CustomerBranchSelectionForm selectBranch = new CustomerBranchSelectionForm(session, scanner);
         session = selectBranch.generateForm();
         FormFactory actionFactory = new FormFactory();

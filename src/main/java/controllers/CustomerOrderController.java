@@ -102,6 +102,7 @@ public class CustomerOrderController {
     public void saveOrder(Order customerOrder){
         orderDAO.addElement(customerOrder);
         orderDAO.saveData();
+        orderDAO.readData();
     }
 
     /**
