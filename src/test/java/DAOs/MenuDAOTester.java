@@ -7,7 +7,7 @@ public class MenuDAOTester {
         MenuDAO menuDao = new MenuDAO();
 
         // Test adding a menu item
-        MenuItem newItem = new MenuItem("Pizza", "Food", "Main Branch", 15.99f);
+        MenuItem newItem = new MenuItem("Pizza", "Food", "Main Branch", "Yummy Pizza", 15.99f);
         menuDao.addElement(newItem);
         System.out.println("Add MenuItem Test: " + (menuDao.getElements().contains(newItem) ? "Passed" : "Failed"));
 
@@ -16,7 +16,7 @@ public class MenuDAOTester {
         System.out.println("Find MenuItem Test: " + (foundItem != null ? "Passed" : "Failed"));
 
         // Test updating a menu item
-        MenuItem updatedItem = new MenuItem("Pizza", "Food", "Main Branch", 17.99f);
+        MenuItem updatedItem = new MenuItem("Pizza", "Food", "Main Branch", "Yummy Pizza",17.99f);
         menuDao.updateElement(newItem, updatedItem);
         foundItem = menuDao.findElement("Pizza");
         System.out.println("Update MenuItem Test: " + (foundItem.getPrice() == 17.99f ? "Passed" : "Failed"));
