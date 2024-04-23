@@ -22,7 +22,7 @@ import main.java.utils.types.StaffRole;
  * It provides methods to interact with Staff data stored in Excel files.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 23-Apr-2024
  */
 public class StaffDAO implements DAOInterface<Staff>{
@@ -176,7 +176,6 @@ public void saveData() {
         System.out.println("Failed to save staff data: " + e.getMessage());
         e.printStackTrace();
     }
-    // readData(); // Refresh data after saving
 }
 
 
