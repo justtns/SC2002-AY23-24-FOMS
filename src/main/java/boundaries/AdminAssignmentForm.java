@@ -5,24 +5,23 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffAssignmentController;
 import main.java.daos.StaffDAO;
+import main.java.daos.BranchDAO;
 import main.java.utils.loggers.StaffSession;
-import main.java.utils.types.StaffRole;
 
-public class AdminAssignmentForm {
+public class AdminAssignmentForm implements Form {
 
     private StaffDAO staffDAO = new StaffDAO();
-    private StaffAssignmentController assignmentController = new StaffAssignmentController(staffDAO);
-    private String staffUserID;
-    private StaffRole staffRole;
+    private BranchDAO branchDAO = new BranchDAO();
+    private StaffAssignmentController assignmentController = new StaffAssignmentController(staffDAO, branchDAO);
+    private StaffSession session;
     private Scanner scanner;
 
     public AdminAssignmentForm(StaffSession session, Scanner scanner){
-        this.staffUserID = session.getStaffUserID();
-        this.staffRole = session.getStaffRole();
+        this.session = session;
         this.scanner = scanner;
     }
 
-    public void adminAssignmentView(){
+    public void generateForm(){
         boolean loop=true;
         int choice;
         while (loop) {

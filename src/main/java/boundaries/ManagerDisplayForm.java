@@ -6,23 +6,20 @@ import java.util.Scanner;
 import main.java.controllers.StaffDisplayController;
 import main.java.daos.StaffDAO;
 import main.java.utils.loggers.StaffSession;
-import main.java.utils.types.StaffRole;
 
-public class ManagerDisplayForm {
+public class ManagerDisplayForm implements Form {
 
     private StaffDAO staffDAO = new StaffDAO();
-    private StaffDisplayController displayController = new StaffDisplayController(staffDAO, staffUserID);
-    private String staffUserID;
-    private StaffRole staffRole;
+    private StaffDisplayController displayController = new StaffDisplayController(staffDAO);
+    private StaffSession session;
     private Scanner scanner;
 
     public ManagerDisplayForm(StaffSession session, Scanner scanner){
-        this.staffUserID = session.getStaffUserID();
-        this.staffRole = session.getStaffRole();
+        this.session = session;
         this.scanner = scanner;
     }
 
-    public void managerDisplayView(){
+    public void generateForm(){
         boolean loop=true;
         int choice;
         while (loop) {
@@ -55,13 +52,14 @@ public class ManagerDisplayForm {
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Invalid Key! Enter your choice (1-4)");
+                    System.out.println("Invalid Key! Enter your choice (1-2)");
                     break;
             }
         }
     }
 
     private void displayStaffList() {
-        StaffDisplayController.displayStaffList();
+        String staffUserID = session.getStaffUserID();
+        displayController.displayStaffList(staffUserID);
     }
 }

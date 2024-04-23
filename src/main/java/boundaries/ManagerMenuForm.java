@@ -5,10 +5,9 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffMenuController;
 import main.java.daos.MenuDAO;
-import main.java.models.MenuItem;
 import main.java.utils.loggers.StaffSession;
 
-public class ManagerMenuForm {
+public class ManagerMenuForm implements Form {
 
     private StaffMenuController menuController;
     private Scanner scanner;
@@ -18,7 +17,7 @@ public class ManagerMenuForm {
         this.scanner = scanner;
     }
 
-    public void managerMenuView(){
+    public void generateForm(){
         boolean loop=true;
         int choice;
         while (loop) {

@@ -2,10 +2,9 @@ package main.java.controllers;
 
 import main.java.daos.PaymentDAO;
 import main.java.models.PaymentMethod;
-import main.java.utils.types.PaymentType;
 
 public class StaffPaymentController {
-    private PaymentDAO paymentDAO = new PaymentDAO();
+    private PaymentDAO paymentDAO;
 
     public StaffPaymentController(PaymentDAO paymentDAO) {
         this.paymentDAO = paymentDAO;

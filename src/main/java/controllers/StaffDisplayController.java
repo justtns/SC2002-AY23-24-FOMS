@@ -8,14 +8,12 @@ import main.java.daos.StaffDAO;
 
 public class StaffDisplayController {
     private static StaffDAO staffDAO;
-    private static String staffUserID;
 
-    public StaffDisplayController(StaffDAO staffDAO, String staffUserID){
+    public StaffDisplayController(StaffDAO staffDAO){
         StaffDisplayController.staffDAO = staffDAO;
-        StaffDisplayController.staffUserID = staffUserID;
     }
 
-    public static void displayStaffList(){  // implement display using STAFF DAO
+    public void displayStaffList(String staffUserID){  // implement display using STAFF DAO
         Staff currentUser = staffDAO.findElement(staffUserID);
         
         String branch = currentUser.getBranch();

@@ -10,21 +10,19 @@ import main.java.models.Order;
 import main.java.utils.loggers.StaffSession;
 import main.java.utils.types.StaffRole;
 
-public class StaffOrderForm {
+public class StaffOrderForm implements Form{
 
     private OrderDAO orderDAO = new OrderDAO();
     private StaffOrderController orderController = new StaffOrderController(orderDAO);
-    private String staffUserID;
-    private StaffRole staffRole;
+    private StaffSession session;
     private Scanner scanner;
 
     public StaffOrderForm(StaffSession session, Scanner scanner){
-        this.staffUserID = session.getStaffUserID();
-        this.staffRole = session.getStaffRole();
+        this.session = session;
         this.scanner = scanner;
     }
 
-    public void staffOrderView(){
+    public void generateForm(){
         boolean loop=true;
         int choice;
         while (loop) {

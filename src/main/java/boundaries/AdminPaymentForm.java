@@ -6,23 +6,20 @@ import java.util.Scanner;
 import main.java.controllers.StaffPaymentController;
 import main.java.daos.PaymentDAO;
 import main.java.utils.loggers.StaffSession;
-import main.java.utils.types.StaffRole;
 
-public class AdminPaymentForm {
+public class AdminPaymentForm implements Form{
 
     private PaymentDAO paymentDAO = new PaymentDAO();
     private StaffPaymentController paymentController = new StaffPaymentController(paymentDAO);
-    private String staffUserID;
-    private StaffRole staffRole;
+    private StaffSession session;
     private Scanner scanner;
 
     public AdminPaymentForm(StaffSession session, Scanner scanner){
-        this.staffUserID = session.getStaffUserID();
-        this.staffRole = session.getStaffRole();
+        this.session = session;
         this.scanner = scanner;
     }
 
-    public void adminPaymentView(){
+    public void generateForm(){
         boolean loop=true;
         int choice;
         while (loop) {
@@ -70,7 +67,7 @@ public class AdminPaymentForm {
         System.out.println("Enter payment method name: ");
         String name = scanner.nextLine();
         System.out.println("Enter payment type ");
-        String typeString = scanner.nextLine();
+        String type = scanner.nextLine();
 
         if (paymentController.addPaymentMethod(name, type)) {
             System.out.println("Payment method added successfully.");
