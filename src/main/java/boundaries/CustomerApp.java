@@ -43,6 +43,10 @@ public class CustomerApp {
             if (choice < 1 | choice > 4){
                 System.out.println("Invalid Input. Please enter (1-4)");
             }
+            else if (choice == 4){
+                loop=false;
+                System.out.println("Logging out...");
+            }
             else{
                 form = actionFactory.getForm(session, scanner, choice);
                 form.generateForm();
