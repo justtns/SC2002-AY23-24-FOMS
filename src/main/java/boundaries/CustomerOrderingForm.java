@@ -98,7 +98,7 @@ public class CustomerOrderingForm implements Form{
             }
             MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
             if (selectedItem == null || !selectedItem.getBranch().equals(branch)) {
-                printInvalidItem();
+                System.out.println("Invalid item or not available in this branch. Please try again.");
                 continue;
             }
             String comment = getComment();
@@ -171,10 +171,6 @@ public class CustomerOrderingForm implements Form{
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
         }
-    }
-
-    private void printInvalidItem() {
-        System.out.println("Invalid item or not available in this branch. Please try again.");
     }
 
     private String getComment() {

@@ -33,13 +33,13 @@ public class StaffApp implements AppDisplay {
         
         switch (roleInput.toLowerCase()) {
             case "admin":
-                this.staffRole = StaffRole.Admin;
+                this.staffRole = StaffRole.ADMIN;
                 break;
             case "manager":
-                this.staffRole = StaffRole.Manager;
+                this.staffRole = StaffRole.MANAGER;
                 break;
             case "staff":
-                this.staffRole = StaffRole.Staff;
+                this.staffRole = StaffRole.STAFF;
                 break;
             default:
                 System.out.println("Invalid role entered.");
@@ -67,15 +67,15 @@ public class StaffApp implements AppDisplay {
             System.out.println("Login successful for role: " + staffRole + " and user: " + username);
             this.staffSession = new StaffSession(username, staffRole);
             switch(staffRole){
-                case Admin:
+                case ADMIN:
                     StaffUserView view = new AdminView();
                     view.execute(staffSession);
                     break;
-                case Manager:
+                case MANAGER:
                     view = new ManagerView();
                     view.execute(staffSession);
                     break;
-                case Staff:
+                case STAFF:
                     view = new StaffView();
                     view.execute(staffSession);
                     break;

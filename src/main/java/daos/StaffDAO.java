@@ -97,16 +97,16 @@ public class StaffDAO implements DAOInterface<Staff>{
                         StaffRole role;
                         switch (roleString) {
                             case "S":
-                                role = StaffRole.Staff;
+                                role = StaffRole.STAFF;
                                 break;
                             case "M":
-                                role = StaffRole.Manager;
+                                role = StaffRole.MANAGER;
                                 break;
                             case "A":
-                                role = StaffRole.Admin;
+                                role = StaffRole.ADMIN;
                                 break;
                             default:
-                                role = StaffRole.Staff; // Default to Staff if role is undefined
+                                role = StaffRole.STAFF; // Default to Staff if role is undefined
                                 break;
                         }
 

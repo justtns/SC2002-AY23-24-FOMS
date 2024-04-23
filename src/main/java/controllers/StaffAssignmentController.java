@@ -60,7 +60,7 @@ public class StaffAssignmentController {
 
     public boolean assignManager(String staffID, String branch){
         Staff staff = staffDAO.findElement(staffID);
-        if (staff.getRole() != StaffRole.Manager){
+        if (staff.getRole() != StaffRole.MANAGER){
             promoteToManager(staffID);
         }
         Branch branchToAssign = branchDAO.findElement(branch);
