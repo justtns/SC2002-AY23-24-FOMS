@@ -49,16 +49,20 @@ public class CustomerPostOrderForm implements Form{
 
             switch (choice) {
                 case 1:
+                    scanner.nextLine();
                     viewOrderStatus();
                     break;
                 case 2:
+                    scanner.nextLine();
                     pickupOrder();
                     break;
                 case 3:
+                    scanner.nextLine();
                     loop = false;
                     System.out.println("Logging Out....");
                     break;
                 default:
+                    scanner.nextLine();
                     System.out.println("Invalid Key! Enter your choice (1-3)");
                     break;
             }

@@ -30,12 +30,15 @@ public class CustomerPaymentForm implements Form{
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
+                scanner.nextLine();
                 handlePayment(new OnlinePaymentService(paymentController));
                 break;
             case 2:
+                scanner.nextLine();
                 handlePayment(new CreditDebitPaymentService(paymentController));
                 break;
             default:
+                scanner.nextLine();
                 System.out.println("Invalid payment method, please try again.");
                 generateForm();
                 return; 

@@ -44,7 +44,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
     @Override 
     public void readData(){
         paymentMethodList = new ArrayList<>();
-        String filePath = "src/main/resources/xlsx/payment_methods.xlsx";
+        String filePath = "src/main/resources/xlsx/payment_list.xlsx";
         File file = new File(filePath);
         
         // Check if the file exists, if not, create it and add headers
@@ -97,7 +97,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
      * Handles IOException if encountered while writing the files.
      */
     public void saveData() {
-        String filePath = "src/main/resources/xlsx/payment_methods.xlsx";
+        String filePath = "src/main/resources/xlsx/payment_list.xlsx";
         File file = new File(filePath);
 
         try (Workbook workbook = new XSSFWorkbook();

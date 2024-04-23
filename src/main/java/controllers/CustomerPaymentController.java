@@ -1,9 +1,11 @@
 package main.java.controllers;
 
+import java.util.List;
 import main.java.boundaries.PaymentService;
 import main.java.daos.OrderDAO;
 import main.java.daos.PaymentDAO;
 import main.java.models.Order;
+import main.java.models.PaymentMethod;
 import main.java.utils.ScannerProvider;
 import main.java.utils.types.OrderStatus;
 
@@ -14,7 +16,7 @@ import main.java.utils.types.OrderStatus;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class CustomerPaymentController {
@@ -88,6 +90,7 @@ public class CustomerPaymentController {
             return "Receipt could not be generated for Order ID: " + orderId;
         }
     }
+    
     /**
      * Validates if the payment is approved.
      * 
@@ -99,5 +102,14 @@ public class CustomerPaymentController {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Retrieves a list of valid payment types.
+     * 
+     * @return A list of PaymentMethod objects representing valid payment types
+     */
+    public List<PaymentMethod> getValidPaymentTypes(){
+        return paymentDAO.getElements();
     }
 }

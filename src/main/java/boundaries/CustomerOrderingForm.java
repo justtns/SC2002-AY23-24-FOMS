@@ -67,6 +67,7 @@ public class CustomerOrderingForm implements Form{
                     showMenuItems();
                     break;
                 case 2:
+                    scanner.nextLine();
                     placeOrder();
                     loop = false;
                     break;
@@ -117,7 +118,6 @@ public class CustomerOrderingForm implements Form{
             System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
             try {
                 method = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
                 if (method != 1 && method != 2) {
                     System.out.println("Invalid Input. Please enter 1 or 2.");
                 }
@@ -161,13 +161,13 @@ public class CustomerOrderingForm implements Form{
             return;
         }
         // Print table header
-        System.out.printf("%-20s | %-15s | %-10s | %-20s%n | %-50s%n",
+        System.out.printf("%-20s | %-15s | %-10s | %-20s | %-50s%n",
                 "Name", "Category", "Price ($)", "Branch", "Description");
         System.out.println("------------------------------------------------------------------------------------------");
         // Print menu items
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
-                System.out.printf("%-20s | %-15s | %-10.2f | %-20s%n | %-50s%n",
+                System.out.printf("%-20s | %-15s | %-10.2f | %-20s | %-50s%n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
         }

@@ -101,7 +101,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
      */
     @Override
     public void saveData() {
-        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src/main/resources/xlsx/payment_list.xlsx")) {
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src/main/resources/xlsx/menu_list.xlsx")) {
             Sheet sheet = workbook.createSheet("Menu Items");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);
