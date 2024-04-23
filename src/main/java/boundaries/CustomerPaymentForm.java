@@ -37,7 +37,7 @@ public class CustomerPaymentForm implements Form{
                 break;
             default:
                 System.out.println("Invalid payment method, please try again.");
-                promptPaymentMethod();
+                generateForm();
                 return; 
         }
     }

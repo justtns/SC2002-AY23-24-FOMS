@@ -189,6 +189,22 @@ public class OrderDAO implements DAOInterface<Order>{
         return null;
     }
 
+    public Order findElement(int orderId) {
+        int findIndex=-1;
+        for (int i=0;i<orderList.size();i++)
+        {
+            if(orderList.get(i).getOrderId()==orderId)
+            {
+                findIndex=i;
+                break;
+
+            }
+        }
+        if(findIndex!=-1)
+            return orderList.get(findIndex);
+        return null;
+    }
+
     /**
      * Updates an existing Order with new data.
      * @param oldElement The old Order object to update
