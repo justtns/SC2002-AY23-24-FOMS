@@ -60,6 +60,6 @@ public class ManagerDisplayForm implements Form {
 
     private void displayStaffList() {
         String staffUserID = session.getStaffUserID();
-        displayController.displayStaffList(staffUserID);
+        displayController.managerDisplayStaffList(staffUserID);
     }
 }
