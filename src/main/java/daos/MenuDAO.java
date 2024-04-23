@@ -120,7 +120,6 @@ public class MenuDAO implements DAOInterface<MenuItem> {
             }
 
             workbook.write(outputStream);
-            System.out.println("Excel file was updated successfully.");
         } catch (IOException e) {
             System.out.println("Error writing Excel file");
             e.printStackTrace();
@@ -252,6 +251,5 @@ public class MenuDAO implements DAOInterface<MenuItem> {
         }
         
         menuItemList.add(element);
-        System.out.println("Menu item added successfully.");
     }
 }

@@ -25,17 +25,16 @@ public class OnlinePaymentService implements PaymentService {
         }
         for (PaymentMethod item : paymentItems) {
             if (item.getType().equalsIgnoreCase("online")) {
-                System.out.printf("%, ", item.getName());
+                System.out.printf("%s, ", item.getName());
             }
         }
         System.out.printf("%n");
         System.out.println("Enter Online Payment Provider:");
-        String domain = scanner.nextLine();
+        this.domain = scanner.nextLine();
         System.out.println("Enter email:");
-        String email = scanner.nextLine();
+        this.email = scanner.nextLine();
         System.out.println("Enter password:");
-        @SuppressWarnings("unused")
-        String password = scanner.nextLine();
+        this.password = scanner.nextLine();
 
         System.out.println("Processing online payment for domain: " + domain + " with email: " + email);
 

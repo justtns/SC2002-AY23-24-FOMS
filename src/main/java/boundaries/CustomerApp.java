@@ -32,8 +32,9 @@ public class CustomerApp implements AppDisplay{
                                "\n" +
                                "Enter your choice (1-4): \n");
             int choice = -1;
+
             try {
-                choice = Integer.parseInt(scanner.next());
+                choice = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter (1-4)");
                 continue;
