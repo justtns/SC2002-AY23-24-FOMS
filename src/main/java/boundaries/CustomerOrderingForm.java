@@ -161,13 +161,13 @@ public class CustomerOrderingForm implements Form{
             return;
         }
         // Print table header
-        System.out.printf("%-20s | %-15s | %-10s | %-20s%n | %-50s%n",
+        System.out.printf("%-20s | %-15s | %-10s | %-20s | %-50s%n",
                 "Name", "Category", "Price ($)", "Branch", "Description");
         System.out.println("------------------------------------------------------------------------------------------");
         // Print menu items
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
-                System.out.printf("%-20s | %-15s | %-10.2f | %-20s%n | %-50s%n",
+                System.out.printf("%-20s | %-15s | %-10.2f | %-20s | %-50s%n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
         }

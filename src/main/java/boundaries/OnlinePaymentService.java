@@ -1,7 +1,9 @@
 package main.java.boundaries;
+import java.util.List;
 import java.util.Scanner;
 
 import main.java.controllers.CustomerPaymentController;
+import main.java.models.PaymentMethod;
 public class OnlinePaymentService implements PaymentService {
 
 
@@ -16,6 +18,17 @@ public class OnlinePaymentService implements PaymentService {
     @Override
     public boolean simulatePayment(Scanner scanner) {
         System.out.println("Online Payment Selected - Please enter your payment details");
+        List<PaymentMethod> paymentItems = paymentController.getValidPaymentTypes();
+        System.out.println("Available Online Payment Methods: ");
+        if (paymentItems.isEmpty()) {
+            System.out.println("No online methods available.");
+        }
+        for (PaymentMethod item : paymentItems) {
+            if (item.getType().equalsIgnoreCase("online")) {
+                System.out.printf("%, ", item.getName());
+            }
+        }
+        System.out.printf("%n");
         System.out.println("Enter Online Payment Provider:");
         String domain = scanner.nextLine();
         System.out.println("Enter email:");
