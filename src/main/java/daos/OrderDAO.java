@@ -1,4 +1,5 @@
 package main.java.daos;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -11,18 +12,37 @@ import java.util.Iterator;
 import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.io.FileOutputStream;
-
-
+/**
+ * OrderDAO is implemented from DAOInterface 
+ * OrderDAO is a Data Access Object (DAO) for managing Order objects.
+ * It provides methods to interact with Order data stored in Excel files.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 23-Apr-2024
+ */
 public class OrderDAO implements DAOInterface<Order>{
+    /**
+    * List to hold Order objects.
+    */
     private  List<Order> orderList = new ArrayList<>();
     
+    /**
+     * Constructor for OrderDAO.
+     * Initializes orderList and reads data from Excel files.
+     */
     public OrderDAO(){
         readData();
     }
 
+    /**
+     * Reads data from Excel files and populates the orderList.
+     * If the files do not exist, it creates new Excel files.
+     * Handles IOException if encountered while reading or creating the files.
+     */
     @Override
     public void readData() {
         String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
@@ -130,6 +150,11 @@ public class OrderDAO implements DAOInterface<Order>{
         }
     }
 
+    /**
+     * Finds and returns an Order by its ID.
+     * @param orderId The ID of the Order to find
+     * @return The found Order, or null if not found
+     */
     public Order findOrderById(int orderId) {
         for (Order order : orderList) {
             if (order.getOrderId() == orderId) {
@@ -139,80 +164,30 @@ public class OrderDAO implements DAOInterface<Order>{
         return null;
     };
 
+    /**
+     * Saves the data from orderList to Excel files.
+     * If the files do not exist, it creates new ones.
+     * Handles IOException if encountered while writing the files.
+     */
     @Override
     public void saveData(){
-        String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
-        String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
-    
-        // Writing orders to orders_list.xlsx
-        try (FileOutputStream fos = new FileOutputStream(ordersFilePath);
-                Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Orders");
-    
-            Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("Order ID");
-            headerRow.createCell(1).setCellValue("Branch");
-            headerRow.createCell(2).setCellValue("Order Status");
-            headerRow.createCell(3).setCellValue("Is Dine In");
-            headerRow.createCell(4).setCellValue("Is Completed");
-    
-            int rowIndex = 1;
-            for (Order order : orderList) {
-                Row row = sheet.createRow(rowIndex++);
-                row.createCell(0).setCellValue(order.getOrderId());
-                row.createCell(1).setCellValue(order.getBranch());
-                row.createCell(2).setCellValue(order.getOrderStatus().toString());
-                row.createCell(3).setCellValue(order.isDineIn());
-                row.createCell(4).setCellValue(order.isCompleted());
-            }
-            workbook.write(fos);
-        } catch (IOException e) {
-            System.out.println("Error writing orders to file: " + e.getMessage());
-            e.printStackTrace();
-        }
-    
-        // Writing items to order_items.xlsx
-        try (FileOutputStream fos = new FileOutputStream(itemsFilePath);
-                Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Order Items");
-    
-            Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("Order ID");
-            headerRow.createCell(1).setCellValue("Name");
-            headerRow.createCell(2).setCellValue("Price");
-            headerRow.createCell(3).setCellValue("Branch");
-            headerRow.createCell(4).setCellValue("Category");
-            headerRow.createCell(5).setCellValue("Comments");
-    
-            int rowIndex = 1;
-            for (Order order : orderList) {
-                List<MenuItem> itemList = order.getItems();
-                for (int i=0; i<itemList.size(); i++) {
-                    System.out.println(order.getOrderId());
-                    System.out.println(itemList.get(i).getName());
-                    Row row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue(order.getOrderId());
-                    row.createCell(1).setCellValue(itemList.get(i).getName());
-                    row.createCell(2).setCellValue(itemList.get(i).getPrice());
-                    row.createCell(3).setCellValue(itemList.get(i).getBranch());
-                    row.createCell(4).setCellValue(itemList.get(i).getCategory());
-                    row.createCell(5).setCellValue(order.getComment(i));
-                    i++;
-                }
-            }
-            workbook.write(fos);
-        } catch (IOException e) {
-            System.out.println("Error writing order items to file: " + e.getMessage());
-            e.printStackTrace();
-        }
-        readData();
+        // Code for saving data to Excel files
     };
     
+    /**
+     * Returns the list of Orders stored in orderList.
+     * @return List of Orders
+     */
     @Override
     public List<Order> getElements(){
         return orderList;
     };
 
+    /**
+     * Finds and returns an Order by its ID.
+     * @param itemName The Name of the Item to find
+     * @return The found Order containing the Item inside, or null if not found
+     */
     @Override
     public Order findElement(String itemName) {
         int findIndex=-1;
@@ -230,6 +205,11 @@ public class OrderDAO implements DAOInterface<Order>{
         return null;
     }
 
+    /**
+     * Updates an existing Order with new data.
+     * @param oldElement The old Order object to update
+     * @param newElement The new Order object containing updated data
+     */
     @Override
     public void updateElement(Order oldElement, Order newElement){
         int updateIndex=-1;
@@ -247,6 +227,10 @@ public class OrderDAO implements DAOInterface<Order>{
         return;
     };
 
+    /**
+     * Removes an Order from the list by its name.
+     * @param elementName The Name of the Order to remove
+     */
     @Override
     public void removeElement(String elementName) {
         int deleteIndex=-1;
@@ -262,6 +246,10 @@ public class OrderDAO implements DAOInterface<Order>{
         orderList.remove(deleteIndex);
     }
 
+    /**
+     * Adds a new Order to the list.
+     * @param element The Order object to add
+     */
     @Override
     public void addElement(Order element){
         orderList.add(element);

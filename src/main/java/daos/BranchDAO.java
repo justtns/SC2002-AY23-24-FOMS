@@ -15,11 +15,16 @@ import java.io.FileOutputStream;
  * BranchDAO is implemented from DAOInterface 
  * BranchDAO is a Data Access Object (DAO) for managing Branch objects.
  * It provides methods to interact with Branch data stored in an Excel file.
+ * 
  * @author SDDA Team 1
- * @version 1.3
+ * @version 1.5
  * @since 23-Apr-2024
  */
 public class BranchDAO implements DAOInterface<Branch>{
+    /**
+     * List to hold Branch objects.
+     */
+    private List<Branch> BranchList;
 
     /**
      * Constructor for BranchDAO.
@@ -35,6 +40,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * If the file does not exist, it creates a new Excel file.
      * Handles IOException if encountered while reading or creating the file.
      */
+    @Override
     public void readData(){
         BranchList = new ArrayList<>();
         String filePath = "src/main/resources/xlsx/branch_list.xlsx";
@@ -92,6 +98,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * If the file does not exist, it creates a new one.
      * Handles IOException if encountered while writing the file.
      */
+    @Override
     public void saveData(){
         try (Workbook workbook = new XSSFWorkbook(); FileOutputStream outputStream = new FileOutputStream("src/main/resources/xlsx/branch_list.xlsx")) {
             Sheet sheet = workbook.createSheet("Branches");
@@ -122,6 +129,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * Returns the list of Branches stored in BranchList.
      * @return List of Branches
      */
+    @Override
     public List<Branch> getElements(){
         return this.BranchList;
     }
@@ -131,6 +139,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * @param branchName The name of the Branch to find
      * @return The found Branch, or null if not found
      */
+    @Override
     public Branch findElement(String branchName){
         int findIndex=-1;
         for (int i = 0; i< BranchList.size(); i++)
@@ -152,6 +161,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * @param oldElement The old Branch object to update
      * @param newElement The new Branch object containing updated data
      */
+    @Override
     public void updateElement(Branch oldElement, Branch newElement){
         int updateIndex=-1;
         for (int i = 0; i< BranchList.size(); i++)
@@ -172,6 +182,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * Removes a Branch from the list by its name.
      * @param elementName The name of the Branch to remove
      */
+    @Override
     public void removeElement(String elementName){
         int updateIndex=-1;
         for (int i = 0; i< BranchList.size(); i++)
@@ -192,6 +203,7 @@ public class BranchDAO implements DAOInterface<Branch>{
      * Adds a new Branch to the list, if it doesn't already exist.
      * @param element The Branch object to add
      */
+    @Override
     public void addElement(Branch element){
         //checking for duplicate
         if (findElement(element.getName()) != null) {
@@ -202,6 +214,4 @@ public class BranchDAO implements DAOInterface<Branch>{
         BranchList.add(element);
         System.out.println("Branch added successfully.");
     }
-
-    private List<Branch> BranchList; // List to hold Branch objects
 }
