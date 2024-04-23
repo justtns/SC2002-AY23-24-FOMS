@@ -1,29 +1,17 @@
 package main.java.boundaries;
 
-import main.java.controllers.StaffAuthenticationController;
-import main.java.daos.StaffDAO;
-
 import java.util.Scanner;
 
-import main.java.boundaries.StaffLogin;
-import main.java.utils.types.LoginRole;
 import main.java.utils.types.StaffRole;
 import main.java.utils.loggers.StaffSession;
-import main.java.utils.ScannerProvider;
 
 public class StaffApp implements AppDisplay {
     Scanner scanner = new Scanner(System.in);
-    private StaffRole loginRole;
     private StaffRole staffRole;
     private StaffLogin staffLogin;
-    private StaffDAO staffDAO;
-    private StaffAuthenticationController authController;
     private StaffSession staffSession;
 
     public StaffApp() {
-        // Ensure staffDAO is instantiated before it's used.
-        this.staffDAO = new StaffDAO();
-        this.authController = new StaffAuthenticationController(staffDAO);
     }
 
     @Override
