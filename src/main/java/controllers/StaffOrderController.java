@@ -3,12 +3,11 @@ package main.java.controllers;
 import main.java.models.Order;
 
 import java.util.List;
-import java.util.Scanner; // how to use the scannerprovider?
+import java.util.Scanner;
 
 import main.java.daos.OrderDAO;
 import main.java.models.Staff;
 import main.java.utils.types.OrderStatus;
-import main.java.utils.ScannerProvider;
 import main.java.daos.StaffDAO;
 
 public class StaffOrderController {
@@ -22,7 +21,7 @@ public class StaffOrderController {
         this.scanner = scanner;
     }
 
-    public void displayNewOrder(){ // justin look here! do we display new orders by branch
+    public void displayNewOrder(){ 
         // Ask for staff ID
         System.out.println("Enter your staff ID:");
         String staffId = scanner.nextLine();
@@ -39,7 +38,7 @@ public class StaffOrderController {
         List<Order> orders = orderDAO.getElements();
         boolean found = false;
         for (Order order : orders) {
-            if (order.getBranch().equals(branchCode) && order.getOrderStatus().equals("New")) {
+            if (order.getBranch().equals(branchCode) && order.getOrderStatus() == OrderStatus.NEW) {
                 System.out.println(order);  // Assuming Order has a suitable toString() method
                 found = true;
             }
@@ -61,7 +60,7 @@ public class StaffOrderController {
         String orderIdString = String.valueOf(orderID);
         Order oldOrder = orderDAO.findElement(orderIdString);
         Order newOrder = orderDAO.findElement(orderIdString);
-        newOrder.setOrderStatus(OrderStatus.Ready);
+        newOrder.setOrderStatus(OrderStatus.READY);
         orderDAO.updateElement(oldOrder, newOrder);
         orderDAO.saveData();
     }

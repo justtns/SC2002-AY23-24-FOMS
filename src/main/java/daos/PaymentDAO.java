@@ -72,7 +72,7 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
                     Iterator<Row> rowIterator = sheet.iterator();
                     while (rowIterator.hasNext()) {
                         Row row = rowIterator.next();
-                        if (row.getRowNum() == 0) { // Skip header row
+                        if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()) { // Skip header row
                             continue;
                         }
                         if (row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) == null || row.getCell(3) == null) {

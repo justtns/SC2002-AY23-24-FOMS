@@ -92,7 +92,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                if (row.getRowNum() == 0) continue;
+                if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()) continue;
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
                 OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(2).getStringCellValue());

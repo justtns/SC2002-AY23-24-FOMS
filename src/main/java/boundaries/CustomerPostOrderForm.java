@@ -105,7 +105,7 @@ public class CustomerPostOrderForm implements Form{
             System.out.println("Order ID: " + order.getOrderId());
             System.out.println("Order Status: " + order.getOrderStatus());
             System.out.println("Total Price: $" + order.calculateTotalPrice());
-            if (order.getOrderStatus() == OrderStatus.Ready) {
+            if (order.getOrderStatus() == OrderStatus.READY) {
                 System.out.println("1.Pickup\t2.Not yet");
                 int c;
                 try {
@@ -117,7 +117,7 @@ public class CustomerPostOrderForm implements Form{
                     return;
                 }
                 if (c == 1) {
-                    order.setOrderStatus(OrderStatus.Completed);
+                    order.setOrderStatus(OrderStatus.COMPLETED);
                     order.setCompleted(true);
                     System.out.println("The order has been Completed..");
                     orderController.updateOrder(order);

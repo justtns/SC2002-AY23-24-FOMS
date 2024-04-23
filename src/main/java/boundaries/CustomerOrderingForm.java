@@ -86,7 +86,7 @@ public class CustomerOrderingForm implements Form{
     private void placeOrder() {
         System.out.println("Placing an Order");
         Order custOrder = orderController.createCustomerOrder(orderId, branch);
-        custOrder.setOrderStatus(OrderStatus.New);
+        custOrder.setOrderStatus(OrderStatus.NEW);
         List<MenuItem> selectedItems = menuController.getitems();
         
         while (true) {

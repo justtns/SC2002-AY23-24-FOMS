@@ -69,11 +69,8 @@ public class BranchDAO implements DAOInterface<Branch>{
                 Iterator<Row> rowIterator = sheet.iterator();
                 while (rowIterator.hasNext()) {
                     Row row = rowIterator.next();
-                    if (row.getRowNum() == 0){
+                    if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()){
                         continue;
-                    }
-                    if (row.getCell(0) == null || row.getCell(1) == null) {
-                        continue; 
                     }
                     String name = row.getCell(0).getStringCellValue();
                     String location = row.getCell(1).getStringCellValue();

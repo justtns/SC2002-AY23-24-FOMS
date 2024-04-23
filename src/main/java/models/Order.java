@@ -56,7 +56,7 @@ public class Order {
     }
 
     /**
-     * Constructs an Order object with the given parameters.
+     * Constructor that constructors Order object with the given parameters.
      * 
      * @param orderId The unique ID of the order
      * @param orderStatus The status of the order

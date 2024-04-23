@@ -15,9 +15,9 @@ public class CustomerPaymentController {
 
     public boolean makePayment(int orderId, PaymentService paymentService) {
         if (paymentService.simulatePayment(ScannerProvider.getScanner())) {
-            Order order = orderDAO.findOrderById(orderId);
+            Order order = orderDAO.findElement(Integer.toString(orderId));
             if (order != null) {
-                order.setOrderStatus(OrderStatus.Paid);
+                order.setOrderStatus(OrderStatus.PAID);
                 orderDAO.saveData();
                 return true;
             } else {
@@ -28,7 +28,7 @@ public class CustomerPaymentController {
     }
 
     public double getTotal(int orderId) {
-        Order order = orderDAO.findOrderById(orderId);
+        Order order = orderDAO.findElement(Integer.toString(orderId));
         if (order != null) {
             return order.calculateTotalPrice(); 
         } else {
@@ -38,7 +38,7 @@ public class CustomerPaymentController {
     }
 
     public String printReceipt(int orderId) {
-        Order order = orderDAO.findOrderById(orderId);
+        Order order = orderDAO.findElement(Integer.toString(orderId));
         if (order != null) {
             return "Receipt for Order ID: " + orderId + "\n" + order.toString(); // create a tostring in order !
         } else {

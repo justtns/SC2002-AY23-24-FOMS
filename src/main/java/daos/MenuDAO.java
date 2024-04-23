@@ -30,7 +30,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
             try (Workbook workbook = new XSSFWorkbook()) {
                 Sheet sheet = workbook.createSheet("Orders");
                 Row headerRow = sheet.createRow(0);
-                String[] headers = {"Name", "Price", "Branch", "Category"};;
+                String[] headers = {"Name", "Price", "Branch", "Category", "Description"};;
                 for (int i = 0; i < headers.length; i++) {
                     Cell cell = headerRow.createCell(i);
                     cell.setCellValue(headers[i]);
@@ -49,7 +49,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
                 Iterator<Row> rowIterator = sheet.iterator();
                 while (rowIterator.hasNext()) {
                     Row row = rowIterator.next();
-                    if (row.getRowNum() == 0){
+                    if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()){
                         continue;
                     }
                     if (row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) == null || row.getCell(3) == null) {
@@ -59,8 +59,9 @@ public class MenuDAO implements DAOInterface<MenuItem>{
                     Float price = (float) row.getCell(1).getNumericCellValue();
                     String itemBranch = row.getCell(2).getStringCellValue();
                     String category = row.getCell(3).getStringCellValue();
+                    String description = row.getCell(4).getStringCellValue();
                     
-                    MenuItem item = new MenuItem(name, category, itemBranch, price);
+                    MenuItem item = new MenuItem(name, category, itemBranch, description, price);
                     addElement(item);
                 }
             }
@@ -81,7 +82,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
             Sheet sheet = workbook.createSheet("Menu Items");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);
-            String[] headers = {"Name", "Price", "Branch", "Category"};
+            String[] headers = {"Name", "Price", "Branch", "Category", "Description"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
@@ -92,6 +93,7 @@ public class MenuDAO implements DAOInterface<MenuItem>{
                 row.createCell(1).setCellValue(item.getPrice());
                 row.createCell(2).setCellValue(item.getBranch());
                 row.createCell(3).setCellValue(item.getCategory());
+                row.createCell(4).setCellValue(item.getDescription());
             }
 
             workbook.write(outputStream);
