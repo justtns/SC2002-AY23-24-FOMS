@@ -39,7 +39,7 @@ public class Staff {
     private static int count = 0;
 
     /**
-     * Constructs a Staff object with the given parameters.
+     * Constructor that constructs a Staff object with the given parameters.
      * The login ID is generated automatically based on the name and a counter.
      * 
      * @param name The name of the staff member
