@@ -125,7 +125,6 @@ public class PaymentDAO implements DAOInterface<PaymentMethod>{
             System.out.println("Failed to save payment method data: " + e.getMessage());
             e.printStackTrace();
         }
-        readData(); // Refresh data after saving
     }
 
     /**
