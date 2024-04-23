@@ -21,7 +21,7 @@ import java.io.IOException;
  * It provides methods to interact with Order data stored in Excel files.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 23-Apr-2024
  */
 public class OrderDAO implements DAOInterface<Order>{
@@ -151,20 +151,6 @@ public class OrderDAO implements DAOInterface<Order>{
     }
 
     /**
-     * Finds and returns an Order by its ID.
-     * @param orderId The ID of the Order to find
-     * @return The found Order, or null if not found
-     */
-    public Order findOrderById(int orderId) {
-        for (Order order : orderList) {
-            if (order.getOrderId() == orderId) {
-                return order;
-            }
-        }
-        return null;
-    };
-
-    /**
      * Saves the data from orderList to Excel files.
      * If the files do not exist, it creates new ones.
      * Handles IOException if encountered while writing the files.
@@ -185,7 +171,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
     /**
      * Finds and returns an Order by its ID.
-     * @param itemName The Name of the Item to find
+     * @param itemName The Name of the Item to find, which is equivalent to the ID
      * @return The found Order containing the Item inside, or null if not found
      */
     @Override
