@@ -33,17 +33,45 @@ public class StaffApp implements AppDisplay {
      * @param scanner The scanner object for user input.
      */
     public void execute(Scanner scanner) {
-        
-        boolean loop = true;
-        while(loop){
+        boolean loop=true;
+        int choice;
+        while (loop) {
             System.out.println("----------------------------------------------------------------------\n" +
                            "|--------------------------Login Portal------------------------------|\n" +
                            "----------------------------------------------------------------------\n" +
                            "|                      Choose an option:                             |\n" +
-                           "|                      1. Admin                                      |\n" +
-                           "|                      2. Staff                                      |\n" +
-                           "|                      3. Manager                                    |\n" +
+                           "|                      1. Login                                      |\n" +
+                           "|                      2. Change Password                            |\n" +
                            "----------------------------------------------------------------------\n");
+            choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.next());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter (1-2).");
+                scanner.nextLine(); // Consume the invalid input
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    scanner.nextLine(); // Consume the newline character
+                    loginProcess(scanner);
+                    loop = false;
+                    break;
+                case 2:
+                    scanner.nextLine(); // Consume the newline character
+                    changePasswordProcess(scanner);
+                    break;
+                default:
+                    System.out.println("Invalid Input. Please enter (1-2).");
+                    break;
+            }
+        }
+    }
+
+    public void loginProcess(Scanner scanner) {
+        boolean loop = true;
+        while(loop){
             enterRole(scanner);
 
             System.out.println("Enter username:");
@@ -98,6 +126,8 @@ public class StaffApp implements AppDisplay {
     public void enterRole(Scanner scanner) {
         
         while(true){
+            System.out.println("Enter role: 1/2/3 \n" +
+                                "1. Admin, 2. Staff, 3. Manager\n");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
@@ -122,5 +152,24 @@ public class StaffApp implements AppDisplay {
                     break;
             }
         }
+    }
+
+    public void changePasswordProcess(Scanner scanner) {
+        System.out.println("Enter username:");
+            String username = scanner.nextLine();
+            
+            System.out.println("Enter old password:");
+            String oldPassword = scanner.nextLine();
+            System.out.println("Enter new password:");
+            String newPassword = scanner.nextLine();
+
+            this.staffLogin = new StaffLogin();
+
+            if(staffLogin.changePassword(username, oldPassword, newPassword)){
+                System.out.println("Password changed successfully.");
+            }
+            else{
+                System.out.println("Password cannot be changed.");
+            }
     }
 }

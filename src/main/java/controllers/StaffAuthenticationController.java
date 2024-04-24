@@ -63,15 +63,24 @@ public class StaffAuthenticationController {
      * @return true if the password was successfully updated, false otherwise
      */
     public boolean updatePassword(String username, String oldPassword, String newPassword) {
-        if (authenticatePassword(username, oldPassword)) {
-            Staff staff = staffDAO.findElement(username);
-            if (staff != null) {
+        Staff staff = staffDAO.findElement(username);
+        if (staff != null) {
+            if (authenticatePassword(username, oldPassword)) {
                 staff.setPassword(newPassword);
                 staffDAO.updateElement(staffDAO.findElement(username), staff);
+                staffDAO.saveData();
                 return true;
             }
+            else {
+                System.out.println("Old password does not match.");
+                return false;
+            }
         }
-        return false;
+        else{
+            System.out.println("Username does not exist.");
+                return false;
+        }
+        
     }
 
     /**
