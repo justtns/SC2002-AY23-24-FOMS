@@ -56,8 +56,9 @@ public class CustomerOrderingForm implements Form{
             System.out.println("|                   1. View Menu                                     |");
             System.out.println("|                   2. Start New Order                               |");
             System.out.println("|                   3. Display Cart                                  |");
-            System.out.println("|                   4. Submit Order                                  |");
-            System.out.println("|                   5. Go to Homescreen                              |");
+            System.out.println("|                   4. Remove Items in Cart                          |");
+            System.out.println("|                   5. Submit Order                                  |");
+            System.out.println("|                   6. Go to Homescreen                              |");
             System.out.println("----------------------------------------------------------------------");
             System.out.print("\nEnter your choice (1-5): ");
     
@@ -79,6 +80,9 @@ public class CustomerOrderingForm implements Form{
                     displayCart(customerOrder);
                     break;
                 case 4:
+                    customerOrder = editCart(customerOrder);
+                    break;
+                case 5:
                     if (!customerOrder.getItems().isEmpty()) {
                         submitOrder(customerOrder);
                     } else {
@@ -86,7 +90,7 @@ public class CustomerOrderingForm implements Form{
                     }
                     loop = false;
                     break;
-                case 5:
+                case 6:
                     System.out.println("Returning to Homescreen...");
                     loop = false;
                     break;
@@ -95,6 +99,46 @@ public class CustomerOrderingForm implements Form{
                     break;
             }
         }
+    }
+
+    private Order editCart(Order customerOrder) {
+        List<MenuItem> menuItems = menuController.getitems();
+        boolean loop2 = true;
+        if (customerOrder.getItems().size() == 0){
+            System.out.println("Cart is empty!");
+            return customerOrder;
+        }
+
+        while (loop2){
+            displayCart(customerOrder);
+            System.out.println("Please enter the item you wish to remove (type 'done' to finish)");
+            String itemName = scanner.nextLine();
+            if (itemName.equalsIgnoreCase("done")){
+                loop2 = false;
+                continue;
+            }
+            MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, menuItems);
+            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) { // Corrected check
+                System.out.println("Invalid item. Please try again.");
+                continue;
+            }
+            int quantity = getQty();
+            if (quantity == customerOrder.getItems().size()){
+                System.out.println("Last item removed, cart is now empty.");
+                customerOrder = orderController.createCustomerOrder(orderId, branch);
+                customerOrder.setOrderStatus(OrderStatus.NEW);
+                continue;
+            }
+
+            try {
+                customerOrder = orderController.deleteItem(customerOrder, selectedItem, quantity);
+                continue;
+            } catch (Exception e) {
+                System.out.println("Please enter a valid quantity");
+                continue;
+            }
+        }
+        return customerOrder;
     }
     
     private Order startNewOrder(Order customerOrder) {
@@ -340,7 +384,7 @@ public class CustomerOrderingForm implements Form{
                     System.out.println("Invalid Input. Please enter a positive number.");
                 }
             } 
-            catch (InputMismatchException e) {
+            catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
             }
         }
