@@ -236,15 +236,12 @@ public class ManagerMenuForm implements Form {
         
         System.out.println("Enter the name of the menu item:");
         String itemNameToEditDescription = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
         
         System.out.println("Enter new description:");
         String newDescription = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
         
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
     }
