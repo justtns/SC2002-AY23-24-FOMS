@@ -17,6 +17,7 @@ public class ManagerDisplayForm implements Form {
         this.scanner = scanner;
     }
 
+    @Override
     public void generateForm(){
         boolean loop=true;
         int choice;

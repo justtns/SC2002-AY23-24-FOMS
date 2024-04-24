@@ -37,6 +37,7 @@ public class AdminAssignmentForm implements Form {
      * Generates a form of admin assignment actions and handles admin's input.
      * Checks if admin's input is valid within options 1-4.
      */
+    @Override
     public void generateForm(){
         boolean loop=true;
         int choice;
