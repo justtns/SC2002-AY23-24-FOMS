@@ -3,6 +3,7 @@ package main.java.boundaries;
 import java.util.Scanner;
 
 import main.java.controllers.StaffDisplayController;
+import main.java.daos.BranchDAO;
 import main.java.daos.StaffDAO;
 import main.java.utils.loggers.StaffSession;
 
@@ -19,7 +20,7 @@ public class ManagerDisplayForm implements Form {
     /**
      * The controller for displaying staff information.
      */
-    private StaffDisplayController displayController = new StaffDisplayController(new StaffDAO());
+    private StaffDisplayController displayController = new StaffDisplayController(new StaffDAO(), new BranchDAO());
 
     /**
      * The session of the manager.

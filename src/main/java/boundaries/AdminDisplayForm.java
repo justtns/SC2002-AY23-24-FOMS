@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffDisplayController;
 import main.java.daos.StaffDAO;
+import main.java.daos.BranchDAO;
 import main.java.utils.types.StaffRole;
 
 /**
@@ -30,7 +31,7 @@ public class AdminDisplayForm implements Form {
      * @param scanner the scanner object to be used for input
      */
     public AdminDisplayForm(Scanner scanner){
-        this.displayController = new StaffDisplayController(new StaffDAO());
+        this.displayController = new StaffDisplayController(new StaffDAO(), new BranchDAO());
         this.scanner = scanner;
     }
 
@@ -104,7 +105,6 @@ public class AdminDisplayForm implements Form {
     private void staffListByBranch() {
         System.out.println("Enter the branch name:");
         String branch = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         displayController.displayStaffListByBranch(branch);
     }
@@ -118,7 +118,6 @@ public class AdminDisplayForm implements Form {
         StaffRole role = null;
         while (role == null) {
             String roleInput = scanner.nextLine();
-            scanner.nextLine(); // Consume the newline character
             try {
                 role = StaffRole.valueOf(roleInput.toUpperCase());
                 break;
@@ -134,9 +133,19 @@ public class AdminDisplayForm implements Form {
      * Displays the list of staff members for a particular gender.
      */
     private void staffListByGender() {
-        System.out.println("Enter the gender (Male/Female):");
-        String gender = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
+        String gender = "";
+        boolean validGender = false;
+
+        while (!validGender) {
+            System.out.println("Enter the gender (M/F):");
+            gender = scanner.nextLine().trim().toUpperCase();
+            
+            if (gender.equals("M") || gender.equals("F")) {
+                validGender = true;
+            } else {
+                System.out.println("Invalid input. Please enter 'M' for male or 'F' for female.");
+            }
+        }
 
         displayController.displayStaffListByGender(gender);
     }
@@ -145,9 +154,15 @@ public class AdminDisplayForm implements Form {
      * Displays the list of staff members for a particular age.
      */
     private void staffListByAge() {
-        System.out.println("Enter the age:");
-        int age = Integer.parseInt(scanner.nextLine());
-        scanner.nextLine(); // Consume the newline character
+        int age = -1;
+        while (age == -1) {
+            System.out.println("Enter the age:");
+            try {
+                age = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
 
         displayController.displayStaffListByAge(age);
     }

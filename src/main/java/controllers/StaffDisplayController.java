@@ -2,6 +2,8 @@ package main.java.controllers;
 
 import main.java.daos.StaffDAO;
 import main.java.models.Staff;
+import main.java.daos.BranchDAO;
+import main.java.models.Branch;
 import main.java.utils.types.StaffRole;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,14 +22,16 @@ import java.util.stream.Collectors;
 public class StaffDisplayController {
     /** The data access object (DAO) for staff */
     private StaffDAO staffDAO;
+    private BranchDAO branchDAO;
 
     /**
      * Constructs a StaffDisplayController object with the specified StaffDAO.
      * 
      * @param staffDAO The StaffDAO object to be used by the controller
      */
-    public StaffDisplayController(StaffDAO staffDAO){
+    public StaffDisplayController(StaffDAO staffDAO, BranchDAO branchDAO){
         this.staffDAO = staffDAO;
+        this.branchDAO = branchDAO;
     }
 
     /**
@@ -54,9 +58,14 @@ public class StaffDisplayController {
      * 
      * @param branch The branch name for filtering
      */
-    public void displayStaffListByBranch(String branch) { 
+    public void displayStaffListByBranch(String branchName) { 
+        Branch branch = branchDAO.findElement(branchName);
+        if(branch == null){
+            System.out.println("Branch not found: " + branchName);
+            return;
+        }
         List<Staff> staffList = staffDAO.getElements().stream()
-                .filter(staff -> staff.getBranch().equalsIgnoreCase(branch))
+                .filter(staff -> staff.getBranch().equalsIgnoreCase(branchName))
                 .collect(Collectors.toList());
         printStaffList(staffList);
     }
