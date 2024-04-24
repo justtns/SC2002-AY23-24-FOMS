@@ -1,8 +1,10 @@
 package main.java.boundaries;
 
+import java.util.List;
 import java.util.Scanner;
 
 import main.java.controllers.CustomerPaymentController;
+import main.java.models.PaymentMethod;
 
 /**
  * The CreditDebitPaymentService class implements the PaymentService interface for credit/debit card payments (e.g. Visa, AMEX etc.)
@@ -61,6 +63,16 @@ public class CreditDebitPaymentService implements PaymentService {
                            "--------------------------------------------------------------------------\n");
 
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
+        List<PaymentMethod> paymentItems = paymentController.getValidPaymentTypes();
+        System.out.println("Available Online Payment Methods: ");
+        if (paymentItems.isEmpty()) {
+            System.out.println("No online methods available.");
+        }
+        for (PaymentMethod item : paymentItems) {
+            if (item.getType().equalsIgnoreCase("creditdebit")) {
+                System.out.printf("%s, ", item.getName());
+            }
+        }
         System.out.println("Enter CardProvider:");
         this.cardProvider = scanner.nextLine();
 
