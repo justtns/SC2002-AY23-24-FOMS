@@ -11,7 +11,7 @@ public class StaffOrderForm implements Form{
 
     private Scanner scanner;
     private StaffSession session;
-    private StaffOrderController orderController = new StaffOrderController(new StaffDAO(), new OrderDAO(), scanner);
+    private StaffOrderController orderController = new StaffOrderController(new StaffDAO(), new OrderDAO());
     
 
     public StaffOrderForm(StaffSession session, Scanner scanner){

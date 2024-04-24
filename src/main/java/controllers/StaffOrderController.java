@@ -8,7 +8,6 @@ import main.java.daos.StaffDAO;
 import main.java.utils.types.OrderStatus;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The StaffOrderController class manages orders placed by staff members.
@@ -25,8 +24,6 @@ public class StaffOrderController {
     private StaffDAO staffDAO;
     /** The data access object (DAO) for orders */
     private OrderDAO orderDAO;
-    /** The scanner object to read user input */
-    private Scanner scanner;
 
     /**
      * Constructs a new StaffOrderController with the specified StaffDAO, OrderDAO, and Scanner.
@@ -35,10 +32,9 @@ public class StaffOrderController {
      * @param orderDAO  the OrderDAO instance
      * @param scanner   the Scanner instance for user input
      */
-    public StaffOrderController(StaffDAO staffDAO, OrderDAO orderDAO, Scanner scanner) {
+    public StaffOrderController(StaffDAO staffDAO, OrderDAO orderDAO) {
         this.staffDAO = staffDAO;
         this.orderDAO = orderDAO;
-        this.scanner = scanner;
     }
 
     /**
