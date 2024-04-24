@@ -6,17 +6,44 @@ import main.java.controllers.StaffMenuController;
 import main.java.daos.MenuDAO;
 import java.util.InputMismatchException;
 
-
+/**
+ * The ManagerMenuForm class is a form that is a boundary level object for managers to perform menu modification actions
+ * such as adding, editing, or removing menu items, changing item availability, and editing menu item descriptions.
+ * This form is implemented from the Form interface.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class ManagerMenuForm implements Form {
 
+    /**
+     * The controller for managing menu actions.
+     */
     private StaffMenuController menuController;
+
+    /**
+     * The scanner object used for user input.
+     */
     private Scanner scanner;
 
+    /**
+     * Constructs a ManagerMenuForm with the given scanner.
+     * 
+     * @param scanner The scanner object used for user input.
+     */
     public ManagerMenuForm(Scanner scanner){
         this.menuController = new StaffMenuController(new MenuDAO()); 
         this.scanner = scanner;
     }
 
+    /**
+     * Generates the manager menu form.
+     * 
+     * This method presents the manager with options to add (1), edit (2), or remove menu items (3),
+     * change item availability (4), edit menu item descriptions (5), or return to the homescreen (6).
+     * Checks if user input is valid within options 1-6.
+     */
     @Override
     public void generateForm(){
         boolean loop=true;
@@ -88,6 +115,11 @@ public class ManagerMenuForm implements Form {
         }
     }
 
+    /**
+     * This method prompts the manager to enter details of a new menu item, including name,
+     * category, description, price, and branch.
+     * Checks if the input for new price is valid or not.
+     */
     public void addMenuItemDetails(){
         System.out.println("Adding a new menu item.");
         
@@ -115,10 +147,14 @@ public class ManagerMenuForm implements Form {
         System.out.println("Enter the branch of the new menu item:");
         String branch = scanner.nextLine();
 
-        // Boolean availability = true;
         menuController.addMenuItem(name, category, branch, description, price);
     }
 
+    /**
+     * This method prompts the manager to enter details of the menu item to edit, including name,
+     * category, description, and price.
+     * Checks if the input for new price is valid or not.
+     */
     public void editMenuItemDetails(){
         System.out.println("Editing an existing menu item.");
         
@@ -149,6 +185,9 @@ public class ManagerMenuForm implements Form {
         menuController.editMenuItem(name, branch, newCategory, newDescription, newPrice);
     }
 
+    /**
+     * This method prompts the manager to enter the name of the menu item to remove.
+     */
     public void removeMenuItemDetails(){
         System.out.println("Removing a menu item.");
 
@@ -161,6 +200,10 @@ public class ManagerMenuForm implements Form {
         menuController.removeMenuItem(itemName, branch);
     }
 
+    /**
+     * This method prompts the manager to enter the name of the menu item and its new availability.
+     * Checks if the input for availability is valid or not (i.e. either true or false).
+     */
     public void changeMenuItemAvailability(){
         System.out.println("Changing item availability.");
                     
@@ -180,11 +223,14 @@ public class ManagerMenuForm implements Form {
                 System.out.println("Invalid input. Please enter true or false.");
                 scanner.nextLine(); // Consume the invalid input
             }
-    }
+        }
 
         menuController.changeAvailability(itemNameToChangeAvailability, branch, newAvailability);
     }
 
+    /**
+     * This method prompts the manager to enter the name of the menu item and its new description.
+     */
     public void editMenuItemDescription(){
         System.out.println("Editing item description.");          
         

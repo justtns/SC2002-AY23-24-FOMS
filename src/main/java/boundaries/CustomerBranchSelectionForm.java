@@ -21,7 +21,6 @@ public class CustomerBranchSelectionForm {
         this.scanner = scanner;
     }
 
-    @Override
     public CustomerSession generateForm(){
         // Display branches for selection
         List<Branch> branches = branchController.getBranches();
