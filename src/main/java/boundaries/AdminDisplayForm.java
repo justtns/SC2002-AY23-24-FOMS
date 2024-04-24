@@ -12,7 +12,7 @@ import main.java.utils.types.StaffRole;
  * Administrators can view staff lists based on branch, role, gender, age, or display all staff members.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class AdminDisplayForm implements Form {
@@ -34,8 +34,8 @@ public class AdminDisplayForm implements Form {
     }
 
     /**
-     * Generates the admin display form and handles user input.
-     * Checks if user input is within options 1-6.
+     * Generates a form containing admin display actions and handles admin's input.
+     * Checks if admin's input is valid within options 1-6.
      */
     public void generateForm(){
         boolean loop=true;
@@ -97,7 +97,7 @@ public class AdminDisplayForm implements Form {
     }
 
     /**
-     * Displays the list of staff members based for a particular branch.
+     * Displays the list of staff members for a particular branch.
      */
     private void staffListByBranch() {
         System.out.println("Enter the branch name:");
@@ -151,7 +151,7 @@ public class AdminDisplayForm implements Form {
     }
 
     /**
-     * Displays the complete list of staff members.
+     * Displays the complete list of all staff members under the company.
      */
     private void staffList() {
         displayController.displayStaffList();

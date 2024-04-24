@@ -11,7 +11,7 @@ import main.java.utils.types.StaffRole;
  * Administrators can add, edit, or remove staff accounts using this form.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class AdminManagementForm implements Form {
@@ -33,8 +33,8 @@ public class AdminManagementForm implements Form {
     }
 
     /**
-     * Generates the admin management form and handles user input.
-     * Checks if user input is within options 1-4.
+     * Generates a form containing admin management actions and handles admin's input.
+     * Checks if admin's input is valid within options 1-4.
      */
     public void generateForm(){
         boolean loop=true;
@@ -86,7 +86,7 @@ public class AdminManagementForm implements Form {
     }
 
     /**
-     * Adds a new staff account based on user input.
+     * Adds a new staff account based on admin's input - staff name, staff login id, staff role
      * Checks if role entered exists in StaffRole ENum.
      * Prints a message to admin personnel if staff account is successfully added or not.
      * 
@@ -134,7 +134,7 @@ public class AdminManagementForm implements Form {
     }
 
     /**
-     * Edits an existing staff account based on user input.
+     * Edits an existing staff account based on admin's input - staff current login id, new login id, new password and new branch.
      * Prints a message to admin personnel if staff account is successfully updated or not.
      */
     private void editStaffAccount() {
@@ -162,7 +162,7 @@ public class AdminManagementForm implements Form {
     }
 
     /**
-     * Removes an existing staff account based on user input.
+     * Removes an existing staff account based on admin's input - staff login id
      * Prints a message to admin personnel if staff account is successfully removed or not.
      */
     private void removeStaffAccount() {

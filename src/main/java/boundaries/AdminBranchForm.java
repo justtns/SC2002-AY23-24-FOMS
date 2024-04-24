@@ -6,14 +6,13 @@ import main.java.controllers.StaffBranchController;
 import main.java.daos.BranchDAO;
 
 /**
- * A form for administrative staff as a boundary level object for performing branch actions.
- *
+ * A form for administrative staff as a boundary level object to perform branch-reltaed actions.
  * This form allows administrators to open and close branches.
  * It provides options for opening a new branch, providing its name, location, and capacity,
  * and for closing an existing branch.
  *
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class AdminBranchForm implements Form {
@@ -35,8 +34,8 @@ public class AdminBranchForm implements Form {
     }
 
     /**
-     * Generates the admin branch form and handles user input.
-     * Checks if user input is within options 1-3.
+     * Generates a form containing admin branch actions and handles admin's input.
+     * Checks if admin's input is valid within options 1-3.
      */
     public void generateForm(){
         boolean loop=true;
@@ -80,7 +79,7 @@ public class AdminBranchForm implements Form {
     }
 
     /**
-     * Opens a new branch based on user input.
+     * Opens a new branch based on admin's input - branch name, location and capacity.
      * Prints a message to admin personnel if branch is successfully opened or not.
      */
     private void openBranch() {
@@ -102,7 +101,7 @@ public class AdminBranchForm implements Form {
     }
 
     /**
-     * Closes an existing branch based on user input.
+     * Closes an existing branch based on admin's input - branch name
      * Prints a message to admin personnel if branch is successfully closed or not.
      */
     private void closeBranch() {

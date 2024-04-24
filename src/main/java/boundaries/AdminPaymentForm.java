@@ -5,14 +5,36 @@ import java.util.Scanner;
 import main.java.controllers.StaffPaymentController;
 import main.java.daos.PaymentDAO;
 
-public class AdminPaymentForm implements Form{
+/**
+ * A form for administrative staff as a boundary level object to perform payment actions.
+ * Administrators can add or remove payment methods using this form.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
+public class AdminPaymentForm implements Form {
 
-    private StaffPaymentController paymentController = new StaffPaymentController(new PaymentDAO());
+    /** The controller responsible for managing payment methods. */
+    private StaffPaymentController paymentController;
+
+    /** The scanner object used for input. */
     private Scanner scanner;
 
+    /**
+     * Constructs an AdminPaymentForm object with the specified scanner.
+     *
+     * @param scanner the scanner object to be used for input
+     */
     public AdminPaymentForm(Scanner scanner){
+        this.paymentController = new StaffPaymentController(new PaymentDAO());
         this.scanner = scanner;
     }
+
+    /**
+     * Generates the admin payment form and handles user input.
+     * Checks if user input is within options 1-3.
+     */
     public void generateForm(){
         boolean loop=true;
         int choice;
@@ -57,6 +79,10 @@ public class AdminPaymentForm implements Form{
         }
     }
 
+    /**
+     * Gets details such as payment method name and payment type for adding a new payment method from the user.
+     * Prints a message to admin personnel if payment method is successfully added or not.
+     */
     private void getNewPaymentDetails() {
         System.out.println("Enter payment method name: ");
         String name = scanner.nextLine();
@@ -73,6 +99,10 @@ public class AdminPaymentForm implements Form{
         }
     }
 
+    /**
+     * Gets the payment method name for removal by paymentController.
+     * Prints a message to admin personnel if payment method is successfully removed or not.
+     */
     private void getRemovePaymentDetails() {
         System.out.println("Enter payment method name to remove: ");
         String name = scanner.nextLine();
