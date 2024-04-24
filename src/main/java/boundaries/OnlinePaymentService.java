@@ -10,14 +10,29 @@ import main.java.models.PaymentMethod;
  * The OnlinePaymentService class implements the PaymentService interface for online payments service providers (e.g. Paypal etc.)
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class OnlinePaymentService implements PaymentService {
 
+    /**
+     * The domain of the online payment provider.
+     */
     private String domain;
+
+    /**
+     * The email associated with the online payment.
+     */
     private String email;
+
+    /**
+     * The password associated with the online payment.
+     */
     private String password;
+
+    /**
+     * The controller responsible for handling customer payments.
+     */
     private CustomerPaymentController paymentController;
 
     /**
