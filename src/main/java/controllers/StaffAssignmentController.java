@@ -96,7 +96,7 @@ public class StaffAssignmentController {
         // get branchCapacity and get staffCount in branch!
         int branchCapacity = branch.getCapacity();
         List<Staff> staffInBranch = staffDAO.getElements().stream()
-                .filter(s -> s.getBranch().equals(branch.getName()) && s.getRole().equals(StaffRole.STAFF))
+                .filter(s -> s.getBranch().equalsIgnoreCase(branch.getName()) && s.getRole().equals(StaffRole.STAFF))
                 .collect(Collectors.toList());
         int staffCount = staffInBranch.size();
 
@@ -177,13 +177,13 @@ public class StaffAssignmentController {
     private boolean calculateManagerQuota(String branch) {
         // Count number of Staff
         List<Staff> staffInBranch = staffDAO.getElements().stream()
-                .filter(s -> s.getBranch().equals(branch) && s.getRole().equals(StaffRole.STAFF))
+                .filter(s -> s.getBranch().equalsIgnoreCase(branch) && s.getRole().equals(StaffRole.STAFF))
                 .collect(Collectors.toList());
         int staffCount = staffInBranch.size();
 
         // Count number of Managers
         List<Staff> managersInBranch = staffDAO.getElements().stream()
-                .filter(s -> s.getBranch().equals(branch) && s.getRole().equals(StaffRole.MANAGER))
+                .filter(s -> s.getBranch().equalsIgnoreCase(branch) && s.getRole().equals(StaffRole.MANAGER))
                 .collect(Collectors.toList());
         int managerCount = managersInBranch.size();
 
