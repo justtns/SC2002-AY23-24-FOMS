@@ -24,7 +24,7 @@ import java.time.temporal.ChronoUnit;
  * It provides methods to interact with Order data stored in Excel files.
  * 
  * @author SDDA Team 1
- * @version 1.4
+ * @version 1.5
  * @since 23-Apr-2024
  */
 public class OrderDAO implements DAOInterface<Order>{
@@ -44,6 +44,8 @@ public class OrderDAO implements DAOInterface<Order>{
     /**
      * Reads data from Excel files and populates the orderList.
      * If the files do not exist, it creates new Excel files.
+     * It keeps track of order time as well, keeping into mind the assumption that orders will be automatically cancelled
+     * (i.e. ignored in the system without deleting) once order time exceeds 2 hours.
      * Handles IOException if encountered while reading or creating the files.
      */
     @Override
@@ -103,7 +105,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 boolean isCompleted = row.getCell(4).getBooleanCellValue();
                 LocalDateTime orderTime = LocalDateTime.parse(row.getCell(5).getStringCellValue());
                 LocalDateTime now = LocalDateTime.now();
-                if (orderStatus == OrderStatus.READY & ChronoUnit.HOURS.between(orderTime, now) > 2){ //ignores orders that have existed for more than 3hrs
+                if (orderStatus == OrderStatus.READY & ChronoUnit.HOURS.between(orderTime, now) > 2){ //ignores orders that have existed for more than 2hrs
                     continue;
                 }
                 Order order = new Order(orderId, orderStatus, isDineIn, isCompleted, orderTime);
