@@ -7,14 +7,36 @@ import main.java.controllers.StaffDisplayController;
 import main.java.daos.StaffDAO;
 import main.java.utils.types.StaffRole;
 
+/**
+ * A form for administrative staff as a boundary level object to display various information about staff members.
+ * Administrators can view staff lists based on branch, role, gender, age, or display all staff members.
+ * 
+ * @author SDDA Team
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class AdminDisplayForm implements Form {
 
-    private StaffDisplayController displayController = new StaffDisplayController(new StaffDAO());
+    /** The controller responsible for managing the display of staff information. */
+    private StaffDisplayController displayController;
+
+    /** The scanner object used for input. */
     private Scanner scanner;
 
+    /**
+     * Constructs an AdminDisplayForm object with the specified scanner.
+     *
+     * @param scanner the scanner object to be used for input
+     */
     public AdminDisplayForm(Scanner scanner){
+        this.displayController = new StaffDisplayController(new StaffDAO());
         this.scanner = scanner;
     }
+
+    /**
+     * Generates the admin display form and handles user input.
+     * Checks if user input is within options 1-6.
+     */
     public void generateForm(){
         boolean loop=true;
         int choice;
@@ -74,6 +96,9 @@ public class AdminDisplayForm implements Form {
         }
     }
 
+    /**
+     * Displays the list of staff members based for a particular branch.
+     */
     private void staffListByBranch() {
         System.out.println("Enter the branch name:");
         String branch = scanner.nextLine();
@@ -82,6 +107,10 @@ public class AdminDisplayForm implements Form {
         displayController.displayStaffListByBranch(branch);
     }
 
+    /**
+     * Displays the list of staff members for a particular role.
+     * Checks if role entered exists in StaffRole ENum.
+     */
     private void staffListByRole() {
         System.out.println("Enter the staff role (Admin/Manager/Staff):");
         StaffRole role = null;
@@ -99,6 +128,9 @@ public class AdminDisplayForm implements Form {
         displayController.displayStaffListByRole(role);
     }
 
+    /**
+     * Displays the list of staff members for a particular gender.
+     */
     private void staffListByGender() {
         System.out.println("Enter the gender (Male/Female):");
         String gender = scanner.nextLine();
@@ -107,6 +139,9 @@ public class AdminDisplayForm implements Form {
         displayController.displayStaffListByGender(gender);
     }
 
+    /**
+     * Displays the list of staff members for a particular age.
+     */
     private void staffListByAge() {
         System.out.println("Enter the age:");
         int age = Integer.parseInt(scanner.nextLine());
@@ -115,6 +150,9 @@ public class AdminDisplayForm implements Form {
         displayController.displayStaffListByAge(age);
     }
 
+    /**
+     * Displays the complete list of staff members.
+     */
     private void staffList() {
         displayController.displayStaffList();
     }    
