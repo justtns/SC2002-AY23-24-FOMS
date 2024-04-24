@@ -29,7 +29,7 @@ public class AdminBranchForm implements Form {
                                "Enter your choice (1-3): \n");
             choice = -1;
             try {
-                choice = Integer.parseInt(scanner.next());
+                choice = Integer.parseInt(scanner.nextLine().trim());
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 scanner.nextLine(); // Consume the invalid input
@@ -38,11 +38,9 @@ public class AdminBranchForm implements Form {
 
             switch (choice) {
                 case 1:
-                    scanner.nextLine(); // Consume the newline character
                     openBranch();
                     break;
                 case 2:
-                    scanner.nextLine(); // Consume the newline character
                     closeBranch();
                     break;
                 case 3:
@@ -50,7 +48,6 @@ public class AdminBranchForm implements Form {
                     System.out.println("Returning to Homescreen...");
                     break;
                 default:
-                    scanner.nextLine(); // Consume the newline character
                     System.out.println("Invalid Key! Enter your choice (1-3)");
                     break;
             }
@@ -60,15 +57,12 @@ public class AdminBranchForm implements Form {
     private void openBranch() {
         System.out.println("Enter branch name:");
         String name = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter branch location:");
         String location = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter branch capacity:");
-        int capacity = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character after integer input
+        int capacity = Integer.parseInt(scanner.nextLine().trim());
 
         if(branchController.openBranch(name, location, capacity)){
             System.out.println("Branch opened successfully: " + name);
@@ -81,7 +75,6 @@ public class AdminBranchForm implements Form {
     private void closeBranch() {
         System.out.println("Enter branch name:");
         String name = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
         
         if (branchController.closeBranch(name)){
             System.out.println("Branch closed successfully: " + name);

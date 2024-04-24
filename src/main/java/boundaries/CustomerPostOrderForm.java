@@ -74,8 +74,7 @@ public class CustomerPostOrderForm implements Form{
         System.out.print("Please enter your order ID: ");
         int orderId;
         try {
-            orderId = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            orderId = Integer.parseInt(scanner.nextLine().trim());
         } catch (InputMismatchException e) {
             System.out.println("Invalid Input...");
             scanner.nextLine(); // Consume invalid input
@@ -96,8 +95,7 @@ public class CustomerPostOrderForm implements Form{
         System.out.print("Enter the order ID: ");
         int orderId;
         try {
-            orderId = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            orderId = Integer.parseInt(scanner.nextLine().trim());
         } catch (InputMismatchException e) {
             System.out.println("Invalid Input...");
             scanner.nextLine(); // Consume invalid input
@@ -113,8 +111,7 @@ public class CustomerPostOrderForm implements Form{
                 System.out.println("1.Pickup\t2.Not yet");
                 int c;
                 try {
-                    c = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    c = Integer.parseInt(scanner.nextLine().trim());
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid Input...");
                     scanner.nextLine(); // Consume invalid input

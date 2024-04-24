@@ -45,14 +45,12 @@ public class StaffOrderForm implements Form{
 
             switch (choice) {
                 case 1:
-                    scanner.nextLine(); // Consume the newline character
                     displayOrders();
                     break;
                 case 2:
-                    scanner.nextLine(); // Consume the newline character
                     int orderID;
                     try {
-                        orderID = scanner.nextInt();
+                        orderID = Integer.parseInt(scanner.nextLine().trim());
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid Input. Please enter a number.");
                         scanner.nextLine(); // Consume the invalid input
@@ -61,9 +59,8 @@ public class StaffOrderForm implements Form{
                     viewOrder(orderID);
                     break;
                 case 3:
-                    scanner.nextLine(); // Consume the newline character
                     try {
-                        orderID = scanner.nextInt();
+                        orderID = Integer.parseInt(scanner.nextLine().trim());
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid Input. Please enter a number.");
                         scanner.nextLine(); // Consume the invalid input
@@ -76,7 +73,6 @@ public class StaffOrderForm implements Form{
                     System.out.println("Returning to Homescreen...");
                     break;
                 default:
-                    scanner.nextLine(); // Consume the newline character
                     System.out.println("Invalid Key! Enter your choice (1-4)");
                     break;
             }

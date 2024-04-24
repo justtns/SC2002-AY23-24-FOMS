@@ -28,18 +28,15 @@ public class CustomerPaymentForm implements Form{
                            "----------------------------------------------------------------------\n" +
                             "\n");
 
-        int choice = scanner.nextInt();
+        int choice = Integer.parseInt(scanner.nextLine().trim());
         switch (choice) {
             case 1:
-                scanner.nextLine();
                 handlePayment(new OnlinePaymentService(paymentController));
                 break;
             case 2:
-                scanner.nextLine();
                 handlePayment(new CreditDebitPaymentService(paymentController));
                 break;
             default:
-                scanner.nextLine();
                 System.out.println("Invalid payment method, please try again.");
                 generateForm();
                 return; 
@@ -69,8 +66,7 @@ public class CustomerPaymentForm implements Form{
                                 "\n");
             int choice;
             try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
+                choice = Integer.parseInt(scanner.nextLine().trim());
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter (1-2)");
                 continue;

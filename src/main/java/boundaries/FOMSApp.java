@@ -35,7 +35,7 @@ public class FOMSApp {
         while(loop){
             choice = -1;
             try {
-                choice = scanner.nextInt();
+                choice = Integer.parseInt(scanner.nextLine().trim());
                 scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
@@ -61,7 +61,7 @@ public class FOMSApp {
                 }
             }
         }
-
+        ScannerProvider.closeScanner();
     }
 
     public void enterRole(int choice) {
