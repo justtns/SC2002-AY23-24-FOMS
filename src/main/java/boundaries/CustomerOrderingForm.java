@@ -90,7 +90,7 @@ public class CustomerOrderingForm implements Form {
             System.out.println("|                   5. Submit Order                                  |");
             System.out.println("|                   6. Go to Homescreen                              |");
             System.out.println("----------------------------------------------------------------------");
-            System.out.print("\nEnter your choice (1-5): ");
+            System.out.print("\nEnter your choice (1-6): ");
     
             int choice = -1;
             try {

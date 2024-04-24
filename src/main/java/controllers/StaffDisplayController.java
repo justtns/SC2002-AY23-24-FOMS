@@ -126,7 +126,7 @@ public class StaffDisplayController {
         if (staffList.isEmpty()) {
             System.out.println("No staff found.");
         } else {
-            System.out.println("Displaying Staff List from your Branch.");
+            System.out.println("Displaying Staff List.");
             for (Staff staff : staffList) {
                 System.out.println("====================================");
                 System.out.println("Staff Details:");
