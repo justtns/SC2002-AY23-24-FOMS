@@ -140,6 +140,12 @@ public class CustomerOrderingForm implements Form {
      * @return The updated customer's order after editing the cart.
      */
     private Order editCart(Order customOrder) {
+        List<MenuItem> items = customOrder.getItems();
+        if (items.isEmpty()) {
+            System.out.println("Your cart is currently empty. Please add items first.");
+            return customOrder;
+        }
+        
         boolean loop4 = true;
         while (loop4) {
             displayCart(customOrder);
@@ -356,7 +362,7 @@ public class CustomerOrderingForm implements Form {
     
         List<MenuItem> items = customerOrder.getItems();
         if (items.isEmpty()) {
-            System.out.println("Your cart is currently empty.");
+            System.out.println("Your cart is currently empty. Please add items first.");
             return;
         }
     
