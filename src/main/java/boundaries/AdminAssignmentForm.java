@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import main.java.controllers.StaffAssignmentController;
+import main.java.daos.BranchDAO;
 import main.java.daos.StaffDAO;
 
 /**
@@ -29,7 +30,7 @@ public class AdminAssignmentForm implements Form {
      * @param scanner the scanner object to be used for input
      */
     public AdminAssignmentForm(Scanner scanner){
-        this.assignmentController = new StaffAssignmentController(new StaffDAO());
+        this.assignmentController = new StaffAssignmentController(new StaffDAO(), new BranchDAO());
         this.scanner = scanner;
     }
 

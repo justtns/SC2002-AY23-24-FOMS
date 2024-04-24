@@ -1,6 +1,8 @@
 package main.java.controllers;
 
 import main.java.daos.StaffDAO;
+import main.java.daos.BranchDAO;
+import main.java.models.Branch;
 import main.java.utils.types.StaffRole;
 import main.java.models.Staff;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
  */
 public class StaffAssignmentController {
     private StaffDAO staffDAO;
+    private BranchDAO branchDAO;
 
     /**
      * Constructor for StaffAssignmentController.
@@ -27,8 +30,9 @@ public class StaffAssignmentController {
      * 
      * @param staffDAO the Data Access Object for managing Staff objects
      */
-    public StaffAssignmentController(StaffDAO staffDAO) {
+    public StaffAssignmentController(StaffDAO staffDAO, BranchDAO branchDAO) {
         this.staffDAO = staffDAO;
+        this.branchDAO = branchDAO;
     }
 
     /**
@@ -72,24 +76,44 @@ public class StaffAssignmentController {
      * @return true if transfer is successful, false otherwise
      */
     public boolean transferStaff(String staffID, String oldBranch, String newBranch) {
+        Branch branch = branchDAO.findElement(oldBranch);
+        if(branch == null){
+            System.out.println("Branch not found: " + oldBranch);
+            return false;
+        }
+
         Staff oldstaff = staffDAO.findElement(staffID);
         Staff staff = staffDAO.findElement(staffID);
+
+        // get branchCapacity and get staffCount in branch!
+        int branchCapacity = branch.getCapacity();
+        List<Staff> staffInBranch = staffDAO.getElements().stream()
+                .filter(s -> s.getBranch().equals(branch) && s.getRole().equals(StaffRole.STAFF))
+                .collect(Collectors.toList());
+        int staffCount = staffInBranch.size();
+
         if(staff == null){
             System.out.println("Staff ID is not found.");
             return false;
         }
-        else if(staff.getBranch() != oldBranch){
+        else if(!staff.getBranch().equals(oldBranch)){
             System.out.println("Staff does not belong to branch: " + oldBranch);
             return false;
         }
-        else if(staff.getBranch() == newBranch){
+        else if(staff.getBranch().equals(newBranch)){
             System.out.println("Staff already belongs to branch: " + newBranch);
             return false;
         }
+        else if(staffCount >= branchCapacity){
+            System.out.println("Number of Staff will exceed Branch Capacity");
+            return false;
+        }
         else{
+
             StaffRole role = staff.getRole();
             switch (role) {
                 case STAFF:
+                    // check if exceed quota
                     staff.setBranch(newBranch);
                     staffDAO.updateElement(oldstaff, staff);
                     staffDAO.saveData();
