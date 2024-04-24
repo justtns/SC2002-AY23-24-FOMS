@@ -1,20 +1,41 @@
 package main.java.boundaries;
+
 import java.util.List;
 import java.util.Scanner;
 
 import main.java.controllers.CustomerPaymentController;
 import main.java.models.PaymentMethod;
-public class OnlinePaymentService implements PaymentService {
 
+/**
+ * The OnlinePaymentService class implements the PaymentService interface for online payments service providers (e.g. Paypal etc.)
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
+public class OnlinePaymentService implements PaymentService {
 
     private String domain;
     private String email;
     private String password;
     private CustomerPaymentController paymentController;
 
+    /**
+     * Constructs an OnlinePaymentService with the specified CustomerPaymentController.
+     * 
+     * @param paymentController The CustomerPaymentController to handle payment operations.
+     */
     public OnlinePaymentService(CustomerPaymentController paymentController){
         this.paymentController = paymentController;
     }
+
+    /**
+     * Method to simulate the online payment process.
+     * Checks if online payment method is available and whether payment is authenticated successfully.
+     * 
+     * @param scanner The Scanner object for user input.
+     * @return true if the payment is available and successfully authenticated, false otherwise.
+     */
     @Override
     public boolean simulatePayment(Scanner scanner) {
         System.out.println("Online Payment Selected - Please enter your payment details");
@@ -44,9 +65,13 @@ public class OnlinePaymentService implements PaymentService {
             System.out.println("Payment authentication failed.");
             return false;
         }
-
     }
 
+    /**
+     * Method to authenticates the online payment.
+     * 
+     * @return true if the payment is successfully authenticated, false otherwise.
+     */
     @Override
     public boolean authenticatePayment() {
         System.out.println("Authenticating payment...");
@@ -62,4 +87,3 @@ public class OnlinePaymentService implements PaymentService {
         return false;
     }
 }
-
