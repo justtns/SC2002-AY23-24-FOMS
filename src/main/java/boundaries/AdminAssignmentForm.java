@@ -7,10 +7,11 @@ import main.java.controllers.StaffAssignmentController;
 import main.java.daos.StaffDAO;
 
 /**
- * A form as a boundary level object for performing administrative staff assignments for Admin personnels.
+ * A form as a boundary level object for admin staff to assignment a manager to a branch, promote a staff to a manager
+ * and transfer staff members across branches.
  *
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class AdminAssignmentForm implements Form {

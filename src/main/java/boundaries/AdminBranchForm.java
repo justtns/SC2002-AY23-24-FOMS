@@ -5,13 +5,39 @@ import java.util.Scanner;
 import main.java.controllers.StaffBranchController;
 import main.java.daos.BranchDAO;
 
+/**
+ * A form for administrative staff as a boundary level object for performing branch actions.
+ *
+ * This form allows administrators to open and close branches.
+ * It provides options for opening a new branch, providing its name, location, and capacity,
+ * and for closing an existing branch.
+ *
+ * @author SDDA Team
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class AdminBranchForm implements Form {
-    private StaffBranchController branchController = new StaffBranchController(new BranchDAO());
+
+    /** The controller responsible for handling branch-related operations. */
+    private StaffBranchController branchController;
+
+    /** The scanner object used for input. */
     private Scanner scanner;
 
+    /**
+     * Constructs an AdminBranchForm object with the specified scanner.
+     *
+     * @param scanner the scanner object to be used for input
+     */
     public AdminBranchForm(Scanner scanner){
+        this.branchController = new StaffBranchController(new BranchDAO());
         this.scanner = scanner;
     }
+
+    /**
+     * Generates the admin branch form and handles user input.
+     * Checks if user input is within options 1-3.
+     */
     public void generateForm(){
         boolean loop=true;
         int choice;
@@ -53,6 +79,10 @@ public class AdminBranchForm implements Form {
         }
     }
 
+    /**
+     * Opens a new branch based on user input.
+     * Prints a message to admin personnel if branch is successfully opened or not.
+     */
     private void openBranch() {
         System.out.println("Enter branch name:");
         String name = scanner.nextLine();
@@ -71,6 +101,10 @@ public class AdminBranchForm implements Form {
         }
     }
 
+    /**
+     * Closes an existing branch based on user input.
+     * Prints a message to admin personnel if branch is successfully closed or not.
+     */
     private void closeBranch() {
         System.out.println("Enter branch name:");
         String name = scanner.nextLine();
