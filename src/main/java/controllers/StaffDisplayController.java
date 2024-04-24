@@ -126,7 +126,19 @@ public class StaffDisplayController {
         if (staffList.isEmpty()) {
             System.out.println("No staff found.");
         } else {
-            staffList.forEach(staff -> System.out.println(staff.toString()));
+            System.out.println("Displaying Staff List from your Branch.");
+            for (Staff staff : staffList) {
+                System.out.println("====================================");
+                System.out.println("Staff Details:");
+                System.out.println("Name: " + staff.getName());
+                System.out.println("Login ID: " + staff.getLoginID());
+                System.out.println("Role: " + staff.getRole());
+                System.out.println("Gender: " + staff.getGender());
+                System.out.println("Age: " + staff.getAge());
+                System.out.println("Branch: " + staff.getBranch());
+                System.out.println("====================================\n");
+            }
+            System.out.println("==========End of Staff List==========");
         }
     }
 }
