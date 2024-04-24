@@ -90,7 +90,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 e.printStackTrace();
                 }
         }
-
+        //read order items
         try (FileInputStream fis = new FileInputStream(ordersFilePath);
              Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
@@ -116,7 +116,7 @@ public class OrderDAO implements DAOInterface<Order>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        // add menuitems to order
         try (FileInputStream fis = new FileInputStream(itemsFilePath);
             Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
@@ -126,7 +126,6 @@ public class OrderDAO implements DAOInterface<Order>{
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 if (row.getRowNum() == 0) continue; // Skip header
-
                 int orderId = (int) row.getCell(0).getNumericCellValue();
                 currentOrder = findElement(Integer.toString(orderId));
                 if (currentOrder != null & currentOrder.getOrderId()==orderId) {
@@ -178,7 +177,7 @@ public class OrderDAO implements DAOInterface<Order>{
             headerRow.createCell(3).setCellValue("Is Dine In");
             headerRow.createCell(4).setCellValue("Is Completed");
             headerRow.createCell(5).setCellValue("Time");
-    
+            //create order object
             int rowIndex = 1;
             for (Order order : this.orderList) {
                 Row row = sheet.createRow(rowIndex++);

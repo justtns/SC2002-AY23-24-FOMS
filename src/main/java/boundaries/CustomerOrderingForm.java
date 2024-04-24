@@ -38,6 +38,8 @@ public class CustomerOrderingForm implements Form{
 
     public void generateForm() {
         boolean loop = true;
+        Order customerOrder = orderController.createCustomerOrder(orderId, branch);
+        customerOrder.setOrderStatus(OrderStatus.NEW);
         while (loop) {
             System.out.println("----------------------------------------------------------------------");
             System.out.println("|-----------------------Customer Order Menu--------------------------|");
@@ -58,20 +60,19 @@ public class CustomerOrderingForm implements Form{
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
             }
-    
             switch (choice) {
                 case 1:
                     showMenuItems();
                     break;
                 case 2:
-                    startNewOrder();
+                    customerOrder = startNewOrder(customerOrder);
                     break;
                 case 3:
-                    displayCart(this.orderId);
+                    displayCart(customerOrder);
                     break;
                 case 4:
-                    if (!orderController.findOrder(this.orderId).getItems().isEmpty()) {
-                        submitOrder(orderController.findOrder(this.orderId));
+                    if (!customerOrder.getItems().isEmpty()) {
+                        submitOrder(customerOrder);
                     } else {
                         System.out.println("No items in the cart to submit. Please add items first.");
                     }
@@ -88,22 +89,17 @@ public class CustomerOrderingForm implements Form{
         }
     }
     
-    private void startNewOrder() {
-        Order customerOrder = orderController.createCustomerOrder(orderId, branch);
-        customerOrder.setOrderStatus(OrderStatus.NEW);
-    
-        addItemsToCart(customerOrder);
-    
+    private Order startNewOrder(Order customerOrder) {
+        customerOrder = addItemsToCart(customerOrder);
         if (customerOrder.getItems().isEmpty()) {
             System.out.println("Order is Empty! Returning to Homescreen...");
-            return;
+            return customerOrder;
         }
-    
-        if (!chooseDineInOrTakeAway(customerOrder)) return; // handle dine-in or takeaway choice
-        orderController.saveOrder(customerOrder);
+        customerOrder = chooseDineInOrTakeAway(customerOrder);
+        return customerOrder;
     }
 
-    private void addItemsToCart(Order customerOrder) {
+    private Order addItemsToCart(Order customerOrder) {
         List<MenuItem> menuItems = menuController.getitems();
         showMenuItems(); 
         String itemName;
@@ -122,10 +118,11 @@ public class CustomerOrderingForm implements Form{
             int quantity = getQty();
             customerOrder = orderController.addItem(customerOrder, selectedItem, quantity, comment);
         }
+        return customerOrder;
     }
     
 
-    private boolean chooseDineInOrTakeAway(Order customerOrder) {
+    private Order chooseDineInOrTakeAway(Order customerOrder) {
         System.out.println("1. Take Away\t2. Dine-in");
         int choice;
         while (true) {
@@ -134,7 +131,7 @@ public class CustomerOrderingForm implements Form{
                 choice = Integer.parseInt(scanner.nextLine().trim());
                 if (choice == 1 || choice == 2) {
                     customerOrder.setDineIn(choice == 2); // Assuming Order class has a setDineIn method
-                    return true;
+                    return customerOrder;
                 } else {
                     System.out.println("Invalid input. Please enter 1 or 2.");
                 }
@@ -146,7 +143,7 @@ public class CustomerOrderingForm implements Form{
     private void submitOrder(Order customerOrder) {
         System.out.println("Confirming Order Submission...");
         // Display the order summary
-        displayCart(customerOrder.getOrderId());
+        displayCart(customerOrder);
         System.out.println("Do you want to submit this order? (yes/no):");
         String confirmation = scanner.nextLine().trim().toLowerCase();
         if ("yes".equals(confirmation)) {
@@ -157,8 +154,7 @@ public class CustomerOrderingForm implements Form{
         }
     }
 
-    private void displayCart(int orderId) {
-        Order customerOrder = orderController.findOrder(orderId);
+    private void displayCart(Order customerOrder) {
         if (customerOrder == null) {
             System.out.println("No order found with ID: " + orderId);
             return;

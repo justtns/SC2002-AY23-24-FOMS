@@ -50,6 +50,7 @@ public class CustomerPaymentController {
             Order order = orderDAO.findElement(Integer.toString(orderId));
             if (order != null) {
                 order.setOrderStatus(OrderStatus.PAID);
+                orderDAO.updateElement(order, order);
                 orderDAO.saveData();
                 return true;
             } else {
