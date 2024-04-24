@@ -50,10 +50,15 @@ public class StaffManagementController {
      * @return True if the staff member is successfully added, false otherwise
      */
     public boolean addStaff(String name, String loginId,  StaffRole role, String gender, int age, String branchName) {
-        Branch branch = branchDAO.findElement(branchName);
-        if(branch == null){
-            System.out.println("Branch not found: " + branchName);
-            return false;
+
+        if (role == StaffRole.ADMIN) {
+            branchName = "NA";  // Override the branch name for admins
+        } else { // For other roles, check if the branch exists
+            Branch branch = branchDAO.findElement(branchName);
+            if (branch == null) {
+                System.out.println("Branch not found: " + branchName);
+                return false;
+            }
         }
         
         String defaultPassword = "password";
