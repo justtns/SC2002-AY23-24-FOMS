@@ -60,7 +60,7 @@ public class CustomerOrderingForm implements Form {
     }
 
     /**
-     * Generates the ordering form and handle's customer's input for orders.
+     * Generates the ordering form and handles customer's input for orders.
      * It includes options such as view menu (1), starting new order (2), display cart (3),
      * edit cart (4), submit order (5) and return to homescreen.
      * Checks if customer input is within available options 1-6.
