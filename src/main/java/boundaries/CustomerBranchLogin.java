@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * A form for customers as a boundary level object to select the branch they wish to order from.
+ * The CustomerBranchLogin class is an authentication check for customers to choose which branch they wish to order from.
  * 
  * @author SDDA Team 1
  * @version 1.1
  * @since 24-Apr-2024
  */
-public class CustomerBranchSelectionForm {
+public class CustomerBranchLogin {
 
     /**
      * The Scanner object for user input.
@@ -43,13 +43,13 @@ public class CustomerBranchSelectionForm {
      * @param session The customer session.
      * @param scanner The Scanner object for user input.
      */
-    public CustomerBranchSelectionForm(CustomerSession session, Scanner scanner){
+    public CustomerBranchLogin(CustomerSession session, Scanner scanner){
         this.session = session;
         this.scanner = scanner;
     }
 
     /**
-     * Generates the branch selection form and handle's customer's input for choice of branch.
+     * Generates the branch selections and handle's customer's input for choice of branch.
      * Checks if customer input is within available branch options.
      * 
      * @return The updated customer session after branch selection.

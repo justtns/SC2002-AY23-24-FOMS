@@ -82,6 +82,7 @@ public class AdminBranchForm implements Form {
 
     /**
      * Opens a new branch based on admin's input - branch name, location and capacity.
+     * Checks branch capcity input to see if it is valid or not.
      * Prints a message to admin personnel if branch is successfully opened or not.
      */
     private void openBranch() {

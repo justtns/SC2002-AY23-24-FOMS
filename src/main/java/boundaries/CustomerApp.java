@@ -31,7 +31,7 @@ public class CustomerApp implements AppDisplay {
      */
     public void execute(Scanner scanner) {
         CustomerSession session = new CustomerSession();
-        CustomerBranchSelectionForm selectBranch = new CustomerBranchSelectionForm(session, scanner);
+        CustomerBranchLogin selectBranch = new CustomerBranchLogin(session, scanner);
         session = selectBranch.generateForm();
         FormFactory actionFactory = new FormFactory();
         Form form;
