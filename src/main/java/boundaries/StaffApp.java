@@ -1,7 +1,6 @@
 package main.java.boundaries;
 
 import java.util.Scanner;
-import main.java.utils.ScannerProvider;
 
 import main.java.utils.types.StaffRole;
 import main.java.utils.loggers.StaffSession;
