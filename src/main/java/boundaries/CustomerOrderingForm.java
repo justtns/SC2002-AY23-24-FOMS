@@ -57,7 +57,7 @@ public class CustomerOrderingForm implements Form{
             System.out.println("|                   1. View Menu                                     |");
             System.out.println("|                   2. Start New Order                               |");
             System.out.println("|                   3. Display Cart                                  |");
-            System.out.println("|                   4. Remove Items in Cart                          |");
+            System.out.println("|                   4. Edit Cart                                     |");
             System.out.println("|                   5. Submit Order                                  |");
             System.out.println("|                   6. Go to Homescreen                              |");
             System.out.println("----------------------------------------------------------------------");
@@ -82,7 +82,6 @@ public class CustomerOrderingForm implements Form{
                     break;
                 case 4:
                     customerOrder = editCart(customerOrder);
-                    break;
                 case 5:
                     if (!customerOrder.getItems().isEmpty()) {
                         submitOrder(customerOrder);
@@ -102,7 +101,38 @@ public class CustomerOrderingForm implements Form{
         }
     }
 
-    private Order editCart(Order customerOrder) {
+    private Order editCart(Order customOrder) {
+
+        boolean loop4 = true;
+        while (loop4) {
+            displayCart(customOrder);
+            System.out.println("1. Add Items\t2. Remove Items\t3. Done\t");
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+                continue;
+            }
+            switch (choice) {
+                case 1:
+                    customOrder = addItemsToCart(customOrder);
+                    break;
+                case 2:
+                    customOrder = removeItem(customOrder);
+                    break;
+                case 3:
+                    loop4 = false;
+                    break;
+                default:
+                    System.out.println("Invalid Key! Enter your choice (1-2)");
+                    break;
+            }
+        }
+        return customOrder;
+    }
+
+    private Order removeItem(Order customerOrder) {
         List<MenuItem> menuItems = menuController.getitems();
         boolean loop2 = true;
         if (customerOrder.getItems().size() == 0){
@@ -195,7 +225,6 @@ public class CustomerOrderingForm implements Form{
     }
     private void submitOrder(Order customerOrder) {
         System.out.println("Confirming Order Submission...");
-        // Display the order summary
         displayCart(customerOrder);
         System.out.println("Do you want to submit this order? (yes/no):");
         String confirmation = scanner.nextLine().trim().toLowerCase();
@@ -244,7 +273,54 @@ public class CustomerOrderingForm implements Form{
         System.out.printf("| %-20s | %-10.2f | %-24s |%n", "Total", total, "");
         System.out.println("----------------------------------------------------------------------------------------------");
     }
-        
+    
+    private void showMenuItems() {
+        List<MenuItem> menuItems = menuController.getitems();
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("|----------------------------------------MENU ITEMS------------------------------------------|");
+        System.out.println("----------------------------------------------------------------------------------------------");
+        if (menuItems.isEmpty()) {
+            System.out.println("|--------------------------------No menu items available-------------------------------------|");
+            return;
+        }
+        System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-24s|%n",
+                "Name", "Category", "Price ($)", "Branch", "Description");
+        System.out.println("|--------------------------------------------------------------------------------------------|");
+
+        for (MenuItem item : menuItems) {
+            if (item.getBranch().equals(branch)) {
+                System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
+                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
+            }
+        }
+        System.out.println("|--------------------------------------------------------------------------------------------|");
+    }
+
+    private String getComment() {
+        System.out.print("Enter the item's special requests: ");
+        String comments = scanner.nextLine();
+        if (comments == null){
+            comments = " ";
+        }
+        return comments;
+    }
+
+    private int getQty() {
+        int qty = -1;
+        while (qty <= 0) {
+            try {
+                System.out.print("Enter the number of items: ");
+                qty = Integer.parseInt(scanner.nextLine().trim());
+                if (qty <= 0) {
+                    System.out.println("Invalid Input. Please enter a positive number.");
+                }
+            } 
+            catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a number.");
+            }
+        }
+        return qty;
+    }
     
 
     private void placeOrder1() {
@@ -341,54 +417,4 @@ public class CustomerOrderingForm implements Form{
     }
 
     
-    
-    
-
-    private void showMenuItems() {
-        List<MenuItem> menuItems = menuController.getitems();
-        System.out.println("----------------------------------------------------------------------------------------------");
-        System.out.println("|----------------------------------------MENU ITEMS------------------------------------------|");
-        System.out.println("----------------------------------------------------------------------------------------------");
-        if (menuItems.isEmpty()) {
-            System.out.println("|--------------------------------No menu items available-------------------------------------|");
-            return;
-        }
-        System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-24s|%n",
-                "Name", "Category", "Price ($)", "Branch", "Description");
-        System.out.println("|--------------------------------------------------------------------------------------------|");
-        // Print menu items
-        for (MenuItem item : menuItems) {
-            if (item.getBranch().equals(branch)) {
-                System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
-                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
-            }
-        }
-        System.out.println("|--------------------------------------------------------------------------------------------|");
-    }
-
-    private String getComment() {
-        System.out.print("Enter the item's special requests: ");
-        String comments = scanner.nextLine();
-        if (comments == null){
-            comments = " ";
-        }
-        return comments;
-    }
-
-    private int getQty() {
-        int qty = -1;
-        while (qty <= 0) {
-            try {
-                System.out.print("Enter the number of items: ");
-                qty = Integer.parseInt(scanner.nextLine().trim());
-                if (qty <= 0) {
-                    System.out.println("Invalid Input. Please enter a positive number.");
-                }
-            } 
-            catch (NumberFormatException e) {
-                System.out.println("Invalid Input. Please enter a number.");
-            }
-        }
-        return qty;
-    }
 }
