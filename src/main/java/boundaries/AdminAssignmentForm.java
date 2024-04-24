@@ -6,15 +6,31 @@ import java.util.Scanner;
 import main.java.controllers.StaffAssignmentController;
 import main.java.daos.StaffDAO;
 
+/**
+ * A form as a boundary level object for performing administrative staff assignments for Admin personnels.
+ *
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class AdminAssignmentForm implements Form {
 
-    private StaffAssignmentController assignmentController = new StaffAssignmentController(new StaffDAO());
+    private StaffAssignmentController assignmentController;
     private Scanner scanner;
 
+    /**
+     * Constructs an AdminAssignmentForm object with the specified scanner.
+     *
+     * @param scanner the scanner object to be used for input
+     */
     public AdminAssignmentForm(Scanner scanner){
+        this.assignmentController = new StaffAssignmentController(new StaffDAO());
         this.scanner = scanner;
     }
 
+    /**
+     * Generates the admin assignment form and handles user input.
+     */
     public void generateForm(){
         boolean loop=true;
         int choice;
@@ -64,6 +80,10 @@ public class AdminAssignmentForm implements Form {
         }
     }
 
+    /**
+     * Assigns a manager to a branch based on user input.
+     * Prints a message to admin personnel if assignment is successful or not.
+     */
     private void assignManagerToBranch() {
         System.out.println("Enter Staff ID: ");
         String staffID = scanner.nextLine();
@@ -78,6 +98,10 @@ public class AdminAssignmentForm implements Form {
         }
     }
 
+    /**
+     * Promotes a staff member to a manager based on user input.
+     * Prints a message to admin personnel if promotion of staff is successful or not.
+     */
     private void promoteStaff() {
         System.out.println("Enter Staff ID: ");
         String staffID = scanner.nextLine();
@@ -89,6 +113,10 @@ public class AdminAssignmentForm implements Form {
         }
     }
 
+    /**
+     * Transfers a staff member from one branch to another based on user input.
+     * Prints a message to admin personnel if transfer of staff is successful or not.
+     */
     private void transferStaffBranch(){
         System.out.println("Enter Staff ID: ");
         String staffID = scanner.nextLine();
@@ -105,5 +133,4 @@ public class AdminAssignmentForm implements Form {
             System.out.println("Failed to transfer staff.");
         }
     }
-
 }
