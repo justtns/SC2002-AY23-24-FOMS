@@ -7,11 +7,11 @@ import main.java.controllers.StaffAssignmentController;
 import main.java.daos.StaffDAO;
 
 /**
- * A form as a boundary level object for admin staff to assignment a manager to a branch, promote a staff to a manager
+ * A form as a boundary level object for admin staff to assign a manager to a branch, promote a staff to a manager
  * and transfer staff members across branches.
  *
  * @author SDDA Team 1
- * @version 1.3
+ * @version 1.4
  * @since 24-Apr-2024
  */
 public class AdminAssignmentForm implements Form {
@@ -33,8 +33,8 @@ public class AdminAssignmentForm implements Form {
     }
 
     /**
-     * Generates the admin assignment form and handles user input.
-     * Checks if user input is within options 1-4.
+     * Generates a form of admin assignment actions and handles admin's input.
+     * Checks if admin's input is valid within options 1-4.
      */
     public void generateForm(){
         boolean loop=true;
@@ -86,7 +86,7 @@ public class AdminAssignmentForm implements Form {
     }
 
     /**
-     * Assigns a manager to a branch based on user input.
+     * Assigns a manager to a branch based on admin's input - StaffID and Branch.
      * Prints a message to admin personnel if assignment is successful or not.
      */
     private void assignManagerToBranch() {
@@ -104,7 +104,7 @@ public class AdminAssignmentForm implements Form {
     }
 
     /**
-     * Promotes a staff member to a manager based on user input.
+     * Promotes a staff member to a manager based on admin's input - StaffID.
      * Prints a message to admin personnel if promotion of staff is successful or not.
      */
     private void promoteStaff() {
@@ -119,7 +119,7 @@ public class AdminAssignmentForm implements Form {
     }
 
     /**
-     * Transfers a staff member from one branch to another based on user input.
+     * Transfers a staff member from one branch to another based on admin's input - StaffID, old branch & new branch.
      * Prints a message to admin personnel if transfer of staff is successful or not.
      */
     private void transferStaffBranch(){
