@@ -76,7 +76,6 @@ public class CustomerPostOrderForm implements Form{
             orderId = Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException e) {
             System.out.println("Invalid Input...");
-            scanner.nextLine(); // Consume invalid input
             return;
         }
         Order order = orderController.findOrder((orderId));
@@ -97,7 +96,6 @@ public class CustomerPostOrderForm implements Form{
             orderId = Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException e) {
             System.out.println("Invalid Input...");
-            scanner.nextLine(); // Consume invalid input
             return;
         }
         Order order = orderController.findOrder((orderId));
@@ -113,7 +111,6 @@ public class CustomerPostOrderForm implements Form{
                     c = Integer.parseInt(scanner.nextLine().trim());
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Input...");
-                    scanner.nextLine(); // Consume invalid input
                     return;
                 }
                 if (c == 1) {

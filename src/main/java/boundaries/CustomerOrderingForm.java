@@ -60,7 +60,6 @@ public class CustomerOrderingForm implements Form{
 
             switch (choice) {
                 case 1:
-                System.out.println("menu Items!");
                     showMenuItems();
                     break;
                 case 2:
@@ -154,22 +153,26 @@ public class CustomerOrderingForm implements Form{
 
     private void showMenuItems() {
         List<MenuItem> menuItems = menuController.getitems();
-        System.out.println("Menu Items in " + branch + ":");
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("|----------------------------------------MENU ITEMS------------------------------------------|");
+        System.out.println("----------------------------------------------------------------------------------------------");
         if (menuItems.isEmpty()) {
-            System.out.println("No menu items available.");
+            System.out.println("|--------------------------------No menu items available-------------------------------------|");
             return;
         }
         // Print table header
-        System.out.printf("%-20s | %-15s | %-10s | %-20s | %-50s%n",
+
+        System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-24s|%n",
                 "Name", "Category", "Price ($)", "Branch", "Description");
-        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.println("|--------------------------------------------------------------------------------------------|");
         // Print menu items
         for (MenuItem item : menuItems) {
             if (item.getBranch().equals(branch)) {
-                System.out.printf("%-20s | %-15s | %-10.2f | %-20s | %-50s%n",
+                System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
         }
+        System.out.println("|--------------------------------------------------------------------------------------------|");
     }
 
     private String getComment() {

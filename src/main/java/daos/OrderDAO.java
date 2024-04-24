@@ -142,7 +142,7 @@ public class OrderDAO implements DAOInterface<Order>{
                     String description = row.getCell(5).getStringCellValue();
                     MenuItem item = new MenuItem(name, category, branch, description, price);
                     currentOrder.addItem(item);
-                    for (Order order: orderList)
+                    for (Order order: this.orderList)
                     {
                         if(order.getOrderId()==orderId) {
                             order.addItem(item);
@@ -181,7 +181,7 @@ public class OrderDAO implements DAOInterface<Order>{
             headerRow.createCell(5).setCellValue("Time");
     
             int rowIndex = 1;
-            for (Order order : orderList) {
+            for (Order order : this.orderList) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(order.getOrderId());
                 row.createCell(1).setCellValue(order.getBranch());
@@ -210,11 +210,10 @@ public class OrderDAO implements DAOInterface<Order>{
             headerRow.createCell(5).setCellValue("Comments");
     
             int rowIndex = 1;
-            for (Order order : orderList) {
+            for (Order order : this.orderList) {
                 List<MenuItem> itemList = order.getItems();
+                System.out.println(itemList.size());
                 for (int i=0; i<itemList.size(); i++) {
-                    System.out.println(order.getOrderId());
-                    System.out.println(itemList.get(i).getName());
                     Row row = sheet.createRow(rowIndex++);
                     row.createCell(0).setCellValue(order.getOrderId());
                     row.createCell(1).setCellValue(itemList.get(i).getName());
@@ -222,7 +221,6 @@ public class OrderDAO implements DAOInterface<Order>{
                     row.createCell(3).setCellValue(itemList.get(i).getBranch());
                     row.createCell(4).setCellValue(itemList.get(i).getCategory());
                     row.createCell(5).setCellValue(order.getComment(i));
-                    i++;
                 }
             }
             workbook.write(fos);
@@ -239,7 +237,7 @@ public class OrderDAO implements DAOInterface<Order>{
      */
     @Override
     public List<Order> getElements(){
-        return orderList;
+        return this.orderList;
     };
 
     /**
@@ -250,9 +248,9 @@ public class OrderDAO implements DAOInterface<Order>{
     @Override
     public Order findElement(String itemName) {
         int findIndex=-1;
-        for (int i=0;i<orderList.size();i++)
+        for (int i=0;i<this.orderList.size();i++)
         {
-            if(orderList.get(i).getOrderId()==Integer.parseInt(itemName))
+            if(this.orderList.get(i).getOrderId()==Integer.parseInt(itemName))
             {
                 findIndex=i;
                 break;
@@ -260,7 +258,7 @@ public class OrderDAO implements DAOInterface<Order>{
             }
         }
         if(findIndex!=-1)
-            return orderList.get(findIndex);
+            return this.orderList.get(findIndex);
         return null;
     }
 
@@ -272,16 +270,16 @@ public class OrderDAO implements DAOInterface<Order>{
     @Override
     public void updateElement(Order oldElement, Order newElement){
         int updateIndex=-1;
-        for (int i = 0; i< orderList.size(); i++)
+        for (int i = 0; i< this.orderList.size(); i++)
         {
-            if((orderList.get(i).getOrderId() == oldElement.getOrderId()))
+            if((this.orderList.get(i).getOrderId() == oldElement.getOrderId()))
             {
                 updateIndex=i;
                 break;
             }
         }
         if(updateIndex!=-1){
-            orderList.set(updateIndex, newElement);
+            this.orderList.set(updateIndex, newElement);
         }
         return;
     };
@@ -302,7 +300,7 @@ public class OrderDAO implements DAOInterface<Order>{
             }
         }
         if(deleteIndex!=-1)
-        orderList.remove(deleteIndex);
+        this.orderList.remove(deleteIndex);
     }
 
     /**
@@ -311,6 +309,6 @@ public class OrderDAO implements DAOInterface<Order>{
      */
     @Override
     public void addElement(Order element){
-        orderList.add(element);
+        this.orderList.add(element);
     };    
 }

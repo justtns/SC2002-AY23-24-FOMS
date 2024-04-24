@@ -38,7 +38,6 @@ public class CustomerBranchSelectionForm {
                 choice = Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input...");
-                scanner.nextLine(); // Consume invalid input
                 continue;
             }
             if (choice < 0 || choice >= branches.size()) {
