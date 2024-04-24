@@ -96,12 +96,12 @@ public class StaffManagementController {
             return false;
         }
 
-        if(newLoginId.toUpperCase() != "NIL"){
+        if(!newLoginId.equalsIgnoreCase("nil")){
             staff.setLoginID(newLoginId);
         }
         
-        if(newPassword.toUpperCase() != "NIL"){
-            staff.setLoginID(newPassword);
+        if(!newPassword.equalsIgnoreCase("nil")){
+            staff.setPassword(newPassword);
         }
         
         staffDAO.updateElement(oldStaff, staff);
