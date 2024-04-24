@@ -21,7 +21,7 @@ public class ManagerView implements StaffUserView {
      * Executes and generates a list of managers actions based on the staff session.
      * The option chosen by manager will lead to the various forms - StaffOrderForm (1), ManagerMenuForm (2),
      * ManagerDisplayForm (3), with option 4 being logout.
-     * It checks if user input is within options 1-4.
+     * It checks if manager input is within options 1-4.
      * 
      * @param session The staff session object
      */

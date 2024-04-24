@@ -46,7 +46,7 @@ public class ManagerDisplayForm implements Form {
      * Generates the manager display form containing all manager display actions.
      * This method presents the manager with options to display the list of staff in their branch
      * or return to the homescreen.
-     * Checks if user input is valid within options 1-2.
+     * Checks if manager input is valid within options 1-2.
      */
     @Override
     public void generateForm(){

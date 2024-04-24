@@ -42,7 +42,7 @@ public class ManagerMenuForm implements Form {
      * 
      * This method presents the manager with options to add (1), edit (2), or remove menu items (3),
      * change item availability (4), edit menu item descriptions (5), or return to the homescreen (6).
-     * Checks if user input is valid within options 1-6.
+     * Checks if manager input is valid within options 1-6.
      */
     @Override
     public void generateForm(){
