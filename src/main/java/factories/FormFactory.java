@@ -1,3 +1,11 @@
+/**
+ * The FormFactory class is responsible for creating different types of forms based on the user session and action type.
+ * It provides methods to generate forms for both customers and staff members.
+ *
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 25-Apr-2024
+ */
 package main.java.factories;
 
 import java.util.Scanner;
@@ -7,6 +15,15 @@ import main.java.utils.loggers.*;
 import main.java.utils.types.StaffRole;
 
 public class FormFactory {
+
+    /**
+     * Creates a form based on the customer session and action type.
+     *
+     * @param session    The customer session.
+     * @param scanner    The scanner object for input.
+     * @param actionType The type of action to perform.
+     * @return A form corresponding to the action type, or null if the action type is not recognized.
+     */
     public Form getForm(CustomerSession session, Scanner scanner, int actionType){
         switch (actionType) {
             case 1:
@@ -19,6 +36,15 @@ public class FormFactory {
                 return null;
         }
     }
+
+    /**
+     * Creates a form based on the staff session and action type.
+     *
+     * @param session    The staff session.
+     * @param scanner    The scanner object for input.
+     * @param actionType The type of action to perform.
+     * @return A form corresponding to the action type and staff role, or null if the action type or role is not recognized.
+     */
     public Form getForm(StaffSession session, Scanner scanner, int actionType){
         StaffRole role = session.getStaffRole();
         switch (role) {
