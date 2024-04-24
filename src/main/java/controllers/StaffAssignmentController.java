@@ -88,7 +88,7 @@ public class StaffAssignmentController {
         // get branchCapacity and get staffCount in branch!
         int branchCapacity = branch.getCapacity();
         List<Staff> staffInBranch = staffDAO.getElements().stream()
-                .filter(s -> s.getBranch().equals(branch) && s.getRole().equals(StaffRole.STAFF))
+                .filter(s -> s.getBranch().equals(branch.getName()) && s.getRole().equals(StaffRole.STAFF))
                 .collect(Collectors.toList());
         int staffCount = staffInBranch.size();
 
