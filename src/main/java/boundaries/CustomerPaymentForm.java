@@ -6,17 +6,36 @@ import main.java.daos.OrderDAO;
 import main.java.daos.PaymentDAO;
 import main.java.utils.loggers.CustomerSession;
 
-public class CustomerPaymentForm implements Form{
+/**
+ * A form for customers as a boundary level object to make payment.
+ * This form is implemented from the Form interface.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
+public class CustomerPaymentForm implements Form {
     private CustomerSession session;
-    private CustomerPaymentController paymentController = new CustomerPaymentController(new OrderDAO(), new PaymentDAO());
+    private CustomerPaymentController paymentController;
     private Scanner scanner;
 
+    /**
+     * Constructs a CustomerPaymentForm object with the specified session and scanner.
+     * 
+     * @param session The customer session.
+     * @param scanner The scanner object for user input.
+     */
     public CustomerPaymentForm(CustomerSession session, Scanner scanner) {
         this.session = session;
+        this.paymentController = new CustomerPaymentController(new OrderDAO(), new PaymentDAO());
         this.scanner = scanner;
-
     }
     
+    /**
+     * Generates the form for customer payment and handles customer input for paymeny selection.
+     * It includes the 2 main payment options of Online Payment (1) and Credit/Debit Card Payment (2).
+     * Checks if customer input is within available options 1-2.
+     */
     @Override
     public void generateForm() {
         System.out.println("----------------------------------------------------------------------\n" +
@@ -43,6 +62,12 @@ public class CustomerPaymentForm implements Form{
         }
     }
 
+    /**
+     * Method to handles the selected payment method.
+     * Prints a message to customers if payment is successful or not.
+     * 
+     * @param paymentService The payment service to be used.
+     */
     private void handlePayment(PaymentService paymentService) {
         if (paymentController.makePayment(session.getOrderId(), paymentService)) {
             System.out.println("Payment successful!");
@@ -52,10 +77,13 @@ public class CustomerPaymentForm implements Form{
         }
     }
 
+    /**
+     * Method to prompt customers to choose whether to print a receipt or not and prints it out accordingly.
+     * Checks if input is valid from yes (1) or no (2).
+     */
     private void printReceiptOption() {
         boolean loop = true;
-        while (loop)
-        {
+        while (loop) {
             System.out.println("----------------------------------------------------------------------\n" +
                             "|----------------------------Customer Payment------------------------|\n" +
                             "----------------------------------------------------------------------\n" +
@@ -77,7 +105,6 @@ public class CustomerPaymentForm implements Form{
                 System.out.println("Thank you for your payment!");
             }
             return;
-
         }
     }
 }
