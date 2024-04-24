@@ -31,6 +31,10 @@ public class CustomerSession {
         return numberOfRows;
     }
 
+    public void incrementOrderID(){
+        orderID++;
+    } 
+
     public String getBranch(){
         return branch;
     }

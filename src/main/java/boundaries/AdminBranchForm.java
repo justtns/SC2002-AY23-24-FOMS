@@ -10,6 +10,7 @@ import main.java.daos.BranchDAO;
  * This form allows administrators to open and close branches.
  * It provides options for opening a new branch, providing its name, location, and capacity,
  * and for closing an existing branch.
+ * This form is implemented from the Form interface.
  *
  * @author SDDA Team 1
  * @version 1.2

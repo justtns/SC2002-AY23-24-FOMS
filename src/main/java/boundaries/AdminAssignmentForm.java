@@ -9,6 +9,7 @@ import main.java.daos.StaffDAO;
 /**
  * A form as a boundary level object for admin staff to assign a manager to a branch, promote a staff to a manager
  * and transfer staff members across branches.
+ * This form is implemented from the Form interface.
  *
  * @author SDDA Team 1
  * @version 1.4

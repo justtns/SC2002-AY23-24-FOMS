@@ -10,6 +10,7 @@ import main.java.utils.types.StaffRole;
 /**
  * A form for administrative staff as a boundary level object to display various information about staff members.
  * Administrators can view staff lists based on branch, role, gender, age, or display all staff members.
+ * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
  * @version 1.2

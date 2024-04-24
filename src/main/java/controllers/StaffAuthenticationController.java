@@ -12,7 +12,7 @@ import main.java.daos.StaffDAO;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class StaffAuthenticationController {
@@ -74,13 +74,18 @@ public class StaffAuthenticationController {
         return false;
     }
 
+    /**
+     * Checks if the staff member with the provided username has the specified role.
+     *
+     * @param username the username of the staff member to check
+     * @param role the role to check against
+     * @return true if the staff member exists and has the specified role, false otherwise
+     */
     public boolean checkRole(String username, StaffRole role) {
         Staff staff = staffDAO.findElement(username);
-        if(staff.getRole() == role){
-            return true;
+        if (staff != null) {
+            return staff.getRole() == role;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 }
