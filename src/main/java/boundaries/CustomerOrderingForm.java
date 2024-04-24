@@ -17,7 +17,7 @@ import main.java.utils.types.OrderStatus;
  * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class CustomerOrderingForm implements Form {
@@ -171,6 +171,13 @@ public class CustomerOrderingForm implements Form {
         return customOrder;
     }
 
+    /**
+     * Method that helps customers change the dinein status.
+     * Check if input 
+     * 
+     * @param customerOrder The customer's order.
+     * @return The updated customer's order after updating the dinein status.
+     */
     private Order changeDineInOption(Order customerOrder) {
         System.out.println("Current Dine-in Option: " + (customerOrder.isDineIn() ? "Dine-in" : "Takeaway"));
         if (customerOrder.isDineIn()){
@@ -195,7 +202,7 @@ public class CustomerOrderingForm implements Form {
 
     /**
      * Method that removes an item from the customer's cart.
-     * Check if item exists in their carts.
+     * Checks for valid input of either take away (1) or dine-in (2).
      * 
      * @param customerOrder The customer's order.
      * @return The updated customer's order after removing the item.
