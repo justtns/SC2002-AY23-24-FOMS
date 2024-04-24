@@ -13,7 +13,7 @@ import main.java.utils.loggers.StaffSession;
  * This App is implemented from AppDisplay interface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffApp implements AppDisplay {
@@ -23,12 +23,10 @@ public class StaffApp implements AppDisplay {
     private StaffSession staffSession;
 
     /**
-     * Executes the staff application.
+     * Executes the login page display for staff.
      * 
-     * This method displays a login portal where staff users can choose their role
-     * and authenticate themselves with a username and password. Based on their role,
-     * they are directed to the corresponding view for further actions.
-     * It checks if staff input is valid within 1-3.
+     * This method displays a login portal where staff users can choose to either login (1), or change password (2) 
+     * It checks if staff input is valid within 1-2.
      * 
      * @param scanner The scanner object for user input.
      */
@@ -68,7 +66,13 @@ public class StaffApp implements AppDisplay {
             }
         }
     }
-
+    
+    /**
+     * Executes the login process.
+     * This method asks staff for their username, password, and role.
+     * It then checks and authenticates the username and password to verify that the details are correct.
+     * If authenticated, it will create views according to their role.
+     */
     public void loginProcess(Scanner scanner) {
         boolean loop = true;
         while(loop){
@@ -153,7 +157,12 @@ public class StaffApp implements AppDisplay {
             }
         }
     }
-
+    
+    /**
+     * This method facilitates the changing of password for all staff members
+     * It asks users to enter their username, old and new password.
+     * It then prints out a message according to whether the password has been successfully changed or not.
+     */
     public void changePasswordProcess(Scanner scanner) {
         System.out.println("Enter username:");
             String username = scanner.nextLine();
