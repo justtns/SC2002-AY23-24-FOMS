@@ -13,13 +13,19 @@ import java.util.List;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffMenuController {
     
-    /** The MenuDAO instance to interact with menu item data. */
+    /** 
+     * The MenuDAO instance to interact with menu item data. 
+     */
     private MenuDAO menuDAO;
+
+    /** 
+     * The BranchDAO instance to interact with menu item data. 
+     */
     private BranchDAO branchDAO;
 
     /**
@@ -43,6 +49,7 @@ public class StaffMenuController {
 
     /**
      * Adds a new menu item with the given details.
+     * Checks if branch can be found and if menu item already exists in the branch.
      *
      * @param name the name of the menu item
      * @param category the category of the menu item
@@ -69,6 +76,7 @@ public class StaffMenuController {
 
     /**
      * Edits the details of an existing menu item.
+     * Checks if branch can be found and if menu item is found in the branch.
      *
      * @param name the name of the menu item to edit
      * @param branchName the branch where the menu item is available
@@ -97,6 +105,7 @@ public class StaffMenuController {
 
     /**
      * Removes an existing menu item.
+     * Checks if branch can be found and if menu item is found in the branch.
      *
      * @param name the name of the menu item to remove
      * @param branchName the branch where the menu item is available
@@ -120,6 +129,7 @@ public class StaffMenuController {
 
     /**
      * Changes the availability of a menu item.
+     * Checks if branch can be found and if menu item is found in the branch.
      *
      * @param name the name of the menu item
      * @param branchName the branch where the menu item is available
@@ -144,6 +154,7 @@ public class StaffMenuController {
 
     /**
      * Edits the description of a menu item.
+     * Checks if branch can be found and if menu item is found in the branch.
      *
      * @param itemNameToEditDescription the name of the menu item to edit
      * @param branch the branch where the menu item is available
