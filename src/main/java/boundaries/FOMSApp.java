@@ -5,12 +5,12 @@ import main.java.utils.ScannerProvider;
 import main.java.utils.types.LoginRole;
 
 /**
- * Represents the main interface for the Fastfood Ordering and Management System (FOMS).
+ * Represents the main display for the Fastfood Ordering and Management System (FOMS).
  * It is a boundary level object that provides interactions with users of the FOMS.
  * It allows users to choose between customer and staff roles and provides access to the respective App functionalities, or exit the App.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class FOMSApp {
