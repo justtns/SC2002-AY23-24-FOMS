@@ -12,7 +12,9 @@ public class StaffApp implements AppDisplay {
 
     public void execute(Scanner scanner) {
         
-        System.out.println("----------------------------------------------------------------------\n" +
+        boolean loop = true;
+        while(loop){
+            System.out.println("----------------------------------------------------------------------\n" +
                            "|--------------------------Login Portal------------------------------|\n" +
                            "----------------------------------------------------------------------\n" +
                            "|                      Choose an option:                             |\n" +
@@ -20,9 +22,6 @@ public class StaffApp implements AppDisplay {
                            "|                      2. Staff                                      |\n" +
                            "|                      3. Manager                                    |\n" +
                            "----------------------------------------------------------------------\n");
-        
-        boolean loop = true;
-        while(loop){
             enterRole(scanner);
 
             System.out.println("Enter username:");
