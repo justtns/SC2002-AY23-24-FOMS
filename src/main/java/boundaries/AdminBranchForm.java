@@ -91,8 +91,15 @@ public class AdminBranchForm implements Form {
         System.out.println("Enter branch location:");
         String location = scanner.nextLine();
 
-        System.out.println("Enter branch capacity:");
-        int capacity = Integer.parseInt(scanner.nextLine().trim());
+        int capacity = -1;
+        while (capacity == -1) {
+            System.out.println("Enter branch capacity:");
+            try {
+                capacity = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
 
         if(branchController.openBranch(name, location, capacity)){
             System.out.println("Branch opened successfully: " + name);

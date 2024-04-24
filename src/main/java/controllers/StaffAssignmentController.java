@@ -75,15 +75,15 @@ public class StaffAssignmentController {
         Staff oldstaff = staffDAO.findElement(staffID);
         Staff staff = staffDAO.findElement(staffID);
         if(staff == null){
-            System.out.println("Error: Staff is not found.");
+            System.out.println("Staff ID is not found.");
             return false;
         }
         else if(staff.getBranch() != oldBranch){
-            System.out.println("Error: Staff does not belong to" + oldBranch);
+            System.out.println("Staff does not belong to branch: " + oldBranch);
             return false;
         }
         else if(staff.getBranch() == newBranch){
-            System.out.println("Error: Staff already belongs to" + newBranch);
+            System.out.println("Staff already belongs to branch: " + newBranch);
             return false;
         }
         else{
