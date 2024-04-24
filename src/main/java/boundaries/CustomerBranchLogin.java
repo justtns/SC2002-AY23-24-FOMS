@@ -15,7 +15,7 @@ import java.util.Scanner;
  * @version 1.1
  * @since 24-Apr-2024
  */
-public class CustomerBranchSelectionForm {
+public class CustomerBranchLogin {
 
     /**
      * The Scanner object for user input.
@@ -43,7 +43,7 @@ public class CustomerBranchSelectionForm {
      * @param session The customer session.
      * @param scanner The Scanner object for user input.
      */
-    public CustomerBranchSelectionForm(CustomerSession session, Scanner scanner){
+    public CustomerBranchLogin(CustomerSession session, Scanner scanner){
         this.session = session;
         this.scanner = scanner;
     }

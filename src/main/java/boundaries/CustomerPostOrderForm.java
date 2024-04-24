@@ -115,11 +115,24 @@ public class CustomerPostOrderForm implements Form {
             return;
         }
         Order order = orderController.findOrder(orderId);
+        StringBuilder receipt = new StringBuilder();
         if (order != null) {
-            System.out.println("Order Details:");
-            System.out.println("Order ID: " + order.getOrderId());
-            System.out.println("Order Status: " + order.getOrderStatus());
-            System.out.println("Total Price: $" + order.calculateTotalPrice());
+            receipt.append("============================================\n");
+            receipt.append(String.format("Order ID: %d\n", order.getOrderId()));
+            receipt.append("============================================\n");
+            
+            receipt.append("Order Details:\n");
+            receipt.append(String.format("Order Status: %s\n", order.getOrderStatus().toString()));
+            receipt.append(String.format("Total Price: $%.2f\n", order.calculateTotalPrice()));
+            receipt.append(String.format("Dine-in: %s\n", order.isDineIn() ? "Yes" : "No"));
+            
+            receipt.append("--------------------------------------------\n");
+            order.getItems().forEach(item -> {
+                receipt.append(String.format("%s - $%.2f\n", item.getName(), item.getPrice()));
+            });
+            receipt.append("============================================\n");
+            receipt.toString();
+            System.out.println(receipt);
         } else {
             System.out.println("Order not found with ID: " + orderId);
         }
@@ -139,11 +152,24 @@ public class CustomerPostOrderForm implements Form {
             return;
         }
         Order order = orderController.findOrder(orderId);
+        StringBuilder receipt = new StringBuilder();
         if (order != null) {
-            System.out.println("Order Details:");
-            System.out.println("Order ID: " + order.getOrderId());
-            System.out.println("Order Status: " + order.getOrderStatus());
-            System.out.println("Total Price: $" + order.calculateTotalPrice());
+            receipt.append("============================================\n");
+            receipt.append(String.format("Order ID: %d\n", order.getOrderId()));
+            receipt.append("============================================\n");
+            
+            receipt.append("Order Details:\n");
+            receipt.append(String.format("Order Status: %s\n", order.getOrderStatus().toString()));
+            receipt.append(String.format("Total Price: $%.2f\n", order.calculateTotalPrice()));
+            receipt.append(String.format("Dine-in: %s\n", order.isDineIn() ? "Yes" : "No"));
+            
+            receipt.append("--------------------------------------------\n");
+            order.getItems().forEach(item -> {
+                receipt.append(String.format("%s - $%.2f\n", item.getName(), item.getPrice()));
+            });
+            receipt.append("============================================\n");
+            receipt.toString();
+            System.out.println(receipt);
             if (order.getOrderStatus() == OrderStatus.READY) {
                 System.out.println("1. Pickup\t2. Not yet");
                 int c;

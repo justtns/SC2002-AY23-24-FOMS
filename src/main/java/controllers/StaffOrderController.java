@@ -3,7 +3,6 @@ package main.java.controllers;
 import main.java.daos.OrderDAO;
 import main.java.models.Order;
 import main.java.models.Staff;
-import main.java.models.MenuItem;
 import main.java.daos.StaffDAO;
 import main.java.utils.types.OrderStatus;
 
@@ -53,8 +52,24 @@ public class StaffOrderController {
         List<Order> orders = orderDAO.getElements();
         boolean found = false;
         for (Order order : orders) {
+            StringBuilder receipt = new StringBuilder();
             if (order.getBranch().equals(branchCode) && order.getOrderStatus() == OrderStatus.PAID) {
-                System.out.println(order.toString());
+                receipt.append("============================================\n");
+                receipt.append(String.format("Order ID: %d\n", order.getOrderId()));
+                receipt.append("============================================\n");
+                
+                receipt.append("Order Details:\n");
+                receipt.append(String.format("Order Status: %s\n", order.getOrderStatus().toString()));
+                receipt.append(String.format("Total Price: $%.2f\n", order.calculateTotalPrice()));
+                receipt.append(String.format("Dine-in: %s\n", order.isDineIn() ? "Yes" : "No"));
+                
+                receipt.append("--------------------------------------------\n");
+                order.getItems().forEach(item -> {
+                    receipt.append(String.format("%s - $%.2f\n", item.getName(), item.getPrice()));
+                });
+                receipt.append("============================================\n");
+                receipt.toString();
+                System.out.println(receipt);
                 found = true;
             }
         }
@@ -71,22 +86,24 @@ public class StaffOrderController {
     public void viewParticularOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
         Order order = orderDAO.findElement(orderIdString);
+        StringBuilder receipt = new StringBuilder();
         if (order != null) {
-            System.out.println("Order Details:");
-            System.out.println("Order ID: " + order.getOrderId());
-            if(order.isDineIn()){
-                System.out.println("Dine in");
-            }
-            else{
-                System.out.println("Takeaway");
-            }
-            System.out.println("Order items:");
-            for (MenuItem item : order.getItems()) {
-                System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-            }
-            System.out.printf("Total Price: $%.2f%n", order.calculateTotalPrice());
-            System.out.println("Order Status: " + order.getOrderStatus());
-            return;
+            receipt.append("============================================\n");
+            receipt.append(String.format("Order ID: %d\n", order.getOrderId()));
+            receipt.append("============================================\n");
+            
+            receipt.append("Order Details:\n");
+            receipt.append(String.format("Order Status: %s\n", order.getOrderStatus().toString()));
+            receipt.append(String.format("Total Price: $%.2f\n", order.calculateTotalPrice()));
+            receipt.append(String.format("Dine-in: %s\n", order.isDineIn() ? "Yes" : "No"));
+            
+            receipt.append("--------------------------------------------\n");
+            order.getItems().forEach(item -> {
+                receipt.append(String.format("%s - $%.2f\n", item.getName(), item.getPrice()));
+            });
+            receipt.append("============================================\n");
+            receipt.toString();
+            System.out.println(receipt);
         } else {
             System.out.println("Order not found with ID: " + orderID);
             return;
