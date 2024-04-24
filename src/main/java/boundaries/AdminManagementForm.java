@@ -1,6 +1,5 @@
 package main.java.boundaries;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import main.java.controllers.StaffManagementController;

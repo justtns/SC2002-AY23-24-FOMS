@@ -6,7 +6,6 @@ import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
 import main.java.utils.types.OrderStatus;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CustomerPostOrderForm implements Form{

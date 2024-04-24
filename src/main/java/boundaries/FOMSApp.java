@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import main.java.utils.ScannerProvider;
 import main.java.utils.types.LoginRole;
-import java.util.InputMismatchException;
 
 public class FOMSApp {
     Scanner scanner = ScannerProvider.getScanner();

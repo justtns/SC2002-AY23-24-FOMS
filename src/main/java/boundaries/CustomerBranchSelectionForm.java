@@ -5,7 +5,6 @@ import main.java.daos.BranchDAO;
 import main.java.models.Branch;
 import main.java.utils.loggers.CustomerSession;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
