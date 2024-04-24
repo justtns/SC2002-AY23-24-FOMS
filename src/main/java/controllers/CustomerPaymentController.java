@@ -93,6 +93,7 @@ public class CustomerPaymentController {
             receipt.append(String.format("Order ID: %d\n", order.getOrderId()));
             receipt.append(String.format("Order Status: %s\n", order.getOrderStatus().toString()));
             receipt.append(String.format("Total Price: $%.2f\n", order.calculateTotalPrice()));
+            receipt.append(String.format("Dine-in: %s\n", order.isDineIn() ? "Yes" : "No"));
             
             receipt.append("--------------------------------------------\n");
             order.getItems().forEach(item -> {
@@ -108,7 +109,6 @@ public class CustomerPaymentController {
             return "Receipt could not be generated for Order ID: " + orderId;
         }
     }
-    
     
     
     /**
