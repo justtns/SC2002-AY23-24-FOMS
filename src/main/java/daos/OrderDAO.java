@@ -45,7 +45,7 @@ public class OrderDAO implements DAOInterface<Order>{
      * Reads data from Excel files and populates the orderList.
      * If the files do not exist, it creates new Excel files.
      * It keeps track of order time as well, keeping into mind the assumption that orders will be automatically cancelled
-     * (i.e. ignored in the system without deleting) once order time exceeds 2 hours.
+     * (i.e. change order status to cancelled) once order time exceeds 2 hours.
      * Handles IOException if encountered while reading or creating the files.
      */
     @Override
