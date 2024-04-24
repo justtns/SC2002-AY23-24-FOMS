@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * A form for customers as a boundary level object to select the branch they wish to order from.
+ * The CustomerBranchLogin class is an authentication check for customers to choose which branch they wish to order from.
  * 
  * @author SDDA Team 1
  * @version 1.1
@@ -49,7 +49,7 @@ public class CustomerBranchLogin {
     }
 
     /**
-     * Generates the branch selection form and handle's customer's input for choice of branch.
+     * Generates the branch selections and handle's customer's input for choice of branch.
      * Checks if customer input is within available branch options.
      * 
      * @return The updated customer session after branch selection.
