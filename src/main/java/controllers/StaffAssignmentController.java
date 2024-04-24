@@ -76,9 +76,9 @@ public class StaffAssignmentController {
      * @return true if transfer is successful, false otherwise
      */
     public boolean transferStaff(String staffID, String oldBranch, String newBranch) {
-        Branch branch = branchDAO.findElement(oldBranch);
+        Branch branch = branchDAO.findElement(newBranch);
         if(branch == null){
-            System.out.println("Branch not found: " + oldBranch);
+            System.out.println("Branch not found: " + newBranch);
             return false;
         }
 
@@ -96,16 +96,12 @@ public class StaffAssignmentController {
             System.out.println("Staff ID is not found.");
             return false;
         }
-        else if(!staff.getBranch().equals(oldBranch)){
+        else if(!staff.getBranch().equalsIgnoreCase(oldBranch)){
             System.out.println("Staff does not belong to branch: " + oldBranch);
             return false;
         }
-        else if(staff.getBranch().equals(newBranch)){
+        else if(staff.getBranch().equalsIgnoreCase(newBranch)){
             System.out.println("Staff already belongs to branch: " + newBranch);
-            return false;
-        }
-        else if(staffCount >= branchCapacity){
-            System.out.println("Number of Staff will exceed Branch Capacity");
             return false;
         }
         else{
@@ -113,11 +109,16 @@ public class StaffAssignmentController {
             StaffRole role = staff.getRole();
             switch (role) {
                 case STAFF:
-                    // check if exceed quota
-                    staff.setBranch(newBranch);
-                    staffDAO.updateElement(oldstaff, staff);
-                    staffDAO.saveData();
-                    return true;
+                    if(staffCount >= branchCapacity){
+                        System.out.println("Number of Staff will exceed Branch Capacity");
+                        return false;
+                    }
+                    else{
+                        staff.setBranch(newBranch);
+                        staffDAO.updateElement(oldstaff, staff);
+                        staffDAO.saveData();
+                        return true;
+                    }
             
                 case MANAGER:
                     return assignManager(staffID, newBranch);
