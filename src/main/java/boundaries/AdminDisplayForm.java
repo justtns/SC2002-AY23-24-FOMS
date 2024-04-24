@@ -38,6 +38,7 @@ public class AdminDisplayForm implements Form {
      * Generates a form containing admin display actions and handles admin's input.
      * Checks if admin's input is valid within options 1-6.
      */
+    @Override
     public void generateForm(){
         boolean loop=true;
         int choice;

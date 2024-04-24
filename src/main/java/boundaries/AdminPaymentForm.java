@@ -36,6 +36,7 @@ public class AdminPaymentForm implements Form {
      * Generates the admin payment form and handles user input.
      * Checks if user input is within options 1-3.
      */
+    @Override
     public void generateForm(){
         boolean loop=true;
         int choice;

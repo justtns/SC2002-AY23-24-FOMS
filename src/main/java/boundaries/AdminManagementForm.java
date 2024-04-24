@@ -37,6 +37,7 @@ public class AdminManagementForm implements Form {
      * Generates a form containing admin management actions and handles admin's input.
      * Checks if admin's input is valid within options 1-4.
      */
+    @Override
     public void generateForm(){
         boolean loop=true;
         int choice;

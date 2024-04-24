@@ -38,6 +38,7 @@ public class AdminBranchForm implements Form {
      * Generates a form containing admin branch actions and handles admin's input.
      * Checks if admin's input is valid within options 1-3.
      */
+    @Override
     public void generateForm(){
         boolean loop=true;
         int choice;
