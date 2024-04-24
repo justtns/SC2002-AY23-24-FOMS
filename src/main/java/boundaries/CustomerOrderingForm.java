@@ -346,6 +346,8 @@ public class CustomerOrderingForm implements Form {
     
         System.out.println("|---------------------------------------------------------------------------------------------|");
         System.out.printf("| %-20s | %-10.2f | %-24s |%n", "Total", total, "");
+        System.out.println("|---------------------------------------------------------------------------------------------|");
+        System.out.println("| Dine-in Option Selected: " + (customerOrder.isDineIn() ? "Dine-in" : "Takeaway"));
         System.out.println("----------------------------------------------------------------------------------------------");
     }
     
