@@ -11,12 +11,24 @@ import main.java.utils.loggers.CustomerSession;
  * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class CustomerPaymentForm implements Form {
-    private CustomerSession session;
+    
+    /**
+     * The current customer session
+     */
+    private CustomerSession session; 
+
+    /**
+     * Controller for managing customer payments
+     */
     private CustomerPaymentController paymentController;
+
+    /**
+     * Scanner object for user input
+     */
     private Scanner scanner;
 
     /**
@@ -32,7 +44,7 @@ public class CustomerPaymentForm implements Form {
     }
     
     /**
-     * Generates the form for customer payment and handles customer input for paymeny selection.
+     * Generates the form for customer payment and handles customer input for payment selection.
      * It includes the 2 main payment options of Online Payment (1) and Credit/Debit Card Payment (2).
      * Checks if customer input is within available options 1-2.
      */

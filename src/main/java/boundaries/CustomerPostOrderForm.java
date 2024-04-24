@@ -8,33 +8,64 @@ import main.java.utils.types.OrderStatus;
 
 import java.util.Scanner;
 
-public class CustomerPostOrderForm implements Form{
-    // Choice in the post-order menu (1, 2, or 3).
-    // Choice in the picking up order
-    // Order ID when viewing order status or picking up an order.
-
+/**
+ * A form for customers as a boundary level object for post-order activities such as viewing order status and picking up orders.
+ * This form is implemented from the Form interface.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
+public class CustomerPostOrderForm implements Form {
+    
+    /**
+     * Scanner object for user input
+     */
     private Scanner scanner;
-    private OrderDAO orderDAO = new OrderDAO();
-    private CustomerOrderController orderController = new CustomerOrderController(orderDAO);
+
+    /**
+     * Data Access Object for orders
+     */
+    private OrderDAO orderDAO = new OrderDAO(); 
+
+    /**
+     * Controller for managing orders
+     */
+    private CustomerOrderController orderController = new CustomerOrderController(orderDAO); 
+
+    /**
+     * The branch associated with current customer session
+     */
     private String branch;
 
-    public CustomerPostOrderForm(CustomerSession session, Scanner scanner){
+    /**
+     * Constructs a CustomerPostOrderForm object with the specified session and scanner.
+     * 
+     * @param session The customer session.
+     * @param scanner The scanner object for user input.
+     */
+    public CustomerPostOrderForm(CustomerSession session, Scanner scanner) {
         this.branch = session.getBranch();
         this.scanner = scanner;
     }
 
+    /**
+     * Generates the post-order form menu and handles customer input for post order activities
+     * It includes options of viewing order status (1), picking up order (2) or logging out (3).
+     * Checks if customer input is valid within options 1-3. 
+     */
     @Override
-    public void generateForm(){
+    public void generateForm() {
         System.out.println("Thank you for ordering with us.");
-        boolean loop=true;
+        boolean loop = true;
         while (loop) {
             System.out.println("----------------------------------------------------------------------\n" +
                                "|----------------------------Post Order Menu-------------------------|\n" +
                                "----------------------------------------------------------------------\n" +
                                "|                   Choose an option:                                |\n" +
-                               "|                   1.View Order Status                              |\n" +
-                               "|                   2.Pickup Order                                   |\n" +
-                               "|                   3.Logout                                         |\n" +
+                               "|                   1. View Order Status                             |\n" +
+                               "|                   2. Pickup Order                                  |\n" +
+                               "|                   3. Logout                                        |\n" +
                                "----------------------------------------------------------------------\n" +
                                "\n" +
                                "Enter your choice (1-3): ");
@@ -69,6 +100,10 @@ public class CustomerPostOrderForm implements Form{
         }
     }
 
+    /**
+     * Method to display the order status based on the provided order ID.
+     * Checks if order id can be found.
+     */
     public void viewOrderStatus() {
         System.out.println("Welcome to our " + this.branch + " branch.");
         System.out.print("Please enter your order ID: ");
@@ -79,7 +114,7 @@ public class CustomerPostOrderForm implements Form{
             System.out.println("Invalid Input...");
             return;
         }
-        Order order = orderController.findOrder((orderId));
+        Order order = orderController.findOrder(orderId);
         if (order != null) {
             System.out.println("Order Details:");
             System.out.println("Order ID: " + order.getOrderId());
@@ -90,6 +125,10 @@ public class CustomerPostOrderForm implements Form{
         }
     }
 
+    /**
+     * Method to handle and simulate the process of a customer picking up an order.
+     * Checks if order is ready for pickup or if order id is not found.
+     */
     public void pickupOrder() {
         System.out.print("Enter the order ID: ");
         int orderId;
@@ -99,14 +138,14 @@ public class CustomerPostOrderForm implements Form{
             System.out.println("Invalid Input...");
             return;
         }
-        Order order = orderController.findOrder((orderId));
+        Order order = orderController.findOrder(orderId);
         if (order != null) {
             System.out.println("Order Details:");
             System.out.println("Order ID: " + order.getOrderId());
             System.out.println("Order Status: " + order.getOrderStatus());
             System.out.println("Total Price: $" + order.calculateTotalPrice());
             if (order.getOrderStatus() == OrderStatus.READY) {
-                System.out.println("1.Pickup\t2.Not yet");
+                System.out.println("1. Pickup\t2. Not yet");
                 int c;
                 try {
                     c = Integer.parseInt(scanner.nextLine().trim());
