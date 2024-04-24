@@ -210,17 +210,18 @@ public class OrderDAO implements DAOInterface<Order>{
             headerRow.createCell(5).setCellValue("Comments");
     
             int rowIndex = 1;
-            for (Order order : this.orderList) {
-                List<MenuItem> itemList = order.getItems();
+            List<MenuItem> itemList;
+            for (int x = 0; x<this.orderList.size(); x++) {
+                itemList = this.orderList.get(x).getItems();
                 System.out.println(itemList.size());
                 for (int i=0; i<itemList.size(); i++) {
                     Row row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue(order.getOrderId());
+                    row.createCell(0).setCellValue(this.orderList.get(x).getOrderId());
                     row.createCell(1).setCellValue(itemList.get(i).getName());
                     row.createCell(2).setCellValue(itemList.get(i).getPrice());
                     row.createCell(3).setCellValue(itemList.get(i).getBranch());
                     row.createCell(4).setCellValue(itemList.get(i).getCategory());
-                    row.createCell(5).setCellValue(order.getComment(i));
+                    row.createCell(5).setCellValue(this.orderList.get(x).getComment(i));
                 }
             }
             workbook.write(fos);
