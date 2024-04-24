@@ -67,12 +67,14 @@ public class Order {
      * 
      * @param orderId The unique ID of the order
      * @param orderStatus The status of the order
+     * @param branch The branch of the order
      * @param isDineIn Indicates whether the order is for dine-in
      * @param isCompleted Indicates whether the order is completed
      * @param time Indicates time when order is last updated
      */
-    public Order(int orderId, OrderStatus orderStatus, boolean isDineIn, boolean isCompleted, LocalDateTime time) {
+    public Order(int orderId, OrderStatus orderStatus, String branch, boolean isDineIn, boolean isCompleted, LocalDateTime time) {
         this.orderId = orderId;
+        this.branch = branch;
         this.isDineIn = isDineIn;
         this.isCompleted = isCompleted;
         this.orderStatus = orderStatus;
@@ -212,6 +214,10 @@ public class Order {
      */
     public String getComment(int index) {
         return comments.get(index);
+    }
+
+    public List<String> getComments() {
+        return this.comments;
     }
 
     /**

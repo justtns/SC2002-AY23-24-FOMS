@@ -73,7 +73,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
         File itemsFile = new File(itemsFilePath);
         if (!itemsFile.exists()) {
-            String[] headers = new String[]{"Order ID", "Branch", "Name", "Price", "Branch", "Category", "Comments"};
+            String[] headers = new String[]{"Order ID", "Name", "Price", "Branch", "Category", "Comments"};
             try (Workbook workbook = new XSSFWorkbook();
             FileOutputStream fos = new FileOutputStream(itemsFilePath)) {
                 Sheet sheet = workbook.createSheet("Sheet1");
@@ -100,6 +100,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 if (row.getRowNum() == 0| row.getCell(0) == null) continue;
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
+                String branch = row.getCell(1).getStringCellValue();
                 OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(2).getStringCellValue());
                 boolean isDineIn = row.getCell(3).getBooleanCellValue();
                 boolean isCompleted = row.getCell(4).getBooleanCellValue();
@@ -108,7 +109,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 if (orderStatus == OrderStatus.READY & ChronoUnit.HOURS.between(orderTime, now) > 2){ //ignores orders that have existed for more than 2hrs
                     continue;
                 }
-                Order order = new Order(orderId, orderStatus, isDineIn, isCompleted, orderTime);
+                Order order = new Order(orderId, orderStatus, branch, isDineIn, isCompleted, orderTime);
                 addElement(order);
             }
         } catch (IOException e) {
@@ -127,8 +128,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
                 currentOrder = findElement(Integer.toString(orderId));
-
-                if (currentOrder != null) {
+                if (currentOrder != null & currentOrder.getOrderId()==orderId) {
                     String name = row.getCell(1).getStringCellValue();
                     double price = row.getCell(2).getNumericCellValue();
                     String branch = row.getCell(3).getStringCellValue();
@@ -136,20 +136,18 @@ public class OrderDAO implements DAOInterface<Order>{
                     String comments;
                     if (row.getCell(6) != null) {
                         comments = row.getCell(6).getStringCellValue();
-                    } else {
+                    } 
+                    else {
                         comments = " ";
                     }
                     String description = row.getCell(5).getStringCellValue();
                     MenuItem item = new MenuItem(name, category, branch, description, price);
                     currentOrder.addItem(item);
-                    for (Order order: this.orderList)
-                    {
-                        if(order.getOrderId()==orderId) {
-                            order.addItem(item);
-                            order.addComment(comments);
-                            break;
-                        }
-                    }
+                    currentOrder.addComment(comments);
+                    updateElement(currentOrder, currentOrder);
+                }
+                else{
+                    continue;
                 }
             }
         } catch (IOException e) {
@@ -213,6 +211,7 @@ public class OrderDAO implements DAOInterface<Order>{
             List<MenuItem> itemList;
             for (int x = 0; x<this.orderList.size(); x++) {
                 itemList = this.orderList.get(x).getItems();
+                System.out.println(this.orderList.get(x).getComments().size());
                 System.out.println(itemList.size());
                 for (int i=0; i<itemList.size(); i++) {
                     Row row = sheet.createRow(rowIndex++);
