@@ -7,12 +7,12 @@ import main.java.daos.StaffDAO;
 import main.java.utils.loggers.StaffSession;
 
 /**
- * The ManagerDisplayForm class represents the boundary level object form for managers to perform display actions.
- * This form allows a manager to perform actions such as displaying the list of staff in their branch.
+ * The ManagerDisplayForm class is a form that is a boundary level object for managers to perform display actions.
+ * such as displaying the list of staff in their branch.
  * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class ManagerDisplayForm implements Form {
