@@ -211,8 +211,6 @@ public class OrderDAO implements DAOInterface<Order>{
             List<MenuItem> itemList;
             for (int x = 0; x<this.orderList.size(); x++) {
                 itemList = this.orderList.get(x).getItems();
-                System.out.println(this.orderList.get(x).getComments().size());
-                System.out.println(itemList.size());
                 for (int i=0; i<itemList.size(); i++) {
                     Row row = sheet.createRow(rowIndex++);
                     row.createCell(0).setCellValue(this.orderList.get(x).getOrderId());
