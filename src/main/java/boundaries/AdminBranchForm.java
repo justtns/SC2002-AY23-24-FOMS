@@ -30,7 +30,7 @@ public class AdminBranchForm implements Form {
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 scanner.nextLine(); // Consume the invalid input
                 continue;

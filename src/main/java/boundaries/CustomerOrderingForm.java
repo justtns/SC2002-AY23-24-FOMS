@@ -53,13 +53,14 @@ public class CustomerOrderingForm implements Form{
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
             }
 
             switch (choice) {
                 case 1:
+                System.out.println("menu Items!");
                     showMenuItems();
                     break;
                 case 2:

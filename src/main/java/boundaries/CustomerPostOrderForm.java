@@ -41,7 +41,7 @@ public class CustomerPostOrderForm implements Form{
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid Input...");
                 scanner.nextLine(); // Consume invalid input
                 continue;
@@ -75,7 +75,7 @@ public class CustomerPostOrderForm implements Form{
         int orderId;
         try {
             orderId = Integer.parseInt(scanner.nextLine().trim());
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid Input...");
             scanner.nextLine(); // Consume invalid input
             return;
@@ -96,7 +96,7 @@ public class CustomerPostOrderForm implements Form{
         int orderId;
         try {
             orderId = Integer.parseInt(scanner.nextLine().trim());
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid Input...");
             scanner.nextLine(); // Consume invalid input
             return;
@@ -112,7 +112,7 @@ public class CustomerPostOrderForm implements Form{
                 int c;
                 try {
                     c = Integer.parseInt(scanner.nextLine().trim());
-                } catch (InputMismatchException e) {
+                } catch (NumberFormatException e) {
                     System.out.println("Invalid Input...");
                     scanner.nextLine(); // Consume invalid input
                     return;

@@ -67,7 +67,7 @@ public class CustomerPaymentForm implements Form{
             int choice;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter (1-2)");
                 continue;
             }

@@ -37,7 +37,7 @@ public class StaffOrderForm implements Form{
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 scanner.nextLine(); // Consume the invalid input
                 continue;
@@ -51,7 +51,7 @@ public class StaffOrderForm implements Form{
                     int orderID;
                     try {
                         orderID = Integer.parseInt(scanner.nextLine().trim());
-                    } catch (InputMismatchException e) {
+                    } catch (NumberFormatException e) {
                         System.out.println("Invalid Input. Please enter a number.");
                         scanner.nextLine(); // Consume the invalid input
                         continue;
@@ -61,7 +61,7 @@ public class StaffOrderForm implements Form{
                 case 3:
                     try {
                         orderID = Integer.parseInt(scanner.nextLine().trim());
-                    } catch (InputMismatchException e) {
+                    } catch (NumberFormatException e) {
                         System.out.println("Invalid Input. Please enter a number.");
                         scanner.nextLine(); // Consume the invalid input
                         continue;

@@ -33,7 +33,7 @@ public class CustomerApp implements AppDisplay{
 
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter (1-4)");
                 continue;
             }
