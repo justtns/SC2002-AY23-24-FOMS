@@ -13,12 +13,18 @@ import main.java.utils.types.StaffRole;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.0
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffManagementController {
-    /** The data access object (DAO) for staff */
+    /** 
+     * The data access object (DAO) for staff 
+    */
     private StaffDAO staffDAO;
+
+    /** 
+     * The BranchDAO instance to interact with branch data.
+    */
     private BranchDAO branchDAO;
 
     /**
@@ -33,6 +39,7 @@ public class StaffManagementController {
 
     /**
      * Adds a new staff member to the system.
+     * Checks if branch exists or not.
      * 
      * @param name The name of the staff member
      * @param loginId The login ID of the staff member
@@ -63,12 +70,12 @@ public class StaffManagementController {
     }
 
     /**
-     * Edits the details of an existing staff member.
+     * Edits the details of an existing staff member, excluding Branch details which is changed in StaffAssignmentController.
+     * Checks if staff account exists using login id and if login id is already taken by another staff.
      * 
      * @param loginId The login ID of the staff member to be edited
-     * @param newLoginId The new login ID for the staff member
-     * @param newPassword The new password for the staff member
-     * @param newBranch The new branch for the staff member
+     * @param newLoginId The new login ID for the staff member, indicate NIL if no changes
+     * @param newPassword The new password for the staff member, indicate NIL if no changes
      * @return True if the staff member is successfully edited, false otherwise
      */
     public boolean editStaff(String loginId, String newLoginId, String newPassword) {
