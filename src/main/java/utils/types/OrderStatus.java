@@ -12,5 +12,6 @@ public enum OrderStatus {
     PAID,
     PREPARING,
     READY,
-    COMPLETED
+    COMPLETED,
+    CANCELLED
 }
