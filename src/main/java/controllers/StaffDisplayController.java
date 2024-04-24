@@ -16,12 +16,19 @@ import java.util.stream.Collectors;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffDisplayController {
-    /** The data access object (DAO) for staff */
+
+    /** 
+    * The data access object (DAO) for staff 
+    */
     private StaffDAO staffDAO;
+
+    /** 
+    * The BranchDAO instance to interact with branch data.
+    */
     private BranchDAO branchDAO;
 
     /**
@@ -55,6 +62,7 @@ public class StaffDisplayController {
 
     /**
      * Displays the list of staff filtered by branch.
+     * Checks if branch exists or not.
      * 
      * @param branch The branch name for filtering
      */
