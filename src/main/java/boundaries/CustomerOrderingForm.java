@@ -111,6 +111,7 @@ public class CustomerOrderingForm implements Form {
                     break;
                 case 4:
                     customerOrder = editCart(customerOrder);
+                    break;
                 case 5:
                     if (!customerOrder.getItems().isEmpty()) {
                         submitOrder(customerOrder);
@@ -142,7 +143,7 @@ public class CustomerOrderingForm implements Form {
         boolean loop4 = true;
         while (loop4) {
             displayCart(customOrder);
-            System.out.println("1. Add Items\t2. Remove Items\t3. Done\t");
+            System.out.println("1. Add Items\t2. Remove Items\t3. Change Dine-In Option\t4. Done\t");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
@@ -158,14 +159,38 @@ public class CustomerOrderingForm implements Form {
                     customOrder = removeItem(customOrder);
                     break;
                 case 3:
-                    loop4 = false;
+                    customOrder = changeDineInOption(customOrder);
                     break;
+                case 4:
+                    return customOrder;
                 default:
                     System.out.println("Invalid Key! Enter your choice (1-2)");
                     break;
             }
         }
         return customOrder;
+    }
+
+    private Order changeDineInOption(Order customerOrder) {
+        System.out.println("Current Dine-in Option: " + (customerOrder.isDineIn() ? "Dine-in" : "Takeaway"));
+        if (customerOrder.isDineIn()){
+            System.out.println("Would you like to change to Takeaway? (yes/no)");
+        }
+        else {
+            System.out.println("Would you like to change to Dine-in? (yes/no)");
+        }
+        String choice = scanner.nextLine().trim().toLowerCase();
+        if (choice.equals("yes")){
+            customerOrder.setDineIn(!customerOrder.isDineIn());
+        }
+
+        else if (choice.equals("no")){
+            System.out.println("Dine-in option remains the same.");
+        }
+        else {
+            System.out.println("Invalid input. Please try again.");
+        }
+        return customerOrder;
     }
 
     /**
