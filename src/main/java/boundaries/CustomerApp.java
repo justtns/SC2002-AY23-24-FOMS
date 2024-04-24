@@ -2,7 +2,6 @@ package main.java.boundaries;
 
 import main.java.utils.loggers.CustomerSession;
 
-import main.java.utils.ScannerProvider;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -44,12 +43,12 @@ public class CustomerApp implements AppDisplay{
             else if (choice == 4){
                 loop=false;
                 System.out.println("Logging out...");
+                break;
             }
             else{
                 form = actionFactory.getForm(session, scanner, choice);
                 form.generateForm();
             }
         }
-        ScannerProvider.closeScanner();
     }
 }
