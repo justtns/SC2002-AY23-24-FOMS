@@ -34,13 +34,15 @@ public class StaffPaymentController {
      * @return true if the payment method was successfully added, false otherwise
      */
     public boolean addPaymentMethod(String name, String type) {
-        PaymentMethod method = new PaymentMethod(name, type);
-        try {
-            paymentDAO.addElement(method);
+        PaymentMethod method = paymentDAO.findElement(name);
+        if(method == null){
+            PaymentMethod newMethod = new PaymentMethod(name, type);
+            paymentDAO.addElement(newMethod);
             paymentDAO.saveData();
             return true;
-        } catch (Exception e) {
-            System.out.println("Error adding payment method: " + e.getMessage());
+        }
+        else{
+            System.out.println("Payment method already exists.");
             return false;
         }
     }
@@ -52,12 +54,14 @@ public class StaffPaymentController {
      * @return true if the payment method was successfully removed, false otherwise
      */
     public boolean removePaymentMethod(String name) {
-        try {
+        PaymentMethod method = paymentDAO.findElement(name);
+        if(method != null){
             paymentDAO.removeElement(name);
             paymentDAO.saveData();
             return true;
-        } catch (Exception e) {
-            System.out.println("Error removing payment method: " + e.getMessage());
+        }
+        else{
+            System.out.println("Payment method does not exist.");
             return false;
         }
     }
