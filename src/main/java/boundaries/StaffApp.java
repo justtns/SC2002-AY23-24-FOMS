@@ -13,13 +13,24 @@ import main.java.utils.loggers.StaffSession;
  * This App is implemented from AppDisplay interface.
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.4
  * @since 24-Apr-2024
  */
 public class StaffApp implements AppDisplay {
 
+    /**
+     * The role of the staff (Admin, Staff or Manager)
+     */
     private StaffRole staffRole;
+
+    /**
+     * Instance of StaffLogin to handle login processes
+     */
     private StaffLogin staffLogin;
+
+    /**
+     * Session information for the staff user
+     */
     private StaffSession staffSession;
 
     /**
