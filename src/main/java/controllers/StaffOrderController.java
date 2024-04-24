@@ -8,7 +8,6 @@ import main.java.daos.StaffDAO;
 import main.java.utils.types.OrderStatus;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The StaffOrderController class manages orders placed by staff members.
