@@ -53,7 +53,7 @@ public class StaffOrderController {
         List<Order> orders = orderDAO.getElements();
         boolean found = false;
         for (Order order : orders) {
-            if (order.getBranch().equals(branchCode) && order.getOrderStatus() == OrderStatus.NEW) {
+            if (order.getBranch().equals(branchCode) && order.getOrderStatus() == OrderStatus.PAID) {
                 System.out.println(order.toString());
                 found = true;
             }
