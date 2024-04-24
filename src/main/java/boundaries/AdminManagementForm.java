@@ -90,7 +90,7 @@ public class AdminManagementForm implements Form {
 
     /**
      * Adds a new staff account based on admin's input - staff name, staff login id, staff role
-     * Checks if role entered exists in StaffRole ENum.
+     * Checks if role entered exists in StaffRole ENum, and if gender and age inputs are valid.
      * Prints a message to admin personnel if staff account is successfully added or not.
      * 
      */
