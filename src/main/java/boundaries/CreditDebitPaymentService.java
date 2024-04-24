@@ -1,20 +1,59 @@
 package main.java.boundaries;
+
 import java.util.Scanner;
 
 import main.java.controllers.CustomerPaymentController;
 
+/**
+ * The CreditDebitPaymentService class implements the PaymentService interface for credit/debit card payments (e.g. Visa, AMEX etc.)
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class CreditDebitPaymentService implements PaymentService {
 
+    /**
+     * The service provider of the credit/debit card (e.g. Visa, AMEX etc.)
+     */
     private String cardProvider;
+
+    /**
+     * The card number.
+     */
     private String number;
+
+    /**
+     * The expiry date of the card.
+     */
     private String expiry;
+
+    /**
+     * The Card Verification Code (CVC) of the card.
+     */
     private String cvc;
+
+    /**
+     * The controller responsible for handling customer payments.
+     */
     private CustomerPaymentController paymentController;
 
+    /**
+     * Constructs a CreditDebitPaymentService with the specified CustomerPaymentController.
+     * 
+     * @param customerPaymentController The CustomerPaymentController to handle payment operations.
+     */
     public CreditDebitPaymentService(CustomerPaymentController customerPaymentController){
         this.paymentController = customerPaymentController;
     }
 
+    /**
+     * Method to simulate the credit/debit card payment process.
+     * Checks if credit/debit card payment method is available and whether payment is authenticated successfully.
+     * 
+     * @param scanner The Scanner object for user input.
+     * @return true if the payment is available and successfully authenticated, false otherwise.
+     */
     @Override
     public boolean simulatePayment(Scanner scanner) {
         System.out.println("--------------------------------------------------------------------------\n" +
@@ -44,6 +83,11 @@ public class CreditDebitPaymentService implements PaymentService {
         }
     }
 
+    /**
+     * Method to authenticate the credit/debit card payment.
+     * 
+     * @return true if the payment is successfully authenticated, false otherwise.
+     */
     @Override
     public boolean authenticatePayment() {
         System.out.println("Authenticating payment...");
@@ -59,4 +103,3 @@ public class CreditDebitPaymentService implements PaymentService {
         return true;
     }
 }
-

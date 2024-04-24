@@ -83,7 +83,7 @@ public class OnlinePaymentService implements PaymentService {
     }
 
     /**
-     * Method to authenticates the online payment.
+     * Method to authenticate the online payment.
      * 
      * @return true if the payment is successfully authenticated, false otherwise.
      */
