@@ -25,7 +25,7 @@ public class FormFactory {
             case STAFF:
                 switch (actionType) {
                     case 1:
-                        return (Form) new StaffOrderForm(scanner);                
+                        return (Form) new StaffOrderForm(session, scanner);                
                     default:
                         return null;
                 }
@@ -33,7 +33,7 @@ public class FormFactory {
             case MANAGER:
                 switch (actionType) {
                     case 1:
-                        return (Form) new StaffOrderForm(scanner);
+                        return (Form) new StaffOrderForm(session, scanner);
                     case 2:
                         return (Form) new ManagerMenuForm(scanner);
                     case 3:

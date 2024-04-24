@@ -5,16 +5,17 @@ import java.util.Scanner;
 import main.java.controllers.StaffOrderController;
 import main.java.daos.OrderDAO;
 import main.java.daos.StaffDAO;
-import main.java.models.MenuItem;
-import main.java.models.Order;
+import main.java.utils.loggers.StaffSession;
 
 public class StaffOrderForm implements Form{
 
     private Scanner scanner;
+    private StaffSession session;
     private StaffOrderController orderController = new StaffOrderController(new StaffDAO(), new OrderDAO(), scanner);
     
 
-    public StaffOrderForm(Scanner scanner){
+    public StaffOrderForm(StaffSession session, Scanner scanner){
+        this.session = session;
         this.scanner = scanner;
     }
 
@@ -42,6 +43,8 @@ public class StaffOrderForm implements Form{
                 continue;
             }
 
+            int orderID;
+
             switch (choice) {
                 case 1:
                     scanner.nextLine(); // Consume the newline character
@@ -49,7 +52,7 @@ public class StaffOrderForm implements Form{
                     break;
                 case 2:
                     scanner.nextLine(); // Consume the newline character
-                    int orderID;
+                    System.out.println("Enter Order ID:");
                     try {
                         orderID = Integer.parseInt(scanner.nextLine().trim());
                     } catch (NumberFormatException e) {
@@ -61,6 +64,7 @@ public class StaffOrderForm implements Form{
                     break;
                 case 3:
                     scanner.nextLine(); // Consume the newline character
+                    System.out.println("Enter Order ID:");
                     try {
                         orderID = Integer.parseInt(scanner.nextLine().trim());
                     } catch (NumberFormatException e) {
@@ -83,33 +87,20 @@ public class StaffOrderForm implements Form{
     }
 
     private void displayOrders() {
-        orderController.displayNewOrder();
+        String staffId = session.getStaffUserID();
+        orderController.displayNewOrder(staffId);
     }
 
     private void viewOrder(int orderID){
-        Order order = orderController.viewParticularOrder(orderID);
-        if (order != null) {
-            System.out.println("Order Details:");
-            System.out.println("Order ID: " + order.getOrderId());
-            if(order.isDineIn()){
-                System.out.println("Dine in");
-            }
-            else{
-                System.out.println("Takeaway");
-            }
-            System.out.println("Order items:");
-            for (MenuItem item : order.getItems()) {
-                System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-            }
-            System.out.println("Total Price: $" + order.calculateTotalPrice());
-            System.out.println("Order Status: " + order.getOrderStatus());
-        } else {
+        if(!orderController.viewParticularOrder(orderID)){
             System.out.println("Order not found with ID: " + orderID);
         }
     }
 
     private void updateOrder(int orderID){
-        orderController.processOrder(orderID);
+        if(!orderController.processOrder(orderID)){
+            System.out.println("Order not found with ID: " + orderID);
+        }
     }
     
 

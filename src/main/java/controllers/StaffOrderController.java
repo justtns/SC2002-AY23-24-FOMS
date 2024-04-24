@@ -3,6 +3,7 @@ package main.java.controllers;
 import main.java.daos.OrderDAO;
 import main.java.models.Order;
 import main.java.models.Staff;
+import main.java.models.MenuItem;
 import main.java.daos.StaffDAO;
 import main.java.utils.types.OrderStatus;
 
@@ -45,9 +46,7 @@ public class StaffOrderController {
      * Prompts the user to enter their staff ID, retrieves their branch code,
      * and displays new orders for that branch.
      */
-    public void displayNewOrder() {
-        System.out.println("Enter your staff ID:");
-        String staffId = scanner.nextLine();
+    public void displayNewOrder(String staffId) {
         Staff user = staffDAO.findElement(staffId);
         String branchCode = user.getBranch();
         if (branchCode == null) {
@@ -73,9 +72,28 @@ public class StaffOrderController {
      * @param orderID the ID of the order to view
      * @return the Order object corresponding to the provided order ID
      */
-    public Order viewParticularOrder(int orderID) {
+    public boolean viewParticularOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
-        return orderDAO.findElement(orderIdString);
+        Order order = orderDAO.findElement(orderIdString);
+        if (order != null) {
+            System.out.println("Order Details:");
+            System.out.println("Order ID: " + order.getOrderId());
+            if(order.isDineIn()){
+                System.out.println("Dine in");
+            }
+            else{
+                System.out.println("Takeaway");
+            }
+            System.out.println("Order items:");
+            for (MenuItem item : order.getItems()) {
+                System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
+            }
+            System.out.printf("Total Price: $%.2f%n", order.calculateTotalPrice());
+            System.out.println("Order Status: " + order.getOrderStatus());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -83,12 +101,19 @@ public class StaffOrderController {
      *
      * @param orderID the ID of the order to process
      */
-    public void processOrder(int orderID) {
+    public boolean processOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
         Order oldOrder = orderDAO.findElement(orderIdString);
         Order newOrder = orderDAO.findElement(orderIdString);
-        newOrder.setOrderStatus(OrderStatus.READY);
-        orderDAO.updateElement(oldOrder, newOrder);
-        orderDAO.saveData();
+        if (newOrder != null) {
+            newOrder.setOrderStatus(OrderStatus.READY);
+            orderDAO.updateElement(oldOrder, newOrder);
+            orderDAO.saveData();
+            System.out.println("Order Status for Order ID: " + newOrder.getOrderId() + " has been changed to " + newOrder.getOrderStatus());
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

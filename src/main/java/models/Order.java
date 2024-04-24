@@ -5,6 +5,7 @@ import java.util.List;
 
 import main.java.utils.types.OrderStatus; // Import the ENUMs of OrderStatus
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 
 /**
@@ -304,14 +305,14 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-        "orderId=" + orderId +
-        ", items=" + itemsToString() +  // Helper method to handle list of items
-        ", comments=" + comments +
-        ", branch='" + branch + '\'' +
-        ", isDineIn=" + isDineIn +
-        ", isCompleted=" + isCompleted +
-        ", orderStatus=" + orderStatus +
-        '}';
+        "\norderId = " + orderId +
+        ",\nitems = [" + itemsToString() + "]" +  // Helper method to handle list of items
+        ",\ncomments ='" + commentsToString() + "'" + // Helper method to handle comments
+        ",\nbranch ='" + branch + '\'' +
+        ",\nDine In = " + isDineIn +
+        ",\nCompleted = " + isCompleted +
+        ",\norderStatus = " + orderStatus +
+        "}\n";
     }
 
     // Helper methods for printing (below)
@@ -323,15 +324,26 @@ public class Order {
      *
      * @return String - a formatted string representing the list of MenuItem objects in the order.
      */
-    private String itemsToString() {
-        StringBuilder itemsStr = new StringBuilder("[");
-        for (int i = 0; i < items.size(); i++) {
-            itemsStr.append(items.get(i).toString());
-            if (i < items.size() - 1) {
-                itemsStr.append(", ");  // Add comma except after the last item
-            }
+
+    public String itemsToString() {
+        StringBuilder sb = new StringBuilder();
+        for (MenuItem item : items) {
+            sb.append(String.format("%s - $%.2f, ", item.getName(), item.getPrice()));
         }
-        itemsStr.append("]");
-        return itemsStr.toString();
+        // Remove the trailing comma and space if there are items
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 2);
+        }
+        return sb.toString();
+    }
+
+    public String commentsToString() {
+        if (comments == null || comments.isEmpty()) {
+            return "No comments";
+        } else {
+            return comments.stream()
+                    .filter(comment -> comment != null && !comment.trim().isEmpty())
+                    .collect(Collectors.joining(", "));
+        }
     }
 }
