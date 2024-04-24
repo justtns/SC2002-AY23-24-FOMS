@@ -82,7 +82,7 @@ public class StaffApp implements AppDisplay {
      * Executes the login process.
      * This method asks staff for their username, password, and role.
      * It then checks and authenticates the username and password to verify that the details are correct.
-     * If authenticated, it will create views according to their role.
+     * If authenticated, it will create views according to their role, otherwise it displays an appropriate error message.
      */
     public void loginProcess(Scanner scanner) {
         boolean loop = true;
@@ -127,7 +127,13 @@ public class StaffApp implements AppDisplay {
                         break;
                 }
             } else {
-                System.out.println("Login failed. Please try again.");
+                if(!usernameAuthenticated){
+                    System.out.println("Username not found.");
+                }
+                else if(!passwordAuthenticated){
+                    System.out.println("Username and password do not match.");
+                }                
+                System.out.println("Login failed. Please try again.\n");
             }
         }
     }
@@ -142,7 +148,7 @@ public class StaffApp implements AppDisplay {
         
         while(true){
             System.out.println("Enter role: 1/2/3 \n" +
-                                "1. Admin, 2. Staff, 3. Manager\n");
+                                "1. Admin, 2. Staff, 3. Manager");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());

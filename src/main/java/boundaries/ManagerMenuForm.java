@@ -165,7 +165,7 @@ public class ManagerMenuForm implements Form {
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
 
-        System.out.println("Enter the description of the menu item:");
+        System.out.println("Enter the new description for the menu item:");
         String newDescription = scanner.nextLine();
         
         System.out.println("Enter the new category for the menu item:");

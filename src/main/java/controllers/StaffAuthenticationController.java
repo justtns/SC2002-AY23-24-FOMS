@@ -77,7 +77,7 @@ public class StaffAuthenticationController {
             }
         }
         else{
-            System.out.println("Username does not exist.");
+            System.out.println("Username not found.");
                 return false;
         }
         
