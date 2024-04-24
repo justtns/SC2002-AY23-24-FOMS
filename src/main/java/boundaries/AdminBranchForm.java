@@ -12,7 +12,7 @@ import main.java.daos.BranchDAO;
  * It provides options for opening a new branch, providing its name, location, and capacity,
  * and for closing an existing branch.
  *
- * @author SDDA Team
+ * @author SDDA Team 1
  * @version 1.1
  * @since 24-Apr-2024
  */

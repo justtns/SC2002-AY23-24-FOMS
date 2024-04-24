@@ -6,14 +6,36 @@ import main.java.controllers.StaffManagementController;
 import main.java.daos.StaffDAO;
 import main.java.utils.types.StaffRole;
 
+/**
+ * A form for administrative staff as a boundary level object to perform changes to staff accounts.
+ * Administrators can add, edit, or remove staff accounts using this form.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class AdminManagementForm implements Form {
 
-    private StaffManagementController managementController = new StaffManagementController(new StaffDAO());
+    /** The controller responsible for managing staff accounts. */
+    private StaffManagementController managementController;
+
+    /** The scanner object used for input. */
     private Scanner scanner;
 
+    /**
+     * Constructs an AdminManagementForm object with the specified scanner.
+     *
+     * @param scanner the scanner object to be used for input
+     */
     public AdminManagementForm(Scanner scanner){
+        this.managementController = new StaffManagementController(new StaffDAO());
         this.scanner = scanner;
     }
+
+    /**
+     * Generates the admin management form and handles user input.
+     * Checks if user input is within options 1-4.
+     */
     public void generateForm(){
         boolean loop=true;
         int choice;
@@ -63,6 +85,12 @@ public class AdminManagementForm implements Form {
         }
     }
 
+    /**
+     * Adds a new staff account based on user input.
+     * Checks if role entered exists in StaffRole ENum.
+     * Prints a message to admin personnel if staff account is successfully added or not.
+     * 
+     */
     private void addStaffAccount() {
         // Collect details from admin
         System.out.println("Enter new staff name:");
@@ -105,6 +133,10 @@ public class AdminManagementForm implements Form {
         }
     }
 
+    /**
+     * Edits an existing staff account based on user input.
+     * Prints a message to admin personnel if staff account is successfully updated or not.
+     */
     private void editStaffAccount() {
         System.out.println("Enter staff login ID to edit:");
         String loginId = scanner.nextLine();
@@ -129,6 +161,10 @@ public class AdminManagementForm implements Form {
         }
     }
 
+    /**
+     * Removes an existing staff account based on user input.
+     * Prints a message to admin personnel if staff account is successfully removed or not.
+     */
     private void removeStaffAccount() {
         System.out.println("Enter staff login ID to remove:");
         String loginId = scanner.nextLine();
