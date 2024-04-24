@@ -25,6 +25,7 @@ public class ManagerView implements StaffUserView {
      * 
      * @param session The staff session object
      */
+    @Override
     public void execute(StaffSession session){
         Scanner scanner = ScannerProvider.getScanner();
         FormFactory actionFactory = new FormFactory();
