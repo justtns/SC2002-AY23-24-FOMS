@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * branch, dine-in status, completion status, and order status.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 23-Apr-2024
  */
 public class Order {
@@ -46,11 +46,10 @@ public class Order {
 
     /**
      * Constructs an Order object with the given order ID and branch.
-     * Initializes other fields with default values.
+     * Initializes other fields with default values, except time which takes the current time.
      * 
      * @param orderId The unique ID of the order
      * @param branch The branch where the order was placed
-     * @param time Indicates time when order is last updated
      */
     public Order(int orderId, String branch) {
         this.orderId = orderId;
@@ -63,7 +62,8 @@ public class Order {
     }
 
     /**
-     * Constructor that constructors Order object with the given parameters.
+     * Constructor that constructors Order object with the given parameters. 
+     * Overloads previous constructor Order(int orderId, String branch).
      * 
      * @param orderId The unique ID of the order
      * @param orderStatus The status of the order
