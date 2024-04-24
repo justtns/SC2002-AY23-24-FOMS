@@ -21,7 +21,7 @@ public interface PaymentService {
     boolean simulatePayment(Scanner scanner);
 
     /**
-     * Abstrat method to authenticates the payment.
+     * Abstract method to authenticates the payment.
      * 
      * @return true if the payment is successfully authenticated, false otherwise.
      */
