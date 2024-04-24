@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
  * It is a business object that contains all necessary accessors and mutators for CRUD Operations performed by OrderDAO.
  * Order class is in a 'has-a' relation with OrderDAO (Composition).
  * It contains information such as the order ID, items ordered, comments,
- * branch, dine-in status, completion status, and order status.
+ * branch, dine-in status, completion status, time, and order status.
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 23-Apr-2024
  */
 public class Order {
@@ -287,6 +287,14 @@ public class Order {
         return totalPrice;
     }
 
+    /**
+     * Provides a string representation of the Order object, including detailed descriptions of its contents.
+     * This method returns a string that includes the order ID, the list of items (formatted by a helper method),
+     * the comments associated with the order, the branch, whether it is dine-in, its completion status,
+     * and the order status.
+     *
+     * @return String - a formatted string containing all the details of the order.
+     */
     @Override
     public String toString() {
         return "Order{" +
@@ -300,6 +308,15 @@ public class Order {
         '}';
     }
 
+    // Helper methods for printing (below)
+
+    /**
+     * Helper method to generate a formatted string of all items in the order (comma-seperated).
+     * This method iterates over the list of MenuItem objects, invoking the `toString` method of each MenuItem
+     * to compile a string representation of all items in the order.
+     *
+     * @return String - a formatted string representing the list of MenuItem objects in the order.
+     */
     private String itemsToString() {
         StringBuilder itemsStr = new StringBuilder("[");
         for (int i = 0; i < items.size(); i++) {
