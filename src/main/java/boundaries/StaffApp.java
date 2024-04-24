@@ -84,7 +84,7 @@ public class StaffApp implements AppDisplay {
      * It then checks and authenticates the username and password to verify that the details are correct.
      * If authenticated, it will create views according to their role, otherwise it displays an appropriate error message.
      */
-    public void loginProcess(Scanner scanner) {
+    private void loginProcess(Scanner scanner) {
         boolean loop = true;
         while(loop){
             enterRole(scanner);
@@ -144,7 +144,7 @@ public class StaffApp implements AppDisplay {
      * 
      * @param scanner The scanner object for user input.
      */
-    public void enterRole(Scanner scanner) {
+    private void enterRole(Scanner scanner) {
         
         while(true){
             System.out.println("Enter role: 1/2/3 \n" +
@@ -180,7 +180,7 @@ public class StaffApp implements AppDisplay {
      * It asks users to enter their username, old and new password.
      * It then prints out a message according to whether the password has been successfully changed or not.
      */
-    public void changePasswordProcess(Scanner scanner) {
+    private void changePasswordProcess(Scanner scanner) {
         System.out.println("Enter username:");
             String username = scanner.nextLine();
             
