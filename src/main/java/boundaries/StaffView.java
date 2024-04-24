@@ -44,6 +44,5 @@ public class StaffView implements StaffUserView{
                 form.generateForm();
             }            
         }
-        ScannerProvider.closeScanner();
     }
 }

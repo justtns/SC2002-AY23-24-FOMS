@@ -49,7 +49,5 @@ public class AdminView implements StaffUserView{
                 form.generateForm();
             }
         }
-
-        ScannerProvider.closeScanner();
     }
 }

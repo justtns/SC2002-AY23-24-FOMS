@@ -46,6 +46,5 @@ public class ManagerView implements StaffUserView{
                 form.generateForm();
             } 
         }
-        ScannerProvider.closeScanner();
     }
 }
