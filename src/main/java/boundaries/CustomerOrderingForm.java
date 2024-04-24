@@ -36,48 +36,164 @@ public class CustomerOrderingForm implements Form{
         this.scanner = scanner;
     }
 
-    public void generateForm(){
-        boolean loop=true;
-        int choice;
+    public void generateForm() {
+        boolean loop = true;
         while (loop) {
-            System.out.println("----------------------------------------------------------------------\n" +
-                               "|-----------------------Customer Order Menu--------------------------|\n" +
-                               "----------------------------------------------------------------------\n" +
-                               "|                   Choose an option:                                |\n" +
-                               "|                   1.View Menu                                      |\n" +
-                               "|                   2.Place Order                                    |\n" +
-                               "|                   3.Go to Homescreen                               |\n" +
-                               "----------------------------------------------------------------------\n" +
-                               "\n" +
-                               "Enter your choice (1-3):");
-            choice = -1;
+            System.out.println("----------------------------------------------------------------------");
+            System.out.println("|-----------------------Customer Order Menu--------------------------|");
+            System.out.println("----------------------------------------------------------------------");
+            System.out.println("|                   Choose an option:                                |");
+            System.out.println("|                   1. View Menu                                     |");
+            System.out.println("|                   2. Start New Order                               |");
+            System.out.println("|                   3. Display Cart                                  |");
+            System.out.println("|                   4. Submit Order                                  |");
+            System.out.println("|                   5. Go to Homescreen                              |");
+            System.out.println("----------------------------------------------------------------------");
+            System.out.print("\nEnter your choice (1-5): ");
+    
+            int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
             }
-
+    
             switch (choice) {
                 case 1:
                     showMenuItems();
                     break;
                 case 2:
-                    placeOrder();
-                    loop = false;
+                    startNewOrder();
                     break;
                 case 3:
+                    displayCart(this.orderId);
+                    break;
+                case 4:
+                    if (!orderController.findOrder(this.orderId).getItems().isEmpty()) {
+                        submitOrder(orderController.findOrder(this.orderId));
+                    } else {
+                        System.out.println("No items in the cart to submit. Please add items first.");
+                    }
+                    loop = false;
+                    break;
+                case 5:
                     System.out.println("Returning to Homescreen...");
                     loop = false;
                     break;
                 default:
-                    System.out.println("Invalid Key! Enter your choice (1-3)");
+                    System.out.println("Invalid Key! Enter your choice (1-5)");
                     break;
             }
         }
     }
+    
+    private void startNewOrder() {
+        Order customerOrder = orderController.createCustomerOrder(orderId, branch);
+        customerOrder.setOrderStatus(OrderStatus.NEW);
+    
+        addItemsToCart(customerOrder);
+    
+        if (customerOrder.getItems().isEmpty()) {
+            System.out.println("Order is Empty! Returning to Homescreen...");
+            return;
+        }
+    
+        if (!chooseDineInOrTakeAway(customerOrder)) return; // handle dine-in or takeaway choice
+        orderController.saveOrder(customerOrder);
+    }
 
-    private void placeOrder() {
+    private void addItemsToCart(Order customerOrder) {
+        List<MenuItem> menuItems = menuController.getitems();
+        showMenuItems(); 
+        String itemName;
+        while (true) {
+            System.out.print("Enter the name of the item to order (type 'done' to finish): ");
+            itemName = scanner.nextLine();
+            if (itemName.equalsIgnoreCase("done")) break;
+            
+            MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, menuItems);
+            if (selectedItem == null) {
+                System.out.println("Invalid item. Please try again.");
+                continue;
+            }
+            
+            String comment = getComment();
+            int quantity = getQty();
+            customerOrder = orderController.addItem(customerOrder, selectedItem, quantity, comment);
+        }
+    }
+    
+
+    private boolean chooseDineInOrTakeAway(Order customerOrder) {
+        System.out.println("1. Take Away\t2. Dine-in");
+        int choice;
+        while (true) {
+            System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
+            try {
+                choice = Integer.parseInt(scanner.nextLine().trim());
+                if (choice == 1 || choice == 2) {
+                    customerOrder.setDineIn(choice == 2); // Assuming Order class has a setDineIn method
+                    return true;
+                } else {
+                    System.out.println("Invalid input. Please enter 1 or 2.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+    }
+    private void submitOrder(Order customerOrder) {
+        System.out.println("Confirming Order Submission...");
+        // Display the order summary
+        displayCart(customerOrder.getOrderId());
+        System.out.println("Do you want to submit this order? (yes/no):");
+        String confirmation = scanner.nextLine().trim().toLowerCase();
+        if ("yes".equals(confirmation)) {
+            orderController.saveOrder(customerOrder);
+            System.out.println("Order submitted successfully. Thank you for your order. Please proceed to make payment...");
+        } else {
+            System.out.println("Order submission cancelled. You can continue editing your cart.");
+        }
+    }
+
+    private void displayCart(int orderId) {
+        Order customerOrder = orderController.findOrder(orderId);
+        if (customerOrder == null) {
+            System.out.println("No order found with ID: " + orderId);
+            return;
+        }
+    
+        List<MenuItem> items = customerOrder.getItems();
+        if (items.isEmpty()) {
+            System.out.println("Your cart is currently empty.");
+            return;
+        }
+    
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("|-------------------------------------- YOUR CART -------------------------------------------|");
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.printf("| %-20s | %-10s | %-24s |%n", "Item Name", "Price ($)", "Special Requests");
+        System.out.println("|---------------------------------------------------------------------------------------------|");
+    
+        double total = 0.0;
+        List<String> comments = customerOrder.getComments(); 
+        for (int i = 0; i < items.size(); i++) {
+            MenuItem item = items.get(i);
+            String comment = (comments.size() > i) ? comments.get(i) : ""; 
+            System.out.printf("| %-20s | %-10.2f | %-24s |%n",
+                    item.getName(), item.getPrice(), comment);
+            total += item.getPrice(); 
+        }
+    
+        System.out.println("|---------------------------------------------------------------------------------------------|");
+        System.out.printf("| %-20s | %-10.2f | %-24s |%n", "Total", total, "");
+        System.out.println("----------------------------------------------------------------------------------------------");
+    }
+        
+    
+
+    private void placeOrder1() {
         System.out.println("Placing an Order");
         Order customerOrder = orderController.createCustomerOrder(orderId, branch);
         customerOrder.setOrderStatus(OrderStatus.NEW);
@@ -156,17 +272,22 @@ public class CustomerOrderingForm implements Form{
                     }
                     continue;
                 } else if (method == 3) {
-                        System.out.println("Order cancelled. Returning to main menu.");
-                        return;
+                    customerOrder = orderController.createCustomerOrder(orderId, branch);
+                    System.out.println("Order cancelled. Returning to main menu.");
+                    return;
+
                 } else {
                     System.out.println("Invalid input. Please choose 1 to submit or 2 to cancel.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
+                scanner.nextLine(); 
             }
         }
     }
+
+    
+    
     
 
     private void showMenuItems() {
@@ -178,8 +299,6 @@ public class CustomerOrderingForm implements Form{
             System.out.println("|--------------------------------No menu items available-------------------------------------|");
             return;
         }
-        // Print table header
-
         System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-24s|%n",
                 "Name", "Category", "Price ($)", "Branch", "Description");
         System.out.println("|--------------------------------------------------------------------------------------------|");

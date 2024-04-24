@@ -50,6 +50,7 @@ public class OrderDAO implements DAOInterface<Order>{
      */
     @Override
     public void readData() {
+        orderList = new ArrayList<>();
         String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
         File ordersFile = new File(ordersFilePath);
