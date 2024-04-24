@@ -10,7 +10,7 @@ public class OrderDAOTester {
         OrderDAO orderDao = new OrderDAO();
 
         // Test adding an order
-        Order newOrder = new Order(101, OrderStatus.NEW, true, false, LocalDateTime.now());
+        Order newOrder = new Order(101, OrderStatus.NEW, "JE", true, false, LocalDateTime.now());
         orderDao.addElement(newOrder);
         System.out.println("Add Order Test: " + (orderDao.getElements().contains(newOrder) ? "Passed" : "Failed"));
 
@@ -19,7 +19,7 @@ public class OrderDAOTester {
         System.out.println("Find Order Test: " + (foundOrder != null ? "Passed" : "Failed"));
 
         // Test updating an order
-        Order updatedOrder = new Order(101, OrderStatus.COMPLETED, true, true, LocalDateTime.now());
+        Order updatedOrder = new Order(101, OrderStatus.COMPLETED, "JE", true, true, LocalDateTime.now());
         orderDao.updateElement(newOrder, updatedOrder);
         foundOrder = orderDao.findElement("101");
         System.out.println("Update Order Test: " + (foundOrder.isCompleted() ? "Passed" : "Failed"));
