@@ -88,6 +88,7 @@ public class StaffOrderController {
             System.out.println("Order Status: " + order.getOrderStatus());
             return;
         } else {
+            System.out.println("Order not found with ID: " + orderID);
             return;
         }
     }
