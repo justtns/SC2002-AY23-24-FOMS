@@ -35,6 +35,7 @@ public class StaffDisplayController {
      * Constructs a StaffDisplayController object with the specified StaffDAO.
      * 
      * @param staffDAO The StaffDAO object to be used by the controller
+     * @param branchDAO The BranchDAO object to be used by the controller
      */
     public StaffDisplayController(StaffDAO staffDAO, BranchDAO branchDAO){
         this.staffDAO = staffDAO;
