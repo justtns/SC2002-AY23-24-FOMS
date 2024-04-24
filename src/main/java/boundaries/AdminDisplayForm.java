@@ -14,7 +14,7 @@ import main.java.utils.types.StaffRole;
  * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class AdminDisplayForm implements Form {
@@ -131,6 +131,7 @@ public class AdminDisplayForm implements Form {
 
     /**
      * Displays the list of staff members for a particular gender.
+     * Checks if gender input is valid.
      */
     private void staffListByGender() {
         String gender = "";
@@ -152,6 +153,7 @@ public class AdminDisplayForm implements Form {
 
     /**
      * Displays the list of staff members for a particular age.
+     * Checks if age input is valid.
      */
     private void staffListByAge() {
         int age = -1;
