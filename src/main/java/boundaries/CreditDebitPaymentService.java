@@ -10,7 +10,7 @@ import main.java.models.PaymentMethod;
  * The CreditDebitPaymentService class implements the PaymentService interface for credit/debit card payments (e.g. Visa, AMEX etc.)
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class CreditDebitPaymentService implements PaymentService {
@@ -51,7 +51,9 @@ public class CreditDebitPaymentService implements PaymentService {
 
     /**
      * Method to simulate the credit/debit card payment process.
-     * Checks if credit/debit card payment method is available and whether payment is authenticated successfully.
+     * Prints out all available Credit/Debit payment methods
+     * Once user enters payment detials, it checks if credit/debit card payment method 
+     * is available and whether payment is authenticated successfully.
      * 
      * @param scanner The Scanner object for user input.
      * @return true if the payment is available and successfully authenticated, false otherwise.
@@ -64,9 +66,9 @@ public class CreditDebitPaymentService implements PaymentService {
 
         System.out.println("Credit/Debit Card Payment Selected - Please enter your payment details");
         List<PaymentMethod> paymentItems = paymentController.getValidPaymentTypes();
-        System.out.println("Available Online Payment Methods: ");
+        System.out.println("Available Credit/Debit Payment Methods: ");
         if (paymentItems.isEmpty()) {
-            System.out.println("No online methods available.");
+            System.out.println("No Credit/Debit Payment methods available.");
         }
         for (PaymentMethod item : paymentItems) {
             if (item.getType().equalsIgnoreCase("creditdebit")) {
