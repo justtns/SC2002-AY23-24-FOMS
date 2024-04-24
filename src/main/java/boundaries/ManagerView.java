@@ -5,8 +5,26 @@ import main.java.factories.FormFactory;
 import main.java.utils.ScannerProvider;
 import java.util.Scanner;
 
+/**
+ * The ManagerView class represents the view for a manager user.
+ * This view is a boundary level object that provides options for for a manager user to execute actions such as managing orders,
+ * managing the menu, displaying staff lists, and logging out.
+ * This form is implemented from StaffUserView.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
+public class ManagerView implements StaffUserView {
 
-public class ManagerView implements StaffUserView{
+    /**
+     * Executes and generates a list of managers actions based on the staff session.
+     * The option chosen by manager will lead to the various forms - StaffOrderForm (1), ManagerMenuForm (2),
+     * ManagerDisplayForm (3), with option 4 being logout.
+     * It checks if user input is within options 1-4.
+     * 
+     * @param session The staff session object
+     */
     public void execute(StaffSession session){
         Scanner scanner = ScannerProvider.getScanner();
         FormFactory actionFactory = new FormFactory();
@@ -34,8 +52,8 @@ public class ManagerView implements StaffUserView{
                 continue;
             }
 
-            if (choice < 1 |choice > 4){
-                System.out.println("Invalid Input. Please enter (1-2)");
+            if (choice < 1 | choice > 4){
+                System.out.println("Invalid Input. Please enter (1-4)");
             }
             else if (choice == 4){
                 loop=false;
