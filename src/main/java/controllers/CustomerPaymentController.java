@@ -84,12 +84,32 @@ public class CustomerPaymentController {
     public String printReceipt(int orderId) {
         Order order = orderDAO.findElement(Integer.toString(orderId));
         if (order != null) {
-            return "Receipt for Order ID: " + orderId + "\n" + order.toString(); 
+            StringBuilder receipt = new StringBuilder();
+            receipt.append("============================================\n");
+            receipt.append(String.format("Receipt for Order ID: %d\n", orderId));
+            receipt.append("============================================\n");
+            
+            receipt.append("Order Details:\n");
+            receipt.append(String.format("Order ID: %d\n", order.getOrderId()));
+            receipt.append(String.format("Order Status: %s\n", order.getOrderStatus().toString()));
+            receipt.append(String.format("Total Price: $%.2f\n", order.calculateTotalPrice()));
+            
+            receipt.append("--------------------------------------------\n");
+            order.getItems().forEach(item -> {
+                receipt.append(String.format("%s - $%.2f\n", item.getName(), item.getPrice()));
+            });
+            
+            receipt.append("--------------------------------------------\n");
+            receipt.append("Thank you for your purchase!\n");
+            receipt.append("============================================\n");
+            return receipt.toString();
         } else {
             System.err.println("Order with ID " + orderId + " not found.");
             return "Receipt could not be generated for Order ID: " + orderId;
         }
     }
+    
+    
     
     /**
      * Validates if the payment is approved.
