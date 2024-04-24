@@ -111,6 +111,7 @@ public class CustomerOrderController {
      */
     public void updateOrder(Order customerOrder){
         orderDAO.updateElement(orderDAO.findElement(Integer.toString(customerOrder.getOrderId())), customerOrder);
+        orderDAO.saveData();
     }
 
     /**

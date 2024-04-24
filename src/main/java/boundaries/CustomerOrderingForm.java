@@ -38,8 +38,16 @@ public class CustomerOrderingForm implements Form{
 
     public void generateForm() {
         boolean loop = true;
-        Order customerOrder = orderController.createCustomerOrder(orderId, branch);
-        customerOrder.setOrderStatus(OrderStatus.NEW);
+        Order customerOrder = orderController.findOrder(orderId);
+        if (customerOrder == null){
+            customerOrder = orderController.createCustomerOrder(orderId, branch);
+            customerOrder.setOrderStatus(OrderStatus.NEW);
+        }
+        if (customerOrder.getOrderStatus() == OrderStatus.PAID){
+            System.out.println("Your order has been confirmed.");
+            System.out.println("Please proceed to pick it up when ready, or begin a new session if you wish to order more. Thank you!");
+            return;
+        };
         while (loop) {
             System.out.println("----------------------------------------------------------------------");
             System.out.println("|-----------------------Customer Order Menu--------------------------|");
@@ -147,7 +155,12 @@ public class CustomerOrderingForm implements Form{
         System.out.println("Do you want to submit this order? (yes/no):");
         String confirmation = scanner.nextLine().trim().toLowerCase();
         if ("yes".equals(confirmation)) {
-            orderController.saveOrder(customerOrder);
+            if (orderController.findOrder(customerOrder.getOrderId())== null){
+                orderController.saveOrder(customerOrder);
+            }
+            else {
+                orderController.updateOrder(customerOrder);
+            }
             System.out.println("Order submitted successfully. Thank you for your order. Please proceed to make payment...");
         } else {
             System.out.println("Order submission cancelled. You can continue editing your cart.");
