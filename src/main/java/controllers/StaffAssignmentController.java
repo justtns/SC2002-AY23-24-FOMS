@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.3
+ * @version 1.4
  * @since 24-Apr-2024
  */
 public class StaffAssignmentController {
@@ -77,6 +77,7 @@ public class StaffAssignmentController {
 
     /**
      * Transfers a staff member from one branch to another.
+     * Checks if the newBranch capacity is over the maximum staff quota for the newBranch.
      * 
      * @param staffID the ID of the staff member to be transferred
      * @param oldBranch the current branch of the staff member
