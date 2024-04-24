@@ -51,23 +51,20 @@ public class StaffLogin {
      */
     public boolean enterPassword(String password) {
         this.password = password;
-        return authController.authenticatePassword(username, password);
+        return authController.authenticatePassword(username, this.password);
     }
 
     /**
      * This method changes the password for the current user if the old password
      * matches the current password.
      * 
+     * @param username The username of the staff user.
      * @param oldPassword The old password to be replaced.
      * @param newPassword The new password to be set.
      * @return true if the password is changed successfully, otherwise false.
      */
-    public boolean changePassword(String oldPassword, String newPassword) {
-        if (oldPassword.equals(this.password)){
-            return false;
-        }
-        this.password = newPassword;
-        return authController.updatePassword(username, password, newPassword);
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        return authController.updatePassword(username, oldPassword, newPassword);
     }
 
     /**
