@@ -16,7 +16,7 @@ import java.util.List;
  * and the data access layer (DAO).
  *
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffOrderController {
@@ -26,11 +26,10 @@ public class StaffOrderController {
     private OrderDAO orderDAO;
 
     /**
-     * Constructs a new StaffOrderController with the specified StaffDAO, OrderDAO, and Scanner.
+     * Constructs a new StaffOrderController with the specified StaffDAO and OrderDAO.
      *
      * @param staffDAO  the StaffDAO instance
      * @param orderDAO  the OrderDAO instance
-     * @param scanner   the Scanner instance for user input
      */
     public StaffOrderController(StaffDAO staffDAO, OrderDAO orderDAO) {
         this.staffDAO = staffDAO;
@@ -41,6 +40,8 @@ public class StaffOrderController {
      * Displays new orders for the staff member's branch.
      * Prompts the user to enter their staff ID, retrieves their branch code,
      * and displays new orders for that branch.
+     *
+     * @param staffId the ID of the staff member
      */
     public void displayNewOrder(String staffId) {
         Staff user = staffDAO.findElement(staffId);
@@ -66,7 +67,7 @@ public class StaffOrderController {
      * Views a particular order based on the provided order ID.
      *
      * @param orderID the ID of the order to view
-     * @return the Order object corresponding to the provided order ID
+     * @return true if the order is found and displayed successfully, false otherwise
      */
     public boolean viewParticularOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
@@ -96,6 +97,7 @@ public class StaffOrderController {
      * Processes an order by changing its status to READY.
      *
      * @param orderID the ID of the order to process
+     * @return true if the order is successfully processed, false otherwise
      */
     public boolean processOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
