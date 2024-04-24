@@ -150,7 +150,20 @@ public class StaffDAO implements DAOInterface<Staff>{
                 row.createCell(0).setCellValue(member.getName());
                 row.createCell(1).setCellValue(member.getLoginID());
                 row.createCell(2).setCellValue(member.getPassword());
-                row.createCell(3).setCellValue((member.getRole().toString()));
+                switch (member.getRole().toString()) {
+                    case "STAFF":
+                        row.createCell(3).setCellValue("S");
+                        break;
+                    case "MANAGER":
+                        row.createCell(3).setCellValue("M");
+                        break;
+                    case "ADMIN":
+                        row.createCell(3).setCellValue("A");
+                        break;
+                    default:
+                        row.createCell(3).setCellValue("S"); // Default to Staff if role is undefined
+                        break;
+                }
                 row.createCell(4).setCellValue(member.getGender());
                 row.createCell(5).setCellValue(member.getAge());
                 row.createCell(6).setCellValue(member.getBranch());
