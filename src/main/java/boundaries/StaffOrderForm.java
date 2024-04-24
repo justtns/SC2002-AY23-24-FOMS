@@ -123,9 +123,7 @@ public class StaffOrderForm implements Form{
                 continue;
             }
         }
-        if(!orderController.viewParticularOrder(orderID)){
-            System.out.println("Order not found with ID: " + orderID);
-        }
+        orderController.viewParticularOrder(orderID);
     }
 
     /**
@@ -144,9 +142,6 @@ public class StaffOrderForm implements Form{
                 continue;
             }
         }
-
-        if(!orderController.processOrder(orderID)){
-            System.out.println("Order not found with ID: " + orderID);
-        }
+        orderController.processOrder(orderID);
     }
 }

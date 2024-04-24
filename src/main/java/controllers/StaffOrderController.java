@@ -67,9 +67,8 @@ public class StaffOrderController {
      * Views a particular order based on the provided order ID.
      *
      * @param orderID the ID of the order to view
-     * @return true if the order is found and displayed successfully, false otherwise
      */
-    public boolean viewParticularOrder(int orderID) {
+    public void viewParticularOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
         Order order = orderDAO.findElement(orderIdString);
         if (order != null) {
@@ -87,9 +86,9 @@ public class StaffOrderController {
             }
             System.out.printf("Total Price: $%.2f%n", order.calculateTotalPrice());
             System.out.println("Order Status: " + order.getOrderStatus());
-            return true;
+            return;
         } else {
-            return false;
+            return;
         }
     }
 
@@ -97,9 +96,8 @@ public class StaffOrderController {
      * Processes an order by changing its status to READY.
      *
      * @param orderID the ID of the order to process
-     * @return true if the order is successfully processed, false otherwise
      */
-    public boolean processOrder(int orderID) {
+    public void processOrder(int orderID) {
         String orderIdString = String.valueOf(orderID);
         Order oldOrder = orderDAO.findElement(orderIdString);
         Order newOrder = orderDAO.findElement(orderIdString);
@@ -108,10 +106,11 @@ public class StaffOrderController {
             orderDAO.updateElement(oldOrder, newOrder);
             orderDAO.saveData();
             System.out.println("Order Status for Order ID: " + newOrder.getOrderId() + " has been changed to " + newOrder.getOrderStatus());
-            return true;
+            return;
         }
         else{
-            return false;
+            System.out.println("Order not found with ID: " + orderID);
+            return;
         }
     }
 }
