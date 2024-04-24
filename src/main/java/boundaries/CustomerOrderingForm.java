@@ -1,6 +1,5 @@
 package main.java.boundaries;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,29 +12,59 @@ import main.java.models.Order;
 import main.java.utils.loggers.CustomerSession;
 import main.java.utils.types.OrderStatus;
 
-public class CustomerOrderingForm implements Form{
-    // Input validation is added for all user inputs using try-catch blocks and loops to ensure that only valid inputs are accepted.
-    // Error messages are displayed for invalid inputs to guide the user.
+/**
+ * A form for customers as a boundary level object to order items and modify their order cart.
+ * This form is implemented from the Form interface.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
+public class CustomerOrderingForm implements Form {
 
-    //User Inputs
-    // Choice in the main ordering menu (1, 2, or 3).
-    // Item name when placing an order.
-    // Number of items when specifying the quantity.
-    // Choice for take away or dine-in (1 or 2).
-    // Choice for submitting or canceling the order (1 or 2).
-
+    /**
+     * The controller for handling customer orders.
+     */
     private CustomerOrderController orderController = new CustomerOrderController(new OrderDAO());
+
+    /**
+     * The controller for handling customer menu operations.
+     */
     private CustomerMenuController menuController = new CustomerMenuController(new MenuDAO());
+
+    /**
+     * The branch where the order is placed.
+     */
     private String branch;
+
+    /**
+     * The ID of the order.
+     */
     private int orderId;
+
+    /**
+     * The Scanner object for user input.
+     */
     private Scanner scanner;
 
+    /**
+     * Constructs a CustomerOrderingForm with the specified customer session and scanner.
+     * 
+     * @param session The customer session.
+     * @param scanner The Scanner object for user input.
+     */
     public CustomerOrderingForm(CustomerSession session, Scanner scanner){
         this.branch = session.getBranch();
         this.orderId = session.getOrderId();
         this.scanner = scanner;
     }
 
+    /**
+     * Generates the ordering form and handle's customer's input for orders.
+     * It includes options such as view menu (1), starting new order (2), display cart (3),
+     * edit cart (4), submit order (5) and return to homescreen.
+     * Checks if customer input is within available options 1-6.
+     */
     @Override
     public void generateForm() {
         boolean loop = true;
@@ -101,8 +130,15 @@ public class CustomerOrderingForm implements Form{
         }
     }
 
+    /**
+     * Method to edit the items in the customer's cart, asking customers if they would like to add 
+     * or remove cart items or if they are done.
+     * Checks if customer input is within available options 1-3.
+     * 
+     * @param customOrder The customer's order.
+     * @return The updated customer's order after editing the cart.
+     */
     private Order editCart(Order customOrder) {
-
         boolean loop4 = true;
         while (loop4) {
             displayCart(customOrder);
@@ -132,6 +168,13 @@ public class CustomerOrderingForm implements Form{
         return customOrder;
     }
 
+    /**
+     * Method that removes an item from the customer's cart.
+     * Check if item exists in their carts.
+     * 
+     * @param customerOrder The customer's order.
+     * @return The updated customer's order after removing the item.
+     */
     private Order removeItem(Order customerOrder) {
         List<MenuItem> menuItems = menuController.getitems();
         boolean loop2 = true;
@@ -172,6 +215,13 @@ public class CustomerOrderingForm implements Form{
         return customerOrder;
     }
     
+    /**
+     * Method to starts a new order for the customer.
+     * Checks if order list is empty.
+     * 
+     * @param customerOrder The customer's order.
+     * @return The updated customer's order after starting a new order.
+     */
     private Order startNewOrder(Order customerOrder) {
         customerOrder = addItemsToCart(customerOrder);
         if (customerOrder.getItems().isEmpty()) {
@@ -182,6 +232,13 @@ public class CustomerOrderingForm implements Form{
         return customerOrder;
     }
 
+    /**
+     * Method to add items to the customer's cart.
+     * Checks if Item to order is not available or invalid.
+     * 
+     * @param customerOrder The customer's order.
+     * @return The updated customer's order after adding items to the cart.
+     */
     private Order addItemsToCart(Order customerOrder) {
         List<MenuItem> menuItems = menuController.getitems();
         showMenuItems(); 
@@ -204,7 +261,13 @@ public class CustomerOrderingForm implements Form{
         return customerOrder;
     }
     
-
+    /**
+     * Method to choose whether the order is for dine-in or take-away.
+     * Checks for valid input of either take away (1) or dine-in (2).
+     * 
+     * @param customerOrder The customer's order.
+     * @return The updated customer's order with the chosen option.
+     */
     private Order chooseDineInOrTakeAway(Order customerOrder) {
         System.out.println("1. Take Away\t2. Dine-in");
         int choice;
@@ -223,6 +286,12 @@ public class CustomerOrderingForm implements Form{
             }
         }
     }
+
+    /**
+     * Method to submit or cancel the customer's order, once they are done.
+     * 
+     * @param customerOrder The customer's order.
+     */
     private void submitOrder(Order customerOrder) {
         System.out.println("Confirming Order Submission...");
         displayCart(customerOrder);
@@ -241,6 +310,12 @@ public class CustomerOrderingForm implements Form{
         }
     }
 
+    /**
+     * Method to displays the customer's cart.
+     * Checks if no order is found or if cart is empty.
+     * 
+     * @param customerOrder The customer's order.
+     */
     private void displayCart(Order customerOrder) {
         if (customerOrder == null) {
             System.out.println("No order found with ID: " + orderId);
@@ -274,6 +349,11 @@ public class CustomerOrderingForm implements Form{
         System.out.println("----------------------------------------------------------------------------------------------");
     }
     
+    /**
+     * Method to display the menu items available for ordering.
+     * Prints a message if no menu items are available.
+     * 
+     */
     private void showMenuItems() {
         List<MenuItem> menuItems = menuController.getitems();
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -296,6 +376,11 @@ public class CustomerOrderingForm implements Form{
         System.out.println("|--------------------------------------------------------------------------------------------|");
     }
 
+    /**
+     * Method to add special requests for an item in the order as a comment.
+     * 
+     * @return The special requests provided by the user.
+     */
     private String getComment() {
         System.out.print("Enter the item's special requests: ");
         String comments = scanner.nextLine();
@@ -305,6 +390,12 @@ public class CustomerOrderingForm implements Form{
         return comments;
     }
 
+    /**
+     * Method to retrieve the quantity of items.
+     * Checks if quantity inputted is less than 0, which is invalid.
+     * 
+     * @return The quantity of items provided by the user.
+     */
     private int getQty() {
         int qty = -1;
         while (qty <= 0) {
@@ -321,100 +412,4 @@ public class CustomerOrderingForm implements Form{
         }
         return qty;
     }
-    
-
-    private void placeOrder1() {
-        System.out.println("Placing an Order");
-        Order customerOrder = orderController.createCustomerOrder(orderId, branch);
-        customerOrder.setOrderStatus(OrderStatus.NEW);
-        List<MenuItem> selectedItems = menuController.getitems();
-    
-        while (true) {
-            showMenuItems();
-            System.out.print("Enter the name of the item to order (type 'done' to finish): ");
-            String itemName = scanner.nextLine();
-            if (itemName.equalsIgnoreCase("done")) {
-                break;
-            }
-            MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
-            if (selectedItem == null || !selectedItem.getBranch().equals(branch)) { // Corrected check
-                System.out.println("Invalid item. Please try again.");
-                continue;
-            }
-            String comment = getComment();
-            int quantity = getQty();
-            customerOrder = orderController.addItem(customerOrder, selectedItem, quantity, comment);
-        }
-    
-        if (customerOrder.getItems().isEmpty()) {
-            System.out.println("Order is Empty! Returning to Homescreen...");
-            return;
-        }
-    
-        System.out.println("1.Take Away\t2.Dine-in");
-        int method = -1;
-        while (method != 1 && method != 2) {
-            System.out.print("Enter your choice (1 for Take Away, 2 for Dine-in): ");
-            try {
-                method = Integer.parseInt(scanner.nextLine().trim());
-                if (method != 1 && method != 2) {
-                    System.out.println("Invalid Input. Please enter 1 or 2.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
-            }
-        }
-    
-        boolean m = method == 2;
-        customerOrder.setDineIn(m);
-        while (true) {
-            try {
-                System.out.println("You have selected the following items:");
-                for (MenuItem item : customerOrder.getItems()) {
-                    System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-                }
-                System.out.println("1. Submit Order");
-                System.out.println("2. Remove Items");
-                System.out.println("3. Cancel Order");
-                method = Integer.parseInt(scanner.nextLine().trim());
-                if (method == 1) {
-                    orderController.saveOrder(customerOrder);
-                    System.out.println("Thank you for your order. Please proceed to make payment...");
-                    return;
-                } else if (method == 2) {
-                    boolean loop2 = true;
-                    while (loop2){
-                        System.out.println("Please enter the item you wish to remove");
-                        String itemName = scanner.nextLine();
-                        int quantity = getQty();
-                        MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
-                        if (selectedItem == null || !selectedItem.getBranch().equals(branch)) { // Corrected check
-                            System.out.println("Invalid item. Please try again.");
-                            continue;
-                        }
-                        try {
-                            customerOrder = orderController.deleteItem(customerOrder, selectedItem, quantity);
-                            loop2=false;
-                        } catch (Exception e) {
-                            System.out.println("Please enter a valid quantity");
-                        }
-                    }
-                    continue;
-                } else if (method == 3) {
-                    customerOrder = orderController.createCustomerOrder(orderId, branch);
-                    System.out.println("Order cancelled. Returning to main menu.");
-                    return;
-
-                } else {
-                    System.out.println("Invalid input. Please choose 1 to submit or 2 to cancel.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a number.");
-                scanner.nextLine(); 
-            }
-        }
-    }
-
-    
 }

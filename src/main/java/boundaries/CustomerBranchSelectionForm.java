@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 /**
  * A form for customers as a boundary level object to select the branch they wish to order from.
- * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
  * @version 1.1
@@ -51,7 +50,7 @@ public class CustomerBranchSelectionForm {
 
     /**
      * Generates the branch selection form and handle's customer's input for choice of branch.
-     * Checks if user input is within available branch options.
+     * Checks if customer input is within available branch options.
      * 
      * @return The updated customer session after branch selection.
      */
