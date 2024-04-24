@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.utils.types.OrderStatus; // Import the ENUMs of OrderStatus
+import java.time.LocalDateTime;
+
 
 /**
  * The Order class represents an order made in a restaurant.
@@ -39,12 +41,16 @@ public class Order {
     /** The status of the order. */
     private OrderStatus orderStatus;
 
+    /** The last updated time of the order. */
+    private LocalDateTime time;
+
     /**
      * Constructs an Order object with the given order ID and branch.
      * Initializes other fields with default values.
      * 
      * @param orderId The unique ID of the order
      * @param branch The branch where the order was placed
+     * @param time Indicates time when order is last updated
      */
     public Order(int orderId, String branch) {
         this.orderId = orderId;
@@ -53,6 +59,7 @@ public class Order {
         this.comments = new ArrayList<>();
         this.isDineIn = false;
         this.isCompleted = false;
+        this.time = LocalDateTime.now();
     }
 
     /**
@@ -62,14 +69,24 @@ public class Order {
      * @param orderStatus The status of the order
      * @param isDineIn Indicates whether the order is for dine-in
      * @param isCompleted Indicates whether the order is completed
+     * @param time Indicates time when order is last updated
      */
-    public Order(int orderId, OrderStatus orderStatus, boolean isDineIn, boolean isCompleted) {
+    public Order(int orderId, OrderStatus orderStatus, boolean isDineIn, boolean isCompleted, LocalDateTime time) {
         this.orderId = orderId;
         this.isDineIn = isDineIn;
         this.isCompleted = isCompleted;
         this.orderStatus = orderStatus;
         this.items = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.time = time;
+    }
+    /**
+     * Retrieves the time when the order was last updated.
+     * 
+     * @return The branch of the order
+     */
+    public LocalDateTime getTime() {
+        return time;
     }
 
     /**
@@ -198,11 +215,12 @@ public class Order {
     }
 
     /**
-     * Sets the status of the order.
+     * Sets the status of the order and updates the order update timing.
      * 
      * @param orderStatus The new status of the order
      */
     public void setOrderStatus(OrderStatus orderStatus) {
+        this.time = LocalDateTime.now();
         this.orderStatus = orderStatus;
     }
 

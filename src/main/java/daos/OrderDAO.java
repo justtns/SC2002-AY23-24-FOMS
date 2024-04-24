@@ -15,6 +15,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 /**
  * OrderDAO is implemented from DAOInterface 
  * OrderDAO is a Data Access Object (DAO) for managing Order objects with CRUD Operations.
@@ -49,7 +52,7 @@ public class OrderDAO implements DAOInterface<Order>{
         String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
         File ordersFile = new File(ordersFilePath);
         if (!ordersFile.exists()) {
-            String[] headers = new String[]{"Order ID", "Branch", "Order Status", "Is Dine In", "Is Completed"};
+            String[] headers = new String[]{"Order ID", "Branch", "Order Status", "Is Dine In", "Is Completed", "time"};
             try (Workbook workbook = new XSSFWorkbook();
             FileOutputStream fos = new FileOutputStream(ordersFilePath)) {
                 Sheet sheet = workbook.createSheet("Sheet1");
@@ -98,8 +101,12 @@ public class OrderDAO implements DAOInterface<Order>{
                 OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(2).getStringCellValue());
                 boolean isDineIn = row.getCell(3).getBooleanCellValue();
                 boolean isCompleted = row.getCell(4).getBooleanCellValue();
-
-                Order order = new Order(orderId, orderStatus, isDineIn, isCompleted);
+                LocalDateTime orderTime = LocalDateTime.parse(row.getCell(5).getStringCellValue());
+                LocalDateTime now = LocalDateTime.now();
+                if (orderStatus == OrderStatus.READY & ChronoUnit.HOURS.between(orderTime, now) > 2){ //ignores orders that have existed for more than 3hrs
+                    continue;
+                }
+                Order order = new Order(orderId, orderStatus, isDineIn, isCompleted, orderTime);
                 addElement(order);
             }
         } catch (IOException e) {
@@ -169,6 +176,7 @@ public class OrderDAO implements DAOInterface<Order>{
             headerRow.createCell(2).setCellValue("Order Status");
             headerRow.createCell(3).setCellValue("Is Dine In");
             headerRow.createCell(4).setCellValue("Is Completed");
+            headerRow.createCell(5).setCellValue("Time");
     
             int rowIndex = 1;
             for (Order order : orderList) {
@@ -178,6 +186,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 row.createCell(2).setCellValue(order.getOrderStatus().toString());
                 row.createCell(3).setCellValue(order.isDineIn());
                 row.createCell(4).setCellValue(order.isCompleted());
+                row.createCell(5).setCellValue(order.getTime().toString());
             }
             workbook.write(fos);
         } catch (IOException e) {
