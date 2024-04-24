@@ -3,7 +3,9 @@ package main.java.boundaries;
 import java.util.Scanner;
 
 import main.java.controllers.StaffMenuController;
-import main.java.daos.MenuDAO;  
+import main.java.daos.MenuDAO;
+import java.util.InputMismatchException;
+
 
 public class ManagerMenuForm implements Form {
 
@@ -23,8 +25,8 @@ public class ManagerMenuForm implements Form {
                                "|-----------------------Manager Menu Actions-------------------------|\n" +
                                "----------------------------------------------------------------------\n" +
                                "|                   Choose an option:                                |\n" +
-                               "|                   1.Display the List of Staff in your Branch       |\n" +
-                               "|                   2.Edit Menu Items                                |\n" +
+                               "|                   1.Add Menu Item                                  |\n" +
+                               "|                   2.Edit Menu Item                                 |\n" +
                                "|                   3.Remove Menu Item                               |\n" +
                                "|                   4.Change Menu Item Availability                  |\n" +
                                "|                   5.Edit Menu Item Description                     |\n" +
@@ -90,23 +92,27 @@ public class ManagerMenuForm implements Form {
         
         System.out.println("Enter the name of the new menu item:");
         String name = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter the category of the new menu item:");
         String category = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter the description of the new menu item:");
         String description = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
-        System.out.println("Enter the price of the new menu item:");
-        double price = scanner.nextDouble();
-        scanner.nextLine(); // Consume the newline character after a number input
+        double price = -1;
+        while (price == -1) {
+            System.out.println("Enter the new price for the menu item:");
+            try {
+                price = scanner.nextDouble();
+                scanner.nextLine(); // Consume the newline character after a number input
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid price (e.g., 9.99).");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
 
         System.out.println("Enter the branch of the new menu item:");
         String branch = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         // Boolean availability = true;
         menuController.addMenuItem(name, category, branch, description, price);
@@ -117,62 +123,71 @@ public class ManagerMenuForm implements Form {
         
         System.out.println("Enter the name of the menu item to edit:");
         String name = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter the description of the menu item:");
         String newDescription = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
         
         System.out.println("Enter the new category for the menu item:");
         String newCategory = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
-        System.out.println("Enter the new price for the menu item:");
-        double newPrice = scanner.nextDouble();
-        scanner.nextLine(); // Consume newline
+        double newPrice = -1;
+        while (newPrice == -1) {
+            System.out.println("Enter the new price for the menu item:");
+            try {
+                newPrice = scanner.nextDouble();
+                scanner.nextLine(); // Consume the newline character after a number input
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid price (e.g., 9.99).");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
         
         menuController.editMenuItem(name, branch, newCategory, newDescription, newPrice);
-        }
+    }
 
     public void removeMenuItemDetails(){
         System.out.println("Removing a menu item.");
+
         System.out.println("Enter the name of the menu item to remove:");
         String itemName = scanner.nextLine();
-        scanner.nextLine(); // // Consume the newline character
 
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
         
         menuController.removeMenuItem(itemName, branch);
-        }
+    }
 
     public void changeMenuItemAvailability(){
         System.out.println("Changing item availability.");
                     
         System.out.println("Enter the name of the menu item to change availability:");
         String itemNameToChangeAvailability = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
-        scanner.nextLine(); // Consume the newline character
         
         System.out.println("Enter new availability (true for available, false for not available):");
-        Boolean newAvailability = scanner.nextBoolean();
-        scanner.nextLine(); // Consume newline
+        Boolean newAvailability = null;
+        while (newAvailability == null) {
+            try {
+                newAvailability = scanner.nextBoolean();
+                scanner.nextLine(); // Consume the newline character
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter true or false.");
+                scanner.nextLine(); // Consume the invalid input
+            }
+    }
 
         menuController.changeAvailability(itemNameToChangeAvailability, branch, newAvailability);
-        }
+    }
 
     public void editMenuItemDescription(){
         System.out.println("Editing item description.");          
         
-        System.out.println("Enter the name of the menu item to change availability:");
+        System.out.println("Enter the name of the menu item:");
         String itemNameToEditDescription = scanner.nextLine();
         scanner.nextLine(); // Consume the newline character
 
@@ -185,5 +200,5 @@ public class ManagerMenuForm implements Form {
         scanner.nextLine(); // Consume the newline character
         
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
-        }
+    }
 }

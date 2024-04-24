@@ -52,27 +52,11 @@ public class StaffOrderForm implements Form{
                     break;
                 case 2:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Enter Order ID:");
-                    try {
-                        orderID = Integer.parseInt(scanner.nextLine().trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid Input. Please enter a number.");
-                        scanner.nextLine(); // Consume the invalid input
-                        continue;
-                    }
-                    viewOrder(orderID);
+                    viewOrder();
                     break;
                 case 3:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Enter Order ID:");
-                    try {
-                        orderID = Integer.parseInt(scanner.nextLine().trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid Input. Please enter a number.");
-                        scanner.nextLine(); // Consume the invalid input
-                        continue;
-                    }
-                    updateOrder(orderID);
+                    updateOrder();
                     break;
                 case 4:
                     scanner.nextLine(); // Consume the newline character
@@ -91,13 +75,36 @@ public class StaffOrderForm implements Form{
         orderController.displayNewOrder(staffId);
     }
 
-    private void viewOrder(int orderID){
+    private void viewOrder(){
+        int orderID = -1;
+        System.out.println("Enter Order ID:");
+        while (orderID == -1) {
+            try {
+                orderID = Integer.parseInt(scanner.next());
+                scanner.nextLine(); // Consume the invalid input
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter (1-2)");
+                continue;
+            }
+        }
         if(!orderController.viewParticularOrder(orderID)){
             System.out.println("Order not found with ID: " + orderID);
         }
     }
 
-    private void updateOrder(int orderID){
+    private void updateOrder(){
+        int orderID = -1;
+        System.out.println("Enter Order ID:");
+        while (orderID == -1) {
+            try {
+                orderID = Integer.parseInt(scanner.next());
+                scanner.nextLine(); // Consume the invalid input
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter (1-2)");
+                continue;
+            }
+        }
+
         if(!orderController.processOrder(orderID)){
             System.out.println("Order not found with ID: " + orderID);
         }
