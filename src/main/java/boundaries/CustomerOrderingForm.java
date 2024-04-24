@@ -122,27 +122,45 @@ public class CustomerOrderingForm implements Form{
     
         boolean m = method == 2;
         customerOrder.setDineIn(m);
-    
-        System.out.println("You have selected the following items:");
-        for (MenuItem item : customerOrder.getItems()) {
-            System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
-        }
-        System.out.println("1. Submit Order");
-        System.out.println("2. Cancel Order");
-    
         while (true) {
             try {
+                System.out.println("You have selected the following items:");
+                for (MenuItem item : customerOrder.getItems()) {
+                    System.out.printf("%s - $%.2f%n", item.getName(), item.getPrice());
+                }
+                System.out.println("1. Submit Order");
+                System.out.println("2. Remove Items");
+                System.out.println("3. Cancel Order");
                 method = Integer.parseInt(scanner.nextLine().trim());
                 if (method == 1) {
                     orderController.saveOrder(customerOrder);
                     System.out.println("Thank you for your order. Please proceed to make payment...");
-                } else if (method == 2) {
-                    System.out.println("Order cancelled. Returning to main menu.");
                     return;
+                } else if (method == 2) {
+                    boolean loop2 = true;
+                    while (loop2){
+                        System.out.println("Please enter the item you wish to remove");
+                        String itemName = scanner.nextLine();
+                        int quantity = getQty();
+                        MenuItem selectedItem = menuController.findMenuItemByName(itemName, branch, selectedItems);
+                        if (selectedItem == null || !selectedItem.getBranch().equals(branch)) { // Corrected check
+                            System.out.println("Invalid item. Please try again.");
+                            continue;
+                        }
+                        try {
+                            customerOrder = orderController.deleteItem(customerOrder, selectedItem, quantity);
+                            loop2=false;
+                        } catch (Exception e) {
+                            System.out.println("Please enter a valid quantity");
+                        }
+                    }
+                    continue;
+                } else if (method == 3) {
+                        System.out.println("Order cancelled. Returning to main menu.");
+                        return;
                 } else {
                     System.out.println("Invalid input. Please choose 1 to submit or 2 to cancel.");
                 }
-                break;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 scanner.nextLine(); // Consume the invalid input
