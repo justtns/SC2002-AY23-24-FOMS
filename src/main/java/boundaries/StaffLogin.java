@@ -4,8 +4,7 @@ import main.java.utils.types.StaffRole;
 import main.java.controllers.StaffAuthenticationController;
 import main.java.daos.StaffDAO;
 
-public class StaffLogin {   
-    public StaffRole staffRole;
+public class StaffLogin {
     private StaffAuthenticationController authController = new StaffAuthenticationController(new StaffDAO());
     private String password;
     private String username;
@@ -26,5 +25,9 @@ public class StaffLogin {
         }
         this.password = newPassword;
         return authController.updatePassword(username, password, newPassword);
+    }
+
+    public boolean verifyRole(StaffRole role){
+        return authController.checkRole(username, role);
     }
 }

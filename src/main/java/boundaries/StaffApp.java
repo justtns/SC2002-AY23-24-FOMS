@@ -14,12 +14,17 @@ public class StaffApp implements AppDisplay {
         
         System.out.println("----------------------------------------------------------------------\n" +
                            "|--------------------------Login Portal------------------------------|\n" +
+                           "----------------------------------------------------------------------\n" +
+                           "|                      Choose an option:                             |\n" +
+                           "|                      1. Admin                                      |\n" +
+                           "|                      2. Staff                                      |\n" +
+                           "|                      3. Manager                                    |\n" +
                            "----------------------------------------------------------------------\n");
-
-        enterRole(scanner);
         
         boolean loop = true;
         while(loop){
+            enterRole(scanner);
+
             System.out.println("Enter username:");
             String username = scanner.nextLine();
             
@@ -32,6 +37,11 @@ public class StaffApp implements AppDisplay {
             boolean passwordAuthenticated = staffLogin.enterPassword(password);
 
             if (usernameAuthenticated && passwordAuthenticated) {
+                if(!staffLogin.verifyRole(staffRole)){
+                    System.out.println("User: " + username + " does not belong to " + staffRole + " role. Please try again.");
+                    continue;
+                }
+                
                 System.out.println("Login successful for role: " + staffRole + " and user: " + username);
                 this.staffSession = new StaffSession(username, staffRole);
                 StaffUserView view;
@@ -61,21 +71,27 @@ public class StaffApp implements AppDisplay {
     public void enterRole(Scanner scanner) {
         
         while(true){
-            System.out.println("Please enter your role (Admin/Manager/Staff): ");
-            String roleInput = scanner.nextLine();
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.next());
+                scanner.nextLine(); // Consume the invalid input
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter (1-3)");
+                continue;
+            }
             
-            switch (roleInput.toLowerCase()) {
-                case "admin":
+            switch (choice) {
+                case 1:
                     this.staffRole = StaffRole.ADMIN;
                     return;
-                case "manager":
-                    this.staffRole = StaffRole.MANAGER;
-                    return;
-                case "staff":
+                case 2:
                     this.staffRole = StaffRole.STAFF;
                     return;
+                case 3:
+                    this.staffRole = StaffRole.MANAGER;
+                    return;
                 default:
-                    System.out.println("Invalid role entered.");
+                    System.out.println("Invalid Input. Please enter (1-3).");
                     break;
             }
         }

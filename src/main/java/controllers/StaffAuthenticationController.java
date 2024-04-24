@@ -1,6 +1,7 @@
 package main.java.controllers;
 
 import main.java.models.Staff;
+import main.java.utils.types.StaffRole;
 import main.java.daos.StaffDAO;
 
 /**
@@ -71,5 +72,15 @@ public class StaffAuthenticationController {
             }
         }
         return false;
+    }
+
+    public boolean checkRole(String username, StaffRole role) {
+        Staff staff = staffDAO.findElement(username);
+        if(staff.getRole() == role){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
