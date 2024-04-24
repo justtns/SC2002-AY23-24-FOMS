@@ -44,9 +44,11 @@ public class StaffOrderForm implements Form{
 
             switch (choice) {
                 case 1:
+                    scanner.nextLine(); // Consume the newline character
                     displayOrders();
                     break;
                 case 2:
+                    scanner.nextLine(); // Consume the newline character
                     int orderID;
                     try {
                         orderID = Integer.parseInt(scanner.nextLine().trim());
@@ -58,6 +60,7 @@ public class StaffOrderForm implements Form{
                     viewOrder(orderID);
                     break;
                 case 3:
+                    scanner.nextLine(); // Consume the newline character
                     try {
                         orderID = Integer.parseInt(scanner.nextLine().trim());
                     } catch (NumberFormatException e) {
@@ -68,6 +71,7 @@ public class StaffOrderForm implements Form{
                     updateOrder(orderID);
                     break;
                 case 4:
+                    scanner.nextLine(); // Consume the newline character
                     loop=false;
                     System.out.println("Returning to Homescreen...");
                     break;
