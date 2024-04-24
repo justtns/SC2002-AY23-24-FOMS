@@ -6,17 +6,48 @@ import main.java.controllers.StaffDisplayController;
 import main.java.daos.StaffDAO;
 import main.java.utils.loggers.StaffSession;
 
+/**
+ * The ManagerDisplayForm class represents the boundary level object form for managers to perform display actions.
+ * This form allows a manager to perform actions such as displaying the list of staff in their branch.
+ * This form is implemented from the Form interface.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class ManagerDisplayForm implements Form {
-
+    /**
+     * The controller for displaying staff information.
+     */
     private StaffDisplayController displayController = new StaffDisplayController(new StaffDAO());
+
+    /**
+     * The session of the manager.
+     */
     private StaffSession session;
+
+    /**
+     * The scanner object used for user input.
+     */
     private Scanner scanner;
 
+    /**
+     * Constructs a ManagerDisplayForm with the given session and scanner.
+     * 
+     * @param session The session of the manager.
+     * @param scanner The scanner object used for user input.
+     */
     public ManagerDisplayForm(StaffSession session, Scanner scanner){
         this.session = session;
         this.scanner = scanner;
     }
 
+    /**
+     * Generates the manager display form containing all manager display actions.
+     * This method presents the manager with options to display the list of staff in their branch
+     * or return to the homescreen.
+     * Checks if user input is within options 1-2.
+     */
     @Override
     public void generateForm(){
         boolean loop=true;
@@ -57,6 +88,9 @@ public class ManagerDisplayForm implements Form {
         }
     }
 
+    /**
+     * Displays the list of staff in the manager's branch.
+     */
     private void displayStaffList() {
         String staffUserID = session.getStaffUserID();
         displayController.managerDisplayStaffList(staffUserID);

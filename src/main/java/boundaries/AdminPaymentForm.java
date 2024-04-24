@@ -33,7 +33,7 @@ public class AdminPaymentForm implements Form {
     }
 
     /**
-     * Generates the admin payment form and handles user input.
+     * Generates the admin payment form and handles admin's input.
      * Checks if user input is within options 1-3.
      */
     @Override
@@ -82,7 +82,7 @@ public class AdminPaymentForm implements Form {
     }
 
     /**
-     * Gets details such as payment method name and payment type for adding a new payment method from the user.
+     * Gets details such as payment method name and payment type for adding a new payment method from the admin staff.
      * Prints a message to admin personnel if payment method is successfully added or not.
      */
     private void getNewPaymentDetails() {
