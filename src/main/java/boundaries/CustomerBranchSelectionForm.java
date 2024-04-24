@@ -8,19 +8,53 @@ import main.java.utils.loggers.CustomerSession;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A form for customers as a boundary level object to select the branch they wish to order from.
+ * This form is implemented from the Form interface.
+ * 
+ * @author SDDA Team 1
+ * @version 1.1
+ * @since 24-Apr-2024
+ */
 public class CustomerBranchSelectionForm {
-    // input: Branch selection: The user selects a branch by entering the corresponding number.
 
+    /**
+     * The Scanner object for user input.
+     */
     private Scanner scanner;
+
+    /**
+     * The DAO object for retrieving branches.
+     */
     private BranchDAO branchDAO = new BranchDAO();
+
+    /**
+     * The controller for handling customer branch operations.
+     */
     private CustomerBranchController branchController = new CustomerBranchController(branchDAO);
+
+    /**
+     * The customer session associated with the form.
+     */
     private CustomerSession session;
 
+    /**
+     * Constructs a CustomerBranchSelectionForm with the specified customer session and scanner.
+     * 
+     * @param session The customer session.
+     * @param scanner The Scanner object for user input.
+     */
     public CustomerBranchSelectionForm(CustomerSession session, Scanner scanner){
         this.session = session;
         this.scanner = scanner;
     }
 
+    /**
+     * Generates the branch selection form and handle's customer's input for choice of branch.
+     * Checks if user input is within available branch options.
+     * 
+     * @return The updated customer session after branch selection.
+     */
     public CustomerSession generateForm(){
         // Display branches for selection
         List<Branch> branches = branchController.getBranches();
