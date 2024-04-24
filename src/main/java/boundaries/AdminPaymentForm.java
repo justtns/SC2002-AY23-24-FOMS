@@ -8,6 +8,7 @@ import main.java.daos.PaymentDAO;
 /**
  * A form for administrative staff as a boundary level object to perform payment actions.
  * Administrators can add or remove payment methods using this form.
+ * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
  * @version 1.1

@@ -9,6 +9,7 @@ import main.java.utils.types.StaffRole;
 /**
  * A form for administrative staff as a boundary level object to perform changes to staff accounts.
  * Administrators can add, edit, or remove staff accounts using this form.
+ * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
  * @version 1.2
