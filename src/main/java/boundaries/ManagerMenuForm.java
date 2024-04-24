@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffMenuController;
 import main.java.daos.MenuDAO;
+import main.java.daos.BranchDAO;
 import java.util.InputMismatchException;
 
 /**
@@ -33,7 +34,7 @@ public class ManagerMenuForm implements Form {
      * @param scanner The scanner object used for user input.
      */
     public ManagerMenuForm(Scanner scanner){
-        this.menuController = new StaffMenuController(new MenuDAO()); 
+        this.menuController = new StaffMenuController(new MenuDAO(), new BranchDAO()); 
         this.scanner = scanner;
     }
 

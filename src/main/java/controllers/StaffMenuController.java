@@ -2,6 +2,8 @@ package main.java.controllers;
 
 import main.java.daos.MenuDAO;
 import main.java.models.MenuItem;
+import main.java.daos.BranchDAO;
+import main.java.models.Branch;
 import java.util.List;
 
 /**
@@ -18,14 +20,16 @@ public class StaffMenuController {
     
     /** The MenuDAO instance to interact with menu item data. */
     private MenuDAO menuDAO;
+    private BranchDAO branchDAO;
 
     /**
      * Constructs a new StaffMenuController with the specified MenuDAO.
      *
      * @param menuDAO the MenuDAO instance
      */
-    public StaffMenuController(MenuDAO menuDAO) {
+    public StaffMenuController(MenuDAO menuDAO, BranchDAO branchDAO) {
         this.menuDAO = menuDAO;
+        this.branchDAO = branchDAO;
     }
 
     /**
@@ -42,12 +46,18 @@ public class StaffMenuController {
      *
      * @param name the name of the menu item
      * @param category the category of the menu item
-     * @param branch the branch where the menu item is available
+     * @param branchName the branch where the menu item is available
      * @param description the description of the menu item
      * @param price the price of the menu item
      */
-    public void addMenuItem(String name, String category, String branch, String description, double price) {
-        MenuItem item = new MenuItem(name, category, branch, description, price);
+    public void addMenuItem(String name, String category, String branchName, String description, double price) {
+        Branch branch = branchDAO.findElement(branchName);
+        if(branch == null){
+            System.out.println("Branch not found: " + branchName);
+            return;
+        }
+
+        MenuItem item = new MenuItem(name, category, branchName, description, price);
         if (MenuDAO.findElement(item.getName(), item.getBranch()) == null) {
             menuDAO.addElement(item);
             menuDAO.saveData();
@@ -61,18 +71,24 @@ public class StaffMenuController {
      * Edits the details of an existing menu item.
      *
      * @param name the name of the menu item to edit
-     * @param branch the branch where the menu item is available
+     * @param branchName the branch where the menu item is available
      * @param newCategory the new category for the menu item
      * @param newDescription the new description for the menu item
      * @param newPrice the new price for the menu item
      */
-    public void editMenuItem(String name, String branch, String newCategory, String newDescription,double newPrice) {
-        MenuItem item = MenuDAO.findElement(name, branch);
+    public void editMenuItem(String name, String branchName, String newCategory, String newDescription,double newPrice) {
+        Branch branch = branchDAO.findElement(branchName);
+        if(branch == null){
+            System.out.println("Branch not found: " + branchName);
+            return;
+        }
+        
+        MenuItem item = MenuDAO.findElement(name, branchName);
         if (item == null) {
             System.out.println("Menu item not found.");
         }
         else{
-            MenuItem updatedItem = new MenuItem(name, newCategory, branch, newDescription, newPrice);
+            MenuItem updatedItem = new MenuItem(name, newCategory, branchName, newDescription, newPrice);
             menuDAO.updateElement(item, updatedItem);
             menuDAO.saveData();
             System.out.println("Menu item updated: " + updatedItem.getName());
@@ -83,16 +99,22 @@ public class StaffMenuController {
      * Removes an existing menu item.
      *
      * @param name the name of the menu item to remove
-     * @param branch the branch where the menu item is available
+     * @param branchName the branch where the menu item is available
      */
-    public void removeMenuItem(String name, String branch) {
-        MenuItem itemToRemove = MenuDAO.findElement(name, branch);
+    public void removeMenuItem(String name, String branchName) {
+        Branch branch = branchDAO.findElement(branchName);
+        if(branch == null){
+            System.out.println("Branch not found: " + branchName);
+            return;
+        }
+
+        MenuItem itemToRemove = MenuDAO.findElement(name, branchName);
         if (itemToRemove != null) {
-            menuDAO.removeElement(name, branch);
+            menuDAO.removeElement(name, branchName);
             menuDAO.saveData();
             System.out.println("Menu item removed: " + itemToRemove.getName());
         } else {
-            System.err.println("Menu item with name " + name + " not found in branch: " + branch);
+            System.err.println("Menu item with name " + name + " not found in branch: " + branchName);
         }
     }
 
@@ -100,17 +122,23 @@ public class StaffMenuController {
      * Changes the availability of a menu item.
      *
      * @param name the name of the menu item
-     * @param branch the branch where the menu item is available
+     * @param branchName the branch where the menu item is available
      * @param availability the new availability status of the menu item
      */
-    public void changeAvailability(String name, String branch, boolean availability) {
-        MenuItem itemToChangeAvailability = MenuDAO.findElement(name, branch);
+    public void changeAvailability(String name, String branchName, boolean availability) {
+        Branch branch = branchDAO.findElement(branchName);
+        if(branch == null){
+            System.out.println("Branch not found: " + branchName);
+            return;
+        }
+
+        MenuItem itemToChangeAvailability = MenuDAO.findElement(name, branchName);
         if (itemToChangeAvailability != null) {
             itemToChangeAvailability.setAvailable(availability);
             menuDAO.saveData();
             System.out.println("Menu item availability changed: " + itemToChangeAvailability.getName());
         } else {
-            System.err.println("Menu item with name " + name + " not found in branch: " + branch);
+            System.err.println("Menu item with name " + name + " not found in branch: " + branchName);
         }
     }
 
