@@ -92,7 +92,7 @@ public class OrderDAO implements DAOInterface<Order>{
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                if (row.getRowNum() == 0| row.getCell(0).getStringCellValue().isEmpty()) continue;
+                if (row.getRowNum() == 0| row.getCell(0) == null) continue;
 
                 int orderId = (int) row.getCell(0).getNumericCellValue();
                 OrderStatus orderStatus = OrderStatus.valueOf(row.getCell(2).getStringCellValue());
@@ -153,9 +153,73 @@ public class OrderDAO implements DAOInterface<Order>{
      * If the files do not exist, it creates new ones.
      * Handles IOException if encountered while writing the files.
      */
-    @Override
+        @Override
     public void saveData(){
-        // Code for saving data to Excel files
+        String ordersFilePath = "src/main/resources/xlsx/order_list.xlsx";
+        String itemsFilePath = "src/main/resources/xlsx/order_items.xlsx";
+    
+        // Writing orders to orders_list.xlsx
+        try (FileOutputStream fos = new FileOutputStream(ordersFilePath);
+                Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Orders");
+    
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Order ID");
+            headerRow.createCell(1).setCellValue("Branch");
+            headerRow.createCell(2).setCellValue("Order Status");
+            headerRow.createCell(3).setCellValue("Is Dine In");
+            headerRow.createCell(4).setCellValue("Is Completed");
+    
+            int rowIndex = 1;
+            for (Order order : orderList) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(order.getOrderId());
+                row.createCell(1).setCellValue(order.getBranch());
+                row.createCell(2).setCellValue(order.getOrderStatus().toString());
+                row.createCell(3).setCellValue(order.isDineIn());
+                row.createCell(4).setCellValue(order.isCompleted());
+            }
+            workbook.write(fos);
+        } catch (IOException e) {
+            System.out.println("Error writing orders to file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    
+        // Writing items to order_items.xlsx
+        try (FileOutputStream fos = new FileOutputStream(itemsFilePath);
+                Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Order Items");
+    
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Order ID");
+            headerRow.createCell(1).setCellValue("Name");
+            headerRow.createCell(2).setCellValue("Price");
+            headerRow.createCell(3).setCellValue("Branch");
+            headerRow.createCell(4).setCellValue("Category");
+            headerRow.createCell(5).setCellValue("Comments");
+    
+            int rowIndex = 1;
+            for (Order order : orderList) {
+                List<MenuItem> itemList = order.getItems();
+                for (int i=0; i<itemList.size(); i++) {
+                    System.out.println(order.getOrderId());
+                    System.out.println(itemList.get(i).getName());
+                    Row row = sheet.createRow(rowIndex++);
+                    row.createCell(0).setCellValue(order.getOrderId());
+                    row.createCell(1).setCellValue(itemList.get(i).getName());
+                    row.createCell(2).setCellValue(itemList.get(i).getPrice());
+                    row.createCell(3).setCellValue(itemList.get(i).getBranch());
+                    row.createCell(4).setCellValue(itemList.get(i).getCategory());
+                    row.createCell(5).setCellValue(order.getComment(i));
+                    i++;
+                }
+            }
+            workbook.write(fos);
+        } catch (IOException e) {
+            System.out.println("Error writing order items to file: " + e.getMessage());
+            e.printStackTrace();
+        }
+        readData();
     };
     
     /**

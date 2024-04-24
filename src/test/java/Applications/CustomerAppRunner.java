@@ -8,5 +8,6 @@ public class CustomerAppRunner {
     public static void main(String[] args) {
         CustomerApp customerApp = new CustomerApp();
         customerApp.execute(ScannerProvider.getScanner());
+        ScannerProvider.closeScanner();
     }
 }
