@@ -34,6 +34,7 @@ public class AdminAssignmentForm implements Form {
 
     /**
      * Generates the admin assignment form and handles user input.
+     * Checks if user input is within options 1-4.
      */
     public void generateForm(){
         boolean loop=true;
