@@ -10,12 +10,15 @@ import main.java.daos.StaffDAO;
  * A form as a boundary level object for performing administrative staff assignments for Admin personnels.
  *
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class AdminAssignmentForm implements Form {
 
+    /** The controller responsible for handling staff assignment operations. */
     private StaffAssignmentController assignmentController;
+
+    /** The scanner object used for input. */
     private Scanner scanner;
 
     /**
