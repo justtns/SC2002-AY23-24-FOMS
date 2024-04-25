@@ -17,6 +17,12 @@ import main.java.daos.StaffDAO;
 public class StaffLogin {
 
     /**
+     * Default Constructor for StaffLogin
+     */
+    public StaffLogin(){
+    }
+
+    /**
      * The authentication controller for staff users.
      */
     private StaffAuthenticationController authController = new StaffAuthenticationController(new StaffDAO());
