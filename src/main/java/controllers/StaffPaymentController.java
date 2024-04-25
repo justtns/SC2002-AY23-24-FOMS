@@ -1,5 +1,6 @@
 package main.java.controllers;
 
+import java.util.List;
 import main.java.daos.PaymentDAO;
 import main.java.models.PaymentMethod;
 
@@ -64,5 +65,17 @@ public class StaffPaymentController {
             System.out.println("Payment method does not exist.");
             return false;
         }
+    }
+
+    /**
+     * Retrieves a list of valid payment types.
+     */
+    public void getPaymentTypes(){
+        List<PaymentMethod> paymentMethods = paymentDAO.getElements();
+        System.out.println("Available Payment Methods:");
+            System.out.println(String.format("%-30s %-30s", "Name", "Type"));
+            for (PaymentMethod paymentMethod : paymentMethods) {
+                System.out.println(String.format("%-30s %-30s", paymentMethod.getName(), paymentMethod.getType()));
+            }
     }
 }

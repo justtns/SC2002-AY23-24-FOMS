@@ -41,7 +41,7 @@ public class AdminPaymentForm implements Form {
 
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        
+
         boolean loop=true;
         int choice;
         while (loop) {
@@ -51,10 +51,11 @@ public class AdminPaymentForm implements Form {
                                "|                   Choose an option:                                |\n" +
                                "|                   1.Add Payment Method                             |\n" +
                                "|                   2.Remove Payment Method                          |\n" +
-                               "|                   3.Go to Homescreen                               |\n" +
+                               "|                   3.Display Payment Methods                        |\n" +
+                               "|                   4.Go to Homescreen                               |\n" +
                                "----------------------------------------------------------------------\n" +
                                "\n" +
-                               "Enter your choice (1-3): \n");
+                               "Enter your choice (1-4): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
@@ -74,6 +75,10 @@ public class AdminPaymentForm implements Form {
                     getRemovePaymentDetails();
                     break;
                 case 3:
+                    scanner.nextLine(); // Consume the newline character
+                    displayPaymentTypes();
+                    break;
+                case 4:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
 
@@ -90,7 +95,7 @@ public class AdminPaymentForm implements Form {
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Invalid Key! Enter your choice (1-3)");
+                    System.out.println("Invalid Key! Enter your choice (1-4)");
                     break;
             }
         }
@@ -127,6 +132,14 @@ public class AdminPaymentForm implements Form {
         } else {
             System.out.println("Failed to remove payment method.");
         }
+    }
+
+    /**
+     * Displays the valid payment types by paymentController.
+     */
+    private void displayPaymentTypes() {
+        paymentController.getPaymentTypes();
+        
     }
 
 }
