@@ -13,10 +13,16 @@ import java.util.InputMismatchException;
  * This form is implemented from StaffUserView.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
- */
+*/
 public class AdminView implements StaffUserView {
+
+    /**
+     * Default Constructor for AdminView
+     */
+    public AdminView(){
+    }
 
     /**
      * Executes and generates a list of administrative actions based on the staff session.
@@ -25,7 +31,7 @@ public class AdminView implements StaffUserView {
      * It checks if user input is within options 1-6.
      *
      * @param session the staff session object
-     */
+    */
     @Override
     public void execute(StaffSession session){
         Scanner scanner = ScannerProvider.getScanner();
