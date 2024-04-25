@@ -10,7 +10,7 @@ import main.java.utils.types.LoginRole;
  * It allows users to choose between customer and staff roles and provides access to the respective App functionalities, or exit the App.
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class FOMSApp {
@@ -19,6 +19,12 @@ public class FOMSApp {
 
     /** The login role chosen by the user. */
     private LoginRole loginRole;
+
+    /**
+     * Default Constructor for FOMSApp
+     */
+    public FOMSApp(){
+    }
 
     /**
      * Executes the Fastfood Ordering and Management System (FOMS).

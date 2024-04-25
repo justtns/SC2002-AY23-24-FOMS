@@ -14,10 +14,16 @@ import main.java.factories.FormFactory;
  * This App is implemented from AppDisplay interface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class CustomerApp implements AppDisplay {
+
+    /**
+     * Default Constructor for CustomerApp
+     */
+    public CustomerApp(){
+    }
     
     /**
      * Executes the customer application.
