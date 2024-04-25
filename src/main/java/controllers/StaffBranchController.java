@@ -70,6 +70,7 @@ public class StaffBranchController {
                     staffDAO.updateElement(staffList.get(i), staffList.get(i));
                 }
             }
+            staffDAO.saveData();
             return true;
         }
         return false;
