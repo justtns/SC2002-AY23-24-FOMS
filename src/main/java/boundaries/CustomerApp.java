@@ -18,7 +18,7 @@ import main.java.factories.FormFactory;
  * @since 24-Apr-2024
  */
 public class CustomerApp implements AppDisplay {
-
+    
     /**
      * Executes the customer application.
      * 
@@ -30,11 +30,18 @@ public class CustomerApp implements AppDisplay {
      * @param scanner The Scanner object for user input.
      */
     public void execute(Scanner scanner) {
+
+
         CustomerSession session = new CustomerSession();
         CustomerBranchLogin selectBranch = new CustomerBranchLogin(session, scanner);
         session = selectBranch.generateForm();
         FormFactory actionFactory = new FormFactory();
         Form form;
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+
         Boolean loop = true;
         while (loop) {
             System.out.println("Order ID:" + session.getOrderId());

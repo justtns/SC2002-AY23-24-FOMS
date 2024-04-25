@@ -56,6 +56,9 @@ public class CustomerPostOrderForm implements Form {
      */
     @Override
     public void generateForm() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         System.out.println("Thank you for ordering with us.");
         boolean loop = true;
         while (loop) {

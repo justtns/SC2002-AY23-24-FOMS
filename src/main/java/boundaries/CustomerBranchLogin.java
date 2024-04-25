@@ -56,6 +56,11 @@ public class CustomerBranchLogin {
      */
     public CustomerSession generateForm(){
         // Display branches for selection
+        
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+
         List<Branch> branches = branchController.getBranches();
         int choice;
         System.out.println("----------------------------------------------------------------------\n" +
