@@ -13,7 +13,7 @@ import main.java.utils.types.StaffRole;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class StaffManagementController {
@@ -31,6 +31,7 @@ public class StaffManagementController {
      * Constructs a StaffManagementController object with the specified StaffDAO.
      * 
      * @param staffDAO The StaffDAO object to be used by the controller
+     * @param branchDAO The BranchDAO object to be used by the controller
      */
     public StaffManagementController(StaffDAO staffDAO, BranchDAO branchDAO){
         this.staffDAO = staffDAO;
@@ -46,7 +47,7 @@ public class StaffManagementController {
      * @param role The role of the staff member
      * @param gender The gender of the staff member
      * @param age The age of the staff member
-     * @param branch The branch where the staff member works
+     * @param branchName The name of the branch where the staff member works
      * @return True if the staff member is successfully added, false otherwise
      */
     public boolean addStaff(String name, String loginId,  StaffRole role, String gender, int age, String branchName) {
