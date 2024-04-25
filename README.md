@@ -10,6 +10,7 @@ The Fastfood Ordering and Management System (FOMS) is designed to streamline the
 - **Order Placement:** Allows customers to place orders, customize food items, and choose between takeaway or dine-in options.
 - **Payment Integration:** Secure payment processing for various payment methods, including credit/debit cards and online payment platforms.
 - **Order Tracking:** Real-time updates on the status of orders, from new orders to completed orders.
+- **Administrative Tasks:** Real-time control on the status of orders, from new orders to completed orders, as well as staff management.
 
 ## Folder Structure
 
