@@ -12,6 +12,12 @@ import java.util.Scanner;
  * @since 24-Apr-2024
  */
 public class ScannerProvider {
+
+    /**
+     * Default Constructor for ScannerProvider
+     */
+    public ScannerProvider(){
+    }
     
     /** The Scanner object used for input operations. */
     private static Scanner scanner = new Scanner(System.in);
