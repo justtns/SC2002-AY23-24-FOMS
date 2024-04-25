@@ -9,5 +9,9 @@ package main.java.utils.types;
  * @since 24-Apr-2024
  */
 public enum LoginRole {
-    CUSTOMER, STAFF
+    /** Represents customer User in FOMS */
+    CUSTOMER, 
+
+    /** Represents staff User in FOMS */
+    STAFF
 }
