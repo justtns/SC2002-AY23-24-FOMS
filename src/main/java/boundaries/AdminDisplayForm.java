@@ -95,7 +95,16 @@ public class AdminDisplayForm implements Form {
                     loop=false;
                     System.out.println("Returning to Homescreen...");
 
+                    // time delay
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();                   
+
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
