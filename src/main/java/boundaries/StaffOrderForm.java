@@ -95,6 +95,16 @@ public class StaffOrderForm implements Form{
                     scanner.nextLine(); // Consume the newline character
                     loop=false;
                     System.out.println("Returning to Homescreen...");
+
+                    //time delay
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
                     break;
                 default:
                     System.out.println("Invalid Key! Enter your choice (1-4)");
@@ -109,6 +119,12 @@ public class StaffOrderForm implements Form{
     private void displayOrders() {
         String staffId = session.getStaffUserID();
         orderController.displayNewOrder(staffId);
+
+        System.out.println("Press enter to return to the Staff Order Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -128,6 +144,12 @@ public class StaffOrderForm implements Form{
             }
         }
         orderController.viewParticularOrder(orderID);
+        
+        System.out.println("Press enter to return to the Staff Order Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -147,5 +169,11 @@ public class StaffOrderForm implements Form{
             }
         }
         orderController.processOrder(orderID);
+
+        System.out.println("Press enter to return to the Staff Order Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

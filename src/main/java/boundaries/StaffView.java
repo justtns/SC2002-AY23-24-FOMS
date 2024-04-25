@@ -64,6 +64,16 @@ public class StaffView implements StaffUserView {
             } else if (choice == 2) {
                 loop = false;
                 System.out.println("Logging out...");
+
+                // time delay
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
             } else {
                 form = actionFactory.getForm(session, scanner, choice);
                 form.generateForm();
