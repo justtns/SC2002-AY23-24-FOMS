@@ -84,12 +84,21 @@ public class CustomerPaymentForm implements Form {
     /**
      * Method to handles the selected payment method.
      * Prints a message to customers if payment is successful or not.
+     * Waits for 2 seconds to verify payment and prompts customers to choose whether to print a receipt or not
      * 
      * @param paymentService The payment service to be used.
      */
     private void handlePayment(PaymentService paymentService) {
         if (paymentController.makePayment(session.getOrderId(), paymentService)) {
             System.out.println("Payment successful!");
+
+            // time delay of 2 seconds to verify payment
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             printReceiptOption();
         } else {
             System.out.println("Payment failed. Please check the details and try again.");
@@ -104,6 +113,10 @@ public class CustomerPaymentForm implements Form {
 
         boolean loop = true;
         while (loop) {
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+
             System.out.println("----------------------------------------------------------------------\n" +
                             "|----------------------------Customer Payment------------------------|\n" +
                             "----------------------------------------------------------------------\n" +
@@ -121,6 +134,13 @@ public class CustomerPaymentForm implements Form {
             }
             if (choice == 1) {
                 System.out.println(paymentController.printReceipt(session.getOrderId()));
+
+                System.out.println("Press enter to return to the Main Menu...");
+                scanner.nextLine();
+
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+
             } else {
                 System.out.println("Thank you for your payment!");
             }
