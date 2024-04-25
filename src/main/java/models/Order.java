@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * branch, dine-in status, completion status, time, and order status.
  * 
  * @author SDDA Team 1
- * @version 1.3
+ * @version 1.4
  * @since 23-Apr-2024
  */
 public class Order {
@@ -208,15 +208,20 @@ public class Order {
     }
 
     /**
-     * Retrieves the comment at the specified index.
+     * Retrieves the comment at the specified index corresponding to an item in the order.
      * 
-     * @param index The index of the comment to retrieve
+     * @param index The index of the comment to retrieve, corresponding to an item in the order
      * @return The comment at the specified index
      */
     public String getComment(int index) {
         return comments.get(index);
     }
 
+    /**
+     * Retrieves all the comments associated with an order.
+     *
+     * @return A list of comments as strings.
+     */
     public List<String> getComments() {
         return this.comments;
     }
@@ -324,7 +329,6 @@ public class Order {
      *
      * @return String - a formatted string representing the list of MenuItem objects in the order.
      */
-
     public String itemsToString() {
         StringBuilder sb = new StringBuilder();
         for (MenuItem item : items) {
@@ -337,6 +341,12 @@ public class Order {
         return sb.toString();
     }
 
+    /**
+     * Helper method to generate a formatted string of the comments, separated by commas for a particular order.
+     * This method filters out null and empty comment entries before formatting.
+     *
+     * @return A formatted string representing the non-null and non-empty comments for a particular order.
+     */
     public String commentsToString() {
         if (comments == null || comments.isEmpty()) {
             return "No comments";
