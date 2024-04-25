@@ -11,10 +11,11 @@ import main.java.models.PaymentMethod;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class StaffPaymentController {
+    
     /** The PaymentDAO instance to interact with payment method data. */
     private PaymentDAO paymentDAO;
 
@@ -68,7 +69,7 @@ public class StaffPaymentController {
     }
 
     /**
-     * Retrieves a list of valid payment types.
+     * Retrieves a list of valid and available payment types.
      */
     public void getPaymentTypes(){
         List<PaymentMethod> paymentMethods = paymentDAO.getElements();
