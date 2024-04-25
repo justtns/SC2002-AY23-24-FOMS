@@ -69,6 +69,8 @@ public class CustomerApp implements AppDisplay {
             } else if (choice == 4) {
                 loop = false;
                 System.out.println("Logging out...");
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 break;
             } else {
                 form = actionFactory.getForm(session, scanner, choice);
