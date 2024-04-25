@@ -1,11 +1,3 @@
-/**
- * The FormFactory class is responsible for creating different types of forms based on the user session and action type.
- * It provides methods to generate forms for both customers and staff members.
- *
- * @author SDDA Team 1
- * @version 1.1
- * @since 25-Apr-2024
- */
 package main.java.factories;
 
 import java.util.Scanner;
@@ -14,7 +6,21 @@ import main.java.boundaries.*;
 import main.java.utils.loggers.*;
 import main.java.utils.types.StaffRole;
 
+/**
+ * The FormFactory class is responsible for creating different types of forms based on the user session and action type.
+ * It provides methods to generate forms for both customers and staff members.
+ *
+ * @author SDDA Team 1
+ * @version 1.2
+ * @since 25-Apr-2024
+ */
 public class FormFactory {
+
+    /**
+     * Default Constructor for FormFactory
+     */
+    public FormFactory(){
+    }
 
     /**
      * Creates a form based on the customer session and action type.
