@@ -40,12 +40,12 @@ public class MenuItem {
      * @param description The description of the menu item
      * @param price The price of the menu item
      */
-    public MenuItem(String name, String category, String branch, String description, double price) {
+    public MenuItem(String name, String category, String branch, String description, double price, boolean available) {
         this.name = name;
         this.price = price;
         this.branch = branch;
         this.category = category;
-        this.isAvailable = true;
+        this.isAvailable = available;
         this.description = description;
     }
 

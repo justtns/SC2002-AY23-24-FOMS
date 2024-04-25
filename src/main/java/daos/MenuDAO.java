@@ -48,7 +48,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
             try (Workbook workbook = new XSSFWorkbook()) {
                 Sheet sheet = workbook.createSheet("Orders");
                 Row headerRow = sheet.createRow(0);
-                String[] headers = {"Name", "Price", "Branch", "Category", "Description"};
+                String[] headers = {"Name", "Price", "Branch", "Category", "Description", "Is Available"};
                 for (int i = 0; i < headers.length; i++) {
                     Cell cell = headerRow.createCell(i);
                     cell.setCellValue(headers[i]);
@@ -78,8 +78,9 @@ public class MenuDAO implements DAOInterface<MenuItem> {
                     String itemBranch = row.getCell(2).getStringCellValue();
                     String category = row.getCell(3).getStringCellValue();
                     String description = row.getCell(4).getStringCellValue();
+                    Boolean available = row.getCell(4).getBooleanCellValue();
                     
-                    MenuItem item = new MenuItem(name, category, itemBranch, description, price);
+                    MenuItem item = new MenuItem(name, category, itemBranch, description, price, available);
                     addElement(item);
                 }
             }
@@ -105,7 +106,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
             Sheet sheet = workbook.createSheet("Menu Items");
             int rowIndex = 0;
             Row headerRow = sheet.createRow(rowIndex++);
-            String[] headers = {"Name", "Price", "Branch", "Category", "Description"};
+            String[] headers = {"Name", "Price", "Branch", "Category", "Description", "Is Available"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
@@ -117,6 +118,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
                 row.createCell(2).setCellValue(item.getBranch());
                 row.createCell(3).setCellValue(item.getCategory());
                 row.createCell(4).setCellValue(item.getDescription());
+                row.createCell(4).setCellValue(item.isAvailable());
             }
 
             workbook.write(outputStream);
