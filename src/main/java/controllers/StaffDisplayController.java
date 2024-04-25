@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class StaffDisplayController {
@@ -65,7 +65,7 @@ public class StaffDisplayController {
      * Displays the list of staff filtered by branch.
      * Checks if branch exists or not.
      * 
-     * @param branch The branch name for filtering
+     * @param branchName The branch name for filtering
      */
     public void displayStaffListByBranch(String branchName) { 
         Branch branch = branchDAO.findElement(branchName);
