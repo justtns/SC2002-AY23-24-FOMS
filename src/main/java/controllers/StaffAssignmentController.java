@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * and the data access layer (DAO).
  * 
  * @author SDDA Team 1
- * @version 1.4
+ * @version 1.5
  * @since 24-Apr-2024
  */
 public class StaffAssignmentController {
@@ -37,6 +37,7 @@ public class StaffAssignmentController {
      * Initializes the StaffDAO and branchDAO instance.
      * 
      * @param staffDAO the Data Access Object for managing Staff objects
+     * @param branchDAO the Data Access Object for managing Branch objects
      */
     public StaffAssignmentController(StaffDAO staffDAO, BranchDAO branchDAO) {
         this.staffDAO = staffDAO;
