@@ -97,6 +97,10 @@ public class CustomerPaymentForm implements Form {
      * Checks if input is valid from yes (1) or no (2).
      */
     private void printReceiptOption() {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        
         boolean loop = true;
         while (loop) {
             System.out.println("----------------------------------------------------------------------\n" +

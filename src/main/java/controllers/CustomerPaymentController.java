@@ -105,6 +105,7 @@ public class CustomerPaymentController {
             receipt.append("Thank you for your purchase!\n");
             receipt.append("============================================\n");
             return receipt.toString();
+            
         } else {
             System.err.println("Order with ID " + orderId + " not found.");
             return "Receipt could not be generated for Order ID: " + orderId;

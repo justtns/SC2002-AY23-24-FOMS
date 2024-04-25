@@ -67,9 +67,6 @@ public class CustomerOrderingForm implements Form {
      */
     @Override
     public void generateForm() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
         boolean loop = true;
         Order customerOrder = orderController.findOrder(orderId);
         if (customerOrder == null){
@@ -82,6 +79,9 @@ public class CustomerOrderingForm implements Form {
             return;
         };
         while (loop) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("Order ID: " + orderId);
             System.out.println("----------------------------------------------------------------------");
             System.out.println("|-----------------------Customer Order Menu--------------------------|");
             System.out.println("----------------------------------------------------------------------");
@@ -98,19 +98,31 @@ public class CustomerOrderingForm implements Form {
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
+
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
             }
             switch (choice) {
                 case 1:
+
+                    
                     showMenuItems();
+                    System.out.println("Press enter to return to the Order Menu...");
+                    scanner.nextLine();
                     break;
                 case 2:
                     customerOrder = startNewOrder(customerOrder);
                     break;
                 case 3:
                     displayCart(customerOrder);
+
+                    System.out.println("Press enter to return to the Order Menu...");
+                    scanner.nextLine();
+
                     break;
                 case 4:
                     customerOrder = editCart(customerOrder);
@@ -411,12 +423,13 @@ public class CustomerOrderingForm implements Form {
         System.out.println("|--------------------------------------------------------------------------------------------|");
 
         for (MenuItem item : menuItems) {
-            if (item.getBranch().equals(branch)) {
+            if (item.getBranch().equals(branch)) { 
                 System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
         }
         System.out.println("|--------------------------------------------------------------------------------------------|");
+
     }
 
     /**
