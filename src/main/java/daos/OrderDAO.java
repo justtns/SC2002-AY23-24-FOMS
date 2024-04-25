@@ -142,7 +142,7 @@ public class OrderDAO implements DAOInterface<Order>{
                         comments = " ";
                     }
                     String description = row.getCell(5).getStringCellValue();
-                    MenuItem item = new MenuItem(name, category, branch, description, price);
+                    MenuItem item = new MenuItem(name, category, branch, description, price, true);
                     currentOrder.addItem(item);
                     currentOrder.addComment(comments);
                     updateElement(currentOrder, currentOrder);

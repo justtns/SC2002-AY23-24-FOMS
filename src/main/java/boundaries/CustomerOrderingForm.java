@@ -437,7 +437,7 @@ public class CustomerOrderingForm implements Form {
         System.out.println("|--------------------------------------------------------------------------------------------|");
 
         for (MenuItem item : menuItems) {
-            if (item.getBranch().equals(branch)) { 
+            if (item.getBranch().equals(branch) & item.isAvailable()) { 
                 System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
                         item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
             }
