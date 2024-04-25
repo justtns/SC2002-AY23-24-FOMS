@@ -79,9 +79,10 @@ public class StaffManagementController {
      * Edits the details of an existing staff member, excluding Branch details which is changed in StaffAssignmentController.
      * Checks if staff account exists using login id and if login id is already taken by another staff.
      * 
-     * @param loginId The login ID of the staff member to be edited
-     * @param newLoginId The new login ID for the staff member, indicate NIL if no changes
-     * @param newPassword The new password for the staff member, indicate NIL if no changes
+     * @param loginId The login ID of the staff member with details to be edited
+     * @param newName The new name for the staff, if edits are required (indicate nil if no changes)
+     * @param newGender The new gender for the staff, if edits are required (indicate nil if no changes)
+     * @param newAge The new age for the staff, if edits are required (indicate nil if no changes)
      * @return True if the staff member is successfully edited, false otherwise
      */
     public boolean editStaff(String loginId, String newName, String newGender, int newAge) {
