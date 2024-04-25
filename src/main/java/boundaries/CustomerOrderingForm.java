@@ -101,19 +101,22 @@ public class CustomerOrderingForm implements Form {
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
 
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
             }
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             switch (choice) {
                 case 1:
 
                     showMenuItems();
                     System.out.println("Press enter to return to the Order Menu...");
                     scanner.nextLine();
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+
                     break;
                 case 2:
                     customerOrder = startNewOrder(customerOrder);
@@ -123,14 +126,17 @@ public class CustomerOrderingForm implements Form {
 
                     System.out.println("Press enter to return to the Order Menu...");
                     scanner.nextLine();
+                    
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
 
                     break;
                 case 4:
 
                     editCart(customerOrder);
 
-                    System.out.println("Press enter to return to the Order Menu...");
-                    scanner.nextLine();
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
                     break;
                 case 5:
                     if (!customerOrder.getItems().isEmpty()) {
@@ -142,7 +148,6 @@ public class CustomerOrderingForm implements Form {
                     break;
                 case 6:
                     System.out.println("Returning to Main Menu...");
-                    loop = false;
 
                     // time delay
                     try {
@@ -153,6 +158,7 @@ public class CustomerOrderingForm implements Form {
 
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
+                    loop = false;
                     break;
                 default:
                     System.out.println("Invalid Key! Enter your choice (1-5)");
@@ -178,6 +184,10 @@ public class CustomerOrderingForm implements Form {
         
         boolean loop4 = true;
         while (loop4) {
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+
             displayCart(customOrder);
             System.out.println("1. Add Items\t2. Remove Items\t3. Change Dine-In Option\t4. Done\t");
             int choice = -1;
