@@ -163,6 +163,12 @@ public class AdminManagementForm implements Form {
         } else {
             System.out.println("Staff account could not be added.");
         }
+
+        System.out.println("Press enter to return to the Admin Management Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -204,6 +210,12 @@ public class AdminManagementForm implements Form {
         } else {
             System.out.println("Staff account could not be updated. Please check the details and try again.");
         }
+
+        System.out.println("Press enter to return to the Admin Management Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -219,5 +231,13 @@ public class AdminManagementForm implements Form {
         } else {
             System.out.println("Staff account could not be removed.");
         }
+
+        System.out.println("Press enter to return to the Admin Management Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
+
+    
 }
