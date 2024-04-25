@@ -11,7 +11,7 @@ import main.java.daos.PaymentDAO;
  * This form is implemented from the Form interface.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class AdminPaymentForm implements Form {
@@ -139,7 +139,6 @@ public class AdminPaymentForm implements Form {
      */
     private void displayPaymentTypes() {
         paymentController.getPaymentTypes();
-        
     }
 
 }
