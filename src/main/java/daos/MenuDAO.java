@@ -78,8 +78,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
                     String itemBranch = row.getCell(2).getStringCellValue();
                     String category = row.getCell(3).getStringCellValue();
                     String description = row.getCell(4).getStringCellValue();
-                    Boolean available = row.getCell(4).getBooleanCellValue();
-                    
+                    Boolean available = Boolean.parseBoolean(row.getCell(5).getStringCellValue());
                     MenuItem item = new MenuItem(name, category, itemBranch, description, price, available);
                     addElement(item);
                 }
@@ -118,7 +117,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
                 row.createCell(2).setCellValue(item.getBranch());
                 row.createCell(3).setCellValue(item.getCategory());
                 row.createCell(4).setCellValue(item.getDescription());
-                row.createCell(4).setCellValue(item.isAvailable());
+                row.createCell(4).setCellValue(Boolean.toString(item.isAvailable()));
             }
 
             workbook.write(outputStream);
