@@ -70,14 +70,13 @@ public class CustomerPostOrderForm implements Form {
                                "|                   Choose an option:                                |\n" +
                                "|                   1. View Order Status                             |\n" +
                                "|                   2. Pickup Order                                  |\n" +
-                               "|                   3. Logout                                        |\n" +
+                               "|                   3. Go To Homescreen                              |\n" +
                                "----------------------------------------------------------------------\n" +
                                "\n" +
                                "Enter your choice (1-3): ");
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
-
                 
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input...");
@@ -97,7 +96,7 @@ public class CustomerPostOrderForm implements Form {
                 case 3:
                     scanner.nextLine();
                     loop = false;
-                    System.out.println("Logging Out....");
+                    System.out.println("Returning to homescreen....");
 
                     // time delay
                     try {
@@ -151,15 +150,15 @@ public class CustomerPostOrderForm implements Form {
             receipt.toString();
             System.out.println(receipt);
 
-            System.out.println("Press enter to return to the Post Order Menu...");
-            scanner.nextLine();
-
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-
         } else {
             System.out.println("Order not found with ID: " + orderId);
         }
+
+        System.out.println("Press enter to return to the Post Order Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -211,15 +210,15 @@ public class CustomerPostOrderForm implements Form {
                 }
             } else {
                 System.out.println("You cannot pickup, Order is not Ready Yet. \n");
-
-                System.out.println("Press enter to return to the Main Menu...");
-                scanner.nextLine();
-
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
             }
         } else {
             System.out.println("Order not found with ID: " + orderId);
         }
+
+        System.out.println("Press enter to return to the Main Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

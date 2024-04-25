@@ -89,6 +89,10 @@ public class CustomerBranchLogin {
                 break;
             }
         }
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         return this.session;
     }
 }

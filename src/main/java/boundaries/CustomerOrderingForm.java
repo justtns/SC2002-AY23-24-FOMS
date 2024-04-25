@@ -126,11 +126,11 @@ public class CustomerOrderingForm implements Form {
 
                     break;
                 case 4:
-                if (!customerOrder.getItems().isEmpty()) {
+
                     editCart(customerOrder);
-                } else {
-                    System.out.println("No items in the cart to edit. Please add items first.");
-                }
+
+                    System.out.println("Press enter to return to the Order Menu...");
+                    scanner.nextLine();
                     break;
                 case 5:
                     if (!customerOrder.getItems().isEmpty()) {
@@ -141,8 +141,18 @@ public class CustomerOrderingForm implements Form {
                     loop = false;
                     break;
                 case 6:
-                    System.out.println("Returning to Homescreen...");
+                    System.out.println("Returning to Main Menu...");
                     loop = false;
+
+                    // time delay
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
                     break;
                 default:
                     System.out.println("Invalid Key! Enter your choice (1-5)");
