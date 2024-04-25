@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import main.java.controllers.StaffBranchController;
 import main.java.daos.BranchDAO;
+import main.java.daos.StaffDAO;
 
 /**
  * A form for administrative staff as a boundary level object to perform branch-reltaed actions.
@@ -30,7 +31,7 @@ public class AdminBranchForm implements Form {
      * @param scanner the scanner object to be used for input
      */
     public AdminBranchForm(Scanner scanner){
-        this.branchController = new StaffBranchController(new BranchDAO());
+        this.branchController = new StaffBranchController(new BranchDAO(), new StaffDAO());
         this.scanner = scanner;
     }
 

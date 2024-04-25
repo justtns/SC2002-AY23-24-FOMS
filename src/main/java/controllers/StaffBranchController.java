@@ -1,7 +1,11 @@
 package main.java.controllers;
 
+import java.util.List;
+
 import main.java.daos.BranchDAO;
 import main.java.models.Branch;
+import main.java.daos.StaffDAO;
+import main.java.models.Staff;
 
 /**
  * The StaffBranchController class manages operations related to branches by staff members.
@@ -18,14 +22,16 @@ public class StaffBranchController {
     
     /** The BranchDAO instance to interact with branch data. */
     private BranchDAO branchDAO;
+    private StaffDAO staffDAO;
 
     /**
      * Constructs a new StaffBranchController with the specified BranchDAO.
      *
      * @param branchDAO the BranchDAO instance
      */
-    public StaffBranchController(BranchDAO branchDAO) {
+    public StaffBranchController(BranchDAO branchDAO, StaffDAO staffDAO) {
         this.branchDAO = branchDAO;
+        this.staffDAO = staffDAO;
     }
 
     /**
@@ -57,6 +63,13 @@ public class StaffBranchController {
         if (branch != null) {
             branchDAO.removeElement(name);
             branchDAO.saveData();
+            List<Staff> staffList = staffDAO.getElements();
+            for (int i=0; i<staffList.size(); i++){
+                if (staffList.get(i).getBranch().equalsIgnoreCase(name)){
+                    staffList.get(i).setBranch("UNASSIGNED");
+                    staffDAO.updateElement(staffList.get(i), staffList.get(i));
+                }
+            }
             return true;
         }
         return false;
