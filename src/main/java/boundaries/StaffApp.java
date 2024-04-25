@@ -211,5 +211,11 @@ public class StaffApp implements AppDisplay {
             else{
                 System.out.println("Password cannot be changed.");
             }
+
+        System.out.println("Press enter to return to the Login Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

@@ -80,6 +80,16 @@ public class AdminBranchForm implements Form {
                 case 4:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
+                    //time delay
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+
                     break;
                 default:
                     System.out.println("Invalid Key! Enter your choice (1-3)");
@@ -116,6 +126,12 @@ public class AdminBranchForm implements Form {
         else{
             System.out.println("A branch with the name \"" + name + "\" already exists.");
         }
+
+        System.out.println("Press enter to return to the Admin Branch Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -132,6 +148,11 @@ public class AdminBranchForm implements Form {
         else{
             System.out.println("Branch not found: " + name);
         }
+        System.out.println("Press enter to return to the Admin Branch Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 
@@ -141,5 +162,12 @@ public class AdminBranchForm implements Form {
      */
     private void viewBranch() {        
         branchController.displayAllBranches();
+
+        System.out.println("Press enter to return to the Admin Branch Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
+    
 }

@@ -108,6 +108,12 @@ public class AdminAssignmentForm implements Form {
         } else {
             System.out.println("Failed to assign manager.");
         }
+
+        System.out.println("Press enter to return to the Admin Assignment Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -123,6 +129,12 @@ public class AdminAssignmentForm implements Form {
         } else {
             System.out.println("Failed to promote staff.");
         }
+
+        System.out.println("Press enter to return to the Admin Assignment Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -144,5 +156,10 @@ public class AdminAssignmentForm implements Form {
         } else {
             System.out.println("Failed to transfer staff.");
         }
+        System.out.println("Press enter to return to the Admin Assignment Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
