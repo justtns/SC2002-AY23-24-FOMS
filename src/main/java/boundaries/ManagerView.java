@@ -12,10 +12,16 @@ import java.util.Scanner;
  * This form is implemented from StaffUserView.
  * 
  * @author SDDA Team 1
- * @version 1.1
+ * @version 1.2
  * @since 24-Apr-2024
  */
 public class ManagerView implements StaffUserView {
+
+    /**
+     * Default Constructor for ManagerView
+     */
+    public ManagerView(){
+    }
 
     /**
      * Executes and generates a list of managers actions based on the staff session.
