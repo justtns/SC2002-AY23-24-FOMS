@@ -15,6 +15,12 @@ import java.util.Scanner;
  * @since 24-Apr-2024
  */
 public class StaffView implements StaffUserView {
+
+    /**
+     * Default Constructor for Staffview
+     */
+    public StaffView(){
+    }
     
     /**
      * Executes and generates a list of staff actions based on staff session.

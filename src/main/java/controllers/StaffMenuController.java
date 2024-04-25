@@ -31,7 +31,8 @@ public class StaffMenuController {
     /**
      * Constructs a new StaffMenuController with the specified MenuDAO.
      *
-     * @param menuDAO the MenuDAO instance
+     * @param menuDAO The menuDAO object to be used by the controller
+     * @param branchDAO The branchDAO object to be used by the controller
      */
     public StaffMenuController(MenuDAO menuDAO, BranchDAO branchDAO) {
         this.menuDAO = menuDAO;
