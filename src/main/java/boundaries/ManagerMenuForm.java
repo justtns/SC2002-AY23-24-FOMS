@@ -63,10 +63,11 @@ public class ManagerMenuForm implements Form {
                                "|                   3.Remove Menu Item                               |\n" +
                                "|                   4.Change Menu Item Availability                  |\n" +
                                "|                   5.Edit Menu Item Description                     |\n" +
-                               "|                   6.Go to Homescreen                               |\n" +
+                               "|                   6.Display Menu Items                             |\n" +
+                               "|                   7.Go to Homescreen                               |\n" +
                                "----------------------------------------------------------------------\n" +
                                "\n" +
-                               "Enter your choice (1-6): \n");            
+                               "Enter your choice (1-7): \n");            
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
@@ -106,15 +107,21 @@ public class ManagerMenuForm implements Form {
                     scanner.nextLine(); // Consume the newline character
                     editMenuItemDescription();
                     break; 
-
+                
                 case 6:
+                    // View Menu Items
+                    scanner.nextLine(); // Consume the newline character
+                    showMenuItems();
+                    break; 
+
+                case 7:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
                     break;
 
                 default:
                     scanner.nextLine(); // Consume the newline character
-                    System.out.println("Invalid Key! Enter your choice (1-5)");
+                    System.out.println("Invalid Key! Enter your choice (1-7)");
                     break;
             }
         }
@@ -249,5 +256,12 @@ public class ManagerMenuForm implements Form {
         String newDescription = scanner.nextLine();
         
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
+    }
+
+    public void showMenuItems(){
+        System.out.println("Enter the branch:");
+        String branch = scanner.nextLine();
+        
+        menuController.viewMenuItems(branch);
     }
 }

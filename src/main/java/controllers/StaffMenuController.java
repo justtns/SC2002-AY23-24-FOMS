@@ -172,4 +172,35 @@ public class StaffMenuController {
             System.err.println("Menu item with name " + itemNameToEditDescription + " not found in branch: " + branch);
         }
     }
+
+    public void viewMenuItems(String branchName) {
+
+        Branch branch = branchDAO.findElement(branchName);
+        if (branch == null) {
+            System.out.println("Branch not found: " + branchName);
+            return ;
+        }
+
+        List<MenuItem> menuItems = getItems();
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("|----------------------------------------MENU ITEMS------------------------------------------|");
+        System.out.println("----------------------------------------------------------------------------------------------");
+        if (menuItems.isEmpty()) {
+            System.out.println("|--------------------------------No menu items available-------------------------------------|");
+            return;
+        }
+        System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-24s|%n",
+                "Name", "Category", "Price ($)", "Branch", "Description");
+        System.out.println("|--------------------------------------------------------------------------------------------|");
+
+        for (MenuItem item : menuItems) {
+            if (item.getBranch().equalsIgnoreCase(branchName) & item.isAvailable()) { 
+                System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
+                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
+            }
+        }
+        System.out.println("|--------------------------------------------------------------------------------------------|");
+
+    }
+
 }
