@@ -39,6 +39,22 @@ public class CustomerPaymentController {
     }
 
     /**
+     * Checks if the order has already been paid.
+     * 
+     * @param orderId The ID of the order
+     * @return True if the order has been paid, false otherwise
+     */
+    public boolean isOrderPaid(int orderId) {
+        Order order = orderDAO.findElement(Integer.toString(orderId));
+        if (order != null) {
+            return order.getOrderStatus() == OrderStatus.PAID;
+        } else {
+            System.err.println("Order with ID " + orderId + " not found.");
+            return false;
+        }
+    }
+
+    /**
      * Makes a payment for the order with the given ID using the provided payment service.
      * 
      * @param orderId The ID of the order to be paid

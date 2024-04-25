@@ -58,6 +58,13 @@ public class CustomerPaymentForm implements Form {
             return;
         }
 
+        int orderId = session.getOrderId();
+        if (paymentController.isOrderPaid(orderId)) {
+            System.out.println("This order has already been paid for.");
+            return;
+        }
+
+
         System.out.println("----------------------------------------------------------------------\n" +
                            "|----------------------------Customer Payment------------------------|\n" +
                            "----------------------------------------------------------------------\n" +

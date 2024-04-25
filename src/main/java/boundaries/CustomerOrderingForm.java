@@ -173,11 +173,16 @@ public class CustomerOrderingForm implements Form {
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
+
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+        
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input. Please enter a number.");
                 continue;
             }
             switch (choice) {
+                
                 case 1:
                     customOrder = addItemsToCart(customOrder);
                     break;
@@ -366,7 +371,7 @@ public class CustomerOrderingForm implements Form {
 
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            
+
         } else {
             System.out.println("Order submission cancelled. ");
         }

@@ -56,10 +56,11 @@ public class CustomerPostOrderForm implements Form {
      */
     @Override
     public void generateForm() {
-
+        
         System.out.println("Thank you for ordering with us.");
         boolean loop = true;
         while (loop) {
+            
             System.out.println("----------------------------------------------------------------------\n" +
                                "|----------------------------Post Order Menu-------------------------|\n" +
                                "----------------------------------------------------------------------\n" +
