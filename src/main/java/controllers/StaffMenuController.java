@@ -190,24 +190,24 @@ public class StaffMenuController {
         }
 
         List<MenuItem> menuItems = getItems();
-        System.out.println("----------------------------------------------------------------------------------------------");
-        System.out.println("|----------------------------------------MENU ITEMS------------------------------------------|");
-        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------");
+        System.out.println("|----------------------------------------------------MENU ITEMS------------------------------------------------------|");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------");
         if (menuItems.isEmpty()) {
-            System.out.println("|--------------------------------No menu items available-------------------------------------|");
+            System.out.println("|--------------------------------------------No menu items available-------------------------------------------------|");
             return;
         }
-        System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-24s|%n",
-                "Name", "Category", "Price ($)", "Branch", "Description");
-        System.out.println("|--------------------------------------------------------------------------------------------|");
+        System.out.printf("| %-20s | %-15s | %-10s | %-10s | %-32s | %-12s |%n",
+                "Name", "Category", "Price ($)", "Branch", "Description", "Availability");
+        System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
 
         for (MenuItem item : menuItems) {
             if (item.getBranch().equalsIgnoreCase(branchName) & item.isAvailable()) { 
-                System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-24s|%n",
-                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription());
+                System.out.printf("| %-20s | %-15s | %-10.2f | %-10s | %-32s | %-12s |%n",
+                        item.getName(), item.getCategory(), item.getPrice(), item.getBranch(), item.getDescription(), item.isAvailable());
             }
         }
-        System.out.println("|--------------------------------------------------------------------------------------------|");
+        System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
 
     }
 
