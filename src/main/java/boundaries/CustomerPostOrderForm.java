@@ -56,11 +56,14 @@ public class CustomerPostOrderForm implements Form {
      */
     @Override
     public void generateForm() {
-        
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         System.out.println("Thank you for ordering with us.");
         boolean loop = true;
         while (loop) {
-            
+
             System.out.println("----------------------------------------------------------------------\n" +
                                "|----------------------------Post Order Menu-------------------------|\n" +
                                "----------------------------------------------------------------------\n" +
@@ -74,6 +77,8 @@ public class CustomerPostOrderForm implements Form {
             int choice = -1;
             try {
                 choice = Integer.parseInt(scanner.next());
+
+                
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Input...");
                 scanner.nextLine(); // Consume invalid input
@@ -93,6 +98,16 @@ public class CustomerPostOrderForm implements Form {
                     scanner.nextLine();
                     loop = false;
                     System.out.println("Logging Out....");
+
+                    // time delay
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
                     break;
                 default:
                     scanner.nextLine();
@@ -107,7 +122,7 @@ public class CustomerPostOrderForm implements Form {
      * Checks if order id can be found.
      */
     public void viewOrderStatus() {
-        System.out.println("Welcome to our " + this.branch + " branch.");
+        System.out.println("View orders in the " + this.branch + " branch.");
         System.out.print("Please enter your order ID: ");
         int orderId;
         try {
@@ -135,6 +150,13 @@ public class CustomerPostOrderForm implements Form {
             receipt.append("============================================\n");
             receipt.toString();
             System.out.println(receipt);
+
+            System.out.println("Press enter to return to the Post Order Menu...");
+            scanner.nextLine();
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+
         } else {
             System.out.println("Order not found with ID: " + orderId);
         }
@@ -184,11 +206,17 @@ public class CustomerPostOrderForm implements Form {
                 if (c == 1) {
                     order.setOrderStatus(OrderStatus.COMPLETED);
                     order.setCompleted(true);
-                    System.out.println("The order has been Completed..");
+                    System.out.println("The order has been Completed.");
                     orderController.updateOrder(order);
                 }
             } else {
-                System.out.println("You cannot pickup, Order is not Ready Yet..");
+                System.out.println("You cannot pickup, Order is not Ready Yet. \n");
+
+                System.out.println("Press enter to return to the Main Menu...");
+                scanner.nextLine();
+
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
             }
         } else {
             System.out.println("Order not found with ID: " + orderId);
