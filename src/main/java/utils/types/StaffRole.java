@@ -10,5 +10,13 @@ package main.java.utils.types;
  * @since 24-Apr-2024
  */
 public enum StaffRole {
-    STAFF, MANAGER, ADMIN
+    
+    /** Represents Staff Employee at the fast-food company */
+    STAFF, 
+    
+    /** Represents Manager Employee at the fast-food company */
+    MANAGER, 
+    
+    /** Represents Admin Employee at the fast-food company */
+    ADMIN
 }
