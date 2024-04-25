@@ -50,9 +50,13 @@ public class CustomerPaymentForm implements Form {
      */
     @Override
     public void generateForm() {
-
         System.out.print("\033[H\033[2J");
         System.out.flush();
+        
+        if (paymentController.getTotal(session.getOrderId()) == 0){
+            System.err.println("To make payment, please submit your order first.");
+            return;
+        }
 
         System.out.println("----------------------------------------------------------------------\n" +
                            "|----------------------------Customer Payment------------------------|\n" +
@@ -64,7 +68,6 @@ public class CustomerPaymentForm implements Form {
                             "\n");
 
         int choice = Integer.parseInt(scanner.nextLine().trim());
-
         switch (choice) {
             case 1:
                 handlePayment(new OnlinePaymentService(paymentController));
@@ -78,7 +81,6 @@ public class CustomerPaymentForm implements Form {
                 return; 
         }
     }
-
     /**
      * Method to handles the selected payment method.
      * Prints a message to customers if payment is successful or not.
