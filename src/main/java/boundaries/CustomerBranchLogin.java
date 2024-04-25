@@ -67,7 +67,9 @@ public class CustomerBranchLogin {
                            "|-----------------------Customer Branch Selection--------------------|\n" +
                            "----------------------------------------------------------------------");
         for (int i = 0; i < branches.size(); i++) {
-            System.out.println((i) + ". " + branches.get(i).getName());
+            if (!"UNASSIGNED".equalsIgnoreCase(branches.get(i).getName())) {
+                  System.out.println((i) + ". " + branches.get(i).getName());
+                }
         }
         while (true){
             System.out.print("Please enter the branch number: ");
