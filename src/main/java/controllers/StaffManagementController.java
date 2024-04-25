@@ -84,25 +84,24 @@ public class StaffManagementController {
      * @param newPassword The new password for the staff member, indicate NIL if no changes
      * @return True if the staff member is successfully edited, false otherwise
      */
-    public boolean editStaff(String loginId, String newLoginId, String newPassword) {
+    public boolean editStaff(String loginId, String newName, String newGender, int newAge) {
         Staff oldStaff = staffDAO.findElement(loginId);
         Staff staff = staffDAO.findElement(loginId);
         if(staff == null){
             System.out.println("Staff account does not exist.");
             return false;
         }
+
+        if(!newName.equalsIgnoreCase("nil")){
+            staff.setName(newName);
+        }
         
-        if(staffDAO.findElement(newLoginId) != null) {
-            System.out.println("LoginID is already taken.");
-            return false;
+        if(!newGender.equalsIgnoreCase("nil")){
+            staff.setGender(newGender.toUpperCase());
         }
 
-        if(!newLoginId.equalsIgnoreCase("nil")){
-            staff.setLoginID(newLoginId);
-        }
-        
-        if(!newPassword.equalsIgnoreCase("nil")){
-            staff.setPassword(newPassword);
+        if(newAge != 0){
+            staff.setAge(newAge);
         }
         
         staffDAO.updateElement(oldStaff, staff);

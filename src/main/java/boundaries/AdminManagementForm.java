@@ -138,7 +138,7 @@ public class AdminManagementForm implements Form {
             System.out.println("Enter staff gender (M/F):");
             gender = scanner.nextLine().trim().toUpperCase();
             
-            if (gender.equals("M") || gender.equals("F")) {
+            if (gender.equalsIgnoreCase("M") || gender.equalsIgnoreCase("F")) {
                 validGender = true;
             } else {
                 System.out.println("Invalid input. Please enter 'M' for male or 'F' for female.");
@@ -173,13 +173,33 @@ public class AdminManagementForm implements Form {
         System.out.println("Enter staff login ID:");
         String loginId = scanner.nextLine();
 
-        System.out.println("Enter new login ID for the staff:\n(Enter nil if you do not want to change the login ID)");
-        String newLoginId = scanner.nextLine();
+        System.out.println("Enter new name for the staff:\n(Enter nil to skip)");
+        String newName = scanner.nextLine();
 
-        System.out.println("Enter new password for the staff:\n(Enter nil if you do not want to change the password)");
-        String newPassword = scanner.nextLine();
+        String newGender = "";
+        boolean validGender = false;
+        while (!validGender) {
+            System.out.println("Enter new gender (M/F) for the staff:\n(Enter nil to skip)");
+            newGender = scanner.nextLine().trim().toUpperCase();
+            
+            if (newGender.equalsIgnoreCase("M") || newGender.equalsIgnoreCase("F") || newGender.equalsIgnoreCase("nil")) {
+                validGender = true;
+            } else {
+                System.out.println("Invalid input.");
+            }
+        }
+
+        int newAge = -1;
+        while (newAge == -1) {
+            System.out.println("Enter new age for the staff:\n(Enter 0 to skip)");
+            try {
+                newAge = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
     
-        if (managementController.editStaff(loginId, newLoginId, newPassword)) {
+        if (managementController.editStaff(loginId, newName, newGender, newAge)) {
             System.out.println("Staff account updated successfully.");
         } else {
             System.out.println("Staff account could not be updated. Please check the details and try again.");
