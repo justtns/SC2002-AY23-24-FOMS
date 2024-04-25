@@ -94,6 +94,8 @@ public class AdminDisplayForm implements Form {
                 case 6:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
+
+                    
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
@@ -111,6 +113,12 @@ public class AdminDisplayForm implements Form {
         String branch = scanner.nextLine();
 
         displayController.displayStaffListByBranch(branch);
+
+        System.out.println("Press enter to return to the Main Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -131,6 +139,12 @@ public class AdminDisplayForm implements Form {
             }
         }
         displayController.displayStaffListByRole(role);
+
+        System.out.println("Press enter to return to the Main Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -153,6 +167,12 @@ public class AdminDisplayForm implements Form {
         }
 
         displayController.displayStaffListByGender(gender);
+
+        System.out.println("Press enter to return to the Main Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -171,6 +191,12 @@ public class AdminDisplayForm implements Form {
         }
 
         displayController.displayStaffListByAge(age);
+
+        System.out.println("Press enter to return to the Main Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -178,5 +204,12 @@ public class AdminDisplayForm implements Form {
      */
     private void staffList() {
         displayController.displayStaffList();
+
+        System.out.println("Press enter to return to the Main Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
     }    
 }

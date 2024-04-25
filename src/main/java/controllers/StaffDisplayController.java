@@ -139,6 +139,8 @@ public class StaffDisplayController {
                 System.out.println("====================================\n");
             }
             System.out.println("==========End of Staff List==========");
+
+
         }
     }
 }
