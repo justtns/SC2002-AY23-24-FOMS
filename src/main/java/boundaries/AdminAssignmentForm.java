@@ -126,7 +126,7 @@ public class AdminAssignmentForm implements Form {
     }
 
     /**
-     * Transfers a staff member from one branch to another based on admin's input - StaffID, old branch & new branch.
+     * Transfers a staff member from one branch to another based on admin's input - StaffID, old branch and new branch.
      * Prints a message to admin personnel if transfer of staff is successful or not.
      */
     private void transferStaffBranch(){

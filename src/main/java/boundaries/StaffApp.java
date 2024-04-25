@@ -93,6 +93,8 @@ public class StaffApp implements AppDisplay {
      * This method asks staff for their username, password, and role.
      * It then checks and authenticates the username and password to verify that the details are correct.
      * If authenticated, it will create views according to their role, otherwise it displays an appropriate error message.
+     * 
+     * @param scanner The scanner object for user input.
      */
     private void loginProcess(Scanner scanner) {
         boolean loop = true;
@@ -189,6 +191,8 @@ public class StaffApp implements AppDisplay {
      * This method facilitates the changing of password for all staff members
      * It asks users to enter their username, old and new password.
      * It then prints out a message according to whether the password has been successfully changed or not.
+     * 
+     * @param scanner The scanner object for user input.
      */
     private void changePasswordProcess(Scanner scanner) {
         System.out.println("Enter username:");
