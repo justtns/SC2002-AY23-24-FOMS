@@ -173,6 +173,14 @@ public class StaffMenuController {
         }
     }
 
+    /**
+     * Displays a formatted list of available menu items for a specified branch.
+     * The method first checks if the branch exists. If the branch is found, it retrieves and prints the details of each available 
+     * menu item, including the name, category, price, branch, and description in a table format.
+     * If no menu items are available or the branch does not exist, a corresponding message is displayed.
+     *
+     * @param branchName The name of the branch for which to display the menu items.
+     */
     public void viewMenuItems(String branchName) {
 
         Branch branch = branchDAO.findElement(branchName);

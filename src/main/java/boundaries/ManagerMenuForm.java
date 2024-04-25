@@ -42,8 +42,8 @@ public class ManagerMenuForm implements Form {
      * Generates the manager menu form.
      * 
      * This method presents the manager with options to add (1), edit (2), or remove menu items (3),
-     * change item availability (4), edit menu item descriptions (5), or return to the homescreen (6).
-     * Checks if manager input is valid within options 1-6.
+     * change item availability (4), edit menu item descriptions (5), display menu items (6), or return to homescreen (7).
+     * Checks if manager input is valid within options 1-7.
      */
     @Override
     public void generateForm(){
@@ -258,6 +258,9 @@ public class ManagerMenuForm implements Form {
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
     }
 
+    /**
+     * This method prompts the managers to enter the name of the branch for which to display all available menu items in that branch.
+     */
     public void showMenuItems(){
         System.out.println("Enter the branch:");
         String branch = scanner.nextLine();
