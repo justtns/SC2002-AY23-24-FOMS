@@ -117,6 +117,17 @@ public class ManagerMenuForm implements Form {
                 case 7:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
+
+                    //time delay
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+
                     break;
 
                 default:
@@ -162,6 +173,8 @@ public class ManagerMenuForm implements Form {
         menuController.addMenuItem(name, category, branch, description, price);
         System.out.println("Press enter to return to the Manager Menu Actions...");
         scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -199,6 +212,8 @@ public class ManagerMenuForm implements Form {
         menuController.editMenuItem(name, branch, newCategory, newDescription, newPrice);
         System.out.println("Press enter to return to the Manager Menu Actions...");
         scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -216,6 +231,8 @@ public class ManagerMenuForm implements Form {
         menuController.removeMenuItem(itemName, branch);
         System.out.println("Press enter to return to the Manager Menu Actions...");
         scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -246,6 +263,8 @@ public class ManagerMenuForm implements Form {
         menuController.changeAvailability(itemNameToChangeAvailability, branch, newAvailability);
         System.out.println("Press enter to return to the Manager Menu Actions...");
         scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -266,6 +285,8 @@ public class ManagerMenuForm implements Form {
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
         System.out.println("Press enter to return to the Manager Menu Actions...");
         scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -279,5 +300,7 @@ public class ManagerMenuForm implements Form {
 
         System.out.println("Press enter to return to the Manager Menu Actions...");
         scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
