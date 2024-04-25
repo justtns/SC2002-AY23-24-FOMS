@@ -140,17 +140,7 @@ public class AdminBranchForm implements Form {
      * Retrieves branch details from the controller and formats them for display.
      * Each branch's details are presented in a tabular format including the branch name, location, and capacity.
      */
-    private void viewBranch() {
-        List<Branch> branches = branchController.displayAllBranches();
-        if (branches.isEmpty()) {
-            System.out.println("There are no branches to display.");
-            return;
-        }
-        
-        System.out.println("Available Branches:");
-        System.out.println(String.format("%-30s %-30s %-10s", "Branch Name", "Location", "Capacity"));
-        for (Branch branch : branches) {
-            System.out.println(String.format("%-30s %-30s %-10d", branch.getName(), branch.getLocation(), branch.getCapacity()));
-        }
+    private void viewBranch() {        
+        branchController.displayAllBranches();
     }
 }

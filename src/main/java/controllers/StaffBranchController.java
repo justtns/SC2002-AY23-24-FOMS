@@ -82,7 +82,24 @@ public class StaffBranchController {
      *
      * @return a list of all branches
      */
-    public List<Branch> displayAllBranches() {
-        return branchDAO.getElements(); 
+    public void displayAllBranches() {
+        List<Branch> branches = branchDAO.getElements(); 
+        if (branches.isEmpty()) {
+            System.out.println("There are no branches to display.");
+            return;
+        }
+        else{
+            System.out.println("Available Branches:");
+            System.out.println(String.format("%-30s %-30s %-10s", "Branch Name", "Location", "Capacity"));
+            for (Branch branch : branches) {
+                if(branch.getName().equalsIgnoreCase("UNASSIGNED")){
+                    continue;
+                }
+                else{
+                    System.out.println(String.format("%-30s %-30s %-10d", branch.getName(), branch.getLocation(), branch.getCapacity()));
+                }
+                
+            }
+        }
     }
 }
