@@ -138,7 +138,6 @@ public class AdminBranchForm implements Form {
     /**
      * Displays all available branches.
      * Retrieves branch details from the controller and formats them for display.
-     * Each branch's details are presented in a tabular format including the branch name, location, and capacity.
      */
     private void viewBranch() {        
         branchController.displayAllBranches();

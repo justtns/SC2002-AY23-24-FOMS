@@ -78,9 +78,9 @@ public class StaffBranchController {
     }
 
     /**
-     * Retrieves a list of all available branches from BranchDAO.
-     *
-     * @return a list of all branches
+     * Displays all available branches in a formatted list.
+     * This method retrieves the list of branches from the BranchDAO and prints each branch's name, location, and capacity.
+     * If there are no branches to display, it outputs a message indicating that no branches are available.
      */
     public void displayAllBranches() {
         List<Branch> branches = branchDAO.getElements(); 
