@@ -50,6 +50,7 @@ public class CustomerPaymentForm implements Form {
      */
     @Override
     public void generateForm() {
+
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
@@ -63,6 +64,7 @@ public class CustomerPaymentForm implements Form {
                             "\n");
 
         int choice = Integer.parseInt(scanner.nextLine().trim());
+
         switch (choice) {
             case 1:
                 handlePayment(new OnlinePaymentService(paymentController));
@@ -98,9 +100,6 @@ public class CustomerPaymentForm implements Form {
      */
     private void printReceiptOption() {
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        
         boolean loop = true;
         while (loop) {
             System.out.println("----------------------------------------------------------------------\n" +

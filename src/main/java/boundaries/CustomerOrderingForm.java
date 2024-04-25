@@ -79,8 +79,10 @@ public class CustomerOrderingForm implements Form {
             return;
         };
         while (loop) {
+
             System.out.print("\033[H\033[2J");
             System.out.flush();
+
             System.out.println("Order ID: " + orderId);
             System.out.println("----------------------------------------------------------------------");
             System.out.println("|-----------------------Customer Order Menu--------------------------|");
@@ -109,7 +111,6 @@ public class CustomerOrderingForm implements Form {
             switch (choice) {
                 case 1:
 
-                    
                     showMenuItems();
                     System.out.println("Press enter to return to the Order Menu...");
                     scanner.nextLine();
@@ -125,7 +126,11 @@ public class CustomerOrderingForm implements Form {
 
                     break;
                 case 4:
-                    customerOrder = editCart(customerOrder);
+                if (!customerOrder.getItems().isEmpty()) {
+                    editCart(customerOrder);
+                } else {
+                    System.out.println("No items in the cart to edit. Please add items first.");
+                }
                     break;
                 case 5:
                     if (!customerOrder.getItems().isEmpty()) {
@@ -329,7 +334,7 @@ public class CustomerOrderingForm implements Form {
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
                 if (choice == 1 || choice == 2) {
-                    customerOrder.setDineIn(choice == 2); // Assuming Order class has a setDineIn method
+                    customerOrder.setDineIn(choice == 2); 
                     return customerOrder;
                 } else {
                     System.out.println("Invalid input. Please enter 1 or 2.");
@@ -358,8 +363,12 @@ public class CustomerOrderingForm implements Form {
                 orderController.updateOrder(customerOrder);
             }
             System.out.println("Order submitted successfully. Thank you for your order. Please proceed to make payment...");
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            
         } else {
-            System.out.println("Order submission cancelled. You can continue editing your cart.");
+            System.out.println("Order submission cancelled. ");
         }
     }
 

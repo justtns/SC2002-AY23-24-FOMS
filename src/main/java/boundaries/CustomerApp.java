@@ -37,13 +37,9 @@ public class CustomerApp implements AppDisplay {
         session = selectBranch.generateForm();
         FormFactory actionFactory = new FormFactory();
         Form form;
-
-
-
         Boolean loop = true;
         while (loop) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+
             System.out.println("Order ID:" + session.getOrderId());
             System.out.println("----------------------------------------------------------------------\n" +
                                "|-----------------------Customer Menu--------------------------------|\n" +
