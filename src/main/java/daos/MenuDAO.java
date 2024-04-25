@@ -117,7 +117,7 @@ public class MenuDAO implements DAOInterface<MenuItem> {
                 row.createCell(2).setCellValue(item.getBranch());
                 row.createCell(3).setCellValue(item.getCategory());
                 row.createCell(4).setCellValue(item.getDescription());
-                row.createCell(4).setCellValue(Boolean.toString(item.isAvailable()));
+                row.createCell(5).setCellValue(Boolean.toString(item.isAvailable()));
             }
 
             workbook.write(outputStream);

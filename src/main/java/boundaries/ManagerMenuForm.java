@@ -160,6 +160,8 @@ public class ManagerMenuForm implements Form {
         String branch = scanner.nextLine();
 
         menuController.addMenuItem(name, category, branch, description, price);
+        System.out.println("Press enter to return to the Manager Menu Actions...");
+        scanner.nextLine();
     }
 
     /**
@@ -195,6 +197,8 @@ public class ManagerMenuForm implements Form {
         }
         
         menuController.editMenuItem(name, branch, newCategory, newDescription, newPrice);
+        System.out.println("Press enter to return to the Manager Menu Actions...");
+        scanner.nextLine();
     }
 
     /**
@@ -210,6 +214,8 @@ public class ManagerMenuForm implements Form {
         String branch = scanner.nextLine();
         
         menuController.removeMenuItem(itemName, branch);
+        System.out.println("Press enter to return to the Manager Menu Actions...");
+        scanner.nextLine();
     }
 
     /**
@@ -238,6 +244,8 @@ public class ManagerMenuForm implements Form {
         }
 
         menuController.changeAvailability(itemNameToChangeAvailability, branch, newAvailability);
+        System.out.println("Press enter to return to the Manager Menu Actions...");
+        scanner.nextLine();
     }
 
     /**
@@ -256,6 +264,8 @@ public class ManagerMenuForm implements Form {
         String newDescription = scanner.nextLine();
         
         menuController.editDescription(itemNameToEditDescription, branch, newDescription);
+        System.out.println("Press enter to return to the Manager Menu Actions...");
+        scanner.nextLine();
     }
 
     /**
@@ -266,5 +276,8 @@ public class ManagerMenuForm implements Form {
         String branch = scanner.nextLine();
         
         menuController.viewMenuItems(branch);
+
+        System.out.println("Press enter to return to the Manager Menu Actions...");
+        scanner.nextLine();
     }
 }
