@@ -26,6 +26,10 @@ public class FOMSApp {
      * It checks if user input is valid within options 1-3.
      */
     public void execute() {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         boolean loop = true;
         int choice;
         System.out.println(
