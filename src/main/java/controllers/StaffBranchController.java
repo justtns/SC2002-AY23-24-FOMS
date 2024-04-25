@@ -9,7 +9,7 @@ import main.java.models.Staff;
 
 /**
  * The StaffBranchController class manages operations related to branches by staff members.
- * It provides methods to open and close branches.
+ * It provides methods to open and close branches, and display available branches.
  * This controller interacts with the BranchDAO to perform CRUD operations on branches.
  * This class is part of a three-layer architecture, serving as the intermediary between the presentation layer (UI)
  * and the data access layer (DAO).
@@ -25,9 +25,10 @@ public class StaffBranchController {
     private StaffDAO staffDAO;
 
     /**
-     * Constructs a new StaffBranchController with the specified BranchDAO.
+     * Constructs a new StaffBranchController with the specified BranchDAO and StaffDAO.
      *
      * @param branchDAO the BranchDAO instance
+     * @param staffDAO the StaffDAO instance
      */
     public StaffBranchController(BranchDAO branchDAO, StaffDAO staffDAO) {
         this.branchDAO = branchDAO;
@@ -64,8 +65,8 @@ public class StaffBranchController {
             branchDAO.removeElement(name);
             branchDAO.saveData();
             List<Staff> staffList = staffDAO.getElements();
-            for (int i=0; i<staffList.size(); i++){
-                if (staffList.get(i).getBranch().equalsIgnoreCase(name)){
+            for (int i = 0; i < staffList.size(); i++) {
+                if (staffList.get(i).getBranch().equalsIgnoreCase(name)) {
                     staffList.get(i).setBranch("UNASSIGNED");
                     staffDAO.updateElement(staffList.get(i), staffList.get(i));
                 }
@@ -74,5 +75,14 @@ public class StaffBranchController {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Retrieves a list of all available branches from BranchDAO.
+     *
+     * @return a list of all branches
+     */
+    public List<Branch> displayAllBranches() {
+        return branchDAO.getElements(); 
     }
 }

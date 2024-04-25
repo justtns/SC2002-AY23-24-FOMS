@@ -8,13 +8,12 @@ import main.java.daos.StaffDAO;
 
 /**
  * A form for administrative staff as a boundary level object to perform branch-reltaed actions.
- * This form allows administrators to open and close branches.
- * It provides options for opening a new branch, providing its name, location, and capacity,
- * and for closing an existing branch.
+ * This form provides options for opening a new branch by providing its name, location, and capacity,
+ * and for closing an existing branch, as well as viewing all available branches.
  * This form is implemented from the Form interface.
  *
  * @author SDDA Team 1
- * @version 1.2
+ * @version 1.3
  * @since 24-Apr-2024
  */
 public class AdminBranchForm implements Form {
@@ -37,7 +36,7 @@ public class AdminBranchForm implements Form {
 
     /**
      * Generates a form containing admin branch actions and handles admin's input.
-     * Checks if admin's input is valid within options 1-3.
+     * Checks if admin's input is valid within options 1-4.
      */
     @Override
     public void generateForm(){
@@ -54,10 +53,11 @@ public class AdminBranchForm implements Form {
                                "|                   Choose an option:                                 |\n" +
                                "|                   1.Open Branch                                     |\n" +
                                "|                   2.Close Branch                                    |\n" +
-                               "|                   3.Go to Homescreen                                |\n" +
+                               "|                   3.View All Branches                               |\n" +
+                               "|                   4.Go to Homescreen                                |\n" +
                                "-----------------------------------------------------------------------\n" +
                                "\n" +
-                               "Enter your choice (1-3): \n");
+                               "Enter your choice (1-4): \n");
             choice = -1;
             try {
                 choice = Integer.parseInt(scanner.nextLine().trim());
@@ -75,6 +75,9 @@ public class AdminBranchForm implements Form {
                     closeBranch();
                     break;
                 case 3:
+                    viewBranch();
+                    break;
+                case 4:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
                     break;
@@ -128,6 +131,26 @@ public class AdminBranchForm implements Form {
         }
         else{
             System.out.println("Branch not found: " + name);
+        }
+    }
+
+
+    /**
+     * Displays all available branches.
+     * Retrieves branch details from the controller and formats them for display.
+     * Each branch's details are presented in a tabular format including the branch name, location, and capacity.
+     */
+    private void viewBranch() {
+        List<Branch> branches = branchController.displayAllBranches();
+        if (branches.isEmpty()) {
+            System.out.println("There are no branches to display.");
+            return;
+        }
+        
+        System.out.println("Available Branches:");
+        System.out.println(String.format("%-30s %-30s %-10s", "Branch Name", "Location", "Capacity"));
+        for (Branch branch : branches) {
+            System.out.println(String.format("%-30s %-30s %-10d", branch.getName(), branch.getLocation(), branch.getCapacity()));
         }
     }
 }
