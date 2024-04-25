@@ -58,6 +58,9 @@ public class ManagerDisplayForm implements Form {
         boolean loop=true;
         int choice;
         while (loop) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+
             System.out.println("----------------------------------------------------------------------\n" +
                                "|-----------------------Manager Display Actions----------------------|\n" +
                                "----------------------------------------------------------------------\n" +
@@ -84,6 +87,17 @@ public class ManagerDisplayForm implements Form {
                 case 2:
                     loop=false;
                     System.out.println("Returning to Homescreen...");
+
+                    //time delay
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();    
+
                     break;
                 default:
                     scanner.nextLine(); // Consume the newline character
@@ -99,5 +113,8 @@ public class ManagerDisplayForm implements Form {
     private void displayStaffList() {
         String staffUserID = session.getStaffUserID();
         displayController.managerDisplayStaffList(staffUserID);
+
+        System.out.println("Press Enter to return to Manager Display Actions...");
+        scanner.nextLine();
     }
 }

@@ -69,6 +69,16 @@ public class ManagerView implements StaffUserView {
             else if (choice == 4){
                 loop=false;
                 System.out.println("Logging out...");
+
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.print("\033[H\033[2J");
+                System.out.flush();    
+
             }
             else{
                 form = actionFactory.getForm(session, scanner, choice);
