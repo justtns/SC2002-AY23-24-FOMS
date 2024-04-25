@@ -31,6 +31,10 @@ public class AdminView implements StaffUserView {
         Scanner scanner = ScannerProvider.getScanner();
         FormFactory actionFactory = new FormFactory();
         Form form;
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         Boolean loop=true;
         while (loop) {
             System.out.println("User ID:" + session.getStaffUserID());

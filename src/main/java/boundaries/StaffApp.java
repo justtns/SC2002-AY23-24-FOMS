@@ -42,6 +42,10 @@ public class StaffApp implements AppDisplay {
      * @param scanner The scanner object for user input.
      */
     public void execute(Scanner scanner) {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        
         boolean loop=true;
         int choice;
         while (loop) {
