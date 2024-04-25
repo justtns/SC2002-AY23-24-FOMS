@@ -22,6 +22,8 @@ public class StaffBranchController {
     
     /** The BranchDAO instance to interact with branch data. */
     private BranchDAO branchDAO;
+
+    /** The StaffDAO instance to interact with staff data. */
     private StaffDAO staffDAO;
 
     /**

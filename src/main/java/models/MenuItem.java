@@ -39,6 +39,7 @@ public class MenuItem {
      * @param branch The branch associated with the menu item
      * @param description The description of the menu item
      * @param price The price of the menu item
+     * @param available The availability of the menu item
      */
     public MenuItem(String name, String category, String branch, String description, double price, boolean available) {
         this.name = name;
