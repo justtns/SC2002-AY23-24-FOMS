@@ -85,23 +85,36 @@ public class StaffMenuController {
      * @param newDescription the new description for the menu item
      * @param newPrice the new price for the menu item
      */
-    public void editMenuItem(String name, String branchName, String newCategory, String newDescription,double newPrice) {
+    public void editMenuItem(String name, String branchName, String newCategory, String newDescription, double newPrice) {
         Branch branch = branchDAO.findElement(branchName);
         if(branch == null){
             System.out.println("Branch not found: " + branchName);
             return;
         }
         
+        MenuItem oldItem = MenuDAO.findElement(name, branchName);
         MenuItem item = MenuDAO.findElement(name, branchName);
+
         if (item == null) {
             System.out.println("Menu item not found.");
+            return;
         }
-        else{
-            MenuItem updatedItem = new MenuItem(name, newCategory, branchName, newDescription, newPrice, true);
-            menuDAO.updateElement(item, updatedItem);
-            menuDAO.saveData();
-            System.out.println("Menu item updated: " + updatedItem.getName());
+
+        if(!newCategory.equalsIgnoreCase("nil")){
+            item.setCategory(newCategory);
         }
+
+        if(!newDescription.equalsIgnoreCase("nil")){
+            item.setDescription(newDescription);
+        }
+
+        if(newPrice != 0){
+            item.setPrice(newPrice);
+        }
+
+        menuDAO.updateElement(oldItem, item);
+        menuDAO.saveData();
+        System.out.println("Menu item updated: " + item.getName());
     }
 
     /**

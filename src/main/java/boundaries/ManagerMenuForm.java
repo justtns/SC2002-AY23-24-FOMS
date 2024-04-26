@@ -190,16 +190,16 @@ public class ManagerMenuForm implements Form {
 
         System.out.println("Enter the branch of the menu item:");
         String branch = scanner.nextLine();
-
-        System.out.println("Enter the new description for the menu item:");
-        String newDescription = scanner.nextLine();
         
-        System.out.println("Enter the new category for the menu item:");
+        System.out.println("Enter the new category for the menu item:\n(Enter nil to skip)");
         String newCategory = scanner.nextLine();
+        
+        System.out.println("Enter the new description for the menu item:\n(Enter nil to skip)");
+        String newDescription = scanner.nextLine();
 
         double newPrice = -1;
         while (newPrice == -1) {
-            System.out.println("Enter the new price for the menu item:");
+            System.out.println("Enter the new price for the menu item:\n(Enter 0 to skip)");
             try {
                 newPrice = scanner.nextDouble();
                 scanner.nextLine(); // Consume the newline character after a number input
