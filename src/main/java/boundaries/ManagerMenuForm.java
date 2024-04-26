@@ -149,6 +149,9 @@ public class ManagerMenuForm implements Form {
         System.out.println("Enter the name of the new menu item:");
         String name = scanner.nextLine();
 
+        System.out.println("Enter the branch of the new menu item:");
+        String branch = scanner.nextLine();
+
         System.out.println("Enter the category of the new menu item:");
         String category = scanner.nextLine();
 
@@ -166,9 +169,6 @@ public class ManagerMenuForm implements Form {
                 scanner.nextLine(); // Consume the invalid input
             }
         }
-
-        System.out.println("Enter the branch of the new menu item:");
-        String branch = scanner.nextLine();
 
         menuController.addMenuItem(name, category, branch, description, price);
         System.out.println("Press enter to return to the Manager Menu Actions...");
