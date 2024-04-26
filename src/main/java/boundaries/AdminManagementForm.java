@@ -146,7 +146,7 @@ public class AdminManagementForm implements Form {
         }
 
         int age = -1;
-        while (age == -1) {
+        while (age >= 0) {
             System.out.println("Enter staff age:");
             try {
                 age = Integer.parseInt(scanner.nextLine());
@@ -196,7 +196,7 @@ public class AdminManagementForm implements Form {
         }
 
         int newAge = -1;
-        while (newAge == -1) {
+        while (newAge >= 0) {
             System.out.println("Enter new age for the staff:\n(Enter 0 to skip)");
             try {
                 newAge = Integer.parseInt(scanner.nextLine());

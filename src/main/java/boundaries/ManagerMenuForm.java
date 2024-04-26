@@ -198,7 +198,7 @@ public class ManagerMenuForm implements Form {
         String newDescription = scanner.nextLine();
 
         double newPrice = -1;
-        while (newPrice == -1) {
+        while (newPrice >= 0) {
             System.out.println("Enter the new price for the menu item:\n(Enter 0 to skip)");
             try {
                 newPrice = scanner.nextDouble();
