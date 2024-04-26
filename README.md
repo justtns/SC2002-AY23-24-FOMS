@@ -19,4 +19,5 @@ The workspace contains two folders where:
 - `src`: the folder to maintain sources
 - `lib`: the folder to maintain dependencies
 - `docs`: the folder for our project's documents
-- `javadoc`: the related javadoc files
+- `javadoc`: the related javadoc files'
+- `Test Cases Recorded Demos, Explanations and User Friendly Features`: Record demos on test cases and explanations for some user-intuitive features
