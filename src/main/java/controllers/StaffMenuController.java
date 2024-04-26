@@ -108,7 +108,7 @@ public class StaffMenuController {
             item.setDescription(newDescription);
         }
 
-        if(newPrice != 0){
+        if(newPrice != 0 && newPrice > 0){
             item.setPrice(newPrice);
         }
 
