@@ -107,7 +107,7 @@ public class OrderDAO implements DAOInterface<Order>{
                 boolean isCompleted = row.getCell(4).getBooleanCellValue();
                 LocalDateTime orderTime = LocalDateTime.parse(row.getCell(5).getStringCellValue());
                 LocalDateTime now = LocalDateTime.now();
-                if (orderStatus == OrderStatus.READY & ChronoUnit.HOURS.between(orderTime, now) > 0.01){ //ignores orders that have existed for more than 2hrs
+                if (orderStatus == OrderStatus.READY & ChronoUnit.HOURS.between(orderTime, now) > 2){ //ignores orders that have existed for more than 2hrs
                     orderStatus = OrderStatus.CANCELLED;
                     isCompleted = true;
                 }
