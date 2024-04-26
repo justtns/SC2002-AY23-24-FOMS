@@ -139,6 +139,12 @@ public class AdminPaymentForm implements Form {
      */
     private void displayPaymentTypes() {
         paymentController.getPaymentTypes();
+
+        System.out.println("Press enter to return to the Admin Payment Menu...");
+        scanner.nextLine();
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }
