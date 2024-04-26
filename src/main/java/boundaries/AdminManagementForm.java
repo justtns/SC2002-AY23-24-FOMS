@@ -173,6 +173,7 @@ public class AdminManagementForm implements Form {
 
     /**
      * Edits an existing staff account based on admin's input - staff current login id, new login id, new password and new branch.
+     * Checks if inputs for gender and age are valid.
      * Prints a message to admin personnel if staff account is successfully updated or not.
      */
     private void editStaffAccount() {

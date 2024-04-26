@@ -62,7 +62,7 @@ public class CustomerOrderingForm implements Form {
     /**
      * Generates the ordering form and handles customer's input for orders.
      * It includes options such as view menu (1), starting new order (2), display cart (3),
-     * edit cart (4), submit order (5) and return to homescreen.
+     * edit cart (4), submit order (5) and return to homescreen (6).
      * Checks if customer input is within available options 1-6.
      */
     @Override
@@ -170,7 +170,7 @@ public class CustomerOrderingForm implements Form {
     /**
      * Method to edit the items in the customer's cart, asking customers if they would like to add 
      * or remove cart items or if they are done.
-     * Checks if customer input is within available options 1-3.
+     * Checks if customer input is within available options 1-4.
      * 
      * @param customOrder The customer's order.
      * @return The updated customer's order after editing the cart.
@@ -224,7 +224,7 @@ public class CustomerOrderingForm implements Form {
 
     /**
      * Method that helps customers change the dinein status.
-     * Check if input 
+     * Checks if input is valid or not (i.e. yes/no)
      * 
      * @param customerOrder The customer's order.
      * @return The updated customer's order after updating the dinein status.
