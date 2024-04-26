@@ -202,7 +202,7 @@ public class StaffDAO implements DAOInterface<Staff>{
         int deleteIndex=-1;
         for (int i=0;i<staffList.size();i++)
         {
-            if(staffList.get(i).getName().equalsIgnoreCase(itemName))
+            if(staffList.get(i).getLoginID().equalsIgnoreCase(itemName))
             {
                 deleteIndex=i;
                 break;
